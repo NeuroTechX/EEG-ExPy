@@ -2,7 +2,7 @@
 EEG-Notebooks - Democratizing the cognitive neuroscience experiment
 ===================================================================
 
-.. image:: doc/img/eeg-notebooks_logo.png
+.. image:: https://github.com/NeuroTechX/eeg-notebooks/raw/master/doc/img/eeg-notebooks_logo.png
    :width: 600
    :align: center
 
