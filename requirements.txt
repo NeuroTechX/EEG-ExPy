@@ -26,3 +26,5 @@ numpydoc
 versioneer
 jupyter-contrib
 jupyter-nbextensions-configurator
+
+
