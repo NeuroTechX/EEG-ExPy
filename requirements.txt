@@ -6,7 +6,7 @@ scikit-learn
 pandas
 numpy
 mne
-seaborn
+seaborn==0.9.0
 pyriemann
 pexpect
 jupyter
