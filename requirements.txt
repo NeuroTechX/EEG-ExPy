@@ -26,5 +26,4 @@ numpydoc
 versioneer
 jupyter-contrib
 jupyter-nbextensions-configurator
-
-
+matplotlib==3.0.3
