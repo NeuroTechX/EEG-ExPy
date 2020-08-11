@@ -1,0 +1,15 @@
+channels:
+    - conda-forge
+dependencies:
+    - python=3.7
+    - numpy
+    - matplotlib
+    - pandas
+    - scipy
+    - rise
+    - pip:
+        - jupyter
+        - jupyter-contrib-nbextensions
+        - scikit-learn
+        - seaborn
+        - pyriemann
