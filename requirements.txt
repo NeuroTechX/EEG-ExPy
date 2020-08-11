@@ -24,3 +24,5 @@ sphinx_rtd_theme
 sphinx_copybutton
 numpydoc
 versioneer
+jupyter-contrib
+jupyter-nbextensions-configurator
