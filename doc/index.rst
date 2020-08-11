@@ -3,14 +3,13 @@
 
 .. toctree::
    :caption: Getting Started
-   :maxdepth: 1
+   :maxdepth: 3
 
    getting_started/installation
    getting_started/streaming
    getting_started/running_experiments
    getting_started/analysis
    getting_started/available_notebooks
-
 
 .. toctree::
    :caption: Experiments
