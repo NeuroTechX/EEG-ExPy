@@ -56,7 +56,7 @@ def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
     if download_it:
         # check if data directory exits. If not, create it
         if os.path.exists(data_dir) is not True:
-            os.mkdir(data_dir)
+            os.makedirs(data_dir)
 
         URL = "https://docs.google.com/uc?export=download"
 
