@@ -109,6 +109,32 @@ Quickstart
     $ raw = load_data(save_fn)
     $ #
 
+
+Troubleshooting
+---------------
+
+If your have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list
+
+.. code-block:: shell
+
+   $ conda activate eeg-notebooks    
+   $ pip install ipykernel
+   $ python -m ipykernel install --user --name eeg-notebooks
+
+
+In windows, if the above is causing errors, the following commands may help:
+
+.. code-block:: shell
+
+   $ conda install pywin32
+   $ conda install jupyter
+   $ conda install nb_conda
+   $ conda install ipykernel
+
+
+
+
+
 Acknowledgments
 ----------------
 
