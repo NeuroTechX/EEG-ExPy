@@ -82,8 +82,6 @@ To install an editable version, download the development version as above, and r
 Quickstart
 ----------
 
-
-
 .. code-block:: python
 
     $ #
