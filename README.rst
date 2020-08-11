@@ -86,7 +86,7 @@ Quickstart
     $ from eegnb import generate_save_fn
     $ from eegnb.devices.eeg import EEG
     $ from eegnb.experiments.visual_n170 import n170
-    $ from eegnb.analysis import load_data
+    $ from eegnb.analysis.utils import load_data
     $ #
     $ # Define some variables
     $ board_name = 'muse'
