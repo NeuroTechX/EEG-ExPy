@@ -3,7 +3,7 @@ channels:
 dependencies:
     - python=3.7
     - numpy
-    - matplotlib
+    - matplotlib==3.0.3
     - pandas
     - scipy
     - rise
@@ -12,6 +12,6 @@ dependencies:
         - jupyter-contrib-nbextensions
         - mne
         - scikit-learn
-        - seaborn
+        - seaborn==0.9.0
         - pyriemann
         - versioneer
