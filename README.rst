@@ -1,7 +1,5 @@
 .. image:: https://mybinder.org/badge_logo.svg
    :target: https://mybinder.org/v2/gh/NeuroTechX/eeg-notebooks/master
-.. image:: https://colab.research.google.com/assets/colab-badge.svg
-   :target: https://colab.research.google.com/github/NeuroTechX/eeg-notebooks/
       
 
 ===================================================================
