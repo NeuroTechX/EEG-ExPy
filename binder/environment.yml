@@ -10,6 +10,8 @@ dependencies:
     - pip:
         - jupyter
         - jupyter-contrib-nbextensions
+        - mne
         - scikit-learn
         - seaborn
         - pyriemann
+        - versioneer
