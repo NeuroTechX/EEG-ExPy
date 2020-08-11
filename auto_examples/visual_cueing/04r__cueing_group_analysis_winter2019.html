@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,23 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -32,15 +42,6 @@
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Visual Go-No-Go" href="../../experiments/gonogo.html" />
@@ -58,7 +59,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> EEG Notebooks
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> EEG Notebooks
           
 
           
@@ -85,6 +86,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -94,28 +96,13 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#windows-setup-instructions">Windows setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-miniconda">1. Install miniconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#download-git-for-windows">2. Download git for windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#get-eeg-notebooks">3. Get eeg-notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-python-dependencies">4. Install python dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#optional-install-bluemuse">5. (Optional ) Install BlueMuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#start-a-jupyter-notebook-session">6. Start a jupyter notebook session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#linux-setup-instructions">Linux setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-miniconda">Using Miniconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#download-and-install-miniconda">1. Download and install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#create-environment">2. Create environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#install-git">3. Install git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id1">4. Get EEG notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id2">5. Install python dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#test-installation">6. Test installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-a-virutalenv">Using a VirutalEnv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#global-installation">Global installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
@@ -393,6 +380,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -431,7 +419,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../experiments/cueing.html">Visual Cueing</a> &raquo;</li>
         
@@ -463,19 +451,19 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard Pythonic imports</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
 
 <span class="c1"># MNE functions</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="k">import</span> <span class="n">Epochs</span><span class="p">,</span> <span class="n">find_events</span><span class="p">,</span> <span class="n">concatenate_raws</span>
-<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="k">import</span> <span class="n">tfr_morlet</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span> <span class="n">find_events</span><span class="p">,</span> <span class="n">concatenate_raws</span>
+<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">tfr_morlet</span>
 
 <span class="c1"># EEG-Noteooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="k">import</span> <span class="n">load_muse_csv_as_raw</span><span class="p">,</span><span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
-<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="k">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_muse_csv_as_raw</span><span class="p">,</span><span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
+<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
 
 <span class="c1"># sphinx_gallery_thumbnail_number = 1</span>
 </pre></div>
@@ -1690,9 +1678,9 @@ Applying baseline correction (mode: mean)
 <span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" />
+<img alt="04r  cueing group analysis winter2019" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7f212483d190&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fde4ff18fd0&gt;
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot Spectra Diff error bars</span>
@@ -1704,9 +1692,9 @@ Applying baseline correction (mode: mean)
 <span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" />
+<img alt="04r  cueing group analysis winter2019" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7f21249eb590&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fde50293c90&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi</p>
@@ -1746,13 +1734,13 @@ Applying baseline correction (mode: mean)
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
-<li><img alt="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" />
+<li><img alt="Power Ipsi" class="sphx-glr-multi-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" />
+<li><img alt="Power Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" />
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f2124c9b650&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fde5341f4d0&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi-Contra Difference</p>
@@ -1772,9 +1760,9 @@ Applying baseline correction (mode: mean)
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" />
+<img alt="Power Difference Ipsi-Contra" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f2124de6450&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fde4fb66790&gt;
 </pre></div>
 </div>
 </div>
@@ -1791,9 +1779,9 @@ Applying baseline correction (mode: mean)
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 3.573593019715659e-11
-Contra Mean: 2.6421745679207236e-11
-Mean Diff: 9.314184517949356e-12
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 3.5735930197156955e-11
+Contra Mean: 2.6421745679207165e-11
+Mean Diff: 9.314184517949782e-12
 t(30) = 0.456
 p = 0.65
 </pre></div>
@@ -1811,7 +1799,7 @@ p = 0.65
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[nan, 1.7890047693694044e-11, 6.402571924638083e-11, 1.2016988558064774e-10, 1.6436811298970942e-10, 1.1465401250727358e-10, 8.107123680349033e-11, -3.116941991532507e-11, 6.493727108357482e-11, 4.352931438541576e-11, 2.8760356184521274e-11, 3.7733503400443067e-11, 2.1131349959479717e-11, 1.5571207459949601e-10, -4.629115067550114e-10, -8.052232335321601e-11, -4.664422137282076e-11, nan, nan, -3.43895109787493e-11, 7.091042185483417e-11, 1.2983383558014343e-11, 1.3604198590381143e-10, -5.861633427481697e-11, -6.204912953285914e-11, 1.8344086913139663e-10, 2.3802425009682122e-11, -8.805033297719201e-11, -7.50812894725372e-11, 2.907964859843481e-11, 2.907964859843481e-11, -4.146716305783259e-11, -1.5307351374033267e-10, 2.3393198398388207e-11]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[nan, 1.789004769369569e-11, 6.402571924638027e-11, 1.2016988558064495e-10, 1.64368112989707e-10, 1.1465401250727439e-10, 8.107123680349011e-11, -3.1169419915325187e-11, 6.493727108357596e-11, 4.352931438541567e-11, 2.8760356184521992e-11, 3.7733503400444036e-11, 2.1131349959479552e-11, 1.557120745994976e-10, -4.6291150675500666e-10, -8.05223233532142e-11, -4.6644221372821133e-11, nan, nan, -3.438951097875003e-11, 7.09104218548326e-11, 1.2983383558014899e-11, 1.360419859038142e-10, -5.861633427481556e-11, -6.204912953285922e-11, 1.8344086913139893e-10, 2.3802425009682565e-11, -8.805033297719273e-11, -7.50812894725381e-11, 2.9079648598434934e-11, 2.9079648598434934e-11, -4.146716305783184e-11, -1.5307351374032848e-10, 2.339319839838607e-11]
       Ipsi Power  Contra Power
 0            NaN           NaN
 1  -3.901325e-11 -5.690330e-11
@@ -1903,7 +1891,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 Saved Spectra to 375CueingContraSpec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  23.480 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  44.691 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/18e4b69d6ddc9302425e645c1fec16c3/04r__cueing_group_analysis_winter2019.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04r__cueing_group_analysis_winter2019.py</span></code></a></p>
@@ -1936,11 +1924,19 @@ Saved Spectra to 375CueingContraSpec.csv file in present directory
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1951,7 +1947,6 @@ Saved Spectra to 375CueingContraSpec.csv file in present directory
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

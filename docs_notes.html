@@ -1,15 +1,23 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; EEG Notebooks 0.1.0 documentation</title>
+  <title>EEG-Notebooks Documentation Developer Notes &mdash; EEG Notebooks 0.1.0 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_override.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
 
   
   
@@ -17,7 +25,9 @@
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -32,15 +42,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_override.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -56,7 +57,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> EEG Notebooks
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> EEG Notebooks
           
 
           
@@ -83,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -92,28 +94,13 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html#windows-setup-instructions">Windows setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#install-miniconda">1. Install miniconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#download-git-for-windows">2. Download git for windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#get-eeg-notebooks">3. Get eeg-notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#install-python-dependencies">4. Install python dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#optional-install-bluemuse">5. (Optional ) Install BlueMuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#start-a-jupyter-notebook-session">6. Start a jupyter notebook session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html#linux-setup-instructions">Linux setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#using-miniconda">Using Miniconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#download-and-install-miniconda">1. Download and install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#create-environment">2. Create environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#install-git">3. Install git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#id1">4. Get EEG notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#id2">5. Install python dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#test-installation">6. Test installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#using-a-virutalenv">Using a VirutalEnv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#global-installation">Global installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/streaming.html">Initiating an EEG Stream</a><ul>
@@ -391,6 +378,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -429,9 +417,9 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>EEG-Notebooks Documentation Developer Notes</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -448,7 +436,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p>test commit</p>
+  <div class="section" id="eeg-notebooks-documentation-developer-notes">
+<h1>EEG-Notebooks Documentation Developer Notes<a class="headerlink" href="#eeg-notebooks-documentation-developer-notes" title="Permalink to this headline">¶</a></h1>
+<p>The documentation page can be found at https://neurotechx.github.io/eeg-notebooks</p>
+<p>The documentation source files are a combination of plain-text <code class="docutils literal notranslate"><span class="pre">.rst</span></code>, <code class="docutils literal notranslate"><span class="pre">.md</span></code>, and <code class="docutils literal notranslate"><span class="pre">.py</span></code> files.</p>
+<p>It is built locally with <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, and hosted on the github repo <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch in the usual fashion</p>
+<p>There are two main locations for the documentation files:</p>
+<ul class="simple">
+<li><p>The various files and sub-folders in  <code class="docutils literal notranslate"><span class="pre">eeg-notebooks/doc</span></code>, which contain the webpage contents</p></li>
+<li><p>The files and sub-folders in <code class="docutils literal notranslate"><span class="pre">eeg-notebooks/examples</span></code>, which contains <code class="docutils literal notranslate"><span class="pre">.py</span></code> scripts, grouped by experiment</p></li>
+</ul>
+<p>This general organization (with <code class="docutils literal notranslate"><span class="pre">doc</span></code> and <code class="docutils literal notranslate"><span class="pre">examples</span></code> folders) is widely used by excellent python libraries such as <code class="docutils literal notranslate"><span class="pre">MNE</span></code> and <code class="docutils literal notranslate"><span class="pre">Nilearn</span></code>, and we are largely following suit in the organization here.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.py</span></code> files in <code class="docutils literal notranslate"><span class="pre">examples</span></code> contain mixtures of python code and <code class="docutils literal notranslate"><span class="pre">.rst</span></code>-format documentation, which are converted through <code class="docutils literal notranslate"><span class="pre">sphinx-gallery</span></code> into a set of web-pages with formatted text and code and in-line figures. In addition, <code class="docutils literal notranslate"><span class="pre">sphinx-gallery</span></code> creates executable <code class="docutils literal notranslate"><span class="pre">.py</span></code> and <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files for each example page, and adds download links to these at the bottom of each page.</p>
+<p>The documentation building command actually executes the python code in each of the <code class="docutils literal notranslate"><span class="pre">examples</span></code> files, and creates figures from them. Errors in the python code lead to incompletely built webpages.</p>
+<p>( Side-note: The title <code class="docutils literal notranslate"><span class="pre">EEG-Notebooks</span></code> was originally conceived with the idea of having complete Python-based EEG experiments runnable from a jupyter notebook, with those notebooks being the main contents of the repo. At the user-level, this is still largely the case; but at the development level, we have now switched over from maintaining a set of <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> source files, to maintaining a set of <code class="docutils literal notranslate"><span class="pre">.py</span></code> files (in the <code class="docutils literal notranslate"><span class="pre">examples</span> <span class="pre">folder),</span> <span class="pre">that</span> <span class="pre">are</span> <span class="pre">converted</span> <span class="pre">to</span> </code>.ipynb<code class="docutils literal notranslate"><span class="pre">files</span> <span class="pre">when</span> <span class="pre">the</span></code>sphinx-gallery<code class="docutils literal notranslate"><span class="pre">documentation</span> <span class="pre">is</span> <span class="pre">compiled.</span> <span class="pre">This</span> <span class="pre">is</span> <span class="pre">much</span> <span class="pre">better</span> <span class="pre">and</span> <span class="pre">sustainable</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">point</span> <span class="pre">of</span> <span class="pre">view</span> <span class="pre">of</span> <span class="pre">version</span> <span class="pre">control,</span> <span class="pre">since</span> <span class="pre">multiple-user</span> <span class="pre">contributions</span> <span class="pre">to</span></code>ipynb` files gets very hairy with git )</p>
+<div class="section" id="building-the-doc-site">
+<h2>Building the doc site<a class="headerlink" href="#building-the-doc-site" title="Permalink to this headline">¶</a></h2>
+<p>The documentation build has only been tested in linux. It may also work on Mac.</p>
+<p>First: install the docs dependencies in a new or existing python environment
+(see <code class="docutils literal notranslate"><span class="pre">requirements-doc.txt</span></code>)</p>
+<p>When working on the docs, it is most useful to have 3 terminals open, each with the python environment activated.</p>
+<p>In terminal 1: edit the source files</p>
+<p>In terminal 2: build and re-build the docs periodically to inspect changes</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">eeg-notebooks/doc</span></code>
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code></p>
+<p>In terminal 3: keep a local http server running to render the docs</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span> <span class="pre">8001</span></code></p>
+<p>In browser, navigate to the port used above</p>
+<p><code class="docutils literal notranslate"><span class="pre">localhost:8001</span></code></p>
+<p>When you are happy with the changes, commit and push the source files, and run the command that builds documentation and pushes to <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code></p>
+</div>
+<div class="section" id="misc-notes">
+<h2>Misc notes<a class="headerlink" href="#misc-notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">doc/index.rst</span></code> defines the overall site structure and table-of-contents tree</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doc/Makefile</span></code> contains the commands for building documentation. The main two commands are <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> (build docs locally) and <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> (build docs locally and push to <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch, updating the website`)</p></li>
+<li><p>Examples pages can be built individually, rather than re-running the entire doc build process</p></li>
+<li><p>The current doc build takes approximately 10 minutes</p></li>
+</ul>
+</div>
+</div>
 
 
            </div>
@@ -461,11 +489,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -476,7 +512,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,23 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_override.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -32,15 +42,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_override.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Initiating an EEG Stream" href="streaming.html" />
@@ -58,7 +59,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> EEG Notebooks
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> EEG Notebooks
           
 
           
@@ -85,6 +86,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -94,28 +96,13 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#windows-setup-instructions">Windows setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#install-miniconda">1. Install miniconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#download-git-for-windows">2. Download git for windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#get-eeg-notebooks">3. Get eeg-notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-python-dependencies">4. Install python dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#optional-install-bluemuse">5. (Optional ) Install BlueMuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#start-a-jupyter-notebook-session">6. Start a jupyter notebook session</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#linux-setup-instructions">Linux setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#using-miniconda">Using Miniconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#download-and-install-miniconda">1. Download and install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#create-environment">2. Create environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#install-git">3. Install git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">4. Get EEG notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">5. Install python dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#test-installation">6. Test installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#using-a-virutalenv">Using a VirutalEnv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#global-installation">Global installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="streaming.html">Initiating an EEG Stream</a><ul>
@@ -393,6 +380,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -431,7 +419,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Installation</li>
     
@@ -452,155 +440,23 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>You will need a Muse 2016 and Python installed on your computer. Psychopy, the stimulus presentation library that underlies most of the experiments, officially only supports Python 2. However, some users, especially those on Linux, have been able to work entirely in Python 3 without any issues.</p>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/neurotechx/eeg-notebooks</span></code></p>
-<p>Install all requirements.</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">requirements.txt</span></code></p>
-<p>See <a class="reference external" href="http://eeg-notebooks.readthedocs.io/en/latest/setup_instructions_windows.html">here</a>
-for more detailed setup instructions for windows operating systems.</p>
+<div class="section" id="installing-the-python-library">
+<h2>Installing the Python library<a class="headerlink" href="#installing-the-python-library" title="Permalink to this headline">¶</a></h2>
+<p>We highly recommend making use of a virtual environment (either <cite>conda</cite> or <cite>virtualenv</cite>) when installing eeg-notebooks.</p>
+<p>If you don’t already have a Python installation, grab the latest <cite>miniconda</cite> version for your operating system from here (<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>).</p>
+<p>Use the following commands to download the repo, create and activate a conda or virtualenv virtual environment:</p>
 </div>
-<div class="section" id="windows-setup-instructions">
-<h1>Windows setup instructions<a class="headerlink" href="#windows-setup-instructions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="install-miniconda">
-<h2>1. Install miniconda<a class="headerlink" href="#install-miniconda" title="Permalink to this headline">¶</a></h2>
-<p>Miniconda is a ‘mini’ version of the anaconda python distribution.</p>
-<p>Download the Windows miniconda installer from https://conda.io/miniconda.html (python 2.7 64-bit version)</p>
-<p>Tip: you can check your windows operating system type in the Control Panel → System and Security → System</p>
-<p><img alt="fig" src="../_images/miniconda_install_fig.png" /></p>
-<p>Run the installer and follow the steps below</p>
-<p><img alt="fig" src="../_images/miniconda_run_install_fig_1.png" /></p>
-<p>Click Next</p>
-<p><img alt="fig" src="../_images/miniconda_run_install_fig_2.png" /></p>
-<p>Click ‘I Agree’</p>
-<p><img alt="fig" src="../_images/miniconda_run_install_fig_3.png" /></p>
-<p>Select ‘Just Me’ and click Next</p>
-<p><img alt="fig" src="../_images/miniconda_run_install_fig_4.png" /></p>
-<p>Browse to the location where you want to install, or click Next to keep the default location (Tip: Make sure you have enough space available on your hard-drive for this installation)</p>
-<p><img alt="fig" src="../_images/miniconda_run_install_fig_5.png" /></p>
-<p>Once installation is complete, click Next</p>
-<p><img alt="fig" src="../_images/miniconda_run_install_fig_6.png" /></p>
-<p>Click Finish</p>
-<p><img alt="fig" src="../_images/miniconda_run_install_fig_7.png" /></p>
-<p>After the installation is complete, click on the Windows button and search for ‘Anaconda Prompt’
-Tip: pin it to the Windows taskbar for easy access in the future</p>
-<p>Click on Anaconda Prompt, which will bring up an anaconda terminal</p>
-<p>Create a conda environment for your neurobrite work:</p>
-<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">“neurobrite”</span>&#160; <span class="pre">python=2</span></code></p>
+<div class="section" id="muse-requirements">
+<h2>MUSE Requirements<a class="headerlink" href="#muse-requirements" title="Permalink to this headline">¶</a></h2>
+<p>The InteraXon MUSE streams EEG over bluetooth. There are additional hardware and software requirements for making recordings with MUSE devices, which are different across operating systems.</p>
+<div class="section" id="muse-recordings-on-windows-bluemuse">
+<h3>MUSE recordings on windows: BlueMuse<a class="headerlink" href="#muse-recordings-on-windows-bluemuse" title="Permalink to this headline">¶</a></h3>
+<p>BlueMuse is a Windows 10 program that allows communication between a Muse headband and a computer’s native bluetooth drivers using the LSL communication protocol. To install, go the the <a class="reference external" href="https://github.com/kowalej/BlueMuse">BlueMuse github pshr</a> and follow the installation instructions.</p>
 </div>
-<div class="section" id="download-git-for-windows">
-<h2>2. Download git for windows<a class="headerlink" href="#download-git-for-windows" title="Permalink to this headline">¶</a></h2>
-<p>Git is a version control system that will allow you to download and track changes to eeg notebooks. On Windows, it also gives you Git Bash, which is a useful linux-style terminal.</p>
-<p>You can download git from: https://git-scm.com/download/win</p>
-<p>Run the installation with default settings</p>
+<div class="section" id="muse-recordings-on-mac-linux-bled112-dongle">
+<h3>MUSE recordings on Mac+Linux: BLED112 Dongle<a class="headerlink" href="#muse-recordings-on-mac-linux-bled112-dongle" title="Permalink to this headline">¶</a></h3>
+<p>Unfortunately, the native bluetooth driver on Mac and Linux cannot be used with eeg-notebooks. To run on these operating systems, it is necessary to purchase a <a class="reference external" href="https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/">BLED112 USB Dongle</a>. Note: this is a ‘special’ bluetooth dongle; standard bluetooth dongles will not work.</p>
 </div>
-<div class="section" id="get-eeg-notebooks">
-<h2>3. Get eeg-notebooks<a class="headerlink" href="#get-eeg-notebooks" title="Permalink to this headline">¶</a></h2>
-<p>You have two options, pick one from the following:</p>
-<ol class="simple">
-<li><p>With git bash:</p></li>
-</ol>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">--recursive</span> <span class="pre">https://github.com/NeuroTechX/eeg-notebooks</span></code></p>
-<p><img alt="fig" src="../_images/install_gitbash.png" />
-de</p>
-<ol class="simple">
-<li><p>Without git bash:</p></li>
-</ol>
-<p>Navigate to the github repository (or https://github.com/NeuroTechX/eeg-notebooks) directly in a web browser and download eeg-notebooks.</p>
-<p>Now, you are ready to use the jupyter notebook.</p>
-</div>
-<div class="section" id="install-python-dependencies">
-<h2>4. Install python dependencies<a class="headerlink" href="#install-python-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>Go back to your open Anaconda Prompt (or open a new one) and navigate to the location where you installed eeg-notebooks. You can use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command to change directories (i.e. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">eeg-notebooks</span></code>)</p>
-<p>Activate the neurobrite conda environment. Note: you will need to activate this environment every time you start a new terminal when you want to do work within the neurobrite environment we are about to setup</p>
-<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">neurobrite</span></code></p>
-<p>Now, install the dependencies identified in the requirements.txt file. Note: this may take a long time, up to 15 minutes</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p>
-</div>
-<div class="section" id="optional-install-bluemuse">
-<h2>5. (Optional ) Install BlueMuse<a class="headerlink" href="#optional-install-bluemuse" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://github.com/kowalej/BlueMuse">BlueMuse</a> is a Windows 10 program that allows communication between a Muse headband and a computer’s native bluetooth drivers using the LSL communication protocol. It can be used as an alternative to an external BLED112 dongle.</p>
-<p>To install, go the the <a class="reference external" href="https://github.com/kowalej/BlueMuse"> <code class="docutils literal notranslate"><span class="pre">BlueMUSE</span></code> github website</a> and follow the installation instructions.</p>
-</div>
-<div class="section" id="start-a-jupyter-notebook-session">
-<h2>6. Start a jupyter notebook session<a class="headerlink" href="#start-a-jupyter-notebook-session" title="Permalink to this headline">¶</a></h2>
-<p>Finally, start a jupyter notebook session from your Anaconda Promt in the eeg-notebooks directory</p>
-<p><code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></p>
-<p>A browser should automatically open. If it doesn’t, visit <code class="docutils literal notranslate"><span class="pre">localhost:8888</span></code>.</p>
-<p>This should bring up the <code class="docutils literal notranslate"><span class="pre">eeg-notebooks</span></code> folder structure. You will find the list of available experiments in the <code class="docutils literal notranslate"><span class="pre">notebooks</span></code> folder.</p>
-</div>
-</div>
-<div class="section" id="linux-setup-instructions">
-<h1>Linux setup instructions<a class="headerlink" href="#linux-setup-instructions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="using-miniconda">
-<h2>Using Miniconda<a class="headerlink" href="#using-miniconda" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="download-and-install-miniconda">
-<h3>1. Download and install Miniconda<a class="headerlink" href="#download-and-install-miniconda" title="Permalink to this headline">¶</a></h3>
-<p>Go to the downloads section of the miniconda website <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#linux-installers">HERE</a>
-and download the appropriate installed for your Linux system.</p>
-<p>Verify the hashes by running the command (you might need to change the path to the file)</p>
-<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>$ sha256sum ~/Downloads/Miniconda3-latest-Linux-x86_64.sh
-</pre></div>
-</div>
-<p>In the same terminal, run the command</p>
-<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>$ bash ~/Downloads/Miniconda3-latest-Linux-x86_64.sh
-</pre></div>
-</div>
-<p>Follow the prompts and select the defaults.</p>
-</div>
-<div class="section" id="create-environment">
-<h3>2. Create environment<a class="headerlink" href="#create-environment" title="Permalink to this headline">¶</a></h3>
-<p>Close and reopen the terminal for conda to take effect. Create a new conda environment for EEG-notebooks with the command</p>
-<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>$ conda create -n &quot;eeg-notebooks&quot; python=3
-</pre></div>
-</div>
-</div>
-<div class="section" id="install-git">
-<h3>3. Install git<a class="headerlink" href="#install-git" title="Permalink to this headline">¶</a></h3>
-<p>Install git for linux</p>
-<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>$ sudo apt install git
-</pre></div>
-</div>
-</div>
-<div class="section" id="id1">
-<h3>4. Get EEG notebooks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Navigate to your desired directory in a terminal and clone the repo</p>
-<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/eeg-notebooks
-</pre></div>
-</div>
-</div>
-<div class="section" id="id2">
-<h3>5. Install python dependencies<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Navigate to the installed repo and activate your conda environment using</p>
-<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>$ cd ~/path/to/eeg-notebooks
-$ conda activate eeg-notebooks
-</pre></div>
-</div>
-<p>Then install the python dependencies</p>
-<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
-</pre></div>
-</div>
-</div>
-<div class="section" id="test-installation">
-<h3>6. Test installation<a class="headerlink" href="#test-installation" title="Permalink to this headline">¶</a></h3>
-<p>Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the
-installation by opening a new jupyter notebook and running a cell containing the following</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
-
-<span class="c1"># create eeg_device using the synthetic brainflow device</span>
-<span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;synthetic&#39;</span><span class="p">)</span>
-
-<span class="c1"># run stimulus presentation for 20 seconds</span>
-<span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="using-a-virutalenv">
-<h2>Using a VirutalEnv<a class="headerlink" href="#using-a-virutalenv" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="global-installation">
-<h2>Global installation<a class="headerlink" href="#global-installation" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -624,11 +480,19 @@ installation by opening a new jupyter notebook and running a cell containing the
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -639,7 +503,6 @@ installation by opening a new jupyter notebook and running a cell containing the
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,23 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -32,15 +42,6 @@
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="P300 Decoding" href="02r__p300_decoding.html" />
@@ -58,7 +59,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> EEG Notebooks
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> EEG Notebooks
           
 
           
@@ -85,6 +86,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -94,28 +96,13 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#windows-setup-instructions">Windows setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-miniconda">1. Install miniconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#download-git-for-windows">2. Download git for windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#get-eeg-notebooks">3. Get eeg-notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-python-dependencies">4. Install python dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#optional-install-bluemuse">5. (Optional ) Install BlueMuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#start-a-jupyter-notebook-session">6. Start a jupyter notebook session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#linux-setup-instructions">Linux setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-miniconda">Using Miniconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#download-and-install-miniconda">1. Download and install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#create-environment">2. Create environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#install-git">3. Install git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id1">4. Get EEG notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id2">5. Install python dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#test-installation">6. Test installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-a-virutalenv">Using a VirutalEnv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#global-installation">Global installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
@@ -393,6 +380,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -431,7 +419,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../experiments/vp300.html">Visual P300</a> &raquo;</li>
         
@@ -468,16 +456,16 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
 <span class="c1"># MNE functions</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="k">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="k">import</span> <span class="n">load_muse_csv_as_raw</span><span class="p">,</span><span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
-<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="k">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_muse_csv_as_raw</span><span class="p">,</span><span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
+<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
 
 <span class="c1"># sphinx_gallery_thumbnail_number = 3</span>
 </pre></div>
@@ -539,7 +527,7 @@ raw is
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_01r__p300_viz_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__p300_viz_001.png" />
+<img alt="EEG" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__p300_viz_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Effective window size : 8.000 (s)
 
@@ -553,7 +541,7 @@ raw is
 <span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_01r__p300_viz_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__p300_viz_002.png" />
+<img alt="EEG" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__p300_viz_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filtering raw data in 6 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
@@ -608,8 +596,8 @@ sample drop %:  1.5503875968992276
                           <span class="n">diff_waveform</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_01r__p300_viz_003.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__p300_viz_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.805 seconds)</p>
+<img alt="AF7, AF8, TP9, TP10" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__p300_viz_003.png" />
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.054 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-p300-01r-p300-viz-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e500d6e9072380c7b8d43c4a40d8e4f1/01r__p300_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__p300_viz.py</span></code></a></p>
@@ -642,11 +630,19 @@ sample drop %:  1.5503875968992276
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -657,7 +653,6 @@ sample drop %:  1.5503875968992276
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,23 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -32,15 +42,6 @@
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -56,7 +57,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> EEG Notebooks
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> EEG Notebooks
           
 
           
@@ -83,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -92,28 +94,13 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#windows-setup-instructions">Windows setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-miniconda">1. Install miniconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#download-git-for-windows">2. Download git for windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#get-eeg-notebooks">3. Get eeg-notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-python-dependencies">4. Install python dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#optional-install-bluemuse">5. (Optional ) Install BlueMuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#start-a-jupyter-notebook-session">6. Start a jupyter notebook session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#linux-setup-instructions">Linux setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-miniconda">Using Miniconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#download-and-install-miniconda">1. Download and install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#create-environment">2. Create environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#install-git">3. Install git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id1">4. Get EEG notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id2">5. Install python dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#test-installation">6. Test installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-a-virutalenv">Using a VirutalEnv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#global-installation">Global installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
@@ -391,6 +378,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -429,7 +417,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Computation times</li>
     
@@ -450,7 +438,7 @@
             
   <div class="section" id="computation-times">
 <span id="sphx-glr-auto-examples-visual-cueing-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>03:22.572</strong> total execution time for <strong>auto_examples_visual_cueing</strong> files:</p>
+<p><strong>04:03.544</strong> total execution time for <strong>auto_examples_visual_cueing</strong> files:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 88%" />
@@ -459,19 +447,19 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="02r__cueing_group_analysis.html#sphx-glr-auto-examples-visual-cueing-02r-cueing-group-analysis-py"><span class="std std-ref">Cueing Group Analysis</span></a> (<code class="docutils literal notranslate"><span class="pre">02r__cueing_group_analysis.py</span></code>)</p></td>
-<td><p>01:28.736</p></td>
+<td><p>01:52.604</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="04r__cueing_group_analysis_winter2019.html#sphx-glr-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py"><span class="std std-ref">Cueing Group Analysis Winter 2019</span></a> (<code class="docutils literal notranslate"><span class="pre">04r__cueing_group_analysis_winter2019.py</span></code>)</p></td>
-<td><p>01:23.480</p></td>
+<td><p>01:44.691</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="01r__cueing_singlesub_analysis.html#sphx-glr-auto-examples-visual-cueing-01r-cueing-singlesub-analysis-py"><span class="std std-ref">Cueing Single Subject Analysis</span></a> (<code class="docutils literal notranslate"><span class="pre">01r__cueing_singlesub_analysis.py</span></code>)</p></td>
-<td><p>00:29.027</p></td>
+<td><p>00:24.625</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="03r__cueing_behaviour_analysis_winter2019.html#sphx-glr-auto-examples-visual-cueing-03r-cueing-behaviour-analysis-winter2019-py"><span class="std std-ref">Cueing Behavioural Analysis Winter 2019</span></a> (<code class="docutils literal notranslate"><span class="pre">03r__cueing_behaviour_analysis_winter2019.py</span></code>)</p></td>
-<td><p>00:01.329</p></td>
+<td><p>00:01.624</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 </tbody>
@@ -489,11 +477,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -504,7 +500,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

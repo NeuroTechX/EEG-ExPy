@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,23 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_override.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -32,15 +42,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_override.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="getting_started/installation.html" /> 
@@ -57,7 +58,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> EEG Notebooks
+            <a href="#" class="icon icon-home" alt="Documentation Home"> EEG Notebooks
           
 
           
@@ -84,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -93,28 +95,13 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html#windows-setup-instructions">Windows setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#install-miniconda">1. Install miniconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#download-git-for-windows">2. Download git for windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#get-eeg-notebooks">3. Get eeg-notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#install-python-dependencies">4. Install python dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#optional-install-bluemuse">5. (Optional ) Install BlueMuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#start-a-jupyter-notebook-session">6. Start a jupyter notebook session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html#linux-setup-instructions">Linux setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#using-miniconda">Using Miniconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#download-and-install-miniconda">1. Download and install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#create-environment">2. Create environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#install-git">3. Install git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#id1">4. Get EEG notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#id2">5. Install python dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#test-installation">6. Test installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#using-a-virutalenv">Using a VirutalEnv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#global-installation">Global installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/streaming.html">Initiating an EEG Stream</a><ul>
@@ -392,6 +379,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -430,7 +418,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li>EEG-Notebooks - Democratizing the cognitive neuroscience experiment</li>
     
@@ -449,7 +437,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="eeg-notebooks-democratizing-the-cognitive-neuroscience-experiment">
+  <a class="reference external image-reference" href="https://mybinder.org/v2/gh/NeuroTechX/eeg-notebooks/master"><img alt="https://mybinder.org/badge_logo.svg" src="https://mybinder.org/badge_logo.svg" /></a>
+<div class="section" id="eeg-notebooks-democratizing-the-cognitive-neuroscience-experiment">
 <h1>EEG-Notebooks - Democratizing the cognitive neuroscience experiment<a class="headerlink" href="#eeg-notebooks-democratizing-the-cognitive-neuroscience-experiment" title="Permalink to this headline">¶</a></h1>
 <a class="reference internal image-reference" href="https://github.com/NeuroTechX/eeg-notebooks/raw/master/doc/img/eeg-notebooks_logo.png"><img alt="https://github.com/NeuroTechX/eeg-notebooks/raw/master/doc/img/eeg-notebooks_logo.png" class="align-center" src="https://github.com/NeuroTechX/eeg-notebooks/raw/master/doc/img/eeg-notebooks_logo.png" style="width: 600px;" /></a>
 <p>EEG-Notebooks is a collection of classic EEG experiments, implemented in Python and Jupyter notebooks. The experimental protocols and analyses are quite generic, but are primarily taylored for low-budget / consumer EEG hardware such as the InteraXon MUSE and OpenBCI Cyton. The goal is to make cognitive neuroscience and neurotechnology more accessible, affordable, and scalable.</p>
@@ -502,7 +491,7 @@ $ import os
 $ from eegnb import generate_save_fn
 $ from eegnb.devices.eeg import EEG
 $ from eegnb.experiments.visual_n170 import n170
-$ from eegnb.analysis import load_data
+$ from eegnb.analysis.utils import load_data
 $ #
 $ # Define some variables
 $ board_name = &#39;muse&#39;
@@ -522,6 +511,22 @@ $ #
 $ # Load recorded data
 $ raw = load_data(save_fn)
 $ #
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>If your have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ conda activate eeg-notebooks
+$ pip install ipykernel
+$ python -m ipykernel install --user --name eeg-notebooks
+</pre></div>
+</div>
+<p>In windows, if the above is causing errors, the following commands may help:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ conda install pywin32
+$ conda install jupyter
+$ conda install nb_conda
+$ conda install ipykernel
 </pre></div>
 </div>
 </div>
@@ -547,13 +552,43 @@ to file bug reports and/or ask questions about this project.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html#windows-setup-instructions">Windows setup instructions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html#linux-setup-instructions">Linux setup instructions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/streaming.html">Initiating an EEG Stream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/streaming.html">Initiating an EEG Stream</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/streaming.html#devices">Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/streaming.html#initiating-a-muse-stream-in-windows-using-bluemuse">Initiating a Muse stream in Windows using Bluemuse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/streaming.html#finding-the-usb-port-of-the-openbci-usb-dongle">Finding the USB port of the OpenBCI USB dongle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/streaming.html#finding-the-mac-address-of-the-ganglion">Finding the MAC address of the Ganglion</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/running_experiments.html">Running Experiments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/analysis.html">Analyzing data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started/available_notebooks.html">Available Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/available_notebooks.html">Available Notebooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/available_notebooks.html#visual-p300-with-oddball-paradigm">Visual P300 with Oddball paradigm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/available_notebooks.html#n170">N170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/available_notebooks.html#ssvep">SSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/available_notebooks.html#old-notebooks">Old Notebooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/available_notebooks.html#go-no-go">Go/No-Go</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/available_notebooks.html#ssaep">SSAEP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/available_notebooks.html#c1-and-p1">C1 and P1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/available_notebooks.html#auditory-p300">Auditory P300</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/available_notebooks.html#unvalidated-experiments-and-other-phenomena">Unvalidated Experiments and other phenomena</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/available_notebooks.html#n100-p200">N100 - P200</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/available_notebooks.html#on-task-beta">On-task Beta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/available_notebooks.html#alpha-reset">Alpha reset</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -615,11 +650,19 @@ to file bug reports and/or ask questions about this project.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -630,7 +673,6 @@ to file bug reports and/or ask questions about this project.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,23 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -32,15 +42,6 @@
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Cueing Behavioural Analysis Winter 2019" href="03r__cueing_behaviour_analysis_winter2019.html" />
@@ -58,7 +59,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> EEG Notebooks
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> EEG Notebooks
           
 
           
@@ -85,6 +86,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -94,28 +96,13 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#windows-setup-instructions">Windows setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-miniconda">1. Install miniconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#download-git-for-windows">2. Download git for windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#get-eeg-notebooks">3. Get eeg-notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#install-python-dependencies">4. Install python dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#optional-install-bluemuse">5. (Optional ) Install BlueMuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#start-a-jupyter-notebook-session">6. Start a jupyter notebook session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html#linux-setup-instructions">Linux setup instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-miniconda">Using Miniconda</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#download-and-install-miniconda">1. Download and install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#create-environment">2. Create environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#install-git">3. Install git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id1">4. Get EEG notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#id2">5. Install python dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#test-installation">6. Test installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#using-a-virutalenv">Using a VirutalEnv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#global-installation">Global installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
@@ -393,6 +380,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -431,7 +419,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../experiments/cueing.html">Visual Cueing</a> &raquo;</li>
         
@@ -462,19 +450,19 @@
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard pythonic importa</span>
 <span class="kn">import</span>  <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
 
 <span class="c1"># MNE functions</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="k">import</span> <span class="n">Epochs</span><span class="p">,</span> <span class="n">find_events</span><span class="p">,</span> <span class="n">concatenate_raws</span>
-<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="k">import</span> <span class="n">tfr_morlet</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span> <span class="n">find_events</span><span class="p">,</span> <span class="n">concatenate_raws</span>
+<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">tfr_morlet</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="k">import</span> <span class="n">datasets</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis</span> <span class="kn">import</span> <span class="n">utils</span>
 
 <span class="c1"># sphinx_gallery_thumbnail_number = 1</span>
 </pre></div>
@@ -696,179 +684,179 @@
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_001.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_001.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_001.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_002.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_002.png" />
+<li><img alt="101 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_002.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_003.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_003.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_003.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_004.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_004.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_004.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_005.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_005.png" />
+<li><img alt="102 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_005.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_006.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_006.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_006.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_007.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_007.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_007.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_008.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_008.png" />
+<li><img alt="103 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_008.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_009.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_009.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_009.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_010.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_010.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_010.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_011.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_011.png" />
+<li><img alt="104 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_011.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_012.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_012.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_012.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_013.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_013.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_013.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_014.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_014.png" />
+<li><img alt="105 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_014.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_015.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_015.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_015.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_016.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_016.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_016.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_017.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_017.png" />
+<li><img alt="106 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_017.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_018.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_018.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_018.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_019.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_019.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_019.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_020.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_020.png" />
+<li><img alt="108 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_020.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_021.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_021.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_021.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_022.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_022.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_022.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_023.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_023.png" />
+<li><img alt="109 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_023.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_024.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_024.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_024.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_025.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_025.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_025.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_026.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_026.png" />
+<li><img alt="110 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_026.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_027.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_027.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_027.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_028.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_028.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_028.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_029.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_029.png" />
+<li><img alt="111 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_029.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_030.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_030.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_030.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_031.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_031.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_031.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_032.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_032.png" />
+<li><img alt="112 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_032.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_033.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_033.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_033.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_034.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_034.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_034.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_035.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_035.png" />
+<li><img alt="202 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_035.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_036.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_036.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_036.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_037.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_037.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_037.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_038.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_038.png" />
+<li><img alt="203 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_038.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_039.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_039.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_039.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_040.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_040.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_040.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_041.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_041.png" />
+<li><img alt="204 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_041.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_042.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_042.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_042.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_043.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_043.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_043.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_044.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_044.png" />
+<li><img alt="205 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_044.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_045.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_045.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_045.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_046.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_046.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_046.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_047.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_047.png" />
+<li><img alt="207 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_047.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_048.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_048.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_048.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_049.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_049.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_049.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_050.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_050.png" />
+<li><img alt="208 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_050.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_051.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_051.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_051.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_052.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_052.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_052.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_053.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_053.png" />
+<li><img alt="209 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_053.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_054.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_054.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_054.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_055.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_055.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_055.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_056.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_056.png" />
+<li><img alt="210 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_056.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_057.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_057.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_057.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_058.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_058.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_058.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_059.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_059.png" />
+<li><img alt="211 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_059.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_060.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_060.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_060.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_061.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_061.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_061.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_062.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_062.png" />
+<li><img alt="301 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_062.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_063.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_063.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_063.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_064.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_064.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_064.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_065.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_065.png" />
+<li><img alt="302 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_065.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_066.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_066.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_066.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_067.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_067.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_067.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_068.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_068.png" />
+<li><img alt="303 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_068.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_069.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_069.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_069.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_070.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_070.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_070.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_071.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_071.png" />
+<li><img alt="304 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_071.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_072.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_072.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_072.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_073.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_073.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_073.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_074.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_074.png" />
+<li><img alt="305 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_074.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_075.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_075.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_075.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_076.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_076.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_076.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_077.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_077.png" />
+<li><img alt="306 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_077.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_078.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_078.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_078.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_079.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_079.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_079.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_080.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_080.png" />
+<li><img alt="307 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_080.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_081.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_081.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_081.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_082.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_082.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_082.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_083.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_083.png" />
+<li><img alt="308 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_083.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_084.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_084.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_084.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_085.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_085.png" />
+<li><img alt="Power Average Ipsilateral to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_085.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_086.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_086.png" />
+<li><img alt="309 - Power Average Contra to Cue" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_086.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_087.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_087.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_087.png" />
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1752,7 +1740,7 @@ Applying baseline correction (mode: mean)
 Applying baseline correction (mode: mean)
 (29, 100, 769)
 (29, 100)
-[-1.8633016529355508e-10, -5.1944926980416394e-11, 3.965717366845646e-11, -9.439937924298807e-11, 1.5395426956926094e-10, nan, nan, 1.437520530470469e-10, 6.156413801292688e-12, -3.454228962737693e-11, nan, 1.4040022690241475e-10, 4.5250575579733986e-11, 8.133414421717266e-11, 1.756261784272919e-12, 3.4989854712143306e-11, -7.358448888412721e-11, -2.0667398674718972e-11, 5.833832231476337e-11, -1.1353507280272528e-10, 2.057854566935435e-10, 8.136129078256776e-11, 2.231124565129556e-09, 4.417204016506191e-13, 1.5824220701839011e-10, nan, 2.9726944442083263e-11, -2.7053453190038922e-11, 1.0032262566341924e-10]
+[-1.8633016529355792e-10, -5.1944926980414183e-11, 3.9657173668456736e-11, -9.439937924298795e-11, 1.5395426956925895e-10, nan, nan, 1.437520530470466e-10, 6.156413801289012e-12, -3.454228962737608e-11, nan, 1.4040022690241426e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.7562617842721868e-12, 3.498985471214218e-11, -7.35844888841276e-11, -2.0667398674719127e-11, 5.833832231476227e-11, -1.1353507280272355e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164925904e-13, 1.582422070183946e-10, nan, 2.9726944442082217e-11, -2.7053453190038464e-11, 1.0032262566341902e-10]
 </pre></div>
 </div>
 </div>
@@ -1839,19 +1827,19 @@ Applying baseline correction (mode: mean)
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_088.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_088.png" />
+<li><img alt="02r  cueing group analysis" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_088.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_089.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_089.png" />
+<li><img alt="02r  cueing group analysis" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_089.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_090.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_090.png" />
+<li><img alt="Power Ipsi" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_090.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_091.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_091.png" />
+<li><img alt="Power Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_091.png" />
 </li>
-<li><img alt="../../_images/sphx_glr_02r__cueing_group_analysis_092.png" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_092.png" />
+<li><img alt="Power Difference Ipsi-Contra" class="sphx-glr-multi-img" src="../../_images/sphx_glr_02r__cueing_group_analysis_092.png" />
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f211d69cd10&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fde3bb65b90&gt;
 </pre></div>
 </div>
 </div>
@@ -1869,9 +1857,9 @@ Applying baseline correction (mode: mean)
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.024561362956465e-11
-Contra Mean: -2.617586361170823e-11
-Mean Diff: 1.1642147724127283e-10
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.024561362956429e-11
+Contra Mean: -2.6175863611708357e-11
+Mean Diff: 1.1642147724127268e-10
 t(24) = 1.394
 p = 0.169
 </pre></div>
@@ -1889,7 +1877,7 @@ p = 0.169
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529355508e-10, -5.1944926980416394e-11, 3.965717366845646e-11, -9.439937924298807e-11, 1.5395426956926094e-10, nan, nan, 1.437520530470469e-10, 6.156413801292688e-12, -3.454228962737693e-11, nan, 1.4040022690241475e-10, 4.5250575579733986e-11, 8.133414421717266e-11, 1.756261784272919e-12, 3.4989854712143306e-11, -7.358448888412721e-11, -2.0667398674718972e-11, 5.833832231476337e-11, -1.1353507280272528e-10, 2.057854566935435e-10, 8.136129078256776e-11, 2.231124565129556e-09, 4.417204016506191e-13, 1.5824220701839011e-10, nan, 2.9726944442083263e-11, -2.7053453190038922e-11, 1.0032262566341924e-10]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529355792e-10, -5.1944926980414183e-11, 3.9657173668456736e-11, -9.439937924298795e-11, 1.5395426956925895e-10, nan, nan, 1.437520530470466e-10, 6.156413801289012e-12, -3.454228962737608e-11, nan, 1.4040022690241426e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.7562617842721868e-12, 3.498985471214218e-11, -7.35844888841276e-11, -2.0667398674719127e-11, 5.833832231476227e-11, -1.1353507280272355e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164925904e-13, 1.582422070183946e-10, nan, 2.9726944442082217e-11, -2.7053453190038464e-11, 1.0032262566341902e-10]
 Saved subject averages for each condition to 375CueingEEG.csv file in present directory
 </pre></div>
 </div>
@@ -1908,7 +1896,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Saved Spectra to 375Cueing*Spec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  28.736 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  52.604 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d57fff739827ca575034e03b51d68a54/02r__cueing_group_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__cueing_group_analysis.py</span></code></a></p>
@@ -1941,11 +1929,19 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1956,7 +1952,6 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
