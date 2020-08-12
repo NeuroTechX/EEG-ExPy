@@ -40,7 +40,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinxcontrib.httpdomain',
     'sphinx_rtd_theme',
-]
+    'sphinx_tabs.tabs'
+    ]
 
 templates_path = ['_templates']
 source_suffix = ['.rst', '.md']
