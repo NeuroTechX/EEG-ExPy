@@ -54,6 +54,23 @@ Use the following commands to download the repo, create and activate a conda or 
 
 
 
+**Test installation**
+
+Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the following
+
+
+.. code-block:: python
+
+   from eegnb.devices.eeg import EEG
+   from eegnb.experiments.visual_n170 import n170
+
+   # create eeg_device using the synthetic brainflow device
+   eeg_device = EEG(device='synthetic')
+
+   # run stimulus presentation for 20 seconds
+   n170.present(duration=20, eeg=eeg_device)
+
+
 
 MUSE Requirements
 ======================
