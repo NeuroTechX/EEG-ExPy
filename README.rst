@@ -42,7 +42,7 @@ Documentation
 -------------
 
 Documentation for eeg-notebooks is available on the
-`documentation site <https://neurotechx.github.io/eeg_notebooks/index.html>`_.
+`documentation site <https://neurotechx.github.io/eeg-notebooks/index.html>`_.
 
 
 Installation
