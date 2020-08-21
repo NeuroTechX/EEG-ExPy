@@ -2,16 +2,3 @@ channels:
     - conda-forge
 dependencies:
     - python=3.7
-    - numpy
-    - matplotlib==3.0.3
-    - pandas
-    - scipy
-    - rise
-    - pip:
-        - jupyter
-        - jupyter-contrib-nbextensions
-        - mne
-        - scikit-learn
-        - seaborn==0.9.0
-        - pyriemann
-        - versioneer
