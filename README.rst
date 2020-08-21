@@ -93,7 +93,7 @@ Quickstart
     $ # Define some variables
     $ board_name = 'muse'
     $ experiment = 'visual_n170'
-    $ subject = 'test'
+    $ subject = 999 # a 'very British number'
     $ record_duration=120
     $ # 
     $ # Initiate EEG device 
