@@ -44,7 +44,7 @@ Use the following commands to download the repo, create and activate a conda or 
 
            conda activate "eeg-notebooks"
  
-           pip install git
+           conda install git
 
            git clone https://github.com/neurotechhx/eeg-notebooks
 

@@ -178,8 +178,12 @@ class EEG:
     def _stop_brainflow(self):
         """This functions kills the brainflow backend and saves the data to a CSV file."""
 
-        # Collect session data
+        # Collect session data and kill session
         data = self.board.get_board_data()      # will clear board buffer
+        self.board.stop_stream()
+        self.board.release_session()
+
+        # transform data for saving
         data = data.T                           # transpose data
         ch_names = BRAINFLOW_CHANNELS[self.device_name]
         num_channels = len(ch_names)
