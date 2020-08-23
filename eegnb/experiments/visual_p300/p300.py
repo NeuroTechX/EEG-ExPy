@@ -40,6 +40,9 @@ def present(duration=120, eeg=None, save_fn=None):
             print(f'No path for a save file was passed to the experiment. Saving data to {save_fn}')
         eeg.start(save_fn, duration=record_duration)
 
+    # Show instructions
+    show_instructions(duration=duration)
+
     # Iterate through the events
     start = time()
     for ii, trial in trials.iterrows():
@@ -74,3 +77,40 @@ def present(duration=120, eeg=None, save_fn=None):
     # Cleanup
     if eeg: eeg.stop()
     mywin.close()
+
+
+
+
+def show_instructions(duration):
+
+    instruction_text = \
+    """
+    Welcome to the P300 experiment! 
+ 
+    Stay still, focus on the centre of the screen, and try not to blink. 
+
+    This block will run for %s seconds.
+
+    Press spacebar to continue. 
+    
+    """
+    instruction_text = instruction_text %duration
+
+    # graphics
+    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg",
+                          fullscr=True)
+
+    mywin.mouseVisible = False
+
+    #Instructions
+    text = visual.TextStim(
+        win=mywin,
+        text=instruction_text,
+        color=[-1, -1, -1])
+    text.draw()
+    mywin.flip()
+    event.waitKeys(keyList="space")
+
+    mywin.mouseVisible = True
+    mywin.close()
+
