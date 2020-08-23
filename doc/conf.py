@@ -27,8 +27,8 @@ from sphinx.locale import _
 
 project = 'EEG Notebooks'
 slug = re.sub(r'\W+', '-', project.lower())
-version = '0.1.0'
-release = '0.1.0'
+version = '0.2.0'
+release = '0.0.0'
 author = u'John Griffiths, Jadin Tredup, NeuroTechX, & Contributors'
 copyright = author
 language = 'en'
