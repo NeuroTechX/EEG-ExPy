@@ -89,6 +89,10 @@ class EEG:
         self.recording = Process(target=record, args=(duration, self.save_fn))
         self.recording.start()
 
+        time.sleep(5)
+
+        self.push_sample([99], timestamp=time.time())
+
 
     def _stop_muse(self):
         
