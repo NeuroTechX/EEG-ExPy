@@ -81,7 +81,7 @@ The InteraXon MUSE streams EEG over bluetooth. There are additional hardware and
 MUSE recordings on windows: BlueMuse
 -------------------------------------
 
-BlueMuse is a Windows 10 program that allows communication between a Muse headband and a computer’s native bluetooth drivers using the LSL communication protocol. To install, go the the `BlueMuse github pshr <https://github.com/kowalej/BlueMuse>`_ and follow the installation instructions.
+BlueMuse is a Windows 10 program that allows communication between a Muse headband and a computer’s native bluetooth drivers using the LSL communication protocol. To install, go the the `BlueMuse github repo <https://github.com/kowalej/BlueMuse>`_ and follow the installation instructions.
 
 
 
