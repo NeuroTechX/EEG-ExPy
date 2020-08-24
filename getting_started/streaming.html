@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Initiating an EEG Stream &mdash; EEG Notebooks 0.1.0 documentation</title>
+  <title>Initiating an EEG Stream &mdash; EEG Notebooks 0.0.0 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.2.0
               </div>
             
           
@@ -440,6 +440,8 @@
             
   <div class="section" id="initiating-an-eeg-stream">
 <h1>Initiating an EEG Stream<a class="headerlink" href="#initiating-an-eeg-stream" title="Permalink to this headline">¶</a></h1>
+<p>Before getting going with running an experiment, it is important to first verify that a connection between your computer and EEG device has been successfully established, and the raw EEG data is being streamed and recorded properly.</p>
+<p>The exact steps for this vary with the device (MUSE, OpenBCI, others) and operating system (Windows, Mac, Linux) used. When using these instructions, you should make sure you are consulting the section appropriate for your combination of device and OS.</p>
 <p>Initiating an EEG stream is a relatively easy process using the <code class="docutils literal notranslate"><span class="pre">eegnb.devices.eeg.EEG</span></code> class which abstracts the
 the various devices and backends behind one easy call.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
@@ -451,8 +453,7 @@ the various devices and backends behind one easy call.</p>
 <span class="n">eeg</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the various
-support devices.</p>
+<p>These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the variou support devices.</p>
 <div class="section" id="devices">
 <h2>Devices<a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
 <p>The supported devices and the parameters (both optional and required) needed for the class for each are listed below.</p>
