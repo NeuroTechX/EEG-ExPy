@@ -2,10 +2,34 @@
 Installation
 ************
 
+EEG-Notebooks is a Python library. It runs on all major operating systems (Windows, Linux, Mac). 
+
+If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use `VirtualEnv`  (`venv`) than `conda` for Python environment management, we provide equivalent installation and usage instructions where relevant. 
+
+
+The principal purpose of EEG-Noteboks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments. 
+
+As such, there are two principal modes of usage:
+
+1. Making new EEG recordings, and analyzing the data
+
+2. Not making EEG recordings, and analyzing existing data
+
+
+As may be expected, the installation and setup steps for mode 2 are simpler than mode 1, with the difference being additional hardware and software requirements for measuring, streaming and recording EEG data. These requirements, which are device- and operating system-specific, are as follows:
+
+- `Muse 2016`, `Muse 2`, and `Muse S` recordings on **Windows** require the third-party streaming tool `BlueMuse`. `Bluemuse` deals with establishing a connection between the eeg device and the stimulus-delivery laptop/desktop. 
+
+- `Muse 2016`, `Muse 2`, and `Muse S` recordings on **Linux** and **Mac** require a BLED112 dongle (see below). The BLED112 dongle bypasses the native bluetooth hardware, which is not compatible with `muse` device streaming. 
+
+- `OpenBCI` recordings work the same for all operating systems, and do not require any additional hardware or software. 
+
+- 'Usage mode 2' above (no EEG recordings) can be done easily on any operating system without any extra hardware or software. We also provide intructions for launching live and free on `Binder` and `GoogleColab`.
+
+
 
 Installing the Python library
 ===============================
-
 
 We highly recommend making use of a virtual environment (either `conda` or `virtualenv`) when installing eeg-notebooks.
 
