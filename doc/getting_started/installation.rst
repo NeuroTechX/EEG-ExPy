@@ -7,13 +7,13 @@ EEG-Notebooks is a Python library. It runs on all major operating systems (Windo
 If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use `VirtualEnv`  (`venv`) than `conda` for Python environment management, we provide equivalent installation and usage instructions where relevant. 
 
 
-The principal purpose of EEG-Noteboks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments. 
+The principal purpose of EEG-Notebooks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments. 
 
 As such, there are two principal modes of usage:
 
-1. Making new EEG recordings, and analyzing the data
+1. Making new EEG recordings, and analyzing the newly recorded data
 
-2. Not making EEG recordings, and analyzing existing data
+2. Not making EEG recordings, and analyzing existing (either previously recorded or public-domain) data
 
 
 As may be expected, the installation and setup steps for mode 2 are simpler than mode 1, with the difference being additional hardware and software requirements for measuring, streaming and recording EEG data. These requirements, which are device- and operating system-specific, are as follows:
@@ -24,7 +24,7 @@ As may be expected, the installation and setup steps for mode 2 are simpler than
 
 - `OpenBCI` recordings work the same for all operating systems, and do not require any additional hardware or software. 
 
-- 'Usage mode 2' above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, on free temporary cloud compute servers through `Binder` and `GoogleColab`, which we provide instructions for. 
+- 'Usage mode 2' above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, as well as on free temporary cloud compute servers through `Binder` and `GoogleColab`, which we provide instructions for. 
 
 
 
