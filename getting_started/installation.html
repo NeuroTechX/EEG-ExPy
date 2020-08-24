@@ -448,18 +448,18 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>EEG-Notebooks is a Python library. It runs on all major operating systems (Windows, Linux, Mac).</p>
 <p>If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use <cite>VirtualEnv</cite>  (<cite>venv</cite>) than <cite>conda</cite> for Python environment management, we provide equivalent installation and usage instructions where relevant.</p>
-<p>The principal purpose of EEG-Noteboks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments.</p>
+<p>The principal purpose of EEG-Notebooks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments.</p>
 <p>As such, there are two principal modes of usage:</p>
 <ol class="arabic simple">
-<li><p>Making new EEG recordings, and analyzing the data</p></li>
-<li><p>Not making EEG recordings, and analyzing existing data</p></li>
+<li><p>Making new EEG recordings, and analyzing the newly recorded data</p></li>
+<li><p>Not making EEG recordings, and analyzing existing (either previously recorded or public-domain) data</p></li>
 </ol>
 <p>As may be expected, the installation and setup steps for mode 2 are simpler than mode 1, with the difference being additional hardware and software requirements for measuring, streaming and recording EEG data. These requirements, which are device- and operating system-specific, are as follows:</p>
 <ul class="simple">
 <li><p><cite>Muse 2016</cite>, <cite>Muse 2</cite>, and <cite>Muse S</cite> recordings on <strong>Windows</strong> require the third-party streaming tool <cite>BlueMuse</cite>. <cite>Bluemuse</cite> deals with establishing a connection between the eeg device and the stimulus-delivery laptop/desktop.</p></li>
 <li><p><cite>Muse 2016</cite>, <cite>Muse 2</cite>, and <cite>Muse S</cite> recordings on <strong>Linux</strong> and <strong>Mac</strong> require a BLED112 dongle (see below). The BLED112 dongle bypasses the native bluetooth hardware, which is not compatible with <cite>muse</cite> device streaming.</p></li>
 <li><p><cite>OpenBCI</cite> recordings work the same for all operating systems, and do not require any additional hardware or software.</p></li>
-<li><p>‘Usage mode 2’ above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, on free temporary cloud compute servers through <cite>Binder</cite> and <cite>GoogleColab</cite>, which we provide instructions for.</p></li>
+<li><p>‘Usage mode 2’ above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, as well as on free temporary cloud compute servers through <cite>Binder</cite> and <cite>GoogleColab</cite>, which we provide instructions for.</p></li>
 </ul>
 <div class="section" id="installing-the-python-library">
 <h2>Installing the Python library<a class="headerlink" href="#installing-the-python-library" title="Permalink to this headline">¶</a></h2>
