@@ -24,7 +24,7 @@ As may be expected, the installation and setup steps for mode 2 are simpler than
 
 - `OpenBCI` recordings work the same for all operating systems, and do not require any additional hardware or software. 
 
-- 'Usage mode 2' above (no EEG recordings) can be done easily on any operating system without any extra hardware or software. We also provide intructions for launching live and free on `Binder` and `GoogleColab`.
+- 'Usage mode 2' above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, on free temporary cloud compute servers through `Binder` and `GoogleColab`, which we provide instructions for. 
 
 
 
