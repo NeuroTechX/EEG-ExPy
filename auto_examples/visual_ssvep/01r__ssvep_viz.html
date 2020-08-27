@@ -464,7 +464,7 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 <span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">psd_welch</span><span class="p">,</span><span class="n">tfr_morlet</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_muse_csv_as_raw</span><span class="p">,</span><span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
 <span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
 
 <span class="c1"># sphinx_gallery_thumbnail_number = 3</span>
@@ -487,42 +487,37 @@ the example dataset, if you do not already have it.</p>
 
 <span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span><span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-SSVEP&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span>
-                <span class="n">device</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
-                <span class="n">sfreq</span><span class="o">=</span><span class="mf">256.</span><span class="p">,</span>
-                      <span class="n">subject_nb</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">session_nb</span><span class="o">=</span><span class="n">session</span><span class="p">,</span>
-                      <span class="n">ch_ind</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                      <span class="n">replace_ch_names</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Right AUX&#39;</span><span class="p">:</span> <span class="s1">&#39;POz&#39;</span><span class="p">})</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span>
+                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-SSVEP&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">,</span>
+                <span class="n">replace_ch_names</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Right AUX&#39;</span><span class="p">:</span> <span class="s1">&#39;POz&#39;</span><span class="p">})</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.20.04.csv&#39;, &#39;/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv&#39;, &#39;/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv&#39;, &#39;/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv&#39;, &#39;/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv&#39;, &#39;/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv&#39;]
-/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.20.04.csv
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
 Ready.
-/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
 Ready.
-/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-/home/john/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-raw is
-[&lt;RawArray | 6 x 30732 (120.0 s), ~1.4 MB, data loaded&gt;, &lt;RawArray | 6 x 30732 (120.0 s), ~1.4 MB, data loaded&gt;, &lt;RawArray | 6 x 30720 (120.0 s), ~1.4 MB, data loaded&gt;, &lt;RawArray | 6 x 30720 (120.0 s), ~1.4 MB, data loaded&gt;, &lt;RawArray | 6 x 30732 (120.0 s), ~1.4 MB, data loaded&gt;, &lt;RawArray | 6 x 30732 (120.0 s), ~1.4 MB, data loaded&gt;]
 </pre></div>
 </div>
 <div class="section" id="visualize-the-power-spectrum">
@@ -563,8 +558,8 @@ sample drop %:  2.538071065989844
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next, we can compare the PSD of epochs specifically during 20hz and 30hz stimulus presentation</span>
 
 <span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">psd1</span><span class="p">,</span> <span class="n">freq1</span> <span class="o">=</span> <span class="n">psd_welch</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">],</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span> <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">psd2</span><span class="p">,</span> <span class="n">freq2</span> <span class="o">=</span> <span class="n">psd_welch</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">],</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span> <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">psd1</span><span class="p">,</span> <span class="n">freq1</span> <span class="o">=</span> <span class="n">psd_welch</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">],</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span> <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">psd2</span><span class="p">,</span> <span class="n">freq2</span> <span class="o">=</span> <span class="n">psd_welch</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">],</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span> <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="n">psd1</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psd1</span><span class="p">)</span>
 <span class="n">psd2</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psd2</span><span class="p">)</span>
 
@@ -611,12 +606,12 @@ Effective window size : 4.016 (s)
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also look for SSVEPs in the spectrogram, which uses color to represent the power of frequencies in the EEG signal over time</span>
 
 <span class="n">frequencies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
-<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span><span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
                               <span class="n">n_cycles</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
                  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;POz - 30 Hz stim&#39;</span><span class="p">);</span>
 
-<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span><span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
                               <span class="n">n_cycles</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
                  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;POz - 20 Hz stim&#39;</span><span class="p">);</span>
@@ -637,7 +632,7 @@ Effective window size : 4.016 (s)
 Applying baseline correction (mode: logratio)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  32.569 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.650 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/89f5ff349033ec3c3d48bcfb2c3c3de2/01r__ssvep_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__ssvep_viz.py</span></code></a></p>

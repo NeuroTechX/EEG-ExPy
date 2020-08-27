@@ -29,7 +29,7 @@ from mne import Epochs,find_events
 from mne.time_frequency import psd_welch,tfr_morlet
 
 # EEG-Notebooks functions
-from eegnb.analysis.utils import load_muse_csv_as_raw,load_data,plot_conditions
+from eegnb.analysis.utils import load_data,plot_conditions
 from eegnb.datasets import fetch_dataset
 
 # sphinx_gallery_thumbnail_number = 3
@@ -55,12 +55,10 @@ if not os.path.isdir(ssvep_data_path):
 
 subject = 1
 session = 1
-raw = load_data(eegnb_data_path,experiment='visual-SSVEP', site='eegnb_examples',
-                device='muse2016',
-                sfreq=256., 
-                      subject_nb=subject, session_nb=session,
-                      ch_ind=[0, 1, 2, 3, 4], 
-                      replace_ch_names={'Right AUX': 'POz'})
+raw = load_data(subject, session, 
+                experiment='visual-SSVEP', site='eegnb_examples', device_name='muse2016',
+                data_dir = eegnb_data_path,
+                replace_ch_names={'Right AUX': 'POz'})
 
 ###################################################################################################
 # Visualize the power spectrum
@@ -89,8 +87,8 @@ print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 # Next, we can compare the PSD of epochs specifically during 20hz and 30hz stimulus presentation
 
 f, axs = plt.subplots(2, 1, figsize=(10, 10))
-psd1, freq1 = psd_welch(epochs['30 Hz'], n_fft=1028, n_per_seg=256 * 3)
-psd2, freq2 = psd_welch(epochs['20 Hz'], n_fft=1028, n_per_seg=256 * 3)
+psd1, freq1 = psd_welch(epochs['30 Hz'], n_fft=1028, n_per_seg=256 * 3, picks='all')
+psd2, freq2 = psd_welch(epochs['20 Hz'], n_fft=1028, n_per_seg=256 * 3, picks='all')
 psd1 = 10 * np.log10(psd1)
 psd2 = 10 * np.log10(psd2)
 
@@ -131,12 +129,12 @@ plt.show();
 # We can also look for SSVEPs in the spectrogram, which uses color to represent the power of frequencies in the EEG signal over time
 
 frequencies = np.logspace(1, 1.75, 60)
-tfr, itc = tfr_morlet(epochs['30 Hz'], freqs=frequencies, 
+tfr, itc = tfr_morlet(epochs['30 Hz'], freqs=frequencies,picks='all',
                               n_cycles=15, return_itc=True)
 tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio', 
                  title='POz - 30 Hz stim');
 
-tfr, itc = tfr_morlet(epochs['20 Hz'], freqs=frequencies, 
+tfr, itc = tfr_morlet(epochs['20 Hz'], freqs=frequencies,picks='all',
                               n_cycles=15, return_itc=True)
 tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio', 
                  title='POz - 20 Hz stim');

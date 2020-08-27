@@ -22,7 +22,7 @@ from mne.time_frequency import tfr_morlet
 
 # EEG-Notebooks functions
 from eegnb.datasets import datasets
-from eegnb.analysis import utils
+from eegnb.analysis.utils import load_data
 
 # sphinx_gallery_thumbnail_number = 1
 
@@ -94,13 +94,17 @@ for sub in subs:
 
     rej_thresh = rej_thresh_uV*1e-6
     
-
     
     # Load both sessions
-    raw = utils.load_data(eegnb_data_path, experiment='visual-cueing', site='kylemathlab_dev',sfreq=256., 
-                          subject_nb=sub, session_nb=1)
-    raw.append(    utils.load_data(eegnb_data_path, experiment='visual-cueing', site='kylemathlab_dev',sfreq=256., 
-                          subject_nb=sub, session_nb=2)           )
+    raw = load_data(sub,1, # subject, session
+                    experiment='visual-cueing',site='kylemathlab_dev',device_name='muse2016',
+                    data_dir = eegnb_data_path)
+                
+    raw.append(
+          load_data(sub,2, # subject, session
+                    experiment='visual-cueing', site='kylemathlab_dev', device_name='muse2016',
+                    data_dir = eegnb_data_path))
+    
 
     # Filter Raw Data
     raw.filter(1,30, method='iir')

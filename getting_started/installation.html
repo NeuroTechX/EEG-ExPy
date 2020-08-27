@@ -510,6 +510,11 @@ pip install -r requirements.txt
 </div>
 </div>
 </div>
+<p><strong>Add the new environment to the jupyter kernel list</strong></p>
+<p>For some operating systems, it is necessary the following command is necessary in order to make the new <cite>eeg-notebooks</cite> environment available from the jupyter notebook landing page</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m ipykernel install --user --name eeg-notebooks
+</pre></div>
+</div>
 <p><strong>Test installation</strong></p>
 <p>Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the following</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>

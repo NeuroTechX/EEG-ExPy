@@ -464,7 +464,7 @@ dataset, and compares them in terms of classification performance.</p>
 <span class="kn">from</span> <span class="nn">mne.decoding</span> <span class="kn">import</span> <span class="n">Vectorizer</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_muse_csv_as_raw</span><span class="p">,</span><span class="n">load_data</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
 <span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
 
 <span class="c1"># Scikit-learn and Pyriemann ML functionalities</span>
@@ -491,40 +491,36 @@ dataset, and compares them in terms of classification performance.</p>
 
 <span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span>
-                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-N170&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
-                <span class="n">sfreq</span><span class="o">=</span><span class="mf">256.</span><span class="p">,</span>
-                <span class="n">subject_nb</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">session_nb</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span><span class="n">session</span><span class="p">,</span>
+                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-N170&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.30.01.csv&#39;, &#39;/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.32.50.csv&#39;, &#39;/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.35.26.csv&#39;, &#39;/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.40.17.csv&#39;, &#39;/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.42.33.csv&#39;, &#39;/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.45.08.csv&#39;]
-/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.30.01.csv
-Creating RawArray with float64 data, n_channels=5, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.32.50.csv
-Creating RawArray with float64 data, n_channels=5, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.35.26.csv
-Creating RawArray with float64 data, n_channels=5, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.40.17.csv
-Creating RawArray with float64 data, n_channels=5, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.42.33.csv
-Creating RawArray with float64 data, n_channels=5, n_times=30720
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
 Ready.
-/home/john/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.45.08.csv
-Creating RawArray with float64 data, n_channels=5, n_times=30732
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-raw is
-[&lt;RawArray | 5 x 30732 (120.0 s), ~1.2 MB, data loaded&gt;, &lt;RawArray | 5 x 30732 (120.0 s), ~1.2 MB, data loaded&gt;, &lt;RawArray | 5 x 30732 (120.0 s), ~1.2 MB, data loaded&gt;, &lt;RawArray | 5 x 30732 (120.0 s), ~1.2 MB, data loaded&gt;, &lt;RawArray | 5 x 30720 (120.0 s), ~1.2 MB, data loaded&gt;, &lt;RawArray | 5 x 30732 (120.0 s), ~1.2 MB, data loaded&gt;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
 </pre></div>
 </div>
 </div>
@@ -545,7 +541,7 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
 
-&lt;RawArray | 5 x 184380 (720.2 s), ~7.1 MB, data loaded&gt;
+&lt;RawArray | 6 x 184380 (720.2 s), ~8.5 MB, data loaded&gt;
 </pre></div>
 </div>
 </div>
@@ -632,7 +628,7 @@ XdawnCov + MDM
 </pre></div>
 </div>
 <img alt="02r  n170 decoding" class="sphx-glr-single-img" src="../../_images/sphx_glr_02r__n170_decoding_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  17.238 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  51.063 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-02r-n170-decoding-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d5962f611a1c0434100c2f3706093684/02r__n170_decoding.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__n170_decoding.py</span></code></a></p>

@@ -26,7 +26,7 @@ from mne import Epochs,find_events, concatenate_raws
 from mne.time_frequency import tfr_morlet
 
 # EEG-Notebooks functions
-from eegnb.analysis.utils import load_muse_csv_as_raw,load_data,plot_conditions
+from eegnb.analysis.utils import load_data,plot_conditions
 from eegnb.datasets import fetch_dataset
 
 # sphinx_gallery_thumbnail_number = 1  
@@ -45,16 +45,17 @@ cueing_data_path = os.path.join(eegnb_data_path, 'visual-cueing', 'kylemathlab_d
 if not os.path.isdir(cueing_data_path):
     fetch_dataset(data_dir=eegnb_data_path, experiment='visual-cueing', site='kylemathlab_dev');
 
-subject = 1
-session = 1
 
 sub = 302
-raw = load_data(eegnb_data_path, experiment='visual-cueing',site='kylemathlab_dev',sfreq=256., 
-                      subject_nb=sub, session_nb=1)
-
+sess = 1
+raw = load_data(sub,1, # subject, session
+                experiment='visual-cueing',site='kylemathlab_dev',device_name='muse2016',
+                data_dir = eegnb_data_path)
+                
 raw.append(
-      load_data(eegnb_data_path,experiment='visual-cueing', site='kylemathlab_dev', sfreq=256., 
-                      subject_nb=sub, session_nb=2))
+      load_data(sub,2, # subject, session
+                experiment='visual-cueing', site='kylemathlab_dev', device_name='muse2016',
+                data_dir = eegnb_data_path))
 
 ###################################################################################################
 # Visualize the power spectrum

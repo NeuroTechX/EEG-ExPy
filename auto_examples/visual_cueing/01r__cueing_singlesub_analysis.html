@@ -461,7 +461,7 @@
 <span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">tfr_morlet</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_muse_csv_as_raw</span><span class="p">,</span><span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
 <span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
 
 <span class="c1"># sphinx_gallery_thumbnail_number = 1</span>
@@ -478,43 +478,32 @@
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">cueing_data_path</span><span class="p">):</span>
     <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">);</span>
 
-<span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="n">sub</span> <span class="o">=</span> <span class="mi">302</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span><span class="n">sfreq</span><span class="o">=</span><span class="mf">256.</span><span class="p">,</span>
-                      <span class="n">subject_nb</span><span class="o">=</span><span class="n">sub</span><span class="p">,</span> <span class="n">session_nb</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># subject, session</span>
+                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span><span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
 
 <span class="n">raw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-      <span class="n">load_data</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span><span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mf">256.</span><span class="p">,</span>
-                      <span class="n">subject_nb</span><span class="o">=</span><span class="n">sub</span><span class="p">,</span> <span class="n">session_nb</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+      <span class="n">load_data</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># subject, session</span>
+                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">))</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;/home/john/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session001/subject302_session1_recording_2018-11-20-17.10.25.csv&#39;]
-/home/john/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session001/subject302_session1_recording_2018-11-20-17.10.25.csv
-/c/Ubuntu_WSL/Code/libraries_of_mine/github/eeg-notebooks/eegnb/analysis/utils.py:69: DeprecationWarning: Passing montage to create_info is deprecated and will be removed in 0.21, use raw.set_montage (or epochs.set_montage, etc.) instead
-  sfreq=sfreq, montage=montage, verbose=verbose)
-Creating RawArray with float64 data, n_channels=5, n_times=61296
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
-raw is
-[&lt;RawArray | 5 x 61296 (239.4 s), ~2.4 MB, data loaded&gt;]
-[&#39;/home/john/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.18.04.csv&#39;, &#39;/home/john/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.31.03.csv&#39;]
-/home/john/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.18.04.csv
-/c/Ubuntu_WSL/Code/libraries_of_mine/github/eeg-notebooks/eegnb/analysis/utils.py:69: DeprecationWarning: Passing montage to create_info is deprecated and will be removed in 0.21, use raw.set_montage (or epochs.set_montage, etc.) instead
-  sfreq=sfreq, montage=montage, verbose=verbose)
-Creating RawArray with float64 data, n_channels=5, n_times=61296
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
-/home/john/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.31.03.csv
-/c/Ubuntu_WSL/Code/libraries_of_mine/github/eeg-notebooks/eegnb/analysis/utils.py:69: DeprecationWarning: Passing montage to create_info is deprecated and will be removed in 0.21, use raw.set_montage (or epochs.set_montage, etc.) instead
-  sfreq=sfreq, montage=montage, verbose=verbose)
-Creating RawArray with float64 data, n_channels=5, n_times=61296
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
-raw is
-[&lt;RawArray | 5 x 61296 (239.4 s), ~2.4 MB, data loaded&gt;, &lt;RawArray | 5 x 61296 (239.4 s), ~2.4 MB, data loaded&gt;]
 </pre></div>
 </div>
 </div>
@@ -746,7 +735,7 @@ No baseline correction applied
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f5ece8ce250&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f3106aba400&gt;
 </pre></div>
 </div>
 </div>
@@ -779,7 +768,7 @@ Event IDs: [ 1  2 11 12 21 22]
 sample drop %:  89.67136150234741
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  18.299 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.272 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-01r-cueing-singlesub-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c8168bec3b40b12111ac87ce4dfeac13/01r__cueing_singlesub_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__cueing_singlesub_analysis.py</span></code></a></p>

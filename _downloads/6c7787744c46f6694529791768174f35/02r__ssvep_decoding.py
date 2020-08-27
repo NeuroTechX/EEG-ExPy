@@ -27,7 +27,7 @@ from mne import Epochs,find_events
 from mne.decoding import Vectorizer
 
 # EEG-Notebooks functions
-from eegnb.analysis.utils import load_muse_csv_as_raw,load_data
+from eegnb.analysis.utils import load_data
 from eegnb.datasets import fetch_dataset
 
 # Scikit-learn and Pyriemann ML functionalities
@@ -57,11 +57,10 @@ if not os.path.isdir(ssvep_data_path):
 
 subject = 1
 session = 1
-
-raw = load_data(eegnb_data_path, experiment='visual-SSVEP',sfreq=256., 
-                      subject_nb=subject, session_nb=session,
-                      ch_ind=[0, 1, 2, 3, 4], 
-                      replace_ch_names={'Right AUX': 'POz'})
+raw = load_data(subject, session, 
+                experiment='visual-SSVEP', site='eegnb_examples', device_name='muse2016',
+                data_dir = eegnb_data_path,
+                replace_ch_names={'Right AUX': 'POz'})
 
 ###################################################################################################
 # Epoching
