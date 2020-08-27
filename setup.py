@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.rst", "r") as fh:
     long_description = fh.read()
@@ -19,7 +19,7 @@ setup(
     long_description_content_type="text/markdown",
     install_requires = install_requires,
     url='https://github.com/NeuroTechX/eeg-notebooks',
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
