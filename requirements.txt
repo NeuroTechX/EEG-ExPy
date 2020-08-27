@@ -17,13 +17,6 @@ muselsl
 brainflow
 h5py
 versioneer
-sphinx>=1.8.3
-sphinx-gallery
-sphinx_bootstrap_theme
-sphinx_rtd_theme
-sphinx_copybutton
 numpydoc
 versioneer
-jupyter-contrib
-jupyter-nbextensions-configurator
 matplotlib==3.0.3
