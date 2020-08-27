@@ -19,5 +19,6 @@ brainflow
 h5py
 versioneer
 numpydoc
+gdown
 versioneer
 matplotlib==3.0.3

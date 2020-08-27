@@ -2,12 +2,14 @@ import glob
 import os
 import requests
 import zipfile
+import gdown
 
 from eegnb import DATA_DIR
 
 
 def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
-                  device='muse2016', subjects='all', sessions='all'):
+                  device='muse2016', subjects='all', sessions='all',
+                  download_method = 'gdown'):
     """
             Return a long-form filenames list and a table saying what
             subject and session, and run each entry corresponds to
@@ -43,6 +45,10 @@ def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
                     'auditory-SSAEP': '1fd0OAyNGWWOHD8e1FnEOLeQMeEoxqEpO',
                     'auditory-P300': '1OEtrRfMOkzDssGv-2Lj56FsArmPnQ2vD'}
 
+    # If no non-default top-level data path specified, use default
+    if data_dir == None:
+        data_dir = DATA_DIR
+
     # check parameter entries
     if experiment not in experiments_list:
         raise ValueError('experiment not in database')
@@ -58,32 +64,43 @@ def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
         if os.path.exists(data_dir) is not True:
             os.makedirs(data_dir)
 
-        URL = "https://docs.google.com/uc?export=download"
-
-        session = requests.Session()
-        response = session.get(URL, params = { 'id' : gdrive_locs[experiment] }, stream = True)
-
-        # get the confirmation token to download large files
-        token = None
-        for key, value in response.cookies.items():
-            if key.startswith('download_warning'):
-                token = value
-
-        if token:
-            params = {'id' : id, 'confirm' : token}
-            response = session.get(URL, params=params, stream=True)
-
-        # save content to a zip-file
         destination = os.path.join(data_dir, 'downloaded_data.zip')
-        CHUNK_SIZE = 32768
-        with open(destination, "wb") as f:
-            for chunk in response.iter_content(CHUNK_SIZE):
-                if chunk:
-                    f.write(chunk)
+        
+        if download_method == 'gdown':
+
+          URL = 'https://drive.google.com/uc?id=' + gdrive_locs[experiment]
+          gdown.download(URL, destination, quiet=False)
+
+
+        elif download_method == 'requests':
+
+          URL = "https://docs.google.com/uc?export=download"
+
+          session = requests.Session()
+          response = session.get(URL, params = { 'id' : gdrive_locs[experiment] }, stream = True)
+
+          # get the confirmation token to download large files
+          token = None
+          for key, value in response.cookies.items():
+              if key.startswith('download_warning'):
+                  token = value
+
+          if token:
+              params = {'id' : id, 'confirm' : token}
+              response = session.get(URL, params=params, stream=True)
+
+          # save content to the zip-file
+          CHUNK_SIZE = 32768
+          with open(destination, "wb") as f:
+              for chunk in response.iter_content(CHUNK_SIZE):
+                  if chunk:
+                      f.write(chunk)
+
+
 
         # unzip the file
         with zipfile.ZipFile(destination, 'r') as zip_ref:
-            zip_ref.extractall(DATA_DIR)
+            zip_ref.extractall(data_dir)
 
         # remove the compressed zip archive
         os.remove(destination)
@@ -91,22 +108,28 @@ def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
     if subjects == 'all': subjects = ['*']
     if sessions == 'all':  sessions = ['*']
 
+    # If 'all' subjects and 'all sesssions: 
+    if ( (subjects[0] == '*') and (sessions[0] == '*') ): 
+      pth = os.path.join(exp_dir ,f'subject{subjects[0]}', f'session{sessions[0]}', '*.csv')
+      fnames = glob.glob(pth)
+    # Else, if specific subjects and sessions 
+    else:
+      fnames = []
+      for subject_nb in subjects:
+          if subject_nb != '*':
+              # Format to get 4 digit number, e.g. 0004
+              subject_nb = float(subject_nb)
+              subject_nb = '%03.f' %subject_nb
+              for session_nb in sessions:
+                  # Formt to get 3 digit number, e.g. 003
+                  if session_nb != '*':
+                      session_nb = float(session_nb)
+                      session_nb = '%02.f' %session_nb
 
-    fnames = []
-    for subject_nb in subjects:
-        if subject_nb != '*':
-            # Format to get 4 digit number, e.g. 0004
-            subject_nb = float(subject_nb)
-            subject_nb = '%03.f' %subject_nb
-            for session_nb in sessions:
-                # Formt to get 3 digit number, e.g. 003
-                if session_nb != '*':
-                    session_nb = float(session_nb)
-                    session_nb = '%02.f' %session_nb
-
-                    pth = os.path.join(exp_dir, f'subject{subject_nb}', f'session{session_nb}', '*.csv')
-                    #pth = '{}/subject{}/session{}/*.csv'.format(exp_dir,subject_nb, session_nb)
-                    fpaths = glob.glob(pth)
-                    fnames += fpaths
+                      pth = os.path.join(exp_dir, f'subject{subject_nb}', f'session{session_nb}', '*.csv')
+                      #pth = '{}/subject{}/session{}/*.csv'.format(exp_dir,subject_nb, session_nb)
+                      fpaths = glob.glob(pth)
+                      fnames += fpaths
 
     return fnames
+
