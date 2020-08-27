@@ -120,9 +120,9 @@ class EEG:
         self.brainflow_params = BrainFlowInputParams()
 
         if self.device_name == 'ganglion':
-            self.brainflow_id = BoardIds.GANGLION_BOARD.value
+	    self.brainflow_id = BoardIds.GANGLION_BOARD.value
             if self.serial_port == None:
-		self.brainflow_params.serial_port = get_openbci_usb()
+	        self.brainflow_params.serial_port = get_openbci_usb()
             # set mac address parameter in case
             if self.mac_address is not None:
                 self.brainflow_params.mac_address = self.mac_address
