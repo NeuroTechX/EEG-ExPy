@@ -65,7 +65,7 @@ from eegnb.devices.eeg import EEG
 # define the name for the board you are using and call the EEG object
 eeg = EEG(
     device='cyton',
-    serial_num='COM7'
+    serial_port='COM7'
 )
 
 # start the stream
