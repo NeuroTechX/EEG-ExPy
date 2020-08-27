@@ -22,7 +22,7 @@ from mne import Epochs, find_events, concatenate_raws
 from mne.time_frequency import tfr_morlet
 
 # EEG-Noteooks functions
-from eegnb.analysis.utils import load_muse_csv_as_raw,load_data,plot_conditions
+from eegnb.analysis.utils import load_data,plot_conditions
 from eegnb.datasets import fetch_dataset
 
 # sphinx_gallery_thumbnail_number = 1
@@ -110,10 +110,15 @@ for sub in subs:
     
     
     # Load both sessions
-    raw = load_data(eegnb_data_path, experiment='visual-cueing', site='kylemathlab_dev',sfreq=256., 
-                          subject_nb=sub, session_nb=1)
-    raw.append(    load_data(eegnb_data_path, experiment='visual-cueing', site='kylemathlab_dev',sfreq=256., 
-                          subject_nb=sub, session_nb=2)           )
+    raw = load_data(sub,1, # subject, session
+                    experiment='visual-cueing',site='kylemathlab_dev',device_name='muse2016',
+                    data_dir = eegnb_data_path)
+                
+    raw.append(
+          load_data(sub,2, # subject, session
+                    experiment='visual-cueing', site='kylemathlab_dev', device_name='muse2016',
+                    data_dir = eegnb_data_path))
+    
 
     # Filter Raw Data
     raw.filter(1,30, method='iir')
