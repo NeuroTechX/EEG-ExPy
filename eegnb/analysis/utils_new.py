@@ -60,7 +60,7 @@ def load_csv_as_raw(filename, sfreq, ch_ind, stim_ind, aux_ind=None,
     return raws
 
 
-def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=None, verbose=1, site='local'):
+def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=None, verbose=1, site='local',data_dir=None):
     """Load CSV files from the /data directory into a Raw object.
     Args:
         data_dir (str): directory inside /data that contains the
@@ -89,7 +89,10 @@ def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=
     if site == 'all':
         site = '*'
 
-    data_path = os.path.join(DATA_DIR, experiment, site, device_name, subject_str, session_str, '*.csv')
+    if data_dir == None:
+      data_dir = DATA_DIR
+
+    data_path = os.path.join(data_dir, experiment, site, device_name, subject_str, session_str, '*.csv')
     fnames = glob(data_path)
 
     sfreq = SAMPLE_FREQS[device_name]
