@@ -1,35 +1,29 @@
 #!/usr/bin/env python
 
-from setuptools import setup, find_packages
-import versioneer 
+from setuptools import setup
 
-setup(name='eeg-notebooks', #version=versioneer.get_version(),
-      description='python library for eeg cognitive neuroscience experiments',
-      long_description='python library for eeg cognitive neuroscience experiments',
-      keywords='eeg, cognitive neuroscience, experiments, evoked response, auditory, visual',
-      author='John David Griffiths',
-      author_email='j.davidgriffiths@gmail.com',
-      url='https://github.com/NeuroTechX/eeg-notebooks',
-      packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]), 
-      install_requires=['numpy',  'setuptools'],
-      classifiers=[
-          'Intended Audience :: Science/Research',
-          'Programming Language :: Python',
-          'Topic :: Software Development',
-          'Topic :: Scientific/Engineering',
-          'Operating System :: Microsoft :: Windows',
-          'Operating System :: POSIX',
-          'Operating System :: Unix',
-          'Operating System :: MacOS',
-          'Programming Language :: Python :: 2.7',
-          'Programming Language :: Python :: 3.6',
-      ],
-      entry_points={
-          "console_scripts": [
-              "eegnb=eegnb.__main__:main",
-          ]
-      },
-      #cmdclass=versioneer.get_cmdclass()
-      )
+with open("README.rst", "r") as fh:
+    long_description = fh.read()
 
+with open('requirements.txt', 'r') as fp:
+    install_requires = fp.read().splitlines()
 
+setup(
+    name="eeg-notebooks", 
+    version="0.2",
+    author="John David Griffiths",
+    author_email="j.davidgriffiths@gmail.com",
+    description='python library for eeg cognitive neuroscience experiments',
+    keywords='eeg, cognitive neuroscience, experiments, evoked response, auditory, visual',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    install_requires = install_requires,
+    url='https://github.com/NeuroTechX/eeg-notebooks',
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
+)
