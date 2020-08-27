@@ -56,9 +56,8 @@ Use the following commands to download the repo, create and activate a conda or 
 
            pip install -r requirements.txt
 
-
-
-             
+            
+ 
     .. tab:: Virtualenv
 
 
@@ -75,6 +74,16 @@ Use the following commands to download the repo, create and activate a conda or 
            cd eeg-notebooks
 
            pip install -r requirements.txt
+
+
+**Add the new environment to the jupyter kernel list**
+
+For some operating systems, it is necessary the following command is necessary in order to make the new `eeg-notebooks` environment available from the jupyter notebook landing page
+
+
+.. code-block:: bash
+
+   python -m ipykernel install --user --name eeg-notebooks
 
 
 

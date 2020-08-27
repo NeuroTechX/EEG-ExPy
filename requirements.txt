@@ -10,6 +10,7 @@ seaborn==0.9.0
 pyriemann
 pexpect
 jupyter
+ipykernel
 vispy
 pyglet==1.2
 git+https://github.com/peplin/pygatt
