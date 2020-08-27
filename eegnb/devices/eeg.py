@@ -115,11 +115,14 @@ class EEG:
         Parameters:
              serial_num (str or int): serial number for either the BrainBit or Unicorn devices.
         """
+
         # Initialize brainflow parameters
         self.brainflow_params = BrainFlowInputParams()
+
         if self.device_name == 'ganglion':
             self.brainflow_id = BoardIds.GANGLION_BOARD.value
-            self.brainflow_params.serial_port = get_openbci_usb()
+            if self.serial_port == None:
+		self.brainflow_params.serial_port = get_openbci_usb()
             # set mac address parameter in case
             if self.mac_address is not None:
                 self.brainflow_params.mac_address = self.mac_address
@@ -132,7 +135,8 @@ class EEG:
 
         elif self.device_name == 'cyton':
             self.brainflow_id = BoardIds.CYTON_BOARD.value
-            self.brainflow_params.serial_port = get_openbci_usb()
+            if self.serial_port == None: 
+            	self.brainflow_params.serial_port = get_openbci_usb()
 
         elif self.device_name == 'cyton_wifi':
             self.brainflow_id = BoardIds.CYTON_WIFI_BOARD.value
@@ -140,7 +144,8 @@ class EEG:
 
         elif self.device_name == 'cyton_daisy':
             self.brainflow_id = BoardIds.CYTON_DAISY_BOARD.value
-            self.brainflow_params.serial_port = get_openbci_usb()
+            if self.serial_port == None:
+		self.brainflow_params.serial_port = get_openbci_usb()
 
         elif self.device_name == 'cyton_daisy_wifi':
             self.brainflow_id = BoardIds.CYTON_DAISY_WIFI_BOARD.value
