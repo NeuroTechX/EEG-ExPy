@@ -9,4 +9,5 @@ scikit-learn
 seaborn==0.9.0
 pyriemann
 requests
+gdown
 versioneer
