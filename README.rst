@@ -52,33 +52,14 @@ The current version of eeg-notebooks is the 0.2.X series. The code-base and API 
 
 Check the `changelog <https://neurotechx.github.io/eeg-notebooks/changelog.html>`_ for notes on changes from previous versions. 
 
-
-**Development Version**
-
-To get the current development version, first clone this repository:
-
-.. code-block:: shell
-
-    $ git clone https://neurotechx/eeg-notebooks
-
-To install this cloned copy, move into the directory you just cloned, and run:
-
-.. code-block:: shell
-
-    $ pip install .
-
-**Editable Version**
-
-To install an editable version, download the development version as above, and run:
-
-.. code-block:: shell
-
-    $ pip install -e .
+Current instructions for installation can be found on the docs page `here <https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html#>`_.
 
 
 
 Quickstart
 ----------
+
+After installing the repo it can easily be tested by running the following block of code
 
 .. code-block:: python
 
