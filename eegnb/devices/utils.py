@@ -2,6 +2,7 @@ import numpy as np
 import socket
 import platform
 
+from brainflow import BoardShim, BoardIds
 
 # Default channel names for the various brainflow devices.
 EEG_CHANNELS = {
@@ -48,8 +49,8 @@ STIM_INDICES = {
 SAMPLE_FREQS = {
     'muse2016': 256,
     'muse2': 256,
-    'cyton': 256,
-    'cyton_daisy': 128
+    'cyton': BoardShim.get_sampling_rate(BoardIds.CYTON_BOARD.value),
+    'cyton_daisy': BoardShim.get_sampling_rate(BoardIds.CYTON_DAISY_BOARD.value),
 }
 
 def get_openbci_ip(address, port):
