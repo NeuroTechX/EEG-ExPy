@@ -48,32 +48,50 @@ Use the following commands to download the repo, create and activate a conda or 
 
            conda activate "eeg-notebooks"
 
-           pip install git
+           conda install git
 
-           git clone https://github.com/neurotechhx/eeg-notebooks
+           git clone https://github.com/NeuroTechX/eeg-notebooks
 
            cd eeg-notebooks
 
            pip install -r requirements.txt
-
-            
  
     .. tab:: Virtualenv
 
+       .. tabs::
 
-       .. code-block:: bash
+          .. tab:: Windows
 
-           conda create -n "eeg-notebooks"
+             .. code-block:: bash
 
-           conda activate "eeg-notebooks"
- 
-           conda install git
+                 mkdir eegnb_dir
 
-           git clone https://github.com/neurotechhx/eeg-notebooks
+                 python3 -m venv eegnb-env
 
-           cd eeg-notebooks
+                 git clone https://github.com/NeuroTechX/eeg-notebooks
 
-           pip install -r requirements.txt
+                 eegnb-env\Scripts\activate.bat
+
+                 cd eeg-notebooks
+
+                 pip install -r requirements.txt
+
+          .. tab:: Linux or MacOS
+
+             .. code-block:: bash
+
+                 mkdir eegnb_dir
+
+                 python3 -m venv eegnb-env
+
+                 git clone https://github.com/NeuroTechX/eeg-notebooks
+
+                 source eegnb-env/bin/activate
+
+                 cd eeg-notebooks
+
+                 pip install -r requirements.txt
+
 
 
 **Add the new environment to the jupyter kernel list**
@@ -123,3 +141,9 @@ MUSE recordings on Mac+Linux: BLED112 Dongle
 
 Unfortunately, the native bluetooth driver on Mac and Linux cannot be used with eeg-notebooks. To run on these operating systems, it is necessary to purchase a `BLED112 USB Dongle <https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/>`_. Note: this is a 'special' bluetooth dongle; standard bluetooth dongles will not work. 
 
+
+
+Installation Issues
+=================================
+
+If you are having issues installing the library or running examples please submit an issue detailing the problems you are having and what type of OS you are using `Here <https://github.com/neurotechx/eeg-notebooks/issues>`_
