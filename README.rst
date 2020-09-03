@@ -41,78 +41,12 @@ For more discussion on these social/scientific/technological contexts and trajec
 Documentation
 -------------
 
-Documentation for eeg-notebooks is available on the
+The current version of eeg-notebooks is the 0.2.X series. The code-base and API are under major development and subject to change.
+
+Check the `changelog <https://neurotechx.github.io/eeg-notebooks/changelog.html>`_ for notes on changes from previous versions.
+
+**Installation instructions**, steps for **getting started**, common **troubleshooting** solutions and more can be found in the documentation for eeg-notebooks, available on the
 `documentation site <https://neurotechx.github.io/eeg-notebooks/index.html>`_.
-
-
-Installation
-------------
-
-The current version of eeg-notebooks is the 0.2.X series. The code-base and API are under major development and subject to change. 
-
-Check the `changelog <https://neurotechx.github.io/eeg-notebooks/changelog.html>`_ for notes on changes from previous versions. 
-
-Current instructions for installation can be found on the docs page `here <https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html#>`_.
-
-
-
-Quickstart
-----------
-
-After installing the repo it can easily be tested by running the following block of code
-
-.. code-block:: python
-
-    # Imports
-    import os
-    from eegnb import generate_save_fn
-    from eegnb.devices.eeg import EEG
-    from eegnb.experiments.visual_n170 import n170
-    from eegnb.analysis.utils import load_data
-    #
-    # Define some variables
-    board_name = 'muse'
-    experiment = 'visual_n170'
-    subject = 999 # a 'very British number'
-    record_duration=120
-    #
-    # Initiate EEG device
-    eeg_device = EEG(device=board_name)
-    #
-    # Create output filename
-    save_fn = generate_save_fn(board_name, experiment, subject)
-    #
-    # Run experiment
-    n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
-    #
-    # Load recorded data
-    raw = load_data(save_fn)
-
-
-Troubleshooting
----------------
-
-If your have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list
-
-.. code-block:: shell
-
-   $ conda activate eeg-notebooks    
-   $ pip install ipykernel
-   $ python -m ipykernel install --user --name eeg-notebooks
-
-
-In windows, if the above is causing errors, the following commands may help:
-
-.. code-block:: shell
-
-   $ conda install pywin32
-   $ conda install jupyter
-   $ conda install nb_conda
-   $ conda install ipykernel
-
-
-
-
 
 Acknowledgments
 ----------------
@@ -129,13 +63,6 @@ This project welcomes and encourages contributions from the community!
 
 If you have an idea of something to add to eeg-notebooks, please start by opening an
 `issue <https://github.com/neurotechx/eeg-notebooks/issues>`_.
-
-
-Bug reports
------------
-
-Please use the `Github issue tracker <https://github.com/neurotechx/eeg-notebooks/issues>`_
-to file bug reports and/or ask questions about this project.
 
 
 Contact
