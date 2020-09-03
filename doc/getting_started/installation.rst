@@ -107,20 +107,35 @@ For some operating systems, it is necessary the following command is necessary i
 
 **Test installation**
 
-Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the following
-
+Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the code below. This will run one session of the Visual N170 with your board of choice.
 
 .. code-block:: python
 
-   from eegnb.devices.eeg import EEG
-   from eegnb.experiments.visual_n170 import n170
+   # Imports
+    import os
+    from eegnb import generate_save_fn
+    from eegnb.devices.eeg import EEG
+    from eegnb.experiments.visual_n170 import n170
+    from eegnb.analysis.utils import load_data
 
-   # create eeg_device using the synthetic brainflow device
-   eeg_device = EEG(device='synthetic')
+    # Define some variables
+    board_name = 'muse'
+    # board_name = 'cyton'
+    experiment = 'visual_n170'
+    subject = 999 # a 'very British number'
+    record_duration=120
 
-   # run stimulus presentation for 20 seconds
-   n170.present(duration=20, eeg=eeg_device)
+    # Initiate EEG device
+    eeg_device = EEG(device=board_name)
 
+    # Create output filename
+    save_fn = generate_save_fn(board_name, experiment, subject)
+
+    # Run experiment
+    n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+
+    # Load recorded data
+    raw = load_data(save_fn)
 
 
 MUSE Requirements
@@ -143,7 +158,36 @@ Unfortunately, the native bluetooth driver on Mac and Linux cannot be used with 
 
 
 
-Installation Issues
+Issues
 =================================
 
-If you are having issues installing the library or running examples please submit an issue detailing the problems you are having and what type of OS you are using `Here <https://github.com/neurotechx/eeg-notebooks/issues>`_
+Common Problems
+--------------------------------
+**Problems with Conda and Jupyter Notebook:**
+If you have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list
+
+.. code-block:: shell
+
+   $ conda activate eeg-notebooks
+   $ pip install ipykernel
+   $ python -m ipykernel install --user --name eeg-notebooks
+
+
+In windows, if the above is causing errors, the following commands may help:
+
+.. code-block:: shell
+
+   $ conda install pywin32
+   $ conda install jupyter
+   $ conda install nb_conda
+   $ conda install ipykernel
+
+
+Bug reports
+-----------
+
+Please use the `Github issue tracker <https://github.com/neurotechx/eeg-notebooks/issues>`_
+to file bug reports and/or ask questions about this project. When filing a bug report, please include the follwing information:
+* Operating System.
+* Device being used.
+* Any error messages generated.
