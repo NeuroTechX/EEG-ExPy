@@ -1,5 +1,3 @@
-bitstring
-pygatt
 psychopy
 scikit-learn
 pandas
@@ -7,15 +5,7 @@ numpy
 mne
 seaborn==0.9.0
 pyriemann
-pexpect
 jupyter
-pyglet
 muselsl
 brainflow
-h5py
-matplotlib
-versioneer
-numpydoc
 gdown
-versioneer
-matplotlib==3.0.3
