@@ -30,6 +30,7 @@ def load_csv_as_raw(filename, sfreq, ch_ind, stim_ind, aux_ind=None,
         ch_ind += aux_ind
     else:
         n_channel = n_eeg
+        n_aux = 0
 
     raw = []
     for fn in filename:
@@ -94,6 +95,7 @@ def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=
 
     data_path = os.path.join(data_dir, experiment, site, device_name, subject_str, session_str, '*.csv')
     fnames = glob(data_path)
+    print(data_path)
 
     sfreq = SAMPLE_FREQS[device_name]
     ch_ind = CHANNEL_INDICES[device_name]
