@@ -102,6 +102,11 @@
 <li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#issues">Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#common-problems">Common Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#bug-reports">Bug reports</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/streaming.html">Initiating an EEG Stream</a><ul>
@@ -461,72 +466,10 @@
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>Documentation for eeg-notebooks is available on the
-<a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/index.html">documentation site</a>.</p>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>The current version of eeg-notebooks is the 0.2.X series. The code-base and API are under major development and subject to change.</p>
 <p>Check the <a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/changelog.html">changelog</a> for notes on changes from previous versions.</p>
-<p><strong>Development Version</strong></p>
-<p>To get the current development version, first clone this repository:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone https://neurotechx/eeg-notebooks
-</pre></div>
-</div>
-<p>To install this cloned copy, move into the directory you just cloned, and run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install .
-</pre></div>
-</div>
-<p><strong>Editable Version</strong></p>
-<p>To install an editable version, download the development version as above, and run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install -e .
-</pre></div>
-</div>
-</div>
-<div class="section" id="quickstart">
-<h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
-<span class="c1">#</span>
-<span class="c1"># Define some variables</span>
-<span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;muse&#39;</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_n170&#39;</span>
-<span class="n">subject</span> <span class="o">=</span> <span class="mi">999</span> <span class="c1"># a &#39;very British number&#39;</span>
-<span class="n">record_duration</span><span class="o">=</span><span class="mi">120</span>
-<span class="c1">#</span>
-<span class="c1"># Initiate EEG device</span>
-<span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1"># Create output filename</span>
-<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1"># Run experiment</span>
-<span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1"># Load recorded data</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">save_fn</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="troubleshooting">
-<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
-<p>If your have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ conda activate eeg-notebooks
-$ pip install ipykernel
-$ python -m ipykernel install --user --name eeg-notebooks
-</pre></div>
-</div>
-<p>In windows, if the above is causing errors, the following commands may help:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ conda install pywin32
-$ conda install jupyter
-$ conda install nb_conda
-$ conda install ipykernel
-</pre></div>
-</div>
+<p><strong>Installation instructions</strong>, steps for <strong>getting started</strong>, common <strong>troubleshooting</strong> solutions and more can be found in the documentation for eeg-notebooks, available on the
+<a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/index.html">documentation site</a>.</p>
 </div>
 <div class="section" id="acknowledgments">
 <h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
@@ -539,11 +482,6 @@ $ conda install ipykernel
 <p>If you have an idea of something to add to eeg-notebooks, please start by opening an
 <a class="reference external" href="https://github.com/neurotechx/eeg-notebooks/issues">issue</a>.</p>
 </div>
-<div class="section" id="bug-reports">
-<h2>Bug reports<a class="headerlink" href="#bug-reports" title="Permalink to this headline">¶</a></h2>
-<p>Please use the <a class="reference external" href="https://github.com/neurotechx/eeg-notebooks/issues">Github issue tracker</a>
-to file bug reports and/or ask questions about this project.</p>
-</div>
 <div class="section" id="contact">
 <h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
 <p>The best place for general discussion on eeg-notebooks functionality is the  <a class="reference external" href="https://github.com/neurotechx/eeg-notebooks/issues">Issues page</a>. For more general questions and discussions, you can e-mail <cite>john.griffiths&#64;utoronto.ca</cite>, or ping us on the <a class="reference external" href="https://neurotechx.herokuapp.com">NeuroTechX slack</a>.</p>
@@ -555,6 +493,11 @@ to file bug reports and/or ask questions about this project.</p>
 <li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
 <li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#issues">Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#common-problems">Common Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started/installation.html#bug-reports">Bug reports</a></li>
 </ul>
 </li>
 </ul>

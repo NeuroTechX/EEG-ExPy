@@ -109,6 +109,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#issues">Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-problems">Common Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bug-reports">Bug reports</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="streaming.html">Initiating an EEG Stream</a><ul>
@@ -484,9 +489,9 @@
 
 conda activate <span class="s2">&quot;eeg-notebooks&quot;</span>
 
-pip install git
+conda install git
 
-git clone https://github.com/neurotechhx/eeg-notebooks
+git clone https://github.com/NeuroTechX/eeg-notebooks
 
 <span class="nb">cd</span> eeg-notebooks
 
@@ -495,18 +500,49 @@ pip install -r requirements.txt
 </div>
 </div>
 <div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0-1 docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n <span class="s2">&quot;eeg-notebooks&quot;</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-1-0 docutils container">
+<div class="docutils container">
+<p>Windows</p>
+</div>
+</div>
+<div class="item sphinx-data-tab-1-1 docutils container">
+<div class="docutils container">
+<p>Linux or MacOS</p>
+</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-1-0 active docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir eegnb_dir
 
-conda activate <span class="s2">&quot;eeg-notebooks&quot;</span>
+python3 -m venv eegnb-env
 
-conda install git
+git clone https://github.com/NeuroTechX/eeg-notebooks
 
-git clone https://github.com/neurotechhx/eeg-notebooks
+eegnb-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.bat
 
 <span class="nb">cd</span> eeg-notebooks
 
 pip install -r requirements.txt
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-1-1 docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir eegnb_dir
+
+python3 -m venv eegnb-env
+
+git clone https://github.com/NeuroTechX/eeg-notebooks
+
+<span class="nb">source</span> eegnb-env/bin/activate
+
+<span class="nb">cd</span> eeg-notebooks
+
+pip install -r requirements.txt
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -516,15 +552,32 @@ pip install -r requirements.txt
 </pre></div>
 </div>
 <p><strong>Test installation</strong></p>
-<p>Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the following</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
+<p>Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the code below. This will run one session of the Visual N170 with your board of choice.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
+ <span class="kn">import</span> <span class="nn">os</span>
+ <span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
+ <span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
+ <span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
+ <span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
 
-<span class="c1"># create eeg_device using the synthetic brainflow device</span>
-<span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;synthetic&#39;</span><span class="p">)</span>
+ <span class="c1"># Define some variables</span>
+ <span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;muse&#39;</span>
+ <span class="c1"># board_name = &#39;cyton&#39;</span>
+ <span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_n170&#39;</span>
+ <span class="n">subject</span> <span class="o">=</span> <span class="mi">999</span> <span class="c1"># a &#39;very British number&#39;</span>
+ <span class="n">record_duration</span><span class="o">=</span><span class="mi">120</span>
 
-<span class="c1"># run stimulus presentation for 20 seconds</span>
-<span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">)</span>
+ <span class="c1"># Initiate EEG device</span>
+ <span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
+
+ <span class="c1"># Create output filename</span>
+ <span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+
+ <span class="c1"># Run experiment</span>
+ <span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
+
+ <span class="c1"># Load recorded data</span>
+ <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">save_fn</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -538,6 +591,34 @@ pip install -r requirements.txt
 <div class="section" id="muse-recordings-on-mac-linux-bled112-dongle">
 <h3>MUSE recordings on Mac+Linux: BLED112 Dongle<a class="headerlink" href="#muse-recordings-on-mac-linux-bled112-dongle" title="Permalink to this headline">¶</a></h3>
 <p>Unfortunately, the native bluetooth driver on Mac and Linux cannot be used with eeg-notebooks. To run on these operating systems, it is necessary to purchase a <a class="reference external" href="https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/">BLED112 USB Dongle</a>. Note: this is a ‘special’ bluetooth dongle; standard bluetooth dongles will not work.</p>
+</div>
+</div>
+<div class="section" id="issues">
+<h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="common-problems">
+<h3>Common Problems<a class="headerlink" href="#common-problems" title="Permalink to this headline">¶</a></h3>
+<p><strong>Problems with Conda and Jupyter Notebook:</strong>
+If you have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ conda activate eeg-notebooks
+$ pip install ipykernel
+$ python -m ipykernel install --user --name eeg-notebooks
+</pre></div>
+</div>
+<p>In windows, if the above is causing errors, the following commands may help:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ conda install pywin32
+$ conda install jupyter
+$ conda install nb_conda
+$ conda install ipykernel
+</pre></div>
+</div>
+</div>
+<div class="section" id="bug-reports">
+<h3>Bug reports<a class="headerlink" href="#bug-reports" title="Permalink to this headline">¶</a></h3>
+<p>Please use the <a class="reference external" href="https://github.com/neurotechx/eeg-notebooks/issues">Github issue tracker</a>
+to file bug reports and/or ask questions about this project. When filing a bug report, please include the follwing information:
+* Operating System.
+* Device being used.
+* Any error messages generated.</p>
 </div>
 </div>
 </div>
