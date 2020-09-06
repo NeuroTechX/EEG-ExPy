@@ -47,24 +47,6 @@ SAMPLE_FREQS = {
     'notion': BoardShim.get_sampling_rate(BoardIds.NOTION_OSC_BOARD.value),
 }
 
-def get_openbci_ip(address, port):
-    """ Gets the default IP address for connecting to the OpenBCI wifi shield but also allows
-    users to pass their own values to override the defaults.
-
-    Parameters:
-        address (str): ip address
-        port (str or int): ip port
-    """
-    if address == None:
-        address = '192.168.4.1'
-
-    if port == None:
-        s = socket.socket()
-        s.bind(('', 0))
-        port = s.getsockname()[1]
-
-    return address, port
-
 def get_openbci_usb():
     if platform.system() == 'Linux':
         return '/dev/ttyUSB0'

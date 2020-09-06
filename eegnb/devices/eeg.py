@@ -18,7 +18,7 @@ from brainflow import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record
 from pylsl import StreamInfo, StreamOutlet
 
-from eegnb.devices.utils import get_openbci_usb, get_openbci_ip, create_stim_array
+from eegnb.devices.utils import get_openbci_usb, create_stim_array
 
 # list of brainflow devices
 brainflow_devices = [
@@ -32,7 +32,7 @@ brainflow_devices = [
 
 class EEG:
 
-    def __init__(self, device=None, serial_port=None, serial_num=None, mac_addr=None, other=None):
+    def __init__(self, device=None, serial_port=None, serial_num=None, mac_addr=None, other=None, ip_addr=None):
         """ The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
@@ -44,6 +44,7 @@ class EEG:
         self.serial_num = serial_num
         self.serial_port = serial_port
         self.mac_address = mac_addr
+        self.ip_addr = ip_addr
         self.other = other
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
@@ -127,7 +128,8 @@ class EEG:
 
         elif self.device_name == 'ganglion_wifi':
             self.brainflow_id = BoardIds.GANGLION_WIFI_BOARD.value
-            self.brainflow_params.ip_address, self.brainflow_params.ip_port = get_openbci_ip()
+            if self.ip_addr is not None:
+                self.brainflow_params.ip_address = self.ip_addr
 
         elif self.device_name == 'cyton':
             self.brainflow_id = BoardIds.CYTON_BOARD.value
@@ -136,7 +138,8 @@ class EEG:
 
         elif self.device_name == 'cyton_wifi':
             self.brainflow_id = BoardIds.CYTON_WIFI_BOARD.value
-            self.brainflow_params.ip_address, self.brainflow_params.ip_port = get_openbci_ip()
+            if self.ip_addr is not None:
+                self.brainflow_params.ip_address = self.ip_addr
 
         elif self.device_name == 'cyton_daisy':
             self.brainflow_id = BoardIds.CYTON_DAISY_BOARD.value
@@ -145,7 +148,8 @@ class EEG:
 
         elif self.device_name == 'cyton_daisy_wifi':
             self.brainflow_id = BoardIds.CYTON_DAISY_WIFI_BOARD.value
-            self.brainflow_params.ip_address, self.brainflow_params.ip_port = get_openbci_ip()
+            if self.ip_addr is not None:
+                self.brainflow_params.ip_address = self.ip_addr
 
         elif self.device_name == 'brainbit':
             self.brainflow_id = BoardIds.BRAINBIT_BOARD.value
