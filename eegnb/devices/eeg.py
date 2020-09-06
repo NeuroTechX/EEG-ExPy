@@ -73,7 +73,7 @@ class EEG:
 
         if sys.platform in ["linux", "linux2", "darwin"]:
             # Look for muses
-            muses = list_muses()
+            self.muses = list_muses()
             # self.muse = muses[0]
 
             # Start streaming process
