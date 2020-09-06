@@ -4,53 +4,47 @@ import platform
 
 from brainflow import BoardShim, BoardIds
 
+
 # Default channel names for the various brainflow devices.
 EEG_CHANNELS = {
-    'cyton' : [
-        'Fp1', 'Fp2', 'C3', 'C4', 'P7', 'P8', 'O1', 'O2',
-    ],
-    'cyton_daisy' : [
-        'Fp1', 'Fp2', 'C3', 'C4', 'P7', 'P8', 'O1', 'O2',
-        'F7' , 'F8' , 'F3', 'F4', 'T7', 'T8', 'P3', 'P4',
-    ],
-    'brainbit' : [
-        'T3', 'T4', 'O1', 'O2'
-    ],
-    'unicorn' : [
-        'Fz', 'C3', 'Cz', 'C4', 'Pz', 'PO7', 'Oz', 'PO8'
-    ],
-    'synthetic':[
-        'T7', 'CP5', 'FC5', 'C3', 'C4', 'FC6', 'CP6', 'T8'
-    ]
+    'ganglion': ['fp1', 'fp2', 'tp7', 'tp8'],
+    'cyton': BoardShim.get_eeg_names(BoardIds.CYTON_BOARD.value),
+    'cyton_daisy': BoardShim.get_eeg_names(BoardIds.CYTON_DAISY_BOARD.value),
+    'brainbit': BoardShim.get_eeg_names(BoardIds.BRAINBIT_BOARD.value),
+    'unicorn': BoardShim.get_eeg_names(BoardIds.UNICORN_BOARD.value),
+    'synthetic': BoardShim.get_eeg_names(BoardIds.SYNTHETIC_BOARD.value),
+    'notion': BoardShim.get_eeg_names(BoardIds.NOTION_OSC_BOARD.value),
 }
 
 BRAINFLOW_CHANNELS = {
+    'ganglion': [],
     'cyton': EEG_CHANNELS['cyton'] + ['accel_0', 'accel_1', 'accel_2'],
     'cyton_daisy': EEG_CHANNELS['cyton_daisy'] + ['accel_0', 'accel_1', 'accel_2'],
     'synthetic': EEG_CHANNELS['synthetic'],
 }
 
-CHANNEL_INDICES = {
-    'muse2016': [0, 1, 2, 3],
-    'muse': [0, 1, 2, 3],
-    'cyton': [0, 1, 2, 3, 4, 5, 6, 7],
-    'cyton_daisy': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'brainbit': [],
-
-}
-
-STIM_INDICES = {
-    'muse2016': 5,
-    'muse2': 4,
-    'cyton': 11,
-    'cyton_daisy': 19,
+EEG_INDICES = {
+    'muse2016': [1, 2, 3, 4],
+    'muse2': [1, 2, 3, 4],
+    'ganglion': BoardShim.get_eeg_channels(BoardIds.GANGLION_BOARD.value),
+    'cyton': BoardShim.get_eeg_channels(BoardIds.CYTON_BOARD.value),
+    'cyton_daisy': BoardShim.get_eeg_channels(BoardIds.CYTON_DAISY_BOARD.value),
+    'brainbit': BoardShim.get_eeg_channels(BoardIds.BRAINBIT_BOARD.value),
+    'unicorn': BoardShim.get_eeg_channels(BoardIds.UNICORN_BOARD.value),
+    'synthetic': BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value),
+    'notion': BoardShim.get_eeg_channels(BoardIds.NOTION_OSC_BOARD.value),
 }
 
 SAMPLE_FREQS = {
     'muse2016': 256,
     'muse2': 256,
+    'ganglion': BoardShim.get_sampling_rate(BoardIds.GANGLION_BOARD.value),
     'cyton': BoardShim.get_sampling_rate(BoardIds.CYTON_BOARD.value),
     'cyton_daisy': BoardShim.get_sampling_rate(BoardIds.CYTON_DAISY_BOARD.value),
+    'brainbit': BoardShim.get_sampling_rate(BoardIds.BRAINBIT_BOARD.value),
+    'unicorn': BoardShim.get_sampling_rate(BoardIds.UNICORN_BOARD.value),
+    'synthetic': BoardShim.get_sampling_rate(BoardIds.SYNTHETIC_BOARD.value),
+    'notion': BoardShim.get_sampling_rate(BoardIds.NOTION_OSC_BOARD.value),
 }
 
 def get_openbci_ip(address, port):
@@ -75,9 +69,9 @@ def get_openbci_usb():
     if platform.system() == 'Linux':
         return '/dev/ttyUSB0'
     elif platform.system() == 'Windows':
-        return 'COM3'
+        return input('Please enter USB port for Windows')
     elif platform.system() == 'Darwin':
-        return input("Please enter USb port for Mac OS")
+        return input("Please enter USB port for Mac OS")
 
 def create_stim_array(timestamps, markers):
     """ Creates a stim array which is the lenmgth of the EEG data where the stimuli are lined up

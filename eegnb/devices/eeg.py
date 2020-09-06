@@ -14,24 +14,25 @@ from multiprocessing import Process
 import numpy as np
 import pandas as pd
 
-from brainflow import DataFilter, BoardShim, BoardIds, BrainFlowInputParams
-from muselsl import stream, list_muses, view, record
+from brainflow import BoardShim, BoardIds, BrainFlowInputParams
+from muselsl import stream, list_muses, record
 from pylsl import StreamInfo, StreamOutlet
 
-from eegnb.devices.utils import get_openbci_usb, get_openbci_ip, BRAINFLOW_CHANNELS, create_stim_array
+from eegnb.devices.utils import get_openbci_usb, get_openbci_ip, create_stim_array
 
 # list of brainflow devices
 brainflow_devices = [
     'ganglion', 'ganglion_wifi',
     'cyton', 'cyton_wifi',
     'cyton_daisy', 'cyton_daisy_wifi',
-    'brainbit', 'unicorn', 'synthetic'
+    'brainbit', 'unicorn', 'synthetic',
+    'brainbit', 'notion'
 ]
 
 
 class EEG:
 
-    def __init__(self, device=None, serial_port=None, serial_num=None, mac_addr=None):
+    def __init__(self, device=None, serial_port=None, serial_num=None, mac_addr=None, other=None):
         """ The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
@@ -43,6 +44,7 @@ class EEG:
         self.serial_num = serial_num
         self.serial_port = serial_port
         self.mac_address = mac_addr
+        self.other = other
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
 
@@ -110,22 +112,21 @@ class EEG:
         Parameters:
              serial_num (str or int): serial number for either the BrainBit or Unicorn devices.
         """
-
         # Initialize brainflow parameters
         self.brainflow_params = BrainFlowInputParams()
 
         if self.device_name == 'ganglion':
             self.brainflow_id = BoardIds.GANGLION_BOARD.value
-            if self.serial_port is None:
+            if self.serial_port == None:
                 self.brainflow_params.serial_port = get_openbci_usb()
             # set mac address parameter in case
-            if self.mac_address is not None:
-                self.brainflow_params.mac_address = self.mac_address
-            else:
+            if self.mac_address is None:
                 print("No MAC address provided, attempting to connect without one")
+            else:
+                self.brainflow_params.mac_address = self.mac_address
 
         elif self.device_name == 'ganglion_wifi':
-            brainflow_id = BoardIds.GANGLION_WIFI_BOARD.value
+            self.brainflow_id = BoardIds.GANGLION_WIFI_BOARD.value
             self.brainflow_params.ip_address, self.brainflow_params.ip_port = get_openbci_ip()
 
         elif self.device_name == 'cyton':
@@ -152,12 +153,21 @@ class EEG:
         elif self.device_name == 'unicorn':
             self.brainflow_id = BoardIds.UNICORN_BOARD.value
 
+        elif self.device_name == 'callibri_eeg':
+            self.brainflow_id = BoardIds.CALLIBRI_EEG_BOARD.value
+            if self.other:
+                self.brainflow_params.other_info = str(self.other)
+
+        elif self.device_name == 'notion':
+            self.brainflow_id = BoardIds.NOTION_OSC_BOARD.value
+
         elif self.device_name == 'synthetic':
             self.brainflow_id = BoardIds.SYNTHETIC_BOARD.value
 
+        # some devices allow for an optional serial number parameter for better connection
         if self.serial_num:
             serial_num = str(self.serial_num)
-            self.brainflow_params.other_info = serial_num
+            self.brainflow_params.serial_number = serial_num
 
         if self.serial_port:
             serial_port = str(self.serial_port)
@@ -183,10 +193,18 @@ class EEG:
 
         # transform data for saving
         data = data.T  # transpose data
-        ch_names = BRAINFLOW_CHANNELS[self.device_name]
-        num_channels = len(ch_names)
-        eeg_data = data[:, 1:num_channels + 1]
-        timestamps = data[:, -1]
+
+        # get the channel names for EEG data
+        if self.brainflow_id == BoardIds.GANGLION_BOARD.value:
+            # if a ganglion is used, use recommended default EEG channel names
+            ch_names = ['fp1', 'fp2', 'tp7', 'tp8']
+        else:
+            # otherwise select eeg channel names via brainflow API
+            ch_names = BoardShim.get_eeg_names(self.brainflow_id)
+
+        # pull EEG channel data via brainflow API
+        eeg_data = data[:, BoardShim.get_eeg_channels(self.brainflow_id)]
+        timestamps = data[:, BoardShim.get_timestamp_channel(self.brainflow_id)]
 
         # Create a column for the stimuli to append to the EEG data
         stim_array = create_stim_array(timestamps, self.markers)
@@ -235,3 +253,4 @@ class EEG:
             self._stop_brainflow()
         elif self.backend == 'muselsl':
             pass
+

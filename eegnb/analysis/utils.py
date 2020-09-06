@@ -12,33 +12,30 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 
 from eegnb import DATA_DIR
-from eegnb.devices.utils import CHANNEL_INDICES, STIM_INDICES, SAMPLE_FREQS
+from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 
 sns.set_context('talk')
 sns.set_style('white')
 
 
-def load_csv_as_raw(filename, sfreq, ch_ind, stim_ind, aux_ind=None,
-                              replace_ch_names=None, verbose=1):
+def load_csv_as_raw(filename, sfreq, ch_ind, aux_ind=None, replace_ch_names=None, verbose=1):
     """"""
     ch_ind = copy.deepcopy(ch_ind)
     n_eeg = len(ch_ind)
     if aux_ind is not None:
         n_aux = len(aux_ind)
-        n_channel = n_eeg + n_aux
         ch_ind += aux_ind
     else:
-        n_channel = n_eeg
         n_aux = 0
 
     raw = []
     for fn in filename:
         # Read the file
-        data = pd.read_csv(fn, index_col=0)
+        data = pd.read_csv(fn)
 
         # Channel names and types
-        ch_names = list(data.columns)[0:n_channel] + ['stim']
+        ch_names = [list(data.columns)[i] for i in ch_ind] + ['stim']
         print(ch_names)
         ch_types = ['eeg'] * n_eeg + ['misc'] * n_aux + ['stim']
 
@@ -47,12 +44,12 @@ def load_csv_as_raw(filename, sfreq, ch_ind, stim_ind, aux_ind=None,
                         else replace_ch_names[c] for c in ch_names]
 
         # Transpose EEG data and convert from uV to Volts
-        data = data.values[:, ch_ind + [stim_ind]].T
+        data = data.values[:, ch_ind + [-1]].T
         data[:-1] *= 1e-6
 
         # create MNE object
         info = create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq,verbose=1)
-        raw.append(RawArray(data=data, info=info, verbose=1))
+        raw.append(RawArray(data=data, info=info, verbose=verbose))
 
     raws = concatenate_raws(raw, verbose=verbose)
     montage = make_standard_montage('standard_1005')
@@ -61,7 +58,7 @@ def load_csv_as_raw(filename, sfreq, ch_ind, stim_ind, aux_ind=None,
     return raws
 
 
-def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=None, verbose=1, site='local',data_dir=None):
+def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=None, verbose=1, site='local', data_dir=None):
     """Load CSV files from the /data directory into a Raw object.
     Args:
         data_dir (str): directory inside /data that contains the
@@ -95,18 +92,15 @@ def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=
 
     data_path = os.path.join(data_dir, experiment, site, device_name, subject_str, session_str, '*.csv')
     fnames = glob(data_path)
-    print(data_path)
 
     sfreq = SAMPLE_FREQS[device_name]
-    ch_ind = CHANNEL_INDICES[device_name]
-    stim_ind = STIM_INDICES[device_name]
+    ch_ind = EEG_INDICES[device_name]
     if device_name == 'muse2016':
         return load_csv_as_raw(
             filename=fnames,
             sfreq=sfreq,
             ch_ind=ch_ind,
-            stim_ind=stim_ind,
-            aux_ind = [4],
+            aux_ind = [5],
             replace_ch_names=replace_ch_names,
             verbose=verbose
         )
@@ -115,7 +109,6 @@ def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=
             filename=fnames,
             sfreq=sfreq,
             ch_ind=ch_ind,
-            stim_ind=stim_ind,
             replace_ch_names=replace_ch_names,
             verbose=verbose
         )
