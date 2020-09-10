@@ -51,9 +51,9 @@ def get_openbci_usb():
     if platform.system() == 'Linux':
         return '/dev/ttyUSB0'
     elif platform.system() == 'Windows':
-        return input('Please enter USB port for Windows')
+        return input('Please enter USB port for Windows: ')
     elif platform.system() == 'Darwin':
-        return input("Please enter USB port for Mac OS")
+        return input("Please enter USB port for Mac OS: ")
 
 def create_stim_array(timestamps, markers):
     """ Creates a stim array which is the lenmgth of the EEG data where the stimuli are lined up
