@@ -491,6 +491,8 @@ conda activate <span class="s2">&quot;eeg-notebooks&quot;</span>
 
 conda install git
 
+conda install pip
+
 git clone https://github.com/NeuroTechX/eeg-notebooks
 
 <span class="nb">cd</span> eeg-notebooks
@@ -564,6 +566,7 @@ pip install -r requirements.txt
  <span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;muse&#39;</span>
  <span class="c1"># board_name = &#39;cyton&#39;</span>
  <span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_n170&#39;</span>
+ <span class="n">session</span> <span class="o">=</span> <span class="mi">999</span>
  <span class="n">subject</span> <span class="o">=</span> <span class="mi">999</span> <span class="c1"># a &#39;very British number&#39;</span>
  <span class="n">record_duration</span><span class="o">=</span><span class="mi">120</span>
 
@@ -577,7 +580,7 @@ pip install -r requirements.txt
  <span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
 
  <span class="c1"># Load recorded data</span>
- <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">save_fn</span><span class="p">)</span>
+ <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">board_names</span><span class="p">,</span> <span class="n">experiment</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
