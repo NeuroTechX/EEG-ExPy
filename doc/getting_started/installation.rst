@@ -122,6 +122,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
     board_name = 'muse'
     # board_name = 'cyton'
     experiment = 'visual_n170'
+    session = 999
     subject = 999 # a 'very British number'
     record_duration=120
 
@@ -135,7 +136,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
     n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
 
     # Load recorded data
-    raw = load_data(save_fn)
+    raw = load_data(subject, session, board_names, experiment)
 
 
 MUSE Requirements
