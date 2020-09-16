@@ -23,7 +23,7 @@ def intro_prompt():
 
     # have the user input which device they intend to record with
     print("Welcome to NeurotechX EEG Notebooks. \n"
-          "Please select enter the integer value corresponding to your EEG device: \n"
+          "Please enter the integer value corresponding to your EEG device: \n"
           f"[0] {boards[0]} \n"
           f"[1] {boards[1]} \n"
           f"[2] {boards[2]} \n"
@@ -77,17 +77,17 @@ def intro_prompt():
     print("Next, enter the session number you are recording for. \n")
     session_nb = int(input("Enter session #:"))
 
-    # ask if they are ready to begin
-    input("Press [ENTER] when ready to begin...")
-
-    # generate the save file name
-    save_fn = generate_save_fn(board_selection, exp_selection, subj_id, session_nb)
-
     # start the EEG device
     if board_selection == 'ganglion':
         eeg_device = EEG(device=board_selection, mac_addr=mac_address)
     else:
         eeg_device = EEG(device=board_selection)
+
+    # ask if they are ready to begin
+    input("Press [ENTER] when ready to begin...")
+
+    # generate the save file name
+    save_fn = generate_save_fn(board_selection, exp_selection, subj_id, session_nb)
 
     return eeg_device, exp_selection, duration, save_fn
 
