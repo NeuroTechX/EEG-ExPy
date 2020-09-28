@@ -13,7 +13,8 @@ EEG_CHANNELS = {
     'brainbit': BoardShim.get_eeg_names(BoardIds.BRAINBIT_BOARD.value),
     'unicorn': BoardShim.get_eeg_names(BoardIds.UNICORN_BOARD.value),
     'synthetic': BoardShim.get_eeg_names(BoardIds.SYNTHETIC_BOARD.value),
-    'notion': BoardShim.get_eeg_names(BoardIds.NOTION_OSC_BOARD.value),
+    'notion1': BoardShim.get_eeg_names(BoardIds.NOTION_1_BOARD.value),
+    'notion2': BoardShim.get_eeg_names(BoardIds.NOTION_2_BOARD.value),
 }
 
 BRAINFLOW_CHANNELS = {
@@ -32,7 +33,8 @@ EEG_INDICES = {
     'brainbit': BoardShim.get_eeg_channels(BoardIds.BRAINBIT_BOARD.value),
     'unicorn': BoardShim.get_eeg_channels(BoardIds.UNICORN_BOARD.value),
     'synthetic': BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value),
-    'notion': BoardShim.get_eeg_channels(BoardIds.NOTION_OSC_BOARD.value),
+    'notion1': BoardShim.get_eeg_channels(BoardIds.NOTION_1_BOARD.value),
+    'notion2': BoardShim.get_eeg_channels(BoardIds.NOTION_2_BOARD.value),
 }
 
 SAMPLE_FREQS = {
@@ -44,7 +46,8 @@ SAMPLE_FREQS = {
     'brainbit': BoardShim.get_sampling_rate(BoardIds.BRAINBIT_BOARD.value),
     'unicorn': BoardShim.get_sampling_rate(BoardIds.UNICORN_BOARD.value),
     'synthetic': BoardShim.get_sampling_rate(BoardIds.SYNTHETIC_BOARD.value),
-    'notion': BoardShim.get_sampling_rate(BoardIds.NOTION_OSC_BOARD.value),
+    'notion1': BoardShim.get_sampling_rate(BoardIds.NOTION_1_BOARD.value),
+    'notion2': BoardShim.get_sampling_rate(BoardIds.NOTION_2_BOARD.value),
 }
 
 def get_openbci_usb():

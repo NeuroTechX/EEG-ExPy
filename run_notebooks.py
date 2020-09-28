@@ -8,15 +8,20 @@ from eegnb.experiments.visual_ssvep import ssvep
 
 
 def intro_prompt():
+    """ This function handles the user prompts for inputting information about the session they wish to record.
+
+    """
     # define the names of the available boards
     boards = [
         'None', 'Muse2016', 'Muse2', 'OpenBCI Ganglion', 'OpenBCI Cyton',
-        'OpenBCI Cyton + Daisy', 'G.Tec Unicorn', 'BrainBit', 'Synthetic'
+        'OpenBCI Cyton + Daisy', 'G.Tec Unicorn', 'BrainBit', 'Notion 1', 'Notion 2', 'Synthetic'
     ]
 
     # also define the board codes for passing to functions
     board_codes = [
-        'none', 'muse2016', 'muse2', 'ganglion', 'cyton', 'cyton_daisy', 'unicorn', 'brainbit', 'synthetic'
+        'none', 'muse2016', 'muse2',
+        'ganglion', 'cyton', 'cyton_daisy',
+        'unicorn', 'brainbit', 'notion1', 'notion2', 'synthetic'
     ]
 
     experiments = ['visual-N170', 'visual-P300', 'visual-SSVEP']
@@ -32,10 +37,12 @@ def intro_prompt():
           f"[5] {boards[5]} \n"
           f"[6] {boards[6]} \n"
           f"[7] {boards[7]} \n"
-          f"[8] {boards[8]} \n")
+          f"[8] {boards[8]} \n"
+          f"[9] {boards[9]} \n"
+          f"[10] {boards[10]} \n")
 
     board_idx = int(input('Enter Board Selection:'))
-    board_selection = board_codes[board_idx]
+    board_selection = board_codes[board_idx]    # Board_codes are the actual names to be passed to the EEG class
     print(f"Selected board {boards[board_idx]} \n")
 
     # Handles wifi shield connectivity selection if an OpenBCI board is being used
@@ -79,6 +86,7 @@ def intro_prompt():
 
     # start the EEG device
     if board_selection == 'ganglion':
+        # if the ganglion is chosen a MAC address should also be proviced
         eeg_device = EEG(device=board_selection, mac_addr=mac_address)
     else:
         eeg_device = EEG(device=board_selection)
