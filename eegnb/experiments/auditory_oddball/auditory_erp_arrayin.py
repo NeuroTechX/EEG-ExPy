@@ -2,36 +2,30 @@
 """
 import time
 from optparse import OptionParser
+import os
+from glob import glob
+from random import choice
 
 import numpy as np
 from pandas import DataFrame
 from psychopy import visual, core, event, sound
-from pylsl import StreamInfo, StreamOutlet
+from eegnb import generate_save_fn
 
 
-def present(duration=120,stim_types=None,itis=None,additional_labels={},secs=0.07,volume=0.8):
-            
-    # additional_labels is dict with column names as keys and column vecs as values, 
-    # that will be added to the dataframe
-    
-    
-    #def present(duration=120, n_trials=10, iti=0.3, soa=0.2, jitter=0.2, 
-    #            secs=0.2, volume=0.8, random_state=None):
-    
-    
-    # Create markers stream outlet
-    #info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
-    #info = StreamInfo('Markers', 'Markers', 1 + len(additional_labels), 0, 'int32', 'myuidw43536')
-    info = StreamInfo('Markers', 'Markers', 1 + len(additional_labels), 0, 'float32', 'myuidw43536')
- 
-    outlet = StreamOutlet(info)    
+def present(record_duration=120,stim_types=None,itis=None,additional_labels={},secs=0.07,volume=0.8, eeg=None, save_fn=None):
 
-    #np.random.seed(random_state)
     markernames = [1, 2]
+    
     start = time.time()
     
     # Set up trial parameters
-    record_duration = np.float32(duration)
+    #record_duration = np.float32(duration)
+    
+    if eeg:
+        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
+            save_fn = generate_save_fn(eeg.device_name, 'auditory_erp_arrayin', 'unnamed')
+            print(f'No path for a save file was passed to the experiment. Saving data to {save_fn}')
+        eeg.start(save_fn, duration=record_duration)
 
     # Initialize stimuli
     #aud1 = sound.Sound('C', octave=5, sampleRate=44100, secs=secs)
@@ -44,11 +38,6 @@ def present(duration=120,stim_types=None,itis=None,additional_labels={},secs=0.0
     auds = [aud1, aud2]
     
     # Setup trial list
-    #sound_ind = np.random.binomial(1, 0.25, n_trials)
-    #itis = iti + np.random.rand(n_trials) * jitter
-    #trials = DataFrame(dict(sound_ind=sound_ind, iti=itis))
-    #trials['soa'] = soa
-    #trials['secs'] = secs
     trials = DataFrame(dict(sound_ind=stim_types,iti=itis))
     
     for col_name,col_vec in additional_labels.items():
@@ -61,9 +50,11 @@ def present(duration=120,stim_types=None,itis=None,additional_labels={},secs=0.0
                                   rgb=[1, 0, 0])
     fixation.setAutoDraw(True)
     mywin.flip()
+    iteratorthing = 0
     
     
     for ii, trial in trials.iterrows():
+        iteratorthing = iteratorthing + 1
         
         # Intertrial interval
         time.sleep(trial['iti'])
@@ -79,28 +70,37 @@ def present(duration=120,stim_types=None,itis=None,additional_labels={},secs=0.0
         
         # Send marker
         timestamp = time.time()
-        #outlet.push_sample([markernames[ind]], timestamp)
         
-               
-        outlet.push_sample(additional_stamps + [markernames[ind]], timestamp)
+        if eeg: 
+            if eeg.backend == 'muselsl':
+                #marker = [markernames[label]]
+                marker = list(map(int, additional_stamps)) 
+                #marker = [additional_stamps]
+                
+            else:
+                #marker = markernames[label]
+                marker = additional_stamps
+            eeg.push_sample(marker=marker, timestamp=timestamp)   
+            
         
-        # Offset
-        #time.sleep(soa)
-        #if (time.time() - start) > record_duration:
-        #    break
-
-        # offset
-        #core.wait(soa)
-        
-        if len(event.getKeys()) > 0 or (time.time() - start) > record_duration:
+        if len(event.getKeys()) > 0 or time.time() - start > record_duration:
+            print("breaking")
+            print("time.time() - start/duration:")
+            print(time.time() - start)
+            print(iteratorthing)
             break
         event.clearEvents()
         
-        #if len(event.getKeys()) > 0 or (time() - start) > record_duration:
-        #    break
-        #event.clearEvents()
+
+    if(time.time() - start < record_duration and iteratorthing == len(stim_types)):
+        print("ran out of sounds to play!, time to stall")
         
-    # Cleanup
+    while(time.time() - start < record_duration):
+        time.sleep(25)
+        ind = 1
+        auds[ind].stop()        
+        auds[ind].play()
+    print("done")    
     mywin.close()
         
         
