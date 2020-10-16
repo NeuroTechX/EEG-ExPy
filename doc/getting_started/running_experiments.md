@@ -1,21 +1,123 @@
+# Running Experiments
+After you have installed the library there are two methods for collecting data. The first is using the `run_notebooks.py` script. This is the easiest and recommended for users without much programming experience. The other method involves calling the experiment presentations from within a jupyter notebook (or custom python script).
 
-## Running Experiments
+## Using run_notebooks.py
+With your environment activated and your device connected, you can run the command `python run_notebooks.py` which will walk you through prompts to set up the session. The prompts are outlined below.
 
-Open the experiment you are interested in running in notebooks folder. Notebooks can be opened either with the Jupyter Notebook browser environment (run `jupyter notebook`) or in the [nteract](https://nteract.io/desktop) desktop application.
+#### Board Selection
+```
+Welcome to NeurotechX EEG Notebooks. 
+Please enter the integer value corresponding to your EEG device: 
+[0] None 
+[1] Muse2016 
+[2] Muse2 
+[3] OpenBCI Ganglion 
+[4] OpenBCI Cyton 
+[5] OpenBCI Cyton + Daisy 
+[6] G.Tec Unicorn 
+[7] BrainBit 
+[8] Notion 1 
+[9] Notion 2 
+[10] Synthetic 
 
-All experiments should be able to performed entirely within the notebook environment. On Windows 10, you will want to skip the bluetooth connection step and start an EEG data stream through the [BlueMuse](https://github.com/kowalej/BlueMuse) GUI.
+Enter Board Selection:
+```
+Here you specify which of the supported boards you are using to collect data. EEG Notebooks supports a number of different consumer boards with various backends. This step ensures that the proper backend and device parameters are used. **If you are using an OpenBCI board** there will be an additional prompt asking for the desired connection method. Right now it is recommended to use the USB dongle over the wifi shield.
 
-*Note: if errors are encountered during viewing of the eeg data, try starting the viewer directly from the command line (`muselsl view`). Version 2 of the viewer may work better on Windows computers (`muselsl view -v 2`)
+#### Experiment Selection
+```
+Please select which experiment you would like to run: 
+[0] visual n170 
+[1] visual p300 
+[2] ssvep 
 
-The basic steps of each experiment are as follows:
-1. Open an LSL stream of EEG data.
-2. Ensure that EEG signal quality is excellent and that there is very little noise. The standard deviation of the signal (displayed next to the raw traces) should ideally be below 10 for all channels of interest.
-3. Define subject and session ID, as well as trial duration. *Note: sessions are analyzed independently. Each session can contain multiple trials or 'run-throughs' of the experiments.*
-4. Simultaneously run stimulus presentation and recording processes to create a data file with both EEG and event marker data.
-5. Repeat step 4 to collect as many trials as needed (4-6 trials of two minutes each are recommended in order to see the clearest results)
-6. Load experimental data into an MNE Raw object.
-7. Apply a band-pass filter to remove noise
-8. Epoch the data, removing epochs where amplitude of the signal exceeded a given threshold (removes eye blinks)
-9. Generate averaged waveforms from all channels for each type of stimulus presented
+Enter Experiment Selection:
+```
+This section allows you to select one of three experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.
 
-Notebooks in the `old_notebooks` folder only contain the data analysis steps (6-9). They can be used by using the `run_experiments.py` script (e.g `python run_eeg_experiment.py Auditory_P300 15 1`)
+
+#### Recording Duration
+```
+Now, enter the duration of the recording (in seconds). 
+
+Enter duration:
+```
+This is the duration of each recording. It is standard to use 120 second (2 minute) long recordings per recording, but some people might experience visual fatigue and difficulty not blinking for as long, so you are welcome to adjust length as needed.
+
+#### Subject ID
+```
+Next, enter the ID# of the subject you are recording data from. 
+
+Enter subject ID#:
+```
+
+#### Session Number
+```
+Next, enter the session number you are recording for. 
+
+Enter session #:
+```
+The session number corresponds to each time you sit down to take multiple recordings. If you put your device on and run this script 5 consecutive times you would use the same session number every time. However, if you were to take a break then return for an additional 3 recordings, the last 3 would have a new session number. For more information about how this corresponds to saving data please see the documentation page on loading and saving data. 
+
+If you are using **OpenBCI on Windows/MacOS** you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see [Initiating an EEG Stream](https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html).
+
+
+#### Confirmation
+
+## Using Jupyter Notebooks or a custom script
+The first step is to import all of the necessary library dependencies. These are necessary for generating a save file name which conforms to the default folder structure, streaming and recording EEG data, and running the stimulus presentation.
+
+```python
+from eegnb import generate_save_fn
+from eegnb.devices.eeg import EEG
+from eegnb.experiments.visual_n170 import n170
+```
+
+Next we need to define session parameters which are otherwise handled via input prompts in the run `run_notebooks.py` script. After we define the session parameters we will pass them to the file name generator.
+
+```python
+board_name = 'cyton'
+experiment = 'visual_n170'
+session = 1
+subject = 1
+record_duration = 120
+
+# Create output filename
+save_fn = generate_save_fn(board_name, experiment, subject, session)
+```
+
+Next it is necessary to call the `eegnb.devices.eeg.EEG` class which handles all of the backend processes related to each device.
+
+```python
+eeg_device = EEG(device=board_name)
+```
+
+Finally, we call the `present` method of the class corresponding to our desired experiment, in this case the visual N170. We pass both the EEG device and generated save file name in order to collect and save data. The presentation can also be run without an EEG device/save file for testing and debugging.
+
+```python
+n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+```
+
+All together the example script looks like
+```python
+# Imports
+from eegnb import generate_save_fn
+from eegnb.devices.eeg import EEG
+from eegnb.experiments.visual_n170 import n170
+
+# Define some variables
+board_name = 'cyton'
+experiment = 'visual_n170'
+session = 1
+subject = 1
+record_duration = 120
+
+# Create output filename
+save_fn = generate_save_fn(board_name, experiment, subject, session)
+
+# Setup EEG device
+eeg_device = EEG(device=board_name)
+
+# Run stimulus presentation
+n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+```

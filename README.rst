@@ -12,6 +12,12 @@ EEG-Notebooks - Democratizing the cognitive neuroscience experiment
 
 EEG-Notebooks is a collection of classic EEG experiments, implemented in Python 3 and Jupyter notebooks. The experimental protocols and analyses are quite generic, but are primarily taylored for low-budget / consumer EEG hardware such as the InteraXon MUSE and OpenBCI Cyton. The goal is to make cognitive neuroscience and neurotechnology more accessible, affordable, and scalable. 
 
+
+- **For documentation See:** `documentation site <https://neurotechx.github.io/eeg-notebooks/index.html>`_.
+- **For instructions on running experiments see:** `running experiments <https://neurotechx.github.io/eeg-notebooks/getting_started/running_experiments.html>`_.
+- **For instructions on initiating an EEG stream see:** `initiating an EEG stream <https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html>`_.
+
+
 ----
 
 *( Note: eeg-notebooks is now at version 0.2, with some major changes to the API and code base. The version 0.1 code is still available if you need it, in* `this repo <https://github.com/neurotechx/eeg-notebooks_v0.1>`_ )
