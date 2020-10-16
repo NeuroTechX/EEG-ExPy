@@ -4,14 +4,37 @@ Here is a high-level overview of the installation and setup steps that will take
 
 ## 1. Install Miniconda & set up your virtual environment
 Miniconda makes it easy to manage multiple different Python installations on the same machine. While using miniconda environments is not required, we strongly recommend it. 
-Follow installation instructions [here](https://docs.conda.io/en/latest/miniconda.html)
+Follow installation instructions [here](https://docs.conda.io/en/latest/miniconda.html).
+
 
 ## 2. Clone EEG-Notebooks and install dependencies
-Follow the easy installation instructions found in the EEG-Notebooks documentation.
+To install eeg-notebooks and run the experiments you will need a terminal with Python access. The miniconda terminal instlled in Step 1 is ideal and preferable for this, although advanced users are welcome to use alternative options. The following is specific to miniconda:
 
-## 3. Setup your EEG device
 
-Instructions will vary depending on what device you are using. A list of supported devices, and instructions for each can be found here [DEVICES LINK].
+Open the terminal  
+`cd` to the directory you want to clone the eeg-notebooks code folder to  
+`conda create -n "eeg-notebooks" Python=3`     
+`conda activate eeg-notebooks`    
+`conda install git`  
+`git clone https://github.com/neurotechx/eeg-notebooks`    
+`cd eeg-notebooks`    
+`pip install -e .`    
+
+For further information on this, see the [installation instructions page](https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html#installing-the-python-library) in the eeg-notebooks documentation.
+
+
+## 3. Connect your EEG device
+
+Currently, eeg-notebooks can be used with the following EEG devices:
+
+- InteraXon Muse2016/Muse2/MuseS  
+- OpenBCI Ganglion/Cyton    
+- G.Tec Unicorn   
+- BrainBit    
+- Neurosity Notion1/Notion2  
+
+The connection process differs depending on both the device and operating system you are using. 
+
 
 ***3a. : OpenBCI ***
 
