@@ -13,28 +13,28 @@ To install eeg-notebooks and run the experiments you will need a terminal with P
 
 Open the terminal  
 `cd` to the directory you want to clone the eeg-notebooks code folder to  
+`conda create -n "eeg-notebooks" Python=3`     
+`conda activate eeg-notebooks`    
 `conda install git`  
 `git clone https://github.com/neurotechx/eeg-notebooks`    
-`conda create -n "eeg-notebooks" python=3`     
-`conda activate eeg-notebooks`    
 `cd eeg-notebooks`    
 `pip install -e .`    
 
+For further information on this, see the [installation instructions page](https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html#installing-the-python-library) in the eeg-notebooks documentation.
 
 
+## 3. Connect your EEG device
 
-Miniconda 
+Currently, eeg-notebooks can be used with the following EEG devices:
 
+- InteraXon Muse2016/Muse2/MuseS  
+- OpenBCI Ganglion/Cyton    
+- G.Tec Unicorn   
+- BrainBit    
+- Neurosity Notion1/Notion2  
 
-Follow the easy installation instructions found in the EEG-Notebooks documentation.
+The connection process differs depending on both the device and operating system you are using. 
 
-https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html#installing-the-python-library
-
-
-
-## 3. Setup your EEG device
-
-Instructions will vary depending on what device you are using. A list of supported devices, and instructions for each can be found here [DEVICES LINK].
 
 ***3a. : OpenBCI ***
 
