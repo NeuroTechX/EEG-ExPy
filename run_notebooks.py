@@ -124,7 +124,7 @@ def main():
             newAdditionalMarker = str(stim_types[i]) + str(highPE[i]) + str(lowPE[i])
             newAdditionalMarkers.append(newAdditionalMarker)
         additional_labels = {'labels' : newAdditionalMarkers}
-        auditory_erp_arrayin.present(record_duration=record_duration,stim_types=stim_types,itis=itis, additional_labels = {'labels' : newAdditionalMarkers}, eeg=eeg_device, save_fn=save_fn)
+        auditoryaMMN.present(record_duration=record_duration,stim_types=stim_types,itis=itis, additional_labels = {'labels' : newAdditionalMarkers}, eeg=eeg_device, save_fn=save_fn)
     
 
 if __name__=="__main__":
