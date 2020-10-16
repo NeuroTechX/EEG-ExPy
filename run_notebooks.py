@@ -6,6 +6,10 @@ from eegnb.experiments.visual_n170 import n170
 from eegnb.experiments.visual_p300 import p300
 from eegnb.experiments.visual_ssvep import ssvep
 from eegnb.experiments.auditory_oddball import auditory_erp_arrayin
+from eegnb.experiments.auditory_oddball import auditoryaMMN
+
+import h5py
+import numpy as np, pandas as pd
 
 
 def intro_prompt():
@@ -20,7 +24,7 @@ def intro_prompt():
         'none', 'muse2016', 'muse2', 'ganglion', 'cyton', 'cyton_daisy', 'unicorn', 'brainbit', 'synthetic'
     ]
 
-    experiments = ['visual-N170', 'visual-P300', 'visual-SSVEP']
+    experiments = ['visual-N170', 'visual-P300', 'visual-SSVEP', 'auditory_oddball']
 
     # have the user input which device they intend to record with
     print("Welcome to NeurotechX EEG Notebooks. \n"
@@ -60,7 +64,8 @@ def intro_prompt():
     print("Please select which experiment you would like to run: \n"
           "[0] visual n170 \n"
           "[1] visual p300 \n"
-          "[2] ssvep \n")
+          "[2] ssvep \n"
+          "[3] auditory_oddball \n")
 
     exp_idx = int(input('Enter Experiment Selection:'))
     exp_selection = experiments[exp_idx]
@@ -89,6 +94,7 @@ def intro_prompt():
 
     # generate the save file name
     save_fn = generate_save_fn(board_selection, exp_selection, subj_id, session_nb)
+    print(save_fn)
 
     return eeg_device, exp_selection, duration, save_fn
 
@@ -103,7 +109,7 @@ def main():
         p300.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
     elif experiment == 'visual-SSVEP':
         ssvep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
-    elif experiment == 'auditory-MMN':
+    elif experiment == 'auditory_oddball':
         conditions_file = 'MUSE_conditions.mat'
         F = h5py.File(conditions_file, 'r')#['museEEG']
         highPE = np.squeeze(F['museEEG']['design']['highPE'][:]).astype(int)
@@ -118,10 +124,8 @@ def main():
             newAdditionalMarker = str(stim_types[i]) + str(highPE[i]) + str(lowPE[i])
             newAdditionalMarkers.append(newAdditionalMarker)
         additional_labels = {'labels' : newAdditionalMarkers}
-
-        auditory_erp_arrayin.present(record_duration=record_duration,stim_types=stim_types,itis=itis,
-                                        additional_labels = {'labels' : newAdditionalMarkers}, eeg=eeg_device, save_fn=save_fn)
-
+        auditory_erp_arrayin.present(record_duration=record_duration,stim_types=stim_types,itis=itis, additional_labels = {'labels' : newAdditionalMarkers}, eeg=eeg_device, save_fn=save_fn)
+    
 
 if __name__=="__main__":
     main()
