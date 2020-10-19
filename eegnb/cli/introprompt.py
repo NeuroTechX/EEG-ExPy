@@ -2,7 +2,7 @@ import os
 
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from eegnb.experiments.utils import run_experiment
+from .utils import run_experiment
 
 
 def intro_prompt():

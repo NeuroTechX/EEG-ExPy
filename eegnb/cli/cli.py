@@ -2,9 +2,6 @@
 import sys
 import argparse
 
-from eegnb.experiments.utils import run_experiment
-
-
 class CLI:
     def __init__(self, command):
         # use dispatch pattern to invoke method with same name
@@ -36,7 +33,7 @@ class CLI:
             from .introprompt import main as run_introprompt
             run_introprompt()
         else:
-            from eegnb.experiments.utils import run_experiment
+            from .utils import run_experiment
             run_experiment(args.experiment, args.record_duration, 
                            args.eeg_device, args.save_fn)
 
