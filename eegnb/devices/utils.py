@@ -27,6 +27,7 @@ BRAINFLOW_CHANNELS = {
 EEG_INDICES = {
     'muse2016': [1, 2, 3, 4],
     'muse2': [1, 2, 3, 4],
+    'museS', [1,2,3,4],
     'ganglion': BoardShim.get_eeg_channels(BoardIds.GANGLION_BOARD.value),
     'cyton': BoardShim.get_eeg_channels(BoardIds.CYTON_BOARD.value),
     'cyton_daisy': BoardShim.get_eeg_channels(BoardIds.CYTON_DAISY_BOARD.value),
@@ -40,6 +41,7 @@ EEG_INDICES = {
 SAMPLE_FREQS = {
     'muse2016': 256,
     'muse2': 256,
+    'museS': 256,
     'ganglion': BoardShim.get_sampling_rate(BoardIds.GANGLION_BOARD.value),
     'cyton': BoardShim.get_sampling_rate(BoardIds.CYTON_BOARD.value),
     'cyton_daisy': BoardShim.get_sampling_rate(BoardIds.CYTON_DAISY_BOARD.value),

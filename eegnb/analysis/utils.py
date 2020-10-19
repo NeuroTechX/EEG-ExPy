@@ -95,7 +95,7 @@ def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=
 
     sfreq = SAMPLE_FREQS[device_name]
     ch_ind = EEG_INDICES[device_name]
-    if device_name == 'muse2016':
+    if device_name in ['muse2016', 'muse2', 'museS']:
         return load_csv_as_raw(
             filename=fnames,
             sfreq=sfreq,

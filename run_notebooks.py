@@ -13,13 +13,13 @@ def intro_prompt():
     """
     # define the names of the available boards
     boards = [
-        'None', 'Muse2016', 'Muse2', 'OpenBCI Ganglion', 'OpenBCI Cyton',
+        'None', 'Muse2016', 'Muse2', 'MuseS', 'OpenBCI Ganglion', 'OpenBCI Cyton',
         'OpenBCI Cyton + Daisy', 'G.Tec Unicorn', 'BrainBit', 'Notion 1', 'Notion 2', 'Synthetic'
     ]
 
     # also define the board codes for passing to functions
     board_codes = [
-        'none', 'muse2016', 'muse2',
+        'none', 'muse2016', 'muse2', 'museS',
         'ganglion', 'cyton', 'cyton_daisy',
         'unicorn', 'brainbit', 'notion1', 'notion2', 'synthetic'
     ]
@@ -39,7 +39,8 @@ def intro_prompt():
           f"[7] {boards[7]} \n"
           f"[8] {boards[8]} \n"
           f"[9] {boards[9]} \n"
-          f"[10] {boards[10]} \n")
+          f"[10] {boards[10]} \n",
+          f"[11] {boards[11]} \n")
 
     board_idx = int(input('Enter Board Selection:'))
     board_selection = board_codes[board_idx]    # Board_codes are the actual names to be passed to the EEG class
