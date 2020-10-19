@@ -30,8 +30,8 @@ def main():
                 This is the quickest way to run eeg-notebooks experiments, 
                 but requires knowledge of formatting for available options
 
-                $ eegnb runexp -ed blah -ex visual-N170 -rd 120 -of test.csv 
-                
+                $ eegnb runexp -ed museS -ex visual-N170 -rd 10 -of test.csv
+
 
                 Launch the interactive command line experiment setup+run tool
                 This takes you through every experiment parameter in order 

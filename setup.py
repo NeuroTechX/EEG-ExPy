@@ -20,7 +20,7 @@ setup(
     install_requires = install_requires,
     url='https://github.com/NeuroTechX/eeg-notebooks',
     license="BSD (3-clause",
-    entry_points={"console_scripts": ["eegnb=eegnb.__main__:main"]},
+    entry_points={"console_scripts": ["eegnb=eegnb.cli.__main__:main"]},
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
