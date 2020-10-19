@@ -10,3 +10,4 @@ muselsl==2.0.2
 brainflow==3.4.3
 gdown==3.12.2
 matplotlib==3.3.1
+pysocks==1.7.1
