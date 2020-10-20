@@ -1,0 +1,3 @@
+[console_scripts]
+eegnb = eegnb.cli.__main__:main
+

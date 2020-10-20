@@ -1,0 +1,17 @@
+README.rst
+setup.cfg
+setup.py
+eeg_notebooks.egg-info/PKG-INFO
+eeg_notebooks.egg-info/SOURCES.txt
+eeg_notebooks.egg-info/dependency_links.txt
+eeg_notebooks.egg-info/entry_points.txt
+eeg_notebooks.egg-info/requires.txt
+eeg_notebooks.egg-info/top_level.txt
+eegnb/__init__.py
+eegnb/analysis/__init__.py
+eegnb/analysis/utils.py
+eegnb/analysis/utils_old.py
+eegnb/datasets/__init__.py
+eegnb/datasets/datasets.py
+eegnb/stimuli/__init__.py
+eegnb/stimuli/utils.py
