@@ -59,3 +59,13 @@ class CLI:
         #from . import view
         #view(args.window, args.scale, args.refresh,
         #     args.figure, args.version, args.backend)
+
+
+
+
+    def sigvar(self):
+        print('add command line signal variance summary tool here to help monitor data quality')
+
+
+
+
