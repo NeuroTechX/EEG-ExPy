@@ -117,7 +117,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#finding-the-mac-address-of-the-ganglion">Finding the MAC address of the Ganglion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/running_experiments.html">Running Experiments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/running_experiments.html">Running Experiments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-run-notebooks-py">Using run_notebooks.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#session-number">Session Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#confirmation">Confirmation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/analysis.html">Analyzing data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/available_notebooks.html">Available Notebooks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/available_notebooks.html#visual-p300-with-oddball-paradigm">Visual P300 with Oddball paradigm</a></li>
@@ -1486,7 +1498,7 @@ Applying baseline correction (mode: mean)
 </div>
 <img alt="04r  cueing group analysis winter2019" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fd37edeb130&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7f9fb2b166a0&gt;
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot Spectra Diff error bars</span>
@@ -1500,7 +1512,7 @@ Applying baseline correction (mode: mean)
 </div>
 <img alt="04r  cueing group analysis winter2019" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fd37f86b250&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7f9fb5b2d610&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi</p>
@@ -1546,7 +1558,7 @@ Applying baseline correction (mode: mean)
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fd384bc4850&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f9fb576ff70&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi-Contra Difference</p>
@@ -1568,7 +1580,7 @@ Applying baseline correction (mode: mean)
 </div>
 <img alt="Power Difference Ipsi-Contra" class="sphx-glr-single-img" src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fd381270760&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f9fb41bfb20&gt;
 </pre></div>
 </div>
 </div>
@@ -1586,7 +1598,7 @@ Applying baseline correction (mode: mean)
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 3.5735930197156955e-11
-Contra Mean: 2.642174567920717e-11
+Contra Mean: 2.6421745679207174e-11
 Mean Diff: 9.314184517949774e-12
 t(30) = 0.456
 p = 0.65
@@ -1605,7 +1617,7 @@ p = 0.65
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[nan, 1.7890047693695686e-11, 6.402571924638027e-11, 1.2016988558064495e-10, 1.6436811298970691e-10, 1.1465401250727439e-10, 8.107123680349011e-11, -3.1169419915325187e-11, 6.493727108357594e-11, 4.352931438541568e-11, 2.8760356184521995e-11, 3.7733503400444126e-11, 2.1131349959479543e-11, 1.5571207459949754e-10, -4.629115067550067e-10, -8.052232335321423e-11, -4.664422137282113e-11, nan, nan, -3.438951097875002e-11, 7.091042185483257e-11, 1.2983383558014905e-11, 1.3604198590381414e-10, -5.861633427481558e-11, -6.204912953285922e-11, 1.8344086913139887e-10, 2.3802425009682574e-11, -8.805033297719273e-11, -7.508128947253813e-11, 2.9079648598434925e-11, 2.9079648598434925e-11, -4.146716305783183e-11, -1.5307351374032843e-10, 2.3393198398386084e-11]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[nan, 1.7890047693695683e-11, 6.402571924638027e-11, 1.2016988558064495e-10, 1.6436811298970696e-10, 1.1465401250727439e-10, 8.107123680349011e-11, -3.116941991532519e-11, 6.493727108357594e-11, 4.352931438541567e-11, 2.8760356184521992e-11, 3.773350340044408e-11, 2.113134995947953e-11, 1.5571207459949754e-10, -4.629115067550067e-10, -8.052232335321421e-11, -4.6644221372821133e-11, nan, nan, -3.438951097875e-11, 7.091042185483258e-11, 1.298338355801491e-11, 1.3604198590381417e-10, -5.861633427481556e-11, -6.204912953285923e-11, 1.8344086913139893e-10, 2.380242500968257e-11, -8.805033297719272e-11, -7.50812894725381e-11, 2.9079648598434918e-11, 2.9079648598434918e-11, -4.146716305783184e-11, -1.530735137403284e-10, 2.339319839838609e-11]
       Ipsi Power  Contra Power
 0            NaN           NaN
 1  -3.901325e-11 -5.690330e-11
@@ -1657,47 +1669,47 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>       6.000000      6.242424      6.484848      6.727273      6.969697      7.212121   ...     28.787879     29.030303     29.272727     29.515152     29.757576     30.000000
-0            NaN           NaN           NaN           NaN           NaN           NaN  ...           NaN           NaN           NaN           NaN           NaN           NaN
-1   7.991890e-11  8.036284e-11  7.548816e-11  6.696746e-11  5.489871e-11  3.928643e-11  ... -2.172236e-11 -2.164310e-11 -2.148219e-11 -2.124607e-11 -2.094144e-11 -2.057510e-11
-2   8.482874e-11  8.635330e-11  9.420775e-11  1.024297e-10  1.064200e-10  1.039261e-10  ... -4.507663e-12 -4.340669e-12 -4.178092e-12 -4.020207e-12 -3.867214e-12 -3.719235e-12
-3   1.394826e-10  1.324403e-10  1.241198e-10  1.121430e-10  9.387917e-11  6.952496e-11  ...  9.518999e-13 -1.779517e-13 -1.287490e-12 -2.367939e-12 -3.411441e-12 -4.411093e-12
-4   1.355015e-10  1.519385e-10  1.523882e-10  1.378647e-10  1.137803e-10  8.885054e-11  ... -5.188059e-12 -5.250875e-12 -5.283165e-12 -5.288527e-12 -5.270396e-12 -5.232011e-12
-5   4.146935e-11  4.747567e-11  5.477697e-11  6.351733e-11  7.302017e-11  8.233485e-11  ... -8.648437e-12 -8.141057e-12 -7.656433e-12 -7.195249e-12 -6.757861e-12 -6.344323e-12
-6   1.591767e-10  1.802644e-10  1.960184e-10  2.090976e-10  2.218464e-10  2.360274e-10  ... -2.354097e-12 -2.564129e-12 -2.741481e-12 -2.889698e-12 -3.011956e-12 -3.111111e-12
-7   2.051924e-10  1.359738e-10  7.068325e-11  1.696284e-11 -2.275222e-11 -5.068669e-11  ...  1.338294e-11  1.245381e-11  1.155877e-11  1.069994e-11  9.878931e-12  9.096915e-12
-8  -2.289620e-11 -1.966269e-11 -1.143603e-11 -6.869489e-13  1.008869e-11  1.927783e-11  ... -6.642258e-12 -6.508836e-12 -6.351703e-12 -6.173232e-12 -5.976043e-12 -5.762940e-12
-9   2.639212e-10  2.390503e-10  2.144125e-10  1.905306e-10  1.680688e-10  1.476014e-10  ...  2.195466e-12  1.939016e-12  1.700131e-12  1.478547e-12  1.273891e-12  1.085691e-12
-10  1.734091e-10  1.751927e-10  1.753140e-10  1.718332e-10  1.640584e-10  1.528162e-10  ...  1.466625e-12  1.381976e-12  1.296983e-12  1.211934e-12  1.127110e-12  1.042786e-12
-11 -4.155194e-11  5.554974e-11  1.555793e-10  2.462566e-10  3.218309e-10  3.825605e-10  ...  3.832983e-11  3.679501e-11  3.525095e-11  3.370241e-11  3.215457e-11  3.061286e-11
-12  1.132429e-10  9.957683e-11  9.229583e-11  8.893916e-11  8.553388e-11  7.853530e-11  ... -1.392281e-12 -1.228462e-12 -1.073835e-12 -9.298909e-13 -7.976622e-13 -6.777715e-13
-13  1.521996e-10  2.196098e-10  2.624162e-10  2.803374e-10  2.764403e-10  2.553082e-10  ... -1.815816e-11 -1.724826e-11 -1.632433e-11 -1.539644e-11 -1.447362e-11 -1.356378e-11
-14 -1.992109e-12  8.659712e-12  1.729436e-11  2.559822e-11  2.899818e-11  2.030075e-11  ...  4.854071e-12  4.071474e-12  3.317770e-12  2.598338e-12  1.917412e-12  1.278172e-12
-15 -1.632265e-10 -1.465498e-10 -1.333522e-10 -1.212212e-10 -1.078400e-10 -9.194498e-11  ... -5.714203e-12 -5.478063e-12 -5.252720e-12 -5.038602e-12 -4.835722e-12 -4.643791e-12
-16  1.051757e-10  9.010762e-11  7.191888e-11  5.248310e-11  3.280272e-11  1.354064e-11  ...  7.234350e-12  6.839574e-12  6.449076e-12  6.064472e-12  5.687247e-12  5.318740e-12
-17           NaN           NaN           NaN           NaN           NaN           NaN  ...           NaN           NaN           NaN           NaN           NaN           NaN
-18           NaN           NaN           NaN           NaN           NaN           NaN  ...           NaN           NaN           NaN           NaN           NaN           NaN
-19 -3.037587e-11 -3.195487e-11 -3.150411e-11 -2.845690e-11 -2.399326e-11 -1.954894e-11  ...  3.486066e-13 -1.717036e-14 -3.510517e-13 -6.545685e-13 -9.292653e-13 -1.176655e-12
-20 -4.576869e-11 -7.575594e-11 -1.010965e-10 -1.151713e-10 -1.153312e-10 -1.030080e-10  ...  7.142027e-12  6.581573e-12  6.063012e-12  5.583290e-12  5.139473e-12  4.728775e-12
-21 -3.017372e-10 -2.806035e-10 -2.604053e-10 -2.436529e-10 -2.315371e-10 -2.245237e-10  ...  3.530098e-13  2.162732e-13  9.269572e-14 -1.815771e-14 -1.168381e-13 -2.039849e-13
-22  1.892637e-10  1.928711e-10  1.834239e-10  1.687836e-10  1.565444e-10  1.526209e-10  ... -1.117640e-12 -1.270824e-12 -1.391155e-12 -1.482759e-12 -1.549501e-12 -1.594952e-12
-23 -1.863042e-10 -1.441354e-10 -1.077887e-10 -7.797507e-11 -5.404857e-11 -3.448216e-11  ...  1.251317e-11  1.176147e-11  1.105966e-11  1.040361e-11  9.789338e-12  9.213076e-12
-24 -1.099290e-10 -1.131996e-10 -1.189890e-10 -1.243301e-10 -1.263736e-10 -1.233505e-10  ...  8.084637e-12  7.585968e-12  7.105497e-12  6.642819e-12  6.197682e-12  5.769963e-12
-25 -2.486010e-10 -1.910190e-10 -1.426405e-10 -9.719711e-11 -5.511673e-11 -2.055605e-11  ...  1.010643e-11  1.001537e-11  9.873057e-12  9.684958e-12  9.456576e-12  9.193358e-12
-26 -2.444701e-10 -2.199233e-10 -1.877827e-10 -1.515040e-10 -1.140170e-10 -7.777898e-11  ...  1.257263e-11  1.337196e-11  1.402313e-11  1.453720e-11  1.492537e-11  1.519870e-11
-27 -1.015551e-10 -9.978091e-11 -9.461620e-11 -8.792444e-11 -8.189433e-11 -7.836279e-11  ... -1.452529e-11 -1.377513e-11 -1.303605e-11 -1.231204e-11 -1.160645e-11 -1.092205e-11
-28 -1.236814e-10 -1.335374e-10 -1.266249e-10 -1.085890e-10 -8.551483e-11 -6.064853e-11  ...  3.575487e-12  3.190260e-12  2.853944e-12  2.558838e-12  2.298211e-12  2.066240e-12
-29 -1.196307e-10 -1.035983e-10 -8.547074e-11 -6.942479e-11 -5.634324e-11 -4.514284e-11  ...  7.722905e-12  6.416491e-12  5.248686e-12  4.210642e-12  3.293275e-12  2.487449e-12
-30 -1.196307e-10 -1.035983e-10 -8.547074e-11 -6.942479e-11 -5.634324e-11 -4.514284e-11  ...  7.722905e-12  6.416491e-12  5.248686e-12  4.210642e-12  3.293275e-12  2.487449e-12
-31  4.570382e-11  2.986854e-11  1.272615e-11 -3.008220e-12 -1.543231e-11 -2.381502e-11  ...  3.375482e-12  3.164543e-12  2.947320e-12  2.726895e-12  2.506011e-12  2.287051e-12
-32  6.194128e-10  6.055475e-10  5.266180e-10  4.074218e-10  2.767420e-10  1.565924e-10  ... -2.900319e-12 -2.522325e-12 -2.181518e-12 -1.874737e-12 -1.599190e-12 -1.352438e-12
-33 -1.126135e-10 -1.308744e-10 -1.333577e-10 -1.263601e-10 -1.162239e-10 -1.067093e-10  ... -3.589927e-11 -3.551351e-11 -3.500525e-11 -3.438482e-11 -3.366325e-11 -3.285204e-11
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>       6.000000      6.242424   ...     29.757576     30.000000
+0            NaN           NaN  ...           NaN           NaN
+1   7.991890e-11  8.036284e-11  ... -2.094144e-11 -2.057510e-11
+2   8.482874e-11  8.635330e-11  ... -3.867214e-12 -3.719235e-12
+3   1.394826e-10  1.324403e-10  ... -3.411441e-12 -4.411093e-12
+4   1.355015e-10  1.519385e-10  ... -5.270396e-12 -5.232011e-12
+5   4.146935e-11  4.747567e-11  ... -6.757861e-12 -6.344323e-12
+6   1.591767e-10  1.802644e-10  ... -3.011956e-12 -3.111111e-12
+7   2.051924e-10  1.359738e-10  ...  9.878931e-12  9.096915e-12
+8  -2.289620e-11 -1.966269e-11  ... -5.976043e-12 -5.762940e-12
+9   2.639212e-10  2.390503e-10  ...  1.273891e-12  1.085691e-12
+10  1.734091e-10  1.751927e-10  ...  1.127110e-12  1.042786e-12
+11 -4.155194e-11  5.554974e-11  ...  3.215457e-11  3.061286e-11
+12  1.132429e-10  9.957683e-11  ... -7.976622e-13 -6.777715e-13
+13  1.521996e-10  2.196098e-10  ... -1.447362e-11 -1.356378e-11
+14 -1.992109e-12  8.659712e-12  ...  1.917412e-12  1.278172e-12
+15 -1.632265e-10 -1.465498e-10  ... -4.835722e-12 -4.643791e-12
+16  1.051757e-10  9.010762e-11  ...  5.687247e-12  5.318740e-12
+17           NaN           NaN  ...           NaN           NaN
+18           NaN           NaN  ...           NaN           NaN
+19 -3.037587e-11 -3.195487e-11  ... -9.292653e-13 -1.176655e-12
+20 -4.576869e-11 -7.575594e-11  ...  5.139473e-12  4.728775e-12
+21 -3.017372e-10 -2.806035e-10  ... -1.168381e-13 -2.039849e-13
+22  1.892637e-10  1.928711e-10  ... -1.549501e-12 -1.594952e-12
+23 -1.863042e-10 -1.441354e-10  ...  9.789338e-12  9.213076e-12
+24 -1.099290e-10 -1.131996e-10  ...  6.197682e-12  5.769963e-12
+25 -2.486010e-10 -1.910190e-10  ...  9.456576e-12  9.193358e-12
+26 -2.444701e-10 -2.199233e-10  ...  1.492537e-11  1.519870e-11
+27 -1.015551e-10 -9.978091e-11  ... -1.160645e-11 -1.092205e-11
+28 -1.236814e-10 -1.335374e-10  ...  2.298211e-12  2.066240e-12
+29 -1.196307e-10 -1.035983e-10  ...  3.293275e-12  2.487449e-12
+30 -1.196307e-10 -1.035983e-10  ...  3.293275e-12  2.487449e-12
+31  4.570382e-11  2.986854e-11  ...  2.506011e-12  2.287051e-12
+32  6.194128e-10  6.055475e-10  ... -1.599190e-12 -1.352438e-12
+33 -1.126135e-10 -1.308744e-10  ... -3.366325e-11 -3.285204e-11
 
 [34 rows x 100 columns]
 Saved Spectra to 375CueingContraSpec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  43.895 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  25.040 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/18e4b69d6ddc9302425e645c1fec16c3/04r__cueing_group_analysis_winter2019.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04r__cueing_group_analysis_winter2019.py</span></code></a></p>

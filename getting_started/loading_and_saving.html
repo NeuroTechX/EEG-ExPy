@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running Experiments &mdash; EEG Notebooks 0.0.0 documentation</title>
+  <title>Loading and Saving Data &mdash; EEG Notebooks 0.0.0 documentation</title>
   
 
   
@@ -43,9 +43,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Analyzing data" href="analysis.html" />
-    <link rel="prev" title="Initiating an EEG Stream" href="streaming.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,7 +93,7 @@
             
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-library">Installing the Python library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#muse-requirements">MUSE Requirements</a><ul>
@@ -117,17 +115,17 @@
 <li class="toctree-l2"><a class="reference internal" href="streaming.html#finding-the-mac-address-of-the-ganglion">Finding the MAC address of the Ganglion</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Running Experiments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#using-run-notebooks-py">Using run_notebooks.py</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#board-selection">Board Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#experiment-selection">Experiment Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#recording-duration">Recording Duration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#subject-id">Subject ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#session-number">Session Number</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#confirmation">Confirmation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_experiments.html">Running Experiments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="running_experiments.html#using-run-notebooks-py">Using run_notebooks.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#session-number">Session Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#confirmation">Confirmation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analyzing data</a></li>
@@ -438,7 +436,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Running Experiments</li>
+      <li>Loading and Saving Data</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -455,125 +453,86 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="running-experiments">
-<h1>Running Experiments<a class="headerlink" href="#running-experiments" title="Permalink to this headline">¶</a></h1>
-<p>After you have installed the library there are two methods for collecting data. The first is using the <code class="docutils literal notranslate"><span class="pre">run_notebooks.py</span></code> script. This is the easiest and recommended for users without much programming experience. The other method involves calling the experiment presentations from within a jupyter notebook (or custom python script).</p>
-<div class="section" id="using-run-notebooks-py">
-<h2>Using run_notebooks.py<a class="headerlink" href="#using-run-notebooks-py" title="Permalink to this headline">¶</a></h2>
-<p>With your environment activated and your device connected, you can run the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_notebooks.py</span></code> which will walk you through prompts to set up the session. The prompts are outlined below.</p>
-<div class="section" id="board-selection">
-<h3>Board Selection<a class="headerlink" href="#board-selection" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Welcome</span> <span class="n">to</span> <span class="n">NeurotechX</span> <span class="n">EEG</span> <span class="n">Notebooks</span><span class="o">.</span> 
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">integer</span> <span class="n">value</span> <span class="n">corresponding</span> <span class="n">to</span> <span class="n">your</span> <span class="n">EEG</span> <span class="n">device</span><span class="p">:</span> 
-<span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="kc">None</span> 
-<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">Muse2016</span> 
-<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">Muse2</span> 
-<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">OpenBCI</span> <span class="n">Ganglion</span> 
-<span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">OpenBCI</span> <span class="n">Cyton</span> 
-<span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="n">OpenBCI</span> <span class="n">Cyton</span> <span class="o">+</span> <span class="n">Daisy</span> 
-<span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="n">G</span><span class="o">.</span><span class="n">Tec</span> <span class="n">Unicorn</span> 
-<span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="n">BrainBit</span> 
-<span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">Notion</span> <span class="mi">1</span> 
-<span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="n">Notion</span> <span class="mi">2</span> 
-<span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">Synthetic</span> 
-
-<span class="n">Enter</span> <span class="n">Board</span> <span class="n">Selection</span><span class="p">:</span>
-</pre></div>
+  <div class="section" id="loading-and-saving-data">
+<h1>Loading and Saving Data<a class="headerlink" href="#loading-and-saving-data" title="Permalink to this headline">¶</a></h1>
+<p>Knowing where the data is saved is integral to the functionality of EEG Notebooks. EEG Notebooks saves data to a default location in a hidden directory. From this directory, the individual files can be found based on a folder structure outlined below in the <strong>naming convention.</strong></p>
+<div class="section" id="locating-the-default-data-directory">
+<h2>Locating the Default Data Directory<a class="headerlink" href="#locating-the-default-data-directory" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="windows-10">
+<h3>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h3>
+<p>The default directory is found at the location <code class="docutils literal notranslate"><span class="pre">C:\Users\*USER_NAME*\.eegnb</span></code> an example of which is pictured below.
+<img alt="fig" src="../_images/windows_default_directory.PNG" /></p>
 </div>
-<p>Here you specify which of the supported boards you are using to collect data. EEG Notebooks supports a number of different consumer boards with various backends. This step ensures that the proper backend and device parameters are used. <strong>If you are using an OpenBCI board</strong> there will be an additional prompt asking for the desired connection method. Right now it is recommended to use the USB dongle over the wifi shield.</p>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="experiment-selection">
-<h3>Experiment Selection<a class="headerlink" href="#experiment-selection" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">select</span> <span class="n">which</span> <span class="n">experiment</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">run</span><span class="p">:</span> 
-<span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">visual</span> <span class="n">n170</span> 
-<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">visual</span> <span class="n">p300</span> 
-<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">ssvep</span> 
-
-<span class="n">Enter</span> <span class="n">Experiment</span> <span class="n">Selection</span><span class="p">:</span>
-</pre></div>
-</div>
-<p>This section allows you to select one of three experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.</p>
-</div>
-<div class="section" id="recording-duration">
-<h3>Recording Duration<a class="headerlink" href="#recording-duration" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Now</span><span class="p">,</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">duration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">recording</span> <span class="p">(</span><span class="ow">in</span> <span class="n">seconds</span><span class="p">)</span><span class="o">.</span> 
-
-<span class="n">Enter</span> <span class="n">duration</span><span class="p">:</span>
-</pre></div>
-</div>
-<p>This is the duration of each recording. It is standard to use 120 second (2 minute) long recordings per recording, but some people might experience visual fatigue and difficulty not blinking for as long, so you are welcome to adjust length as needed.</p>
-</div>
-<div class="section" id="subject-id">
-<h3>Subject ID<a class="headerlink" href="#subject-id" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Next</span><span class="p">,</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">ID</span><span class="c1"># of the subject you are recording data from. </span>
-
-<span class="n">Enter</span> <span class="n">subject</span> <span class="n">ID</span><span class="c1">#:</span>
-</pre></div>
+<div class="section" id="macos">
+<h3>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
-<div class="section" id="session-number">
-<h3>Session Number<a class="headerlink" href="#session-number" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Next</span><span class="p">,</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">session</span> <span class="n">number</span> <span class="n">you</span> <span class="n">are</span> <span class="n">recording</span> <span class="k">for</span><span class="o">.</span> 
-
-<span class="n">Enter</span> <span class="n">session</span> <span class="c1">#:</span>
-</pre></div>
-</div>
-<p>The session number corresponds to each time you sit down to take multiple recordings. If you put your device on and run this script 5 consecutive times you would use the same session number every time. However, if you were to take a break then return for an additional 3 recordings, the last 3 would have a new session number. For more information about how this corresponds to saving data please see the documentation page on loading and saving data.</p>
-<p>If you are using <strong>OpenBCI on Windows/MacOS</strong> you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see <a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html">Initiating an EEG Stream</a>.</p>
-</div>
-<div class="section" id="confirmation">
-<h3>Confirmation<a class="headerlink" href="#confirmation" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="using-jupyter-notebooks-or-a-custom-script">
-<h2>Using Jupyter Notebooks or a custom script<a class="headerlink" href="#using-jupyter-notebooks-or-a-custom-script" title="Permalink to this headline">¶</a></h2>
-<p>The first step is to import all of the necessary library dependencies. These are necessary for generating a save file name which conforms to the default folder structure, streaming and recording EEG data, and running the stimulus presentation.</p>
+<div class="section" id="changing-the-default-data-directory">
+<h2>Changing the Default Data Directory<a class="headerlink" href="#changing-the-default-data-directory" title="Permalink to this headline">¶</a></h2>
+<p>The default directory for saving data is automatically set within the library. If you want to save and analyze data to/from a new directory, it must be passed as a parameter to both the <code class="docutils literal notranslate"><span class="pre">eegnb.generate_save_fn()</span></code> and <code class="docutils literal notranslate"><span class="pre">eegnb.analysis.load_data()</span></code> functions.</p>
+<p><strong>Saving to new directory:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
-</pre></div>
-</div>
-<p>Next we need to define session parameters which are otherwise handled via input prompts in the run <code class="docutils literal notranslate"><span class="pre">run_notebooks.py</span></code> script. After we define the session parameters we will pass them to the file name generator.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_n170&#39;</span>
-<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span>
-
-<span class="c1"># Create output filename</span>
-<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Next it is necessary to call the <code class="docutils literal notranslate"><span class="pre">eegnb.devices.eeg.EEG</span></code> class which handles all of the backend processes related to each device.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Finally, we call the <code class="docutils literal notranslate"><span class="pre">present</span></code> method of the class corresponding to our desired experiment, in this case the visual N170. We pass both the EEG device and generated save file name in order to collect and save data. The presentation can also be run without an EEG device/save file for testing and debugging.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>All together the example script looks like</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
-<span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
 <span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
 
-<span class="c1"># Define some variables</span>
-<span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_n170&#39;</span>
-<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="c1"># Define session parameters</span>
+<span class="n">board</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>
+<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual-N170</span>
 <span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="c1"># Create output filename</span>
-<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
+<span class="c1"># Define new directory and generate save filename</span>
+<span class="n">new_dir</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/Jadin/Documents/EEG_Notebooks_Data&#39;</span>
+<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">new_dir</span><span class="p">)</span>
 
-<span class="c1"># Setup EEG device</span>
-<span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
-
-<span class="c1"># Run stimulus presentation</span>
-<span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
+<span class="c1"># Continue to run experiment as normal...</span>
 </pre></div>
+</div>
+<p><strong>Loading from new directory:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
+
+<span class="c1"># Define parameters for session you want to load</span>
+<span class="n">board</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>
+<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual-N170</span>
+<span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Define new directory</span>
+<span class="n">new_dir</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/Jadin/Documents/EEG_Notebooks_Data&#39;</span>
+
+<span class="c1"># Load data</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span>
+            <span class="n">subject_id</span> <span class="o">=</span> <span class="n">subject</span><span class="p">,</span>
+            <span class="n">session_nb</span> <span class="o">=</span> <span class="n">session</span><span class="p">,</span>
+            <span class="n">device_name</span> <span class="o">=</span> <span class="n">board</span><span class="p">,</span>
+            <span class="n">experiment</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">,</span>
+            <span class="n">data_dir</span> <span class="o">=</span> <span class="n">new_dir</span>
+        <span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="section" id="naming-convention">
+<h2>Naming Convention<a class="headerlink" href="#naming-convention" title="Permalink to this headline">¶</a></h2>
+<p>From the specified data directory, EEG notebooks then follows a specific set of naming conventions to define subdirectories and save the data. The full path ends up taking the form</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DATA_DIR</span>\<span class="n">experiment</span>\<span class="n">site</span>\<span class="n">device</span>\<span class="n">subject</span><span class="c1">#\session#\file_name.csv</span>
+</pre></div>
+</div>
+<p>Each field is explained below:</p>
+<p><strong>Experiment:</strong> This part is the name of the experiment being run. Example names of experiments as they appear in the example datasets are shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">visual</span><span class="o">-</span><span class="n">N170</span>
+<span class="n">visual</span><span class="o">-</span><span class="n">P300</span>
+<span class="n">visual</span><span class="o">-</span><span class="n">SSVEP</span>
+</pre></div>
+</div>
+<p><strong>Site:</strong> The site refers to the recording location, or generally the machine it was recorded to. If you are saving and analyzing only your own data on your local machine, you do not need to specify your site name as it will default to ‘local’. When loading example datasets however, it is necessary to specify from which site you would like to load data.</p>
+<p><strong>Device:</strong> The name of the device being recorded from.</p>
+<p><strong>Subject #:</strong> When entering subject ID as a parameter, you only need to specify the integer value. The integer will be formatted to <code class="docutils literal notranslate"><span class="pre">subjectXXXX</span></code> where “XXXX” is a four-digit representation of the integer ID#.</p>
+<p><strong>Session #:</strong> A session in this case would be the full period of time which you have the device on and are taking multiple recordings. For example: if you put the headset on and take five recordings, all five of these recording would belong to session number 1. Once you take a break from consecutive recordings, then this would constitute a new session. Just like the subject ID, this value is passed as an integer and gets converted to a read-able format.</p>
+<p><strong>File name:</strong> The file name is automatically generated in the format <code class="docutils literal notranslate"><span class="pre">recording_date_time.csv</span></code></p>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
@@ -583,15 +542,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="analysis.html" class="btn btn-neutral float-right" title="Analyzing data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="streaming.html" class="btn btn-neutral float-left" title="Initiating an EEG Stream" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

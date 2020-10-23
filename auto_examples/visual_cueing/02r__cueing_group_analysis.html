@@ -117,7 +117,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#finding-the-mac-address-of-the-ganglion">Finding the MAC address of the Ganglion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/running_experiments.html">Running Experiments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/running_experiments.html">Running Experiments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-run-notebooks-py">Using run_notebooks.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#session-number">Session Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#confirmation">Confirmation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/analysis.html">Analyzing data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/available_notebooks.html">Available Notebooks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/available_notebooks.html#visual-p300-with-oddball-paradigm">Visual P300 with Oddball paradigm</a></li>
@@ -1575,7 +1587,7 @@ Applying baseline correction (mode: mean)
 Applying baseline correction (mode: mean)
 (29, 100, 769)
 (29, 100)
-[-1.8633016529355792e-10, -5.1944926980414183e-11, 3.965717366845672e-11, -9.439937924298794e-11, 1.5395426956925892e-10, nan, nan, 1.4375205304704658e-10, 6.156413801289012e-12, -3.4542289627376073e-11, nan, 1.4040022690241426e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.7562617842721688e-12, 3.498985471214217e-11, -7.358448888412759e-11, -2.066739867471912e-11, 5.833832231476227e-11, -1.1353507280272358e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164926025e-13, 1.582422070183946e-10, nan, 2.9726944442082217e-11, -2.7053453190038454e-11, 1.0032262566341906e-10]
+[-1.863301652935579e-10, -5.19449269804142e-11, 3.965717366845674e-11, -9.439937924298795e-11, 1.5395426956925895e-10, nan, nan, 1.4375205304704658e-10, 6.1564138012890024e-12, -3.454228962737604e-11, nan, 1.4040022690241426e-10, 4.5250575579732235e-11, 8.133414421717213e-11, 1.7562617842721749e-12, 3.498985471214219e-11, -7.358448888412759e-11, -2.0667398674719124e-11, 5.833832231476227e-11, -1.1353507280272355e-10, 2.0578545669354458e-10, 8.136129078256674e-11, 2.231124565129559e-09, 4.417204016492496e-13, 1.582422070183946e-10, nan, 2.972694444208222e-11, -2.7053453190038464e-11, 1.0032262566341902e-10]
 </pre></div>
 </div>
 </div>
@@ -1674,7 +1686,7 @@ Applying baseline correction (mode: mean)
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fd37ffaf2e0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f9fb1957850&gt;
 </pre></div>
 </div>
 </div>
@@ -1693,7 +1705,7 @@ Applying baseline correction (mode: mean)
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.024561362956429e-11
-Contra Mean: -2.6175863611708354e-11
+Contra Mean: -2.6175863611708357e-11
 Mean Diff: 1.1642147724127268e-10
 t(24) = 1.394
 p = 0.169
@@ -1712,7 +1724,7 @@ p = 0.169
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529355792e-10, -5.1944926980414183e-11, 3.965717366845672e-11, -9.439937924298794e-11, 1.5395426956925892e-10, nan, nan, 1.4375205304704658e-10, 6.156413801289012e-12, -3.4542289627376073e-11, nan, 1.4040022690241426e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.7562617842721688e-12, 3.498985471214217e-11, -7.358448888412759e-11, -2.066739867471912e-11, 5.833832231476227e-11, -1.1353507280272358e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164926025e-13, 1.582422070183946e-10, nan, 2.9726944442082217e-11, -2.7053453190038454e-11, 1.0032262566341906e-10]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.863301652935579e-10, -5.19449269804142e-11, 3.965717366845674e-11, -9.439937924298795e-11, 1.5395426956925895e-10, nan, nan, 1.4375205304704658e-10, 6.1564138012890024e-12, -3.454228962737604e-11, nan, 1.4040022690241426e-10, 4.5250575579732235e-11, 8.133414421717213e-11, 1.7562617842721749e-12, 3.498985471214219e-11, -7.358448888412759e-11, -2.0667398674719124e-11, 5.833832231476227e-11, -1.1353507280272355e-10, 2.0578545669354458e-10, 8.136129078256674e-11, 2.231124565129559e-09, 4.417204016492496e-13, 1.582422070183946e-10, nan, 2.972694444208222e-11, -2.7053453190038464e-11, 1.0032262566341902e-10]
 Saved subject averages for each condition to 375CueingEEG.csv file in present directory
 </pre></div>
 </div>
@@ -1731,7 +1743,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Saved Spectra to 375Cueing*Spec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  50.631 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  20.190 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d57fff739827ca575034e03b51d68a54/02r__cueing_group_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__cueing_group_analysis.py</span></code></a></p>
