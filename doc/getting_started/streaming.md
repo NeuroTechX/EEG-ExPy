@@ -25,19 +25,75 @@ eeg.start()
 These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the variou support devices.
 
 
-## Devices
+## Supported Devices
 
-The supported devices and the parameters (both optional and required) needed for the class for each are listed below.
+Below is a lst of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.
 
-| Device               | EEG.device         | EEG.serial_port | EEG.serial_num | EEG.mac_addr |
-|----------------------|--------------------|-----------------|----------------|--------------|
-| Muse                 | 'muse2016'         | n/a | n/a | n/a |
-| Muse 2               | 'muse2'            | n/a | n/a | n/a |
-| Cyton                | 'cyton'            | *(optional; see below)* | n/a | n/a |
-| Cyton + Daisy        | 'cyton_daisy       | *(optional; see below)* | n/a | n/a |
-| Cyton + Daisy - WiFi | 'cyton_daisy_wifi' | n/a | n/a | n/a |
-| Ganglion             | 'ganglion'         | *(optional; see below)* | n/a | *see below* |
-| Ganglion - WiFi      | 'ganglion_wifi'    | n/a | n/a | n/a |
+### Interaxon Muse
+**Device Names:** *'muse2016'*, *'muse2'*, and *'museS'*  
+**Backend:** MuseLSL  
+**Needed Parameters:**  No other parameters are needed, however, if running on Windows 10, then you must also start blue muse before running the experiments.
+
+#### Using the Muse on Windows
+To initialize the EEG stream on window you must have Bluemuse running in the background. Open a terminal and start 
+bluemuse using `start bluemuse;` which should open up a GUI. If you have the USB dongle plugged in and the muse turned on 
+then you should see a GUI which looks something like the image below.
+
+![fig](../img/bluemuse.PNG)
+
+Once you press the **Start Streaming** button, muse will be streaming data in the background and can the above code can 
+be run to begin the notebooks interfacing with the bluemuse backend.
+
+### OpenBCI Ganglion
+![fig](../img/ganglion.png)
+
+**Device Name:** *'ganglion'*  
+**Backend:** Brainflow  
+**Needed Parameters:**  
+* *mac_addr*: MAC Address (see below for instructions on getting the MAC address)   
+
+**Optional Parameters:**
+* *serial_port*: Serial port containing the USB dongle. If it does not automatically discover the USB port see the instructions below for finding the serial port in the OpenBCI GUI.
+
+
+***Finding the Ganglion's MAC address***
+
+(Information needed)
+
+### OpenBCI Cyton
+![fig](../img/cyton.png)
+
+**Device Name:** *'cyton'*  
+**Backend:** Brainflow  
+**Needed Parameters:**  
+**Optional Parameters:**
+
+### OpenBCI Cyton + Daisy
+![fig](../img/cyton_daisy.png)
+**Device Name:** *'cyton_daisy'*    
+**Backend:** Brainflow  
+**Needed Parameters:**  
+**Optional Parameters:**
+
+### Neurosity Notion (versions 1 and 2)
+![fig](../img/notion.png)
+**Device Name:** *'notion1'* or *'notion2'*  
+**Backend:** Brainflow  
+**Needed Parameters:**  No additional parameters are needed to connect to the Notion. It is necessary however to make sure the Notion is on the same network and readable by Neurosity's developer console.
+
+#### Connecting on Windows
+In order to connect to the Notion on Windows you must first turn off your network firewall for the Open Sound Control (OSC) protocol to function for the notion.
+
+### BrainBit EEG Headband
+![fig](../img/brainbit.png)  
+**Device Name:** *'brainbit'*  
+**Backend:** Brainflow
+
+### G.Tec Unicorn
+![fig](../img/gtec-unicorn.jpg)
+**Device Name:** *'unicorn'*  
+**Backend:** Brainflow
+
 
 
 ## Initiating a Muse stream in Windows using Bluemuse
@@ -75,6 +131,3 @@ eeg.start()
 This issue is more common on windows installations, and the image above is shown on a windows OS. However it might still 
 be possible for it to happen in Linux and in any case, the process for determining the USB port of the dongle is the same.
 
-## Finding the MAC address of the Ganglion
-
-(Information needed)
