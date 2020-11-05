@@ -27,6 +27,9 @@ def present(duration=120, eeg=None, save_fn=None):
     def load_image(fn):
         return visual.ImageStim(win=mywin, image=fn)
 
+    # start the EEG stream, will delay 5 seconds to let signal settle
+
+
     # Setup graphics
     mywin = visual.Window([1600, 900], monitor='testMonitor', units="deg", fullscr=True)
 
@@ -34,15 +37,14 @@ def present(duration=120, eeg=None, save_fn=None):
     houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, 'houses', '*.3.jpg'))))
     stim = [houses, faces]
 
-    # start the EEG stream, will delay 5 seconds to let signal settle
+    # Show the instructions screen
+    show_instructions(duration)
+
     if eeg:
         if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
             save_fn = generate_save_fn(eeg.device_name, 'visual_n170', 'unnamed')
             print(f'No path for a save file was passed to the experiment. Saving data to {save_fn}')
-        eeg.start(save_fn,duration=record_duration)
-
-    # Show the instructions screen
-    show_instructions(duration)
+        eeg.start(save_fn, duration=record_duration+5)
 
     # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
     start = time()

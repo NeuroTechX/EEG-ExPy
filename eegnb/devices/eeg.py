@@ -26,7 +26,7 @@ brainflow_devices = [
     'cyton', 'cyton_wifi',
     'cyton_daisy', 'cyton_daisy_wifi',
     'brainbit', 'unicorn', 'synthetic',
-    'brainbit', 'notion'
+    'brainbit', 'notion1', 'notion2'
 ]
 
 
@@ -58,7 +58,7 @@ class EEG:
     def _get_backend(self, device_name):
         if (device_name in brainflow_devices):
             return 'brainflow'
-        elif device_name in ['muse2016', 'muse2']:
+        elif device_name in ['muse2016', 'muse2', 'museS']:
             return 'muselsl'
 
     #####################
@@ -162,8 +162,11 @@ class EEG:
             if self.other:
                 self.brainflow_params.other_info = str(self.other)
 
-        elif self.device_name == 'notion':
-            self.brainflow_id = BoardIds.NOTION_OSC_BOARD.value
+        elif self.device_name == 'notion1':
+            self.brainflow_id = BoardIds.NOTION_1_BOARD.value
+
+        elif self.device_name == 'notion2':
+            self.brainflow_id = BoardIds.NOTION_2_BOARD.value
 
         elif self.device_name == 'synthetic':
             self.brainflow_id = BoardIds.SYNTHETIC_BOARD.value

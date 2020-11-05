@@ -1,4 +1,15 @@
 # Loading and Saving Data
+Knowing where the data is saved is integral to the functionality of EEG Notebooks. EEG Notebooks saves data to a default location in a hidden directory. From this directory, the individual files can be found based on a folder structure outlined below in the **naming convention.**
+
+## Locating the Default Data Directory
+
+#### Windows 10
+The default directory is found at the location `C:\Users\*USER_NAME*\.eegnb` an example of which is pictured below.
+![fig](../img/windows_default_directory.PNG)
+
+#### Linux
+
+#### MacOS
 
 ## Changing the Default Data Directory
 The default directory for saving data is automatically set within the library. If you want to save and analyze data to/from a new directory, it must be passed as a parameter to both the `eegnb.generate_save_fn()` and `eegnb.analysis.load_data()` functions.

@@ -33,15 +33,15 @@ def present(duration=120, eeg=None, save_fn=None):
     nontargets = list(map(load_image, glob(os.path.join(CAT_DOG, 'nontarget-*.jpg'))))
     stim = [nontargets, targets]
 
+    # Show instructions
+    show_instructions(duration=duration)
+
     # start the EEG stream, will delay 5 seconds to let signal settle
     if eeg:
         if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
             save_fn = generate_save_fn(eeg.device_name, 'visual_p300', 'unnamed')
             print(f'No path for a save file was passed to the experiment. Saving data to {save_fn}')
         eeg.start(save_fn, duration=record_duration)
-
-    # Show instructions
-    show_instructions(duration=duration)
 
     # Iterate through the events
     start = time()

@@ -13,7 +13,8 @@ EEG_CHANNELS = {
     'brainbit': BoardShim.get_eeg_names(BoardIds.BRAINBIT_BOARD.value),
     'unicorn': BoardShim.get_eeg_names(BoardIds.UNICORN_BOARD.value),
     'synthetic': BoardShim.get_eeg_names(BoardIds.SYNTHETIC_BOARD.value),
-    'notion': BoardShim.get_eeg_names(BoardIds.NOTION_OSC_BOARD.value),
+    'notion1': BoardShim.get_eeg_names(BoardIds.NOTION_1_BOARD.value),
+    'notion2': BoardShim.get_eeg_names(BoardIds.NOTION_2_BOARD.value),
 }
 
 BRAINFLOW_CHANNELS = {
@@ -26,25 +27,29 @@ BRAINFLOW_CHANNELS = {
 EEG_INDICES = {
     'muse2016': [1, 2, 3, 4],
     'muse2': [1, 2, 3, 4],
+    'museS': [1,2,3,4],
     'ganglion': BoardShim.get_eeg_channels(BoardIds.GANGLION_BOARD.value),
     'cyton': BoardShim.get_eeg_channels(BoardIds.CYTON_BOARD.value),
     'cyton_daisy': BoardShim.get_eeg_channels(BoardIds.CYTON_DAISY_BOARD.value),
     'brainbit': BoardShim.get_eeg_channels(BoardIds.BRAINBIT_BOARD.value),
     'unicorn': BoardShim.get_eeg_channels(BoardIds.UNICORN_BOARD.value),
     'synthetic': BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value),
-    'notion': BoardShim.get_eeg_channels(BoardIds.NOTION_OSC_BOARD.value),
+    'notion1': BoardShim.get_eeg_channels(BoardIds.NOTION_1_BOARD.value),
+    'notion2': BoardShim.get_eeg_channels(BoardIds.NOTION_2_BOARD.value),
 }
 
 SAMPLE_FREQS = {
     'muse2016': 256,
     'muse2': 256,
+    'museS': 256,
     'ganglion': BoardShim.get_sampling_rate(BoardIds.GANGLION_BOARD.value),
     'cyton': BoardShim.get_sampling_rate(BoardIds.CYTON_BOARD.value),
     'cyton_daisy': BoardShim.get_sampling_rate(BoardIds.CYTON_DAISY_BOARD.value),
     'brainbit': BoardShim.get_sampling_rate(BoardIds.BRAINBIT_BOARD.value),
     'unicorn': BoardShim.get_sampling_rate(BoardIds.UNICORN_BOARD.value),
     'synthetic': BoardShim.get_sampling_rate(BoardIds.SYNTHETIC_BOARD.value),
-    'notion': BoardShim.get_sampling_rate(BoardIds.NOTION_OSC_BOARD.value),
+    'notion1': BoardShim.get_sampling_rate(BoardIds.NOTION_1_BOARD.value),
+    'notion2': BoardShim.get_sampling_rate(BoardIds.NOTION_2_BOARD.value),
 }
 
 def get_openbci_usb():
