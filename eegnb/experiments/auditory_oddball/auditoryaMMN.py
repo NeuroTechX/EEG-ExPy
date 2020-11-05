@@ -1,5 +1,5 @@
 import os
-from time import time
+from time import time, sleep
 from glob import glob
 from random import choice
 from optparse import OptionParser
@@ -80,10 +80,16 @@ def present(record_duration=120,stim_types=None,itis=None,additional_labels={},s
 
         
         mywin.flip()
-        if len(event.getKeys()) > 0 or (time() - start) > record_duration:
+        if len(event.getKeys()) > 0:
+            break
+        if (time() - start) > record_duration:
             break
 
         event.clearEvents()
+        
+        if iteratorthing == 1798:
+            sleep(500)
+            
 
     # Cleanup
     if eeg: eeg.stop()
