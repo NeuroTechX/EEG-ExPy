@@ -4,7 +4,7 @@ Installation
 
 EEG-Notebooks is a Python library. It runs on all major operating systems (Windows, Linux, Mac).
 
-If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use `VirtualEnv`  (`venv`) than `conda` for Python environment management, we provide equivalent installation and usage instructions where relevant.
+If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use `VirtualEnv` (`venv`) or `poetry` instead of `conda` for Python environment management, we provide equivalent installation and usage instructions where relevant.
 
 
 The principal purpose of EEG-Notebooks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments.
@@ -31,11 +31,11 @@ As may be expected, the installation and setup steps for mode 2 are simpler than
 Installing the Python library
 ===============================
 
-We highly recommend making use of a virtual environment (either `conda` or `virtualenv`) when installing eeg-notebooks.
+We highly recommend making use of a virtual environment (either `conda`, `poetry`, or `virtualenv`) when installing eeg-notebooks.
 
 If you don't already have a Python installation, grab the latest `miniconda` version for your operating system from here (https://docs.conda.io/en/latest/miniconda.html).
 
-Use the following commands to download the repo, create and activate a conda or virtualenv virtual environment:
+Use the following commands to download the repo, create and activate a conda, poetry, or virtualenv virtual environment:
 
 
 .. tabs::
@@ -48,12 +48,27 @@ Use the following commands to download the repo, create and activate a conda or 
 
            conda activate "eeg-notebooks"
 
+           conda install git
+
+           conda install pip
+
            git clone https://github.com/NeuroTechX/eeg-notebooks
 
            cd eeg-notebooks
-           
+
            pip install -e .
 
+    .. tab:: Poetry
+
+       .. code-block:: bash
+
+           git clone https://github.com/NeuroTechX/eeg-notebooks
+
+           cd eeg-notebooks
+
+           poetry install
+
+           poetry shell
 
     .. tab:: Virtualenv
 

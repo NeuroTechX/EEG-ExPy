@@ -1,5 +1,58 @@
+[tool.poetry]
+name = "eeg-notebooks"
+version = "0.2"
+description = "python library for eeg cognitive neuroscience experiments"
+readme = "README.rst"
+authors = ["John David Griffiths <j.davidgriffiths@gmail.com>"]
+keywords = ["eeg", "cognitive neuroscience", "experiments", "evoked response", "auditory"]  # max 5
+homepage = "https://github.com/NeuroTechX/eeg-notebooks"
+license = "BSD-3-Clause"  # Both MIT and BSD-3 were specified in setup.py, since LICENSE is BSD-3 I assume that's the case.
+classifiers = [
+    "Operating System :: OS Independent"
+]
+packages = [
+    { include = "eegnb" },
+]
+
+[tool.poetry.scripts]
+eegnb = "eegnb.cli.__main__:main"
+
+[tool.poetry.dependencies]
+python = "^3.6.1"
+psychopy = "2020.2.3"  # pulls in a *lot* of dependencies
+scikit-learn = "^0.23.2"
+pandas = "^1.1.1"
+mne = ">=0.20.8"
+seaborn = "^0.9.0"
+jupyter = "^1.0.0"
+matplotlib = "^3.3.1"
+pyriemann = "0.2.6"
+muselsl = "2.0.2"
+brainflow = "3.4.3"
+gdown = "3.12.2"
+pysocks = "^1.7.1"
+
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.780"
+pytest = "^6.0.0"
+#black = "^19.10b0"
+#pylint = "^2.5.3"
+#flake8 = "^3.8.2"
+
+Sphinx = "^3.3.0"
+sphinx-gallery = "^0.8.1"
+sphinx-rtd-theme = "^0.5.0"
+sphinx-tabs = "^1.3.0"
+sphinx-copybutton = "^0.3.1"
+sphinxcontrib-httpdomain = "^1.7.0"
+numpydoc = "^1.1.0"
+recommonmark = "^0.6.0"
+versioneer = "^0.18"
+
 [tool.pytest.ini_options]
 minversion = "6.0"
+#addopts = "-ra"
 addopts = """
     --cov=eegnb
     --cov-report=term
@@ -12,7 +65,17 @@ addopts = """
 """
 testpaths = [
     "eegnb",
+    "examples",
     "tests",
-    #"examples",
 ]
+#python_files = ["*.py",]
 python_files = ["*.py", "*.ipynb"]
+
+[tool.black]
+#line-length = 88
+#target-version = ['py37']
+#include = '\.pyi?$'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
