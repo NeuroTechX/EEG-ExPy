@@ -88,7 +88,7 @@ def present(record_duration=120,stim_types=None,itis=None,additional_labels={},s
         event.clearEvents()
         
         if iteratorthing == 1798:
-            sleep(500)
+            sleep(10)
             
 
     # Cleanup
