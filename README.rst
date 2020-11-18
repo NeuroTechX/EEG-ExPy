@@ -1,6 +1,10 @@
-.. image:: https://mybinder.org/badge_logo.svg
+|badge_test| |badge_binder|
+
+.. |badge_test| image:: https://github.com/NeuroTechX/eeg-notebooks/workflows/Test/badge.svg
+   :target: https://github.com/NeuroTechX/eeg-notebooks/actions
+
+.. |badge_binder| image:: https://mybinder.org/badge_logo.svg
    :target: https://mybinder.org/v2/gh/NeuroTechX/eeg-notebooks/master
-      
 
 ===================================================================
 EEG-Notebooks - Democratizing the cognitive neuroscience experiment
