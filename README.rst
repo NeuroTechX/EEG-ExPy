@@ -14,6 +14,7 @@ EEG-Notebooks is a collection of classic EEG experiments, implemented in Python 
 
 
 - **For documentation See:** `documentation site <https://neurotechx.github.io/eeg-notebooks/index.html>`_.
+- **For code see:** `github site <https://github.com/neurotechx/eeg-notebooks>`_.
 - **For instructions on running experiments see:** `running experiments <https://neurotechx.github.io/eeg-notebooks/getting_started/running_experiments.html>`_.
 - **For instructions on initiating an EEG stream see:** `initiating an EEG stream <https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html>`_.
 
