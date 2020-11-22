@@ -62,7 +62,9 @@ EEG-Notebooks was created by the `NeurotechX <https://neurotechx.com/>`_ hacker/
 
 Key contributors include: Alexandre Barachant, Hubert Banville, Dano Morrison, Ben Shapiro, John Griffiths, Amanda Easson, Kyle Mathewson, Jadin Tredup. 
 
-Thanks also to Andrey Parfenov for the excellent [brainflow](https://github.com/brainflow-dev/brainflow) library, which has allowed us to dramatically expand the range of supporte devices; as well as the developers of [PsychoPy](https://github.com/psychopy/psychopy) and [MNE](https://github.com/mne-tools/mne-python), which together make up the central scaffolding of eeg-notebooks. 
+Thanks also to Andrey Parfenov for the excellent
+
+`brainflow <https://github.com/brainflow-dev/brainflow/>`_ library, which has allowed us to dramatically expand the range of supporte devices; as well as the developers of `PsychoPy <https://github.com/psychopy/psychopy/>`_ and `MNE <https://github.com/mne-tools/mne-python/>`_, which together make up the central scaffolding of eeg-notebooks. 
 
 
 Contribute
