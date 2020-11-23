@@ -17,12 +17,12 @@ def makeoddball(inputs, rep):
     for i in range(len(inputs)):
         if inputs[i] == value:
             count += 1
-            if count >= rep:
+            if count = rep:
                 markerArray.append(1)
             else:
                 markerArray.append(3)
         else:
-            if count >= rep - 1:
+            if count = rep + 1:
                 markerArray.append(2)
             
             else:
@@ -31,9 +31,14 @@ def makeoddball(inputs, rep):
             count = 1
     return markerArray
 
+def maketonesnums(num):
+    newArray = []
+    for i in range(num):
+        newArray.append(90000+i)
+    return newArray   
+      
+
 def run_experiment(experiment, record_duration, eeg_device, save_fn):
-
-
     if experiment == 'visual-N170':
         n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
     elif experiment == 'visual-P300':
@@ -48,6 +53,7 @@ def run_experiment(experiment, record_duration, eeg_device, save_fn):
         inputs = np.squeeze(F['museEEG']['design']['inputs'][:]).astype(int)
 
         #based on inputs, creating oddball paradigms markers depending on "switch"
+        tonenums = maketonesnums(1800)
         oddball3 = makeoddball(inputs, 3)
         oddball4 = makeoddball(inputs, 4)
         oddball5 = makeoddball(inputs, 5)
@@ -68,7 +74,7 @@ def run_experiment(experiment, record_duration, eeg_device, save_fn):
         newAdditionalMarkers = [];
 
         for i in range(0, len(highPE)):
-            newAdditionalMarker = str(oddball3[i]) + str(oddball4[i]) + str(oddball5[i]) + str(oddball6[i]) + str(highPE[i]) + str(lowPE[i])
+            newAdditionalMarker = str(tonenums[i]) + str(oddball3[i]) + str(oddball4[i]) + str(oddball5[i]) + str(oddball6[i]) + str(highPE[i]) + str(lowPE[i])
             newAdditionalMarkers.append(newAdditionalMarker)
 
         additional_labels = {'labels' : newAdditionalMarkers}
