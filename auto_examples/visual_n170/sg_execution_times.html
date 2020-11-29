@@ -13,6 +13,10 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/tabs.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
@@ -109,20 +113,37 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#devices">Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#supported-devices">Supported Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#interaxon-muse">Interaxon Muse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#using-the-muse-on-windows">Using the Muse on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-ganglion">OpenBCI Ganglion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton">OpenBCI Cyton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#connecting-on-windows">Connecting on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#brainbit-eeg-headband">BrainBit EEG Headband</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#g-tec-unicorn">G.Tec Unicorn</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#initiating-a-muse-stream-in-windows-using-bluemuse">Initiating a Muse stream in Windows using Bluemuse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#finding-the-usb-port-of-the-openbci-usb-dongle">Finding the USB port of the OpenBCI USB dongle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#finding-the-mac-address-of-the-ganglion">Finding the MAC address of the Ganglion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/running_experiments.html">Running Experiments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-run-notebooks-py">Using run_notebooks.py</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#session-number">Session Number</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#confirmation">Confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#using-the-introprompt-flag">Using the introprompt flag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#session-number">Session Number</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#confirmation">Confirmation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
@@ -455,7 +476,7 @@
             
   <div class="section" id="computation-times">
 <span id="sphx-glr-auto-examples-visual-n170-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>01:21.093</strong> total execution time for <strong>auto_examples_visual_n170</strong> files:</p>
+<p><strong>01:13.276</strong> total execution time for <strong>auto_examples_visual_n170</strong> files:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 85%" />
@@ -464,11 +485,11 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="02r__n170_decoding.html#sphx-glr-auto-examples-visual-n170-02r-n170-decoding-py"><span class="std std-ref">N170 Decoding</span></a> (<code class="docutils literal notranslate"><span class="pre">02r__n170_decoding.py</span></code>)</p></td>
-<td><p>01:15.776</p></td>
+<td><p>01:07.634</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="01r__n170_viz.html#sphx-glr-auto-examples-visual-n170-01r-n170-viz-py"><span class="std std-ref">N170 Load and Visualize Data</span></a> (<code class="docutils literal notranslate"><span class="pre">01r__n170_viz.py</span></code>)</p></td>
-<td><p>00:05.317</p></td>
+<td><p>00:05.642</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="00x__n170_run_experiment.html#sphx-glr-auto-examples-visual-n170-00x-n170-run-experiment-py"><span class="std std-ref">N170 run experiment</span></a> (<code class="docutils literal notranslate"><span class="pre">00x__n170_run_experiment.py</span></code>)</p></td>

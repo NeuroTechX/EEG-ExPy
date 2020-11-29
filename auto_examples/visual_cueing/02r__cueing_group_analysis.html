@@ -13,6 +13,10 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_tabs/tabs.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
@@ -111,20 +115,37 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#devices">Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#supported-devices">Supported Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#interaxon-muse">Interaxon Muse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#using-the-muse-on-windows">Using the Muse on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-ganglion">OpenBCI Ganglion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton">OpenBCI Cyton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#connecting-on-windows">Connecting on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#brainbit-eeg-headband">BrainBit EEG Headband</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#g-tec-unicorn">G.Tec Unicorn</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#initiating-a-muse-stream-in-windows-using-bluemuse">Initiating a Muse stream in Windows using Bluemuse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#finding-the-usb-port-of-the-openbci-usb-dongle">Finding the USB port of the OpenBCI USB dongle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#finding-the-mac-address-of-the-ganglion">Finding the MAC address of the Ganglion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/running_experiments.html">Running Experiments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-run-notebooks-py">Using run_notebooks.py</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#session-number">Session Number</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#confirmation">Confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#using-the-introprompt-flag">Using the introprompt flag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#session-number">Session Number</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#confirmation">Confirmation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
@@ -1686,7 +1707,7 @@ Applying baseline correction (mode: mean)
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f9fb1957850&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f8043a10128&gt;
 </pre></div>
 </div>
 </div>
@@ -1743,7 +1764,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Saved Spectra to 375Cueing*Spec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  20.190 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  18.416 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d57fff739827ca575034e03b51d68a54/02r__cueing_group_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__cueing_group_analysis.py</span></code></a></p>

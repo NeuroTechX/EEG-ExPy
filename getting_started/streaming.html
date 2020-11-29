@@ -13,6 +13,10 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
   <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_override.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
@@ -111,20 +115,37 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Initiating an EEG Stream</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#devices">Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#supported-devices">Supported Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#interaxon-muse">Interaxon Muse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-muse-on-windows">Using the Muse on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#openbci-ganglion">OpenBCI Ganglion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openbci-cyton">OpenBCI Cyton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#connecting-on-windows">Connecting on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#brainbit-eeg-headband">BrainBit EEG Headband</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#g-tec-unicorn">G.Tec Unicorn</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#initiating-a-muse-stream-in-windows-using-bluemuse">Initiating a Muse stream in Windows using Bluemuse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#finding-the-usb-port-of-the-openbci-usb-dongle">Finding the USB port of the OpenBCI USB dongle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#finding-the-mac-address-of-the-ganglion">Finding the MAC address of the Ganglion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="running_experiments.html">Running Experiments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="running_experiments.html#using-run-notebooks-py">Using run_notebooks.py</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#board-selection">Board Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#experiment-selection">Experiment Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#recording-duration">Recording Duration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#subject-id">Subject ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#session-number">Session Number</a></li>
-<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#confirmation">Confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_experiments.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#using-the-introprompt-flag">Using the introprompt flag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#session-number">Session Number</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#confirmation">Confirmation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
@@ -471,18 +492,64 @@ the various devices and backends behind one easy call.</p>
 </pre></div>
 </div>
 <p>These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the variou support devices.</p>
-<div class="section" id="devices">
-<h2>Devices<a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
-<p>The supported devices and the parameters (both optional and required) needed for the class for each are listed below.</p>
-<p>| Device               | EEG.device         | EEG.serial_port | EEG.serial_num | EEG.mac_addr |
-|———————-|——————–|—————–|—————-|————–|
-| Muse                 | ‘muse2016’         | n/a | n/a | n/a |
-| Muse 2               | ‘muse2’            | n/a | n/a | n/a |
-| Cyton                | ‘cyton’            | <em>(optional; see below)</em> | n/a | n/a |
-| Cyton + Daisy        | ‘cyton_daisy       | <em>(optional; see below)</em> | n/a | n/a |
-| Cyton + Daisy - WiFi | ‘cyton_daisy_wifi’ | n/a | n/a | n/a |
-| Ganglion             | ‘ganglion’         | <em>(optional; see below)</em> | n/a | <em>see below</em> |
-| Ganglion - WiFi      | ‘ganglion_wifi’    | n/a | n/a | n/a |</p>
+<div class="section" id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline">¶</a></h2>
+<p>Below is a lst of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.</p>
+<div class="section" id="interaxon-muse">
+<h3>Interaxon Muse<a class="headerlink" href="#interaxon-muse" title="Permalink to this headline">¶</a></h3>
+<p><strong>Device Names:</strong> <em>‘muse2016’</em>, <em>‘muse2’</em>, and <em>‘museS’</em><br /><strong>Backend:</strong> MuseLSL<br /><strong>Needed Parameters:</strong>  No other parameters are needed, however, if running on Windows 10, then you must also start blue muse before running the experiments.</p>
+<div class="section" id="using-the-muse-on-windows">
+<h4>Using the Muse on Windows<a class="headerlink" href="#using-the-muse-on-windows" title="Permalink to this headline">¶</a></h4>
+<p>To initialize the EEG stream on window you must have Bluemuse running in the background. Open a terminal and start
+bluemuse using <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">bluemuse;</span></code> which should open up a GUI. If you have the USB dongle plugged in and the muse turned on
+then you should see a GUI which looks something like the image below.</p>
+<p><img alt="fig" src="../_images/bluemuse.PNG" /></p>
+<p>Once you press the <strong>Start Streaming</strong> button, muse will be streaming data in the background and can the above code can
+be run to begin the notebooks interfacing with the bluemuse backend.</p>
+</div>
+</div>
+<div class="section" id="openbci-ganglion">
+<h3>OpenBCI Ganglion<a class="headerlink" href="#openbci-ganglion" title="Permalink to this headline">¶</a></h3>
+<p><img alt="fig" src="../_images/ganglion.png" /></p>
+<p><strong>Device Name:</strong> <em>‘ganglion’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong></p>
+<ul class="simple">
+<li><p><em>mac_addr</em>: MAC Address (see below for instructions on getting the MAC address)</p></li>
+</ul>
+<p><strong>Optional Parameters:</strong></p>
+<ul class="simple">
+<li><p><em>serial_port</em>: Serial port containing the USB dongle. If it does not automatically discover the USB port see the instructions below for finding the serial port in the OpenBCI GUI.</p></li>
+</ul>
+<p><em><strong>Finding the Ganglion’s MAC address</strong></em></p>
+<p>(Information needed)</p>
+</div>
+<div class="section" id="openbci-cyton">
+<h3>OpenBCI Cyton<a class="headerlink" href="#openbci-cyton" title="Permalink to this headline">¶</a></h3>
+<p><img alt="fig" src="../_images/cyton.png" /></p>
+<p><strong>Device Name:</strong> <em>‘cyton’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong><br /><strong>Optional Parameters:</strong></p>
+</div>
+<div class="section" id="openbci-cyton-daisy">
+<h3>OpenBCI Cyton + Daisy<a class="headerlink" href="#openbci-cyton-daisy" title="Permalink to this headline">¶</a></h3>
+<p><img alt="fig" src="../_images/cyton_daisy.png" />
+<strong>Device Name:</strong> <em>‘cyton_daisy’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong><br /><strong>Optional Parameters:</strong></p>
+</div>
+<div class="section" id="neurosity-notion-versions-1-and-2">
+<h3>Neurosity Notion (versions 1 and 2)<a class="headerlink" href="#neurosity-notion-versions-1-and-2" title="Permalink to this headline">¶</a></h3>
+<p><img alt="fig" src="../_images/notion.png" />
+<strong>Device Name:</strong> <em>‘notion1’</em> or <em>‘notion2’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong>  No additional parameters are needed to connect to the Notion. It is necessary however to make sure the Notion is on the same network and readable by Neurosity’s developer console.</p>
+<div class="section" id="connecting-on-windows">
+<h4>Connecting on Windows<a class="headerlink" href="#connecting-on-windows" title="Permalink to this headline">¶</a></h4>
+<p>In order to connect to the Notion on Windows you must first turn off your network firewall for the Open Sound Control (OSC) protocol to function for the notion.</p>
+</div>
+</div>
+<div class="section" id="brainbit-eeg-headband">
+<h3>BrainBit EEG Headband<a class="headerlink" href="#brainbit-eeg-headband" title="Permalink to this headline">¶</a></h3>
+<p><img alt="fig" src="../_images/brainbit.png" /><br /><strong>Device Name:</strong> <em>‘brainbit’</em><br /><strong>Backend:</strong> Brainflow</p>
+</div>
+<div class="section" id="g-tec-unicorn">
+<h3>G.Tec Unicorn<a class="headerlink" href="#g-tec-unicorn" title="Permalink to this headline">¶</a></h3>
+<p><img alt="fig" src="../_images/gtec-unicorn.jpg" />
+<strong>Device Name:</strong> <em>‘unicorn’</em><br /><strong>Backend:</strong> Brainflow</p>
+</div>
 </div>
 <div class="section" id="initiating-a-muse-stream-in-windows-using-bluemuse">
 <h2>Initiating a Muse stream in Windows using Bluemuse<a class="headerlink" href="#initiating-a-muse-stream-in-windows-using-bluemuse" title="Permalink to this headline">¶</a></h2>
@@ -514,10 +581,6 @@ menu pictures below.</p>
 </div>
 <p>This issue is more common on windows installations, and the image above is shown on a windows OS. However it might still
 be possible for it to happen in Linux and in any case, the process for determining the USB port of the dongle is the same.</p>
-</div>
-<div class="section" id="finding-the-mac-address-of-the-ganglion">
-<h2>Finding the MAC address of the Ganglion<a class="headerlink" href="#finding-the-mac-address-of-the-ganglion" title="Permalink to this headline">¶</a></h2>
-<p>(Information needed)</p>
 </div>
 </div>
 
