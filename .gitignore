@@ -1,0 +1,8 @@
+__pycache__
+
+# Built as part of docs
+doc/auto_examples
+doc/_build
+
+# Built by auto_examples
+examples/visual_cueing/*.csv
