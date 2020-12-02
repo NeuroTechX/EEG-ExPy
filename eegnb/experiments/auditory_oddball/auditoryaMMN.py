@@ -76,7 +76,7 @@ def present(record_duration=120,stim_types=None,itis=None,additional_labels={},s
                 marker = additional_labels['labels'][iteratorthing - 1]
             eeg.push_sample(marker=marker, timestamp=timestamp)
     
-        mywin.flip()
+
 
         
         mywin.flip()
