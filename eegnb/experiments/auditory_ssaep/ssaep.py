@@ -1,10 +1,8 @@
 """
 Generate Steady-State Auditory Evoked Potential (SSAEP)
 =======================================================
-
 Steady-State Auditory Evoked Potential (SSAEP) - also known as Auditory
 Steady-State Response (ASSR) - stimulus presentation.
-
 """
 
 from time import time
@@ -21,13 +19,7 @@ from scipy import stats
 
 def present(duration=120):
 
-    parser = OptionParser()
-    parser.add_option("-d", "--duration",
-                      dest="duration", type='int', default=400,
-                      help="duration of the recording in seconds.")
-
-    (options, args) = parser.parse_args()
-
+    
     # Create markers stream outlet
     info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
     outlet = StreamOutlet(info)
@@ -56,14 +48,11 @@ def present(duration=120):
     def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=44100,
                              am_type='gaussian', gaussian_std_ratio=8):
         """Generate an amplitude-modulated waveform.
-
         Generate a sine wave amplitude-modulated by a second sine wave or a
         Gaussian envelope with standard deviation = period_AM/8.
-
         Args:
             carrier_freq (float): carrier wave frequency, in Hz
             am_freq (float): amplitude modulation frequency, in Hz
-
         Keyword Args:
             secs (float): duration of the stimulus, in seconds
             sample_rate (float): sampling rate of the sound, in Hz
@@ -74,7 +63,6 @@ def present(duration=120):
                 Ratio between AM period and std of the Gaussian envelope. E.g.,
                 gaussian_std = 8 means the Gaussian window has 8 standard
                 deviations around its mean inside one AM period.
-
         Returns:
             (numpy.ndarray): sound samples
         """
@@ -131,17 +119,3 @@ def present(duration=120):
     # Cleanup
     mywin.close()
 
-
-def main():
-    parser = OptionParser()
-
-    parser.add_option("-d", "--duration",
-                      dest="duration", type='int', default=120,
-                      help="duration of the recording in seconds.")
-
-    (options, args) = parser.parse_args()
-    present(options.duration)
-
-
-if __name__ == '__main__':
-    main()

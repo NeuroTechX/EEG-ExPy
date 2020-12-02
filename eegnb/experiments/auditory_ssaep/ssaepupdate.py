@@ -28,12 +28,12 @@ from eegnb import generate_save_fn
 
 def present(duration=120, eeg=None, save_fn=None):
 
-    parser = OptionParser()
-    parser.add_option("-d", "--duration",
-                      dest="duration", type='int', default=400,
-                      help="duration of the recording in seconds.")
+    #parser = OptionParser()
+    #parser.add_option("-d", "--duration",
+     #                 dest="duration", type='int', default=400,
+     #                 help="duration of the recording in seconds.")
 
-    (options, args) = parser.parse_args()
+    #(options, args) = parser.parse_args()
 
     # Create markers stream outlet
     info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
@@ -159,16 +159,16 @@ def present(duration=120, eeg=None, save_fn=None):
     mywin.close()
 
 
-def main():
-    parser = OptionParser()
+#def main():
+    #parser = OptionParser()
 
-    parser.add_option("-d", "--duration",
-                      dest="duration", type='int', default=120,
-                      help="duration of the recording in seconds.")
+    #parser.add_option("-d", "--duration",
+     #                 dest="duration", type='int', default=120,
+     #                 help="duration of the recording in seconds.")
 
-    (options, args) = parser.parse_args()
-    present(options.duration)
+    #(options, args) = parser.parse_args()
+    #present(options.duration)
 
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+ #   main()
