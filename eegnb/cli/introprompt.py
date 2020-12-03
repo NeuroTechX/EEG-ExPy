@@ -51,15 +51,16 @@ def intro_prompt():
         print("Please select your connection method:\n"
               "[0] usb dongle \n"
               "[1] wifi shield \n")
-        connect_idx = input("Enter connection method: ")
+        connect_idx = int(input("Enter connection method: "))
 
         # add "_wifi" suffix to the end of the board name for brainflow
         if connect_idx == 1:
             board_selection = board_selection + "_wifi"
+            ip_address = input("\nEnter Ganglion+WiFi IP Address: ")
         else:
             # if the ganglion is being used, you can enter optional Ganglion mac address
             if board_selection == 'ganglion':
-                mac_address = input("\nGanglion MAC Address (Press Enter to Autoscan): ")
+                ganglion_mac_address = input("\nGanglion MAC Address (Press Enter to Autoscan): ")
 
     # Experiment selection
     print("\nPlease select which experiment you would like to run: \n"
@@ -84,11 +85,13 @@ def intro_prompt():
     session_nb = int(input("Enter session #: "))
 
     # start the EEG device
-    if board_selection == 'ganglion':
-        # if the ganglion is chosen a MAC address should also be proviced
-        eeg_device = EEG(device=board_selection, mac_addr=mac_address)
+    if board_selection.startswith('ganglion'):
+        if board_selection == 'ganglion_wifi':
+            eeg_device = EEG(device=board_selection, ip_addr=ip_address)
+        else: 
+            eeg_device = EEG(device=board_selection, mac_addr=ganglion_mac_address)
     else:
-        eeg_device = EEG(device=board_selection)
+        eeg_device = EEG(device=board_selection, ip_addr=ip_address)
 
     # ask if they are ready to begin
     print("\nEEG device successfully connected!")
