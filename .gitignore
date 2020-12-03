@@ -1,6 +1,6 @@
 __pycache__
 
-eeg_notebooks.egg-info/
+*.egg-info/
 
 # Built as part of docs
 doc/auto_examples
