@@ -91,7 +91,7 @@ def intro_prompt():
         else: 
             eeg_device = EEG(device=board_selection, mac_addr=ganglion_mac_address)
     else:
-        eeg_device = EEG(device=board_selection, ip_addr=ip_address)
+        eeg_device = EEG(device=board_selection)
 
     # ask if they are ready to begin
     print("\nEEG device successfully connected!")
