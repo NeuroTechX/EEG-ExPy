@@ -14,6 +14,7 @@ gdown==3.12.2
 matplotlib==3.3.1
 pysocks==1.7.1
 pywinhook==1.6.0; platform_system == "Windows"
+pyserial==3.5
 
 # Docs requirements
 sphinx==3.1.1

@@ -40,48 +40,48 @@ def intro_prompt():
           f"[10] {boards[10]} \n",
           f"[11] {boards[11]} \n")
 
-    board_idx = int(input('Enter Board Selection:'))
+    board_idx = int(input('Enter Board Selection: '))
     board_selection = board_codes[board_idx]    # Board_codes are the actual names to be passed to the EEG class
     print(f"Selected board {boards[board_idx]} \n")
 
     # Handles wifi shield connectivity selection if an OpenBCI board is being used
     if board_selection in ['cyton', 'cyton_daisy', 'ganglion']:
-        # if the ganglion is being used, will also need the MAC address
-        if board_selection == 'ganglion':
-            print("Please enter the Ganglions MAC address:\n")
-            mac_address = input("MAC address:")
 
         # determine whether board is connected via Wifi or BLE
         print("Please select your connection method:\n"
               "[0] usb dongle \n"
               "[1] wifi shield \n")
-        connect_idx = input("Enter connection method:")
+        connect_idx = input("Enter connection method: ")
 
         # add "_wifi" suffix to the end of the board name for brainflow
         if connect_idx == 1:
             board_selection = board_selection + "_wifi"
+        else:
+            # if the ganglion is being used, you can enter optional Ganglion mac address
+            if board_selection == 'ganglion':
+                mac_address = input("\nGanglion MAC Address (Press Enter to Autoscan): ")
 
     # Experiment selection
-    print("Please select which experiment you would like to run: \n"
+    print("\nPlease select which experiment you would like to run: \n"
           "[0] visual n170 \n"
           "[1] visual p300 \n"
           "[2] ssvep \n")
 
-    exp_idx = int(input('Enter Experiment Selection:'))
+    exp_idx = int(input('Enter Experiment Selection: '))
     exp_selection = experiments[exp_idx]
     print(f"Selected experiment {exp_selection} \n")
 
     # record duration
     print("Now, enter the duration of the recording (in seconds). \n")
-    duration = int(input("Enter duration:"))
+    duration = int(input("Enter duration: "))
 
     # Subject ID specification
-    print("Next, enter the ID# of the subject you are recording data from. \n")
-    subj_id = int(input("Enter subject ID#:"))
+    print("\nNext, enter the ID# of the subject you are recording data from. \n")
+    subj_id = int(input("Enter subject ID#: "))
 
     # Session ID specification
-    print("Next, enter the session number you are recording for. \n")
-    session_nb = int(input("Enter session #:"))
+    print("\nNext, enter the session number you are recording for. \n")
+    session_nb = int(input("Enter session #: "))
 
     # start the EEG device
     if board_selection == 'ganglion':
@@ -91,6 +91,7 @@ def intro_prompt():
         eeg_device = EEG(device=board_selection)
 
     # ask if they are ready to begin
+    print("\nEEG device successfully connected!")
     input("Press [ENTER] when ready to begin...")
 
     # generate the save file name
