@@ -179,8 +179,6 @@ def show_instructions(duration):
     Press spacebar to continue.
 
     Warning: This experiment contains flashing lights and may induce a seizure. Discretion is advised.
-
-    Press Control+C to exit the experiment.
     
     """
     instruction_text = instruction_text %duration
