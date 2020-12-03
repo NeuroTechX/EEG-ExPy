@@ -44,7 +44,7 @@ def intro_prompt():
     board_selection = board_codes[board_idx]    # Board_codes are the actual names to be passed to the EEG class
     print(f"Selected board {boards[board_idx]} \n")
 
-    # Handles wifi shield connectivity selection if an OpenBCI board is being used
+    # Handles connectivity selection if an OpenBCI board is being used
     if board_selection in ['cyton', 'cyton_daisy', 'ganglion']:
 
         # determine whether board is connected via Wifi or BLE
