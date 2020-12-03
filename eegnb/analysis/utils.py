@@ -1,6 +1,7 @@
 from glob import glob
 import os
 import copy
+import math
 from collections import OrderedDict
 
 from mne import create_info, concatenate_raws
@@ -117,7 +118,7 @@ def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=
 
 def plot_conditions(epochs, conditions=OrderedDict(), ci=97.5, n_boot=1000,
                     title='', palette=None, ylim=(-6, 6),
-                    diff_waveform=(1, 2)):
+                    diff_waveform=(1, 2), channel_count=4):
     """Plot ERP conditions.
     Args:
         epochs (mne.epochs): EEG epochs
@@ -135,6 +136,8 @@ def plot_conditions(epochs, conditions=OrderedDict(), ci=97.5, n_boot=1000,
         diff_waveform (tuple or None): tuple of ints indicating which
             conditions to subtract for producing the difference waveform.
             If None, do not plot a difference waveform
+        channel_count (int): number of channels to plot. Default set to 4
+            for backward compatibility with Muse implementations
     Returns:
         (matplotlib.figure.Figure): figure object
         (list of matplotlib.axes._subplots.AxesSubplot): list of axes
@@ -149,11 +152,18 @@ def plot_conditions(epochs, conditions=OrderedDict(), ci=97.5, n_boot=1000,
     times = epochs.times
     y = pd.Series(epochs.events[:, -1])
 
-    fig, axes = plt.subplots(2, 2, figsize=[12, 6],
+    midaxis = math.ceil(channel_count/2)
+    fig, axes = plt.subplots(2, midaxis, figsize=[12, 6],
                              sharex=True, sharey=True)
-    axes = [axes[1, 0], axes[0, 0], axes[0, 1], axes[1, 1]]
 
-    for ch in range(4):
+    # get individual plot axis
+    plot_axes = []
+    for axis_y in range(midaxis):
+        for axis_x in range(2):
+            plot_axes.append(axes[axis_x, axis_y])
+    axes = plot_axes
+
+    for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
             sns.tsplot(X[y.isin(cond), ch], time=times, color=color,
                        n_boot=n_boot, ci=ci, ax=axes[ch])
