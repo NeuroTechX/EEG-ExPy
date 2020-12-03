@@ -2,12 +2,12 @@
 Installation
 ************
 
-EEG-Notebooks is a Python library. It runs on all major operating systems (Windows, Linux, Mac). 
+EEG-Notebooks is a Python library. It runs on all major operating systems (Windows, Linux, Mac).
 
-If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use `VirtualEnv`  (`venv`) than `conda` for Python environment management, we provide equivalent installation and usage instructions where relevant. 
+If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use `VirtualEnv`  (`venv`) than `conda` for Python environment management, we provide equivalent installation and usage instructions where relevant.
 
 
-The principal purpose of EEG-Notebooks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments. 
+The principal purpose of EEG-Notebooks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments.
 
 As such, there are two principal modes of usage:
 
@@ -18,13 +18,13 @@ As such, there are two principal modes of usage:
 
 As may be expected, the installation and setup steps for mode 2 are simpler than mode 1, with the difference being additional hardware and software requirements for measuring, streaming and recording EEG data. These requirements, which are device- and operating system-specific, are as follows:
 
-- `Muse 2016`, `Muse 2`, and `Muse S` recordings on **Windows** require the third-party streaming tool `BlueMuse`. `Bluemuse` deals with establishing a connection between the eeg device and the stimulus-delivery laptop/desktop. 
+- `Muse 2016`, `Muse 2`, and `Muse S` recordings on **Windows** require the third-party streaming tool `BlueMuse`. `Bluemuse` deals with establishing a connection between the eeg device and the stimulus-delivery laptop/desktop.
 
-- `Muse 2016`, `Muse 2`, and `Muse S` recordings on **Linux** and **Mac** require a BLED112 dongle (see below). The BLED112 dongle bypasses the native bluetooth hardware, which is not compatible with `muse` device streaming. 
+- `Muse 2016`, `Muse 2`, and `Muse S` recordings on **Mac** require a BLED112 dongle (see below). The BLED112 dongle bypasses the native bluetooth hardware, which is not compatible with `muse` device streaming.
 
-- `OpenBCI` recordings work the same for all operating systems, and do not require any additional hardware or software. 
+- `OpenBCI` recordings work the same for all operating systems, and do not require any additional hardware or software.
 
-- 'Usage mode 2' above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, as well as on free temporary cloud compute servers through `Binder` and `GoogleColab`, which we provide instructions for. 
+- 'Usage mode 2' above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, as well as on free temporary cloud compute servers through `Binder` and `GoogleColab`, which we provide instructions for.
 
 
 
@@ -49,7 +49,7 @@ Use the following commands to download the repo, create and activate a conda or 
            conda activate "eeg-notebooks"
 
            conda install git
-           
+
            conda install pip
 
            git clone https://github.com/NeuroTechX/eeg-notebooks
@@ -57,8 +57,8 @@ Use the following commands to download the repo, create and activate a conda or 
            cd eeg-notebooks
 
            pip install -e .
-           
-           
+
+
     .. tab:: Virtualenv
 
        .. tabs::
@@ -78,7 +78,7 @@ Use the following commands to download the repo, create and activate a conda or 
                  cd eeg-notebooks
 
                  pip install -e .
-                 
+
           .. tab:: Linux or MacOS
 
              .. code-block:: bash
@@ -94,7 +94,7 @@ Use the following commands to download the repo, create and activate a conda or 
                  cd eeg-notebooks
 
                  pip install -e .
-                 
+
 
 
 **Add the new environment to the jupyter kernel list**
@@ -145,7 +145,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
 MUSE Requirements
 ======================
 
-The InteraXon MUSE streams EEG over bluetooth. There are additional hardware and software requirements for making recordings with MUSE devices, which are different across operating systems. 
+The InteraXon MUSE streams EEG over bluetooth. There are additional hardware and software requirements for making recordings with MUSE devices, which are different across operating systems.
 
 
 MUSE recordings on windows: BlueMuse
@@ -154,12 +154,16 @@ MUSE recordings on windows: BlueMuse
 BlueMuse is a Windows 10 program that allows communication between a Muse headband and a computer’s native bluetooth drivers using the LSL communication protocol. To install, go the the `BlueMuse github repo <https://github.com/kowalej/BlueMuse>`_ and follow the installation instructions.
 
 
-
-MUSE recordings on Mac+Linux: BLED112 Dongle
+MUSE recordings on Mac: BLED112 Dongle
 ---------------------------------------------
 
-Unfortunately, the native bluetooth driver on Mac and Linux cannot be used with eeg-notebooks. To run on these operating systems, it is necessary to purchase a `BLED112 USB Dongle <https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/>`_. Note: this is a 'special' bluetooth dongle; standard bluetooth dongles will not work. 
+Unfortunately, the native bluetooth driver on Mac cannot be used with eeg-notebooks. To run on this operating system, it is necessary to purchase a `BLED112 USB Dongle <https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/>`_. Note: this is a 'special' bluetooth dongle; standard bluetooth dongles will not work.
 
+
+MUSE recordings on Linux
+---------------------------------------------
+
+Streaming MUSE data on Linux works without a dongle (which relies on `pygatt`'s `GATT` backend), but might be more stable with the `BLED112 USB Dongle` and `BGAPI` backend.
 
 
 Issues
