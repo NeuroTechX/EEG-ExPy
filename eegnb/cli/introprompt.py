@@ -56,11 +56,16 @@ def intro_prompt():
         # add "_wifi" suffix to the end of the board name for brainflow
         if connect_idx == 1:
             board_selection = board_selection + "_wifi"
+
+        if board_selection == 'ganglion':
+            # If the Ganglion is being used, you can enter optional Ganglion mac address
+            ganglion_mac_address = input("\nGanglion MAC Address (Press Enter to Autoscan): ")    
+        elif board_selection == 'ganglion_wifi':
+            # IP address is required for this board configuration
             ip_address = input("\nEnter Ganglion+WiFi IP Address: ")
-        else:
-            # if the ganglion is being used, you can enter optional Ganglion mac address
-            if board_selection == 'ganglion':
-                ganglion_mac_address = input("\nGanglion MAC Address (Press Enter to Autoscan): ")
+        elif board_selection == 'cyton_wifi' or board_selection == 'cyton_daisy_wifi':
+            print(f"\n{boards[board_idx]} + WiFi is not supported. Please use the dongle that was shipped with the device.\n")
+            exit()
 
     # Experiment selection
     print("\nPlease select which experiment you would like to run: \n"
