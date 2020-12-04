@@ -14,7 +14,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-18.04, windows-latest, macOS-latest]
-        python_version: [3.7, 3.9]
+        python_version: [3.7]
+        include:
+          # Experimental: Python 3.9
+          # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/50
+          - os: ubuntu-18.04
+            python_version: 3.9
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
