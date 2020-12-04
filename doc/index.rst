@@ -10,6 +10,9 @@
    getting_started/running_experiments
    getting_started/analysis
    getting_started/available_notebooks
+   getting_started/faq
+   getting_started/loading_and_saving
+   getting_started/setup_overview
 
 .. toctree::
    :caption: Experiments
@@ -22,14 +25,19 @@
    experiments/gonogo
    experiments/all_examples
 
+.. toctree::
+   :caption: Analysis
+   :maxdepth: 4
+
+   experiments/decoding
 
 .. toctree::
    :caption: Misc
    :maxdepth: 4
 
-   misc/using_an_extra_electrod_with_the_muse
+   misc/using_an_extra_electrode_muse
    misc/muse_info
    misc/about_the_docs
 
-   
-   
+
+
