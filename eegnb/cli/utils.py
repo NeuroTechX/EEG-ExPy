@@ -54,7 +54,7 @@ def run_experiment(experiment, record_duration, eeg_device, save_fn):
         ssvep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
     elif experiment == 'auditory-SSAEP':
         ssaep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
-    elif experiment == 'auditory_oddball':
+    elif experiment == 'auditory-oddball':
         #conditions_file = os.path.join(eegnb_file, 'experiments', 'auditory-oddball', "MUSE_conditions.mat")
         F = h5py.File(mcond_file, 'r')#['museEEG']
         highPE = np.squeeze(F['museEEG']['design']['highPE'][:]).astype(int)
