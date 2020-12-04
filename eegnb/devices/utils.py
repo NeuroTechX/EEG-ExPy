@@ -1,6 +1,7 @@
 import numpy as np
 import socket
 import platform
+import serial
 
 from brainflow import BoardShim, BoardIds
 
@@ -52,14 +53,6 @@ SAMPLE_FREQS = {
     'notion2': BoardShim.get_sampling_rate(BoardIds.NOTION_2_BOARD.value),
 }
 
-def get_openbci_usb():
-    if platform.system() == 'Linux':
-        return '/dev/ttyUSB0'
-    elif platform.system() == 'Windows':
-        return input('Please enter USB port for Windows: ')
-    elif platform.system() == 'Darwin':
-        return input("Please enter USB port for Mac OS: ")
-
 def create_stim_array(timestamps, markers):
     """ Creates a stim array which is the lenmgth of the EEG data where the stimuli are lined up
     with their corresponding EEG sample.
@@ -75,3 +68,19 @@ def create_stim_array(timestamps, markers):
         stim_array[stim_idx] = marker[0]
 
     return stim_array
+
+def get_openbci_usb():
+    print('\nGetting a list of available serial ports...')
+    port_list = serial_ports()
+    i = 0
+    for port in port_list:
+        print(f'[{i}] {port}')
+        i += 1
+    port_number = input('Select Port(number): ')
+    if port_number == '':
+        return port_list[int(input('This field is required. Select Port(number): '))]
+    else:
+        return str(port_list[int(port_number)]).split(' - ')[0]
+
+def serial_ports():
+    return serial.tools.list_ports.comports()

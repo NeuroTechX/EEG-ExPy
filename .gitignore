@@ -1,5 +1,7 @@
 __pycache__
 
+*.egg-info/
+
 # Built as part of docs
 doc/auto_examples
 doc/_build
