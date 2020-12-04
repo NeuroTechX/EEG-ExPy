@@ -1,9 +1,9 @@
 
 # Main repo requirements
 psychopy==2020.2.3
-scikit-learn==0.23.2
-pandas==1.1.1
-numpy==1.19.1
+scikit-learn==0.24.0rc1
+pandas==1.1.4
+numpy==1.19.4
 mne>=0.20.8
 seaborn==0.9.0
 pyriemann==0.2.6
@@ -11,12 +11,13 @@ jupyter==1.0.0
 muselsl==2.0.2
 brainflow==3.4.3
 gdown==3.12.2
-matplotlib==3.3.1
+matplotlib==3.3.3
 pysocks==1.7.1
 
-# pywinhook
-pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinhook-1.6.2-cp37-cp37m-win_amd64.whl ; platform_system == "Windows" and python_version == "3.7"
-pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinhook-1.6.2-cp38-cp38-win_amd64.whl ; platform_system == "Windows" and python_version == "3.8"
+# pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
+# See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
+pywinhook ; platform_system == "Windows" and (python_version == "3.7" or python_version == "3.8")
+pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinhook-1.6.2-cp39-cp39-win_amd64.whl ; platform_system == "Windows" and python_version == "3.9"
 
 # Docs requirements
 sphinx==3.1.1
