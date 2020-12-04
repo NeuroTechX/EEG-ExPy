@@ -10,6 +10,12 @@ import os
 import h5py
 import numpy as np, pandas as pd
 
+
+import eegnb
+eegnb_dir = os.path.dirname(eegnb.__file__)
+mcond_file = os.path.join(eegnb_dir, 'experiments', 'auditory_oddball', 'MUSE_conditions.mat')
+
+
 def makeoddball(inputs, rep):
     #based on inputs, creating oddball paradigms markers depending on "switch"
     value = inputs[0]
@@ -49,8 +55,8 @@ def run_experiment(experiment, record_duration, eeg_device, save_fn):
     elif experiment == 'auditory-SSAEP':
         ssaep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
     elif experiment == 'auditory_oddball':
-        conditions_file = os.path.join(os.path.dirname(os.path.abspath("__file__")), "MUSE_conditions.mat")
-        F = h5py.File(conditions_file, 'r')#['museEEG']
+        #conditions_file = os.path.join(eegnb_file, 'experiments', 'auditory-oddball', "MUSE_conditions.mat")
+        F = h5py.File(mcond_file, 'r')#['museEEG']
         highPE = np.squeeze(F['museEEG']['design']['highPE'][:]).astype(int)
         lowPE = np.squeeze(F['museEEG']['design']['lowPE'][:]).astype(int)
         inputs = np.squeeze(F['museEEG']['design']['inputs'][:]).astype(int)
