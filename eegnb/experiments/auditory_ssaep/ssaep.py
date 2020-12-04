@@ -26,14 +26,8 @@ from random import choice
 from eegnb import generate_save_fn
 
 
-def present(duration=120, eeg=None, save_fn=None):
-
-    #parser = OptionParser()
-    #parser.add_option("-d", "--duration",
-     #                 dest="duration", type='int', default=400,
-     #                 help="duration of the recording in seconds.")
-
-    #(options, args) = parser.parse_args()
+def present(duration=120, eeg=None, save_fn=None, iti = 0.5, soa = 3.0, jitter = 0.2, 
+            n_trials = 2010, cf1 = 900, amf1 = 45, cf2 = 770, amf2 = 40.018):
 
     # Create markers stream outlet
     info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
@@ -43,10 +37,6 @@ def present(duration=120, eeg=None, save_fn=None):
     start = time()
 
     # Set up trial parameters
-    n_trials = 2010
-    iti = 0.5
-    soa = 3.0
-    jitter = 0.2
     record_duration = np.float32(duration)
 
     # Set up trial list
@@ -59,6 +49,7 @@ def present(duration=120, eeg=None, save_fn=None):
     fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0,
                                   rgb=[1, 0, 0])
     fixation.setAutoDraw(True)
+
 
     def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=44100,
                              am_type='gaussian', gaussian_std_ratio=8):
@@ -104,9 +95,10 @@ def present(duration=120, eeg=None, save_fn=None):
 
         return am_out
 
+
     # Generate stimuli
-    am1 = generate_am_waveform(900, 45, secs=soa, sample_rate=44100)
-    am2 = generate_am_waveform(770, 40.018, secs=soa, sample_rate=44100)
+    am1 = generate_am_waveform(cf1, amf1, secs=soa, sample_rate=44100)
+    am2 = generate_am_waveform(cf2, amf2, secs=soa, sample_rate=44100)
 
     aud1 = sound.Sound(am1)
     aud1.setVolume(0.8)
@@ -158,17 +150,3 @@ def present(duration=120, eeg=None, save_fn=None):
 
     mywin.close()
 
-
-#def main():
-    #parser = OptionParser()
-
-    #parser.add_option("-d", "--duration",
-     #                 dest="duration", type='int', default=120,
-     #                 help="duration of the recording in seconds.")
-
-    #(options, args) = parser.parse_args()
-    #present(options.duration)
-
-
-#if __name__ == '__main__':
- #   main()
