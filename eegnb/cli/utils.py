@@ -2,8 +2,8 @@
 from eegnb.experiments.visual_n170 import n170
 from eegnb.experiments.visual_p300 import p300
 from eegnb.experiments.visual_ssvep import ssvep
-from eegnb.experiments.auditory_oddball import auditoryaMMN
-from eegnb.experiments.auditory_ssaep import ssaepupdate
+from eegnb.experiments.auditory_oddball import aMMN
+from eegnb.experiments.auditory_ssaep import ssaep
 
 import os
 
@@ -47,7 +47,7 @@ def run_experiment(experiment, record_duration, eeg_device, save_fn):
     elif experiment == 'visual-SSVEP':
         ssvep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
     elif experiment == 'auditory-SSAEP':
-        ssaepupdate.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+        ssaep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
     elif experiment == 'auditory_oddball':
         conditions_file = os.path.join(os.path.dirname(os.path.abspath("__file__")), "MUSE_conditions.mat")
         F = h5py.File(conditions_file, 'r')#['museEEG']
@@ -81,6 +81,6 @@ def run_experiment(experiment, record_duration, eeg_device, save_fn):
             newAdditionalMarkers.append(newAdditionalMarker)
 
         additional_labels = {'labels' : newAdditionalMarkers}
-        auditoryaMMN.present(record_duration=record_duration,stim_types=stim_types,itis=itis, additional_labels = {'labels' : newAdditionalMarkers}, eeg=eeg_device, save_fn=save_fn)
+        aMMN.present(record_duration=record_duration,stim_types=stim_types,itis=itis, additional_labels = {'labels' : newAdditionalMarkers}, eeg=eeg_device, save_fn=save_fn)
         
 
