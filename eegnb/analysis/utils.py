@@ -21,7 +21,7 @@ sns.set_style('white')
 
 
 def load_csv_as_raw(fnames, sfreq, ch_ind, aux_ind=None,
-                    replace_ch_names=None, verbose=1):
+                    replace_ch_names=None, verbose=0):
     """Load CSV files into an MNE Raw object.
 
     Args:
@@ -56,7 +56,6 @@ def load_csv_as_raw(fnames, sfreq, ch_ind, aux_ind=None,
 
         # Channel names and types
         ch_names = [list(data.columns)[i] for i in ch_ind] + ['stim']
-        print(ch_names)
         ch_types = ['eeg'] * n_eeg + ['misc'] * n_aux + ['stim']
 
         if replace_ch_names is not None:
@@ -80,7 +79,7 @@ def load_csv_as_raw(fnames, sfreq, ch_ind, aux_ind=None,
 
 
 def load_data(subject_id, session_nb, device_name, experiment,
-              replace_ch_names=None, verbose=1, site='local', data_dir=None):
+              replace_ch_names=None, verbose=0, site='local', data_dir=None):
     """Load CSV files from the /data directory into a Raw object.
 
     This is a utility function that simplifies access to eeg-notebooks
