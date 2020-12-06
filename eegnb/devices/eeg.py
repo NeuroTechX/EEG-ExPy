@@ -130,6 +130,7 @@ class EEG:
             self.brainflow_id = BoardIds.GANGLION_WIFI_BOARD.value
             if self.ip_addr is not None:
                 self.brainflow_params.ip_address = self.ip_addr
+                self.brainflow_params.ip_port = 6677
 
         elif self.device_name == 'cyton':
             self.brainflow_id = BoardIds.CYTON_BOARD.value
@@ -140,6 +141,7 @@ class EEG:
             self.brainflow_id = BoardIds.CYTON_WIFI_BOARD.value
             if self.ip_addr is not None:
                 self.brainflow_params.ip_address = self.ip_addr
+                self.brainflow_params.ip_port = 6677
 
         elif self.device_name == 'cyton_daisy':
             self.brainflow_id = BoardIds.CYTON_DAISY_BOARD.value
@@ -202,7 +204,7 @@ class EEG:
         data = data.T  # transpose data
 
         # get the channel names for EEG data
-        if self.brainflow_id == BoardIds.GANGLION_BOARD.value:
+        if self.brainflow_id == BoardIds.GANGLION_BOARD.value or self.brainflow_id == BoardIds.GANGLION_WIFI_BOARD.value:
             # if a ganglion is used, use recommended default EEG channel names
             ch_names = ['fp1', 'fp2', 'tp7', 'tp8']
         else:

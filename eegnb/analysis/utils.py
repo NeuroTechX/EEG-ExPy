@@ -20,8 +20,27 @@ sns.set_context('talk')
 sns.set_style('white')
 
 
-def load_csv_as_raw(filename, sfreq, ch_ind, aux_ind=None, replace_ch_names=None, verbose=1):
-    """"""
+def load_csv_as_raw(fnames, sfreq, ch_ind, aux_ind=None,
+                    replace_ch_names=None, verbose=1):
+    """Load CSV files into an MNE Raw object.
+
+    Args:
+        fnames (array_like): list of filename(s) to load. Should end with
+            ".csv".
+        sfreq (float): sampling frequency of the data.
+        ch_ind (array_like): column indices to keep from the CSV files.
+
+    Keyword Args:
+        aux_ind (array_like or None): list of indices for columns containing
+            auxiliary channels.
+        replace_ch_names (array_like or None): list of channel name mappings
+            for the selected columns.
+        verbose (int): verbose level.
+
+    Returns:
+        (mne.io.RawArray): concatenation of the specified filenames into a
+            single Raw object.
+    """
     ch_ind = copy.deepcopy(ch_ind)
     n_eeg = len(ch_ind)
     if aux_ind is not None:
@@ -31,7 +50,7 @@ def load_csv_as_raw(filename, sfreq, ch_ind, aux_ind=None, replace_ch_names=None
         n_aux = 0
 
     raw = []
-    for fn in filename:
+    for fn in fnames:
         # Read the file
         data = pd.read_csv(fn)
 
@@ -49,7 +68,8 @@ def load_csv_as_raw(filename, sfreq, ch_ind, aux_ind=None, replace_ch_names=None
         data[:-1] *= 1e-6
 
         # create MNE object
-        info = create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq,verbose=1)
+        info = create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq,
+                           verbose=1)
         raw.append(RawArray(data=data, info=info, verbose=verbose))
 
     raws = concatenate_raws(raw, verbose=verbose)
@@ -59,20 +79,40 @@ def load_csv_as_raw(filename, sfreq, ch_ind, aux_ind=None, replace_ch_names=None
     return raws
 
 
-def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=None, verbose=1, site='local', data_dir=None):
+def load_data(subject_id, session_nb, device_name, experiment,
+              replace_ch_names=None, verbose=1, site='local', data_dir=None):
     """Load CSV files from the /data directory into a Raw object.
+
+    This is a utility function that simplifies access to eeg-notebooks
+    recordings by wrapping `load_csv_as_raw()`.
+    The provided information is used to recover an eeg-notebooks recording file
+    path with the following structure:
+
+    data_dir/experiment/site/device_name/subject_str/session_str/<recording_date_time>.csv'
+
+    where <recording_date_time> is the automatically generated file name(s)
+    given at the time of recording.
+
     Args:
-        data_dir (str): directory inside /data that contains the
-            CSV files to load, e.g., 'auditory/P300'
-    Keyword Args:
         subject_id (int or str): subject number. If 'all', load all
             subjects.
         session_nb (int or str): session number. If 'all', load all
             sessions.
+        device_name (str): name of device. For a list of supported devices, see
+            eegnb.analysis.utils.SAMPLE_FREQS.
+        experiment (int or str): experiment name or number.
+
+    Keyword Args:
         replace_ch_names (dict or None): dictionary containing a mapping to
-            rename channels. Useful when an external electrode was used.
+            rename channels. Useful when e.g., an external electrode was used.
+        verbose (int): verbose level.
+        site (str): site of recording. If 'all', data from all sites will be
+            used.
+        data_dir (str or None): directory inside /data that contains the
+            CSV files to load, e.g., 'auditory/'.
+
     Returns:
-        (mne.io.array.array.RawArray): loaded EEG
+        (mne.io.RawArray): loaded EEG
     """
 
     if subject_id == 'all':
@@ -88,32 +128,32 @@ def load_data(subject_id, session_nb, device_name, experiment, replace_ch_names=
     if site == 'all':
         site = '*'
 
-    if data_dir == None:
+    if data_dir is None:
       data_dir = DATA_DIR
 
-    data_path = os.path.join(data_dir, experiment, site, device_name, subject_str, session_str, '*.csv')
+    data_path = os.path.join(data_dir, experiment, site, device_name,
+                             subject_str, session_str, '*.csv')
     fnames = glob(data_path)
 
     sfreq = SAMPLE_FREQS[device_name]
     ch_ind = EEG_INDICES[device_name]
     if device_name in ['muse2016', 'muse2', 'museS']:
         return load_csv_as_raw(
-            filename=fnames,
+            fnames,
             sfreq=sfreq,
             ch_ind=ch_ind,
-            aux_ind = [5],
+            aux_ind=[5],
             replace_ch_names=replace_ch_names,
             verbose=verbose
         )
     else:
         return load_csv_as_raw(
-            filename=fnames,
+            fnames,
             sfreq=sfreq,
             ch_ind=ch_ind,
             replace_ch_names=replace_ch_names,
             verbose=verbose
         )
-
 
 
 def plot_conditions(epochs, conditions=OrderedDict(), ci=97.5, n_boot=1000,
@@ -188,7 +228,8 @@ def plot_conditions(epochs, conditions=OrderedDict(), ci=97.5, n_boot=1000,
                   list(conditions.keys()))
     else:
         legend = conditions.keys()
-    axes[-1].legend(legend)
+    axes[-1].legend(legend, bbox_to_anchor=(1.05, 1), loc='upper left',
+                    borderaxespad=0.)
     sns.despine()
     plt.tight_layout()
 
