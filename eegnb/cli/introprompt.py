@@ -22,7 +22,7 @@ def intro_prompt():
         'unicorn', 'brainbit', 'notion1', 'notion2', 'synthetic'
     ]
 
-    experiments = ['visual-N170', 'visual-P300', 'visual-SSVEP', 'auditory_oddball', 'auditory-SSAEP']
+    experiments = ['visual-N170', 'visual-P300', 'visual-SSVEP', 'auditory-oddball', 'auditory-SSAEP']
 
     # have the user input which device they intend to record with
     print("Welcome to NeurotechX EEG Notebooks. \n"
