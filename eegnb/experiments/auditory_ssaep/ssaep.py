@@ -14,6 +14,7 @@ import numpy as np
 from pandas import DataFrame
 from psychopy import prefs
 prefs.general['audioLib'] = ['pygame']
+#prefs.hardware['audioLib'] = ['PTB', 'pyo','pygame']
 from psychopy import visual, core, event, sound
 from pylsl import StreamInfo, StreamOutlet
 from scipy import stats
@@ -28,6 +29,8 @@ from eegnb import generate_save_fn
 
 def present(duration=120, eeg=None, save_fn=None, iti = 0.5, soa = 3.0, jitter = 0.2, 
             n_trials = 2010, cf1 = 900, amf1 = 45, cf2 = 770, amf2 = 40.018):
+
+    sample_rate=44100
 
     # Create markers stream outlet
     info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
@@ -51,7 +54,7 @@ def present(duration=120, eeg=None, save_fn=None, iti = 0.5, soa = 3.0, jitter =
     fixation.setAutoDraw(True)
 
 
-    def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=44100,
+    def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=sample_rate,
                              am_type='gaussian', gaussian_std_ratio=8):
         """Generate an amplitude-modulated waveform.
 
@@ -97,12 +100,12 @@ def present(duration=120, eeg=None, save_fn=None, iti = 0.5, soa = 3.0, jitter =
 
 
     # Generate stimuli
-    am1 = generate_am_waveform(cf1, amf1, secs=soa, sample_rate=44100)
-    am2 = generate_am_waveform(cf2, amf2, secs=soa, sample_rate=44100)
+    am1 = generate_am_waveform(cf1, amf1, secs=soa, sample_rate=sample_rate)
+    am2 = generate_am_waveform(cf2, amf2, secs=soa, sample_rate=sample_rate)
 
-    aud1 = sound.Sound(am1)
+    aud1 = sound.Sound(am1,sampleRate=sample_rate)
     aud1.setVolume(0.8)
-    aud2 = sound.Sound(am2)
+    aud2 = sound.Sound(am2,sampleRate=sample_rate)
     aud2.setVolume(0.8)
     auds = [aud1, aud2]
 
