@@ -15,7 +15,7 @@ matplotlib==3.3.1
 pysocks==1.7.1
 pywinhook==1.6.0; platform_system == "Windows"
 pyserial==3.5
-h5py>=3.1.0; platform_system == "Linux"
+h5py>=3.1.0
 pyo>=1.0.3; platform_system == "Linux"
 wxPython>=4.0 ; platform_system == "Linux"
 
