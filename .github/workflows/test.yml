@@ -34,7 +34,8 @@ jobs:
         # libgtk-3-dev is a requirement for wxPython
         # freeglut3-dev is a requirement for a wxPython dependency
         sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev
-    - name: Install dependencies
+    - name: Install Linux dependencies
+      if: "startsWith(runner.os, 'Linux')"
       run: |
         python -m pip install --upgrade pip wheel
 
@@ -43,11 +44,24 @@ jobs:
         pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
 
         pip install .
-    - name: Run eegnb
+    - name: Install MacOS/Windows dependencies
+      run: |
+        python -m pip install --upgrade pip wheel
+
+        pip install .
+
+    - name: Run eegnb Linux
       if: "startsWith(runner.os, 'Linux')"
       run: |
         Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
         export DISPLAY=:0
+        echo "first test: print help menu"
+        eegnb --help
+        echo "second test: runexp with no args"
+        eegnb runexp
+    - name: Run eegnb MacOS
+      if: "startsWith(runner.os, 'MacOS')"
+      run: |
         echo "first test: print help menu"
         eegnb --help
         echo "second test: runexp with no args"
