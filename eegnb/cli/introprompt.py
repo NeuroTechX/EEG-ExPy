@@ -39,13 +39,12 @@ def intro_prompt():
         "synthetic",
     ]
 
-    experiments = [
-        "visual-N170",
-        "visual-P300",
-        "visual-SSVEP",
-        "auditory-oddball",
-        "auditory-SSAEP",
-    ]
+    experiments = { '1': "visual-N170",
+                    '2': "visual-P300",
+                    '3': "visual-SSVEP",
+                    '4': "auditory-oddball",
+                    '5': "auditory-SSAEP" }
+    
 
     # have the user input which device they intend to record with
     print(
@@ -110,7 +109,7 @@ def intro_prompt():
         "[4] auditory_ssaep \n"
     )
 
-    exp_idx = int(input("Enter Experiment Selection: "))
+    exp_idx = str(input("Enter Experiment Selection: "))
     exp_selection = experiments[exp_idx]
     print(f"Selected experiment {exp_selection} \n")
 
