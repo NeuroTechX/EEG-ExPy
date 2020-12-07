@@ -39,11 +39,13 @@ def intro_prompt():
         "synthetic",
     ]
 
-    experiments = { '1': "visual-N170",
-                    '2': "visual-P300",
-                    '3': "visual-SSVEP",
-                    '4': "auditory-oddball",
-                    '5': "auditory-SSAEP" }
+    experiments = { '0': "visual-N170",
+                    '1': "visual-P300",
+                    '2': "visual-SSVEP",
+                    '3a': "auditory-oddball orig",
+                    '3b': "auditory-oddball diaconescu", 
+                    '4a': "auditory-SSAEP orig",
+                    "4b": "auditory-SSAEP onefreq"}
     
 
     # have the user input which device they intend to record with
@@ -105,8 +107,10 @@ def intro_prompt():
         "[0] visual n170 \n"
         "[1] visual p300 \n"
         "[2] ssvep \n"
-        "[3] auditory_oddball \n"
-        "[4] auditory_ssaep \n"
+        "[3a] auditory oddball, orig version\n"
+        "[3b] auditory oddball, diaconescu version\n"
+        "[4a] auditory ssaep, orig version \n"
+        "[4b] auditory ssaep, single freq version\n"
     )
 
     exp_idx = str(input("Enter Experiment Selection: "))

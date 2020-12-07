@@ -1,8 +1,9 @@
 from eegnb.experiments.visual_n170 import n170
 from eegnb.experiments.visual_p300 import p300
 from eegnb.experiments.visual_ssvep import ssvep
-from eegnb.experiments.auditory_oddball import aMMN
-from eegnb.experiments.auditory_ssaep import ssaep
+from eegnb.experiments.auditory_oddball import aob,aMMN
+from eegnb.experiments.auditory_ssaep import ssaep,ssaep_onefreq
+
 
 import os
 
@@ -55,10 +56,13 @@ def run_experiment(experiment, record_duration, eeg_device, save_fn):
         p300.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
     elif experiment == "visual-SSVEP":
         ssvep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
-    elif experiment == "auditory-SSAEP":
+    elif experiment == "auditory-SSAEP orig":
         ssaep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
-    elif experiment == "auditory-oddball":
-        # conditions_file = os.path.join(eegnb_file, 'experiments', 'auditory-oddball', "MUSE_conditions.mat")
+    elif experiment == "auditory-SSAEP onefreq":
+        ssaep_onefreq.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+    elif experiment == "auditory-oddball orig":
+        aob.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+    elif experiment == "auditory-oddball diaconescu":
         F = h5py.File(mcond_file, "r")  # ['museEEG']
         highPE = np.squeeze(F["museEEG"]["design"]["highPE"][:]).astype(int)
         lowPE = np.squeeze(F["museEEG"]["design"]["lowPE"][:]).astype(int)
