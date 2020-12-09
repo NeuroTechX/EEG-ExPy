@@ -50,22 +50,17 @@ jobs:
 
         pip install .
 
-    - name: Run eegnb Linux
-      if: "startsWith(runner.os, 'Linux')"
+    - name: Run eegnb install test
       run: |
-        Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
-        export DISPLAY=:0
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
+          export DISPLAY=:0
+        fi
         echo "first test: print help menu"
         eegnb --help
         echo "second test: runexp with no args"
         eegnb runexp
-    - name: Run eegnb MacOS
-      if: "startsWith(runner.os, 'MacOS')"
-      run: |
-        echo "first test: print help menu"
-        eegnb --help
-        echo "second test: runexp with no args"
-        eegnb runexp
+      shell: bash
     #- name: Typecheck
     #  run: |
     #    mypy --ignore-missing-imports
