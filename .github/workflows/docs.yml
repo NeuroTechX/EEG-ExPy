@@ -28,8 +28,8 @@ jobs:
     - name: Set up ssh-agent
       uses: yakuhzi/action-ssh-agent@v1
       with:
-        public: ${{ secrets.SSH_PUBLIC_KEY }}
-        private: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-public-key: ${{ secrets.SSH_PUBLIC_KEY }}
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Build docs
       run: |
         cd doc && make install
