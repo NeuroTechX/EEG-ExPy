@@ -26,4 +26,4 @@ jobs:
         pip install .
     - name: Build docs
       run: |
-        cd doc && make html
+        cd doc && make install
