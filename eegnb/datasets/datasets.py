@@ -7,43 +7,60 @@ import gdown
 from eegnb import DATA_DIR
 
 
-def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
-                  device='muse2016', subjects='all', sessions='all',
-                  download_method = 'gdown'):
+def fetch_dataset(
+    data_dir=None,
+    experiment=None,
+    site="eegnb_examples",
+    device="muse2016",
+    subjects="all",
+    sessions="all",
+    download_method="gdown",
+):
     """
-            Return a long-form filenames list and a table saying what
-            subject and session, and run each entry corresponds to
+    Return a long-form filenames list and a table saying what
+    subject and session, and run each entry corresponds to
 
-            Usage:
-                    data_dir = '/my_folder'
-                    experiment = 'visual-N170'
-                    subjects = [1]
-                    sessions = 'all'
+    Usage:
+            data_dir = '/my_folder'
+            experiment = 'visual-N170'
+            subjects = [1]
+            sessions = 'all'
 
-                    visn170_fnames = fetch_dataset(data_dir=data_dir, subjects='all', experiment='visual-N170',
-                    site='eegnb_examples')
+            visn170_fnames = fetch_dataset(data_dir=data_dir, subjects='all', experiment='visual-N170',
+            site='eegnb_examples')
 
-                    visnP300_fnames = fetch_dataset(data_dir=data_dir, subjects=[1], experiment='visual-P300',
-                    site='eegnb_examples')
+            visnP300_fnames = fetch_dataset(data_dir=data_dir, subjects=[1], experiment='visual-P300',
+            site='eegnb_examples')
 
 
 
     """
     # List of experiments available
-    experiments_list = ['rest', 'auditory-P300', 'auditory-SSAEP', 'visual-cueing',
-                          'visual-gonogo','visual-leftright','visual-N170',
-                          'visual-P300','visual-spatialfreq', 'visual-SSVEP']
+    experiments_list = [
+        "rest",
+        "auditory-P300",
+        "auditory-SSAEP",
+        "visual-cueing",
+        "visual-gonogo",
+        "visual-leftright",
+        "visual-N170",
+        "visual-P300",
+        "visual-spatialfreq",
+        "visual-SSVEP",
+    ]
 
     # List gdrive extensions for various experiments
-    gdrive_locs = {'visual-SSVEP':'1zj9Wx-YEMJo7GugUUu7Sshcybfsr-Fze',
-                    'visual-spatialfreq':'1ggBt7CNvMgddxji-FvxcZoP-IF-PmESX',
-                    'visual-P300':'1OLcj-zSjqdNrsBSUAsGBXOwWDnGWTVFC',
-                    'visual-N170': '1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH',
-                    'visual-leftright': '1f8A4Vbz0xjfgGIYFldMZ7ZL02x7T0jSt',
-                    'visual-nogono': '1C8WKg9TXyp8A3QJ6T8zbGnk6jFcMutad',
-                    'visual-cueing': '1ABOVJ9S0BeJOsqdGFnexaTFZ-ZcsIXfQ',
-                    'auditory-SSAEP': '1fd0OAyNGWWOHD8e1FnEOLeQMeEoxqEpO',
-                    'auditory-P300': '1OEtrRfMOkzDssGv-2Lj56FsArmPnQ2vD'}
+    gdrive_locs = {
+        "visual-SSVEP": "1zj9Wx-YEMJo7GugUUu7Sshcybfsr-Fze",
+        "visual-spatialfreq": "1ggBt7CNvMgddxji-FvxcZoP-IF-PmESX",
+        "visual-P300": "1OLcj-zSjqdNrsBSUAsGBXOwWDnGWTVFC",
+        "visual-N170": "1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH",
+        "visual-leftright": "1f8A4Vbz0xjfgGIYFldMZ7ZL02x7T0jSt",
+        "visual-nogono": "1C8WKg9TXyp8A3QJ6T8zbGnk6jFcMutad",
+        "visual-cueing": "1ABOVJ9S0BeJOsqdGFnexaTFZ-ZcsIXfQ",
+        "auditory-SSAEP": "1fd0OAyNGWWOHD8e1FnEOLeQMeEoxqEpO",
+        "auditory-P300": "1OEtrRfMOkzDssGv-2Lj56FsArmPnQ2vD",
+    }
 
     # If no non-default top-level data path specified, use default
     if data_dir == None:
@@ -51,7 +68,7 @@ def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
 
     # check parameter entries
     if experiment not in experiments_list:
-        raise ValueError('experiment not in database')
+        raise ValueError("experiment not in database")
 
     # check if data has been previously downloaded
     download_it = False
@@ -64,72 +81,79 @@ def fetch_dataset(data_dir=None, experiment=None, site='eegnb_examples',
         if os.path.exists(data_dir) is not True:
             os.makedirs(data_dir)
 
-        destination = os.path.join(data_dir, 'downloaded_data.zip')
-        
-        if download_method == 'gdown':
+        destination = os.path.join(data_dir, "downloaded_data.zip")
 
-          URL = 'https://drive.google.com/uc?id=' + gdrive_locs[experiment]
-          gdown.download(URL, destination, quiet=False)
+        if download_method == "gdown":
 
+            URL = "https://drive.google.com/uc?id=" + gdrive_locs[experiment]
+            gdown.download(URL, destination, quiet=False)
 
-        elif download_method == 'requests':
+        elif download_method == "requests":
 
-          URL = "https://docs.google.com/uc?export=download"
+            URL = "https://docs.google.com/uc?export=download"
 
-          session = requests.Session()
-          response = session.get(URL, params = { 'id' : gdrive_locs[experiment] }, stream = True)
+            session = requests.Session()
+            response = session.get(
+                URL, params={"id": gdrive_locs[experiment]}, stream=True
+            )
 
-          # get the confirmation token to download large files
-          token = None
-          for key, value in response.cookies.items():
-              if key.startswith('download_warning'):
-                  token = value
+            # get the confirmation token to download large files
+            token = None
+            for key, value in response.cookies.items():
+                if key.startswith("download_warning"):
+                    token = value
 
-          if token:
-              params = {'id' : id, 'confirm' : token}
-              response = session.get(URL, params=params, stream=True)
+            if token:
+                params = {"id": id, "confirm": token}
+                response = session.get(URL, params=params, stream=True)
 
-          # save content to the zip-file
-          CHUNK_SIZE = 32768
-          with open(destination, "wb") as f:
-              for chunk in response.iter_content(CHUNK_SIZE):
-                  if chunk:
-                      f.write(chunk)
-
-
+            # save content to the zip-file
+            CHUNK_SIZE = 32768
+            with open(destination, "wb") as f:
+                for chunk in response.iter_content(CHUNK_SIZE):
+                    if chunk:
+                        f.write(chunk)
 
         # unzip the file
-        with zipfile.ZipFile(destination, 'r') as zip_ref:
+        with zipfile.ZipFile(destination, "r") as zip_ref:
             zip_ref.extractall(data_dir)
 
         # remove the compressed zip archive
         os.remove(destination)
 
-    if subjects == 'all': subjects = ['*']
-    if sessions == 'all':  sessions = ['*']
+    if subjects == "all":
+        subjects = ["*"]
+    if sessions == "all":
+        sessions = ["*"]
 
-    # If 'all' subjects and 'all sesssions: 
-    if ( (subjects[0] == '*') and (sessions[0] == '*') ): 
-      pth = os.path.join(exp_dir ,f'subject{subjects[0]}', f'session{sessions[0]}', '*.csv')
-      fnames = glob.glob(pth)
-    # Else, if specific subjects and sessions 
+    # If 'all' subjects and 'all sesssions:
+    if (subjects[0] == "*") and (sessions[0] == "*"):
+        pth = os.path.join(
+            exp_dir, f"subject{subjects[0]}", f"session{sessions[0]}", "*.csv"
+        )
+        fnames = glob.glob(pth)
+    # Else, if specific subjects and sessions
     else:
-      fnames = []
-      for subject_nb in subjects:
-          if subject_nb != '*':
-              # Format to get 4 digit number, e.g. 0004
-              subject_nb = float(subject_nb)
-              subject_nb = '%03.f' %subject_nb
-              for session_nb in sessions:
-                  # Formt to get 3 digit number, e.g. 003
-                  if session_nb != '*':
-                      session_nb = float(session_nb)
-                      session_nb = '%02.f' %session_nb
+        fnames = []
+        for subject_nb in subjects:
+            if subject_nb != "*":
+                # Format to get 4 digit number, e.g. 0004
+                subject_nb = float(subject_nb)
+                subject_nb = "%03.f" % subject_nb
+                for session_nb in sessions:
+                    # Formt to get 3 digit number, e.g. 003
+                    if session_nb != "*":
+                        session_nb = float(session_nb)
+                        session_nb = "%02.f" % session_nb
 
-                      pth = os.path.join(exp_dir, f'subject{subject_nb}', f'session{session_nb}', '*.csv')
-                      #pth = '{}/subject{}/session{}/*.csv'.format(exp_dir,subject_nb, session_nb)
-                      fpaths = glob.glob(pth)
-                      fnames += fpaths
+                        pth = os.path.join(
+                            exp_dir,
+                            f"subject{subject_nb}",
+                            f"session{session_nb}",
+                            "*.csv",
+                        )
+                        # pth = '{}/subject{}/session{}/*.csv'.format(exp_dir,subject_nb, session_nb)
+                        fpaths = glob.glob(pth)
+                        fnames += fpaths
 
     return fnames
-

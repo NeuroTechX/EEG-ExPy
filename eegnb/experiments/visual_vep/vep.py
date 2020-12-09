@@ -9,7 +9,7 @@ from pylsl import StreamInfo, StreamOutlet
 def present(duration=120):
 
     # create
-    info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
+    info = StreamInfo("Markers", "Markers", 1, 0, "int32", "myuidw43536")
 
     # next make an outlet
     outlet = StreamOutlet(info)
@@ -19,22 +19,21 @@ def present(duration=120):
     start = time()
 
     n_trials = 2000
-    iti = .2
-    jitter = .1
+    iti = 0.2
+    jitter = 0.1
     soa = 0.2
     record_duration = np.float32(duration)
 
     # Setup log
     position = np.random.randint(0, 2, n_trials)
-    trials = DataFrame(dict(position=position,
-                            timestamp=np.zeros(n_trials)))
+    trials = DataFrame(dict(position=position, timestamp=np.zeros(n_trials)))
 
     # graphics
-    mywin = visual.Window([1920, 1080], monitor="testMonitor", units="deg",
-                          fullscr=True)
-    grating = visual.GratingStim(win=mywin, mask='circle', size=20, sf=4)
-    fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0,
-                                  rgb=[1, 0, 0])
+    mywin = visual.Window(
+        [1920, 1080], monitor="testMonitor", units="deg", fullscr=True
+    )
+    grating = visual.GratingStim(win=mywin, mask="circle", size=20, sf=4)
+    fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0, rgb=[1, 0, 0])
 
     for ii, trial in trials.iterrows():
         # inter trial interval
@@ -42,8 +41,8 @@ def present(duration=120):
 
         # onset
         grating.phase += np.random.rand()
-        pos = trials['position'].iloc[ii]
-        grating.pos = [25*(pos-0.5), 0]
+        pos = trials["position"].iloc[ii]
+        grating.pos = [25 * (pos - 0.5), 0]
         grating.draw()
         fixation.draw()
         outlet.push_sample([markernames[pos]], time())
@@ -63,13 +62,18 @@ def present(duration=120):
 def main():
     parser = OptionParser()
 
-    parser.add_option("-d", "--duration",
-                      dest="duration", type='int', default=120,
-                      help="duration of the recording in seconds.")
+    parser.add_option(
+        "-d",
+        "--duration",
+        dest="duration",
+        type="int",
+        default=120,
+        help="duration of the recording in seconds.",
+    )
 
     (options, args) = parser.parse_args()
     present(options.duration)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

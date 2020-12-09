@@ -149,4 +149,3 @@ def present(duration=120, eeg=None, save_fn=None, iti = 0.5, soa = 3.0, jitter =
     if eeg: eeg.stop()
 
     mywin.close()
-
