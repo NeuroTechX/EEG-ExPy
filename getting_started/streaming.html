@@ -104,7 +104,8 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-library">Installing the Python library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#muse-requirements">MUSE Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#muse-recordings-on-mac-bled112-dongle">MUSE recordings on Mac: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#muse-recordings-on-linux">MUSE recordings on Linux</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#issues">Issues</a><ul>
@@ -497,7 +498,9 @@ the various devices and backends behind one easy call.</p>
 <p>Below is a lst of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.</p>
 <div class="section" id="interaxon-muse">
 <h3>Interaxon Muse<a class="headerlink" href="#interaxon-muse" title="Permalink to this headline">¶</a></h3>
-<p><strong>Device Names:</strong> <em>‘muse2016’</em>, <em>‘muse2’</em>, and <em>‘museS’</em><br /><strong>Backend:</strong> MuseLSL<br /><strong>Needed Parameters:</strong>  No other parameters are needed, however, if running on Windows 10, then you must also start blue muse before running the experiments.</p>
+<p><strong>Device Names:</strong> <em>‘muse2016’</em>, <em>‘muse2’</em>, and <em>‘museS’</em>
+<strong>Backend:</strong> MuseLSL
+<strong>Needed Parameters:</strong>  No other parameters are needed, however, if running on Windows 10, then you must also start blue muse before running the experiments.</p>
 <div class="section" id="using-the-muse-on-windows">
 <h4>Using the Muse on Windows<a class="headerlink" href="#using-the-muse-on-windows" title="Permalink to this headline">¶</a></h4>
 <p>To initialize the EEG stream on window you must have Bluemuse running in the background. Open a terminal and start
@@ -511,7 +514,9 @@ be run to begin the notebooks interfacing with the bluemuse backend.</p>
 <div class="section" id="openbci-ganglion">
 <h3>OpenBCI Ganglion<a class="headerlink" href="#openbci-ganglion" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/ganglion.png" /></p>
-<p><strong>Device Name:</strong> <em>‘ganglion’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong></p>
+<p><strong>Device Name:</strong> <em>‘ganglion’</em>
+<strong>Backend:</strong> Brainflow
+<strong>Needed Parameters:</strong></p>
 <ul class="simple">
 <li><p><em>mac_addr</em>: MAC Address (see below for instructions on getting the MAC address)</p></li>
 </ul>
@@ -525,17 +530,25 @@ be run to begin the notebooks interfacing with the bluemuse backend.</p>
 <div class="section" id="openbci-cyton">
 <h3>OpenBCI Cyton<a class="headerlink" href="#openbci-cyton" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/cyton.png" /></p>
-<p><strong>Device Name:</strong> <em>‘cyton’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong><br /><strong>Optional Parameters:</strong></p>
+<p><strong>Device Name:</strong> <em>‘cyton’</em>
+<strong>Backend:</strong> Brainflow
+<strong>Needed Parameters:</strong>
+<strong>Optional Parameters:</strong></p>
 </div>
 <div class="section" id="openbci-cyton-daisy">
 <h3>OpenBCI Cyton + Daisy<a class="headerlink" href="#openbci-cyton-daisy" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/cyton_daisy.png" />
-<strong>Device Name:</strong> <em>‘cyton_daisy’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong><br /><strong>Optional Parameters:</strong></p>
+<strong>Device Name:</strong> <em>‘cyton_daisy’</em>
+<strong>Backend:</strong> Brainflow
+<strong>Needed Parameters:</strong>
+<strong>Optional Parameters:</strong></p>
 </div>
 <div class="section" id="neurosity-notion-versions-1-and-2">
 <h3>Neurosity Notion (versions 1 and 2)<a class="headerlink" href="#neurosity-notion-versions-1-and-2" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/notion.png" />
-<strong>Device Name:</strong> <em>‘notion1’</em> or <em>‘notion2’</em><br /><strong>Backend:</strong> Brainflow<br /><strong>Needed Parameters:</strong>  No additional parameters are needed to connect to the Notion. It is necessary however to make sure the Notion is on the same network and readable by Neurosity’s developer console.</p>
+<strong>Device Name:</strong> <em>‘notion1’</em> or <em>‘notion2’</em>
+<strong>Backend:</strong> Brainflow
+<strong>Needed Parameters:</strong>  No additional parameters are needed to connect to the Notion. It is necessary however to make sure the Notion is on the same network and readable by Neurosity’s developer console.</p>
 <div class="section" id="connecting-on-windows">
 <h4>Connecting on Windows<a class="headerlink" href="#connecting-on-windows" title="Permalink to this headline">¶</a></h4>
 <p>In order to connect to the Notion on Windows you must first turn off your network firewall for the Open Sound Control (OSC) protocol to function for the notion.</p>
@@ -543,12 +556,15 @@ be run to begin the notebooks interfacing with the bluemuse backend.</p>
 </div>
 <div class="section" id="brainbit-eeg-headband">
 <h3>BrainBit EEG Headband<a class="headerlink" href="#brainbit-eeg-headband" title="Permalink to this headline">¶</a></h3>
-<p><img alt="fig" src="../_images/brainbit.png" /><br /><strong>Device Name:</strong> <em>‘brainbit’</em><br /><strong>Backend:</strong> Brainflow</p>
+<p><img alt="fig" src="../_images/brainbit.png" />
+<strong>Device Name:</strong> <em>‘brainbit’</em>
+<strong>Backend:</strong> Brainflow</p>
 </div>
 <div class="section" id="g-tec-unicorn">
 <h3>G.Tec Unicorn<a class="headerlink" href="#g-tec-unicorn" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/gtec-unicorn.jpg" />
-<strong>Device Name:</strong> <em>‘unicorn’</em><br /><strong>Backend:</strong> Brainflow</p>
+<strong>Device Name:</strong> <em>‘unicorn’</em>
+<strong>Backend:</strong> Brainflow</p>
 </div>
 </div>
 <div class="section" id="initiating-a-muse-stream-in-windows-using-bluemuse">

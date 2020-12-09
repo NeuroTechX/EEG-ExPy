@@ -104,7 +104,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-mac-bled112-dongle">MUSE recordings on Mac: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-linux">MUSE recordings on Linux</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#issues">Issues</a><ul>
@@ -532,22 +533,14 @@ the example dataset, if you do not already have it.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30720
-    Range : 0 ... 30719 =      0.000 ...   119.996 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
+From: https://drive.google.com/uc?id=1zj9Wx-YEMJo7GugUUu7Sshcybfsr-Fze
+To: /home/runner/.eegnb/data/downloaded_data.zip
+
+0.00B [00:00, ?B/s]
+3.15MB [00:00, 31.4MB/s]
+4.72MB [00:00, 16.4MB/s]
+5.14MB [00:00, 16.8MB/s]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
@@ -555,6 +548,22 @@ Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30720
+    Range : 0 ... 30719 =      0.000 ...   119.996 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 </pre></div>
 </div>
@@ -672,7 +681,7 @@ Effective window size : 4.016 (s)
 Applying baseline correction (mode: logratio)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  29.617 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.673 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/89f5ff349033ec3c3d48bcfb2c3c3de2/01r__ssvep_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__ssvep_viz.py</span></code></a></p>

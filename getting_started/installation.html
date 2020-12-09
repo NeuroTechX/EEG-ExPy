@@ -106,7 +106,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#installing-the-python-library">Installing the Python library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#muse-requirements">MUSE Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#muse-recordings-on-mac-linux-bled112-dongle">MUSE recordings on Mac+Linux: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#muse-recordings-on-mac-bled112-dongle">MUSE recordings on Mac: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#muse-recordings-on-linux">MUSE recordings on Linux</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#issues">Issues</a><ul>
@@ -491,7 +492,7 @@
 <p>As may be expected, the installation and setup steps for mode 2 are simpler than mode 1, with the difference being additional hardware and software requirements for measuring, streaming and recording EEG data. These requirements, which are device- and operating system-specific, are as follows:</p>
 <ul class="simple">
 <li><p><cite>Muse 2016</cite>, <cite>Muse 2</cite>, and <cite>Muse S</cite> recordings on <strong>Windows</strong> require the third-party streaming tool <cite>BlueMuse</cite>. <cite>Bluemuse</cite> deals with establishing a connection between the eeg device and the stimulus-delivery laptop/desktop.</p></li>
-<li><p><cite>Muse 2016</cite>, <cite>Muse 2</cite>, and <cite>Muse S</cite> recordings on <strong>Linux</strong> and <strong>Mac</strong> require a BLED112 dongle (see below). The BLED112 dongle bypasses the native bluetooth hardware, which is not compatible with <cite>muse</cite> device streaming.</p></li>
+<li><p><cite>Muse 2016</cite>, <cite>Muse 2</cite>, and <cite>Muse S</cite> recordings on <strong>Mac</strong> require a BLED112 dongle (see below). The BLED112 dongle bypasses the native bluetooth hardware, which is not compatible with <cite>muse</cite> device streaming.</p></li>
 <li><p><cite>OpenBCI</cite> recordings work the same for all operating systems, and do not require any additional hardware or software.</p></li>
 <li><p>‘Usage mode 2’ above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, as well as on free temporary cloud compute servers through <cite>Binder</cite> and <cite>GoogleColab</cite>, which we provide instructions for.</p></li>
 </ul>
@@ -514,19 +515,15 @@
 </div>
 </div>
 <div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0-0 active docutils container">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n <span class="s2">&quot;eeg-notebooks&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n <span class="s2">&quot;eeg-notebooks&quot;</span> <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 git pip
 
 conda activate <span class="s2">&quot;eeg-notebooks&quot;</span>
-
-conda install git
-
-conda install pip
 
 git clone https://github.com/NeuroTechX/eeg-notebooks
 
 <span class="nb">cd</span> eeg-notebooks
 
-pip install -r requirements.txt
+pip install -e .
 </pre></div>
 </div>
 </div>
@@ -555,7 +552,7 @@ eegnb-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.bat
 
 <span class="nb">cd</span> eeg-notebooks
 
-pip install -r requirements.txt
+pip install -e .
 </pre></div>
 </div>
 </div>
@@ -570,7 +567,7 @@ git clone https://github.com/NeuroTechX/eeg-notebooks
 
 <span class="nb">cd</span> eeg-notebooks
 
-pip install -r requirements.txt
+pip install -e .
 </pre></div>
 </div>
 </div>
@@ -620,9 +617,13 @@ pip install -r requirements.txt
 <h3>MUSE recordings on windows: BlueMuse<a class="headerlink" href="#muse-recordings-on-windows-bluemuse" title="Permalink to this headline">¶</a></h3>
 <p>BlueMuse is a Windows 10 program that allows communication between a Muse headband and a computer’s native bluetooth drivers using the LSL communication protocol. To install, go the the <a class="reference external" href="https://github.com/kowalej/BlueMuse">BlueMuse github repo</a> and follow the installation instructions.</p>
 </div>
-<div class="section" id="muse-recordings-on-mac-linux-bled112-dongle">
-<h3>MUSE recordings on Mac+Linux: BLED112 Dongle<a class="headerlink" href="#muse-recordings-on-mac-linux-bled112-dongle" title="Permalink to this headline">¶</a></h3>
-<p>Unfortunately, the native bluetooth driver on Mac and Linux cannot be used with eeg-notebooks. To run on these operating systems, it is necessary to purchase a <a class="reference external" href="https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/">BLED112 USB Dongle</a>. Note: this is a ‘special’ bluetooth dongle; standard bluetooth dongles will not work.</p>
+<div class="section" id="muse-recordings-on-mac-bled112-dongle">
+<h3>MUSE recordings on Mac: BLED112 Dongle<a class="headerlink" href="#muse-recordings-on-mac-bled112-dongle" title="Permalink to this headline">¶</a></h3>
+<p>Unfortunately, the native bluetooth driver on Mac cannot be used with eeg-notebooks. To run on this operating system, it is necessary to purchase a <a class="reference external" href="https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/">BLED112 USB Dongle</a>. Note: this is a ‘special’ bluetooth dongle; standard bluetooth dongles will not work.</p>
+</div>
+<div class="section" id="muse-recordings-on-linux">
+<h3>MUSE recordings on Linux<a class="headerlink" href="#muse-recordings-on-linux" title="Permalink to this headline">¶</a></h3>
+<p>Streaming MUSE data on Linux works without a dongle (which relies on <cite>pygatt</cite>’s <cite>GATT</cite> backend), but might be more stable with the <cite>BLED112 USB Dongle</cite> and <cite>BGAPI</cite> backend.</p>
 </div>
 </div>
 <div class="section" id="issues">
