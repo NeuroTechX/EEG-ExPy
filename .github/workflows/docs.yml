@@ -25,11 +25,9 @@ jobs:
 
         pip install .
 
-    - name: Set up ssh-agent
-      uses: yakuhzi/action-ssh-agent@v1
-      with:
-        ssh-public-key: ${{ secrets.SSH_PUBLIC_KEY }}
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Build docs
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
         cd doc && make install
