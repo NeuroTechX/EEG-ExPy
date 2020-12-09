@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
+    - name: set up ssh access  
+    - uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Set up Python 3.6
       uses: actions/setup-python@v1
       with:
@@ -26,8 +30,5 @@ jobs:
         pip install .
 
     - name: Build docs
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
         cd doc && make install
