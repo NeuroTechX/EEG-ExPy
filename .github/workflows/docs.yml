@@ -31,4 +31,6 @@ jobs:
 
     - name: Build docs
       run: |
+        git config --global user.email "eeg-notebooks-ci@github.com"
+        git config --global user.name "eeg-notebooks github repo CI"
         cd doc && make install
