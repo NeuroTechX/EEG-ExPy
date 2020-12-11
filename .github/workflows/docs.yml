@@ -26,4 +26,11 @@ jobs:
         pip install .
     - name: Build docs
       run: |
-        cd doc && make install
+        cd doc && make html
+    - name: Deploy Docs
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/master'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: doc/_build/html
+ 
