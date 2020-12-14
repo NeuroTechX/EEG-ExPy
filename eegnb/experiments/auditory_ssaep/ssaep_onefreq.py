@@ -51,6 +51,35 @@ def present(duration=365, eeg=None, save_fn=None, iti = 1, soa = 1.0, jitter = 0
     fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0,
                                   rgb=[1, 0, 0])
     fixation.setAutoDraw(True)
+	
+	def show_instructions(duration):
+
+    instruction_text = \
+    """
+    Welcome to the ASSR experiment!
+    Stay still, focus on the centre of the screen, and try not to blink.
+    This block will run for %s seconds.
+    Press spacebar to continue.
+    """
+    instruction_text = instruction_text %duration
+
+    # graphics
+    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg",
+                          fullscr=True)
+
+    mywin.mouseVisible = False
+
+    #Instructions
+    text = visual.TextStim(
+        win=mywin,
+        text=instruction_text,
+        color=[-1, -1, -1])
+    text.draw()
+    mywin.flip()
+    event.waitKeys(keyList="space")
+
+    mywin.mouseVisible = True
+    mywin.close()
 
 
     def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=44100,
@@ -107,6 +136,8 @@ def present(duration=365, eeg=None, save_fn=None, iti = 1, soa = 1.0, jitter = 0
     auds = [aud1]
 
     mywin.flip()
+	
+	show_instructions(10)
     
     # start the EEG stream=
     if eeg:
