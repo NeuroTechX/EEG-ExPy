@@ -143,9 +143,11 @@ def show_instructions(duration):
 
     mywin.flip()
 	
-	show_instructions(10)
-    
-    # start the EEG stream=
+    # Show the instructions screen
+    show_instructions(10)
+
+
+    # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
     if eeg:
         if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
             save_fn = generate_save_fn(eeg.device_name, 'ssaep', 'unnamed')
