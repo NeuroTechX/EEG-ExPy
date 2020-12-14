@@ -52,14 +52,18 @@ def present(duration=365, eeg=None, save_fn=None, iti = 1, soa = 1.0, jitter = 0
                                   rgb=[1, 0, 0])
     fixation.setAutoDraw(True)
 	
-	def show_instructions(duration):
+def show_instructions(duration):
 
     instruction_text = \
     """
-    Welcome to the ASSR experiment!
+    Welcome to the aMMN experiment!
+
     Stay still, focus on the centre of the screen, and try not to blink.
+
     This block will run for %s seconds.
+
     Press spacebar to continue.
+
     """
     instruction_text = instruction_text %duration
 
@@ -80,6 +84,8 @@ def present(duration=365, eeg=None, save_fn=None, iti = 1, soa = 1.0, jitter = 0
 
     mywin.mouseVisible = True
     mywin.close()
+
+
 
 
     def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=44100,
