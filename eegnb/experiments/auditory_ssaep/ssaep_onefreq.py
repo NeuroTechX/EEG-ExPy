@@ -28,8 +28,8 @@ from random import choice
 from eegnb import generate_save_fn
 
 
-def present(duration=120, eeg=None, save_fn=None, iti = 0.5, soa = 3.0, jitter = 0.2, 
-            n_trials = 150, cf1 = 1000, amf1 = 40):
+def present(duration=365, eeg=None, save_fn=None, iti = 1, soa = 1.0, jitter = 0., 
+            n_trials = 180, cf1 = 1000, amf1 = 40):
 
     # Create markers stream outlet
     info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
