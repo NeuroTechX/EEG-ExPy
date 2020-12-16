@@ -21,6 +21,7 @@ def intro_prompt():
         "Notion 1",
         "Notion 2",
         "Synthetic",
+        "FreeEEG32",
     ]
 
     # also define the board codes for passing to functions
@@ -37,6 +38,7 @@ def intro_prompt():
         "notion1",
         "notion2",
         "synthetic",
+        "freeeeg32",
     ]
 
     experiments = { '0': "visual-N170",
@@ -64,6 +66,7 @@ def intro_prompt():
         f"[9] {boards[9]} \n"
         f"[10] {boards[10]} \n",
         f"[11] {boards[11]} \n",
+        f"[12] {boards[12]} \n",
     )
 
     board_idx = int(input("Enter Board Selection: "))
