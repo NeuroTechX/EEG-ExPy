@@ -28,6 +28,8 @@ from random import choice
 
 from eegnb import generate_save_fn
 
+__title__ = "Auditory SSAEP (single freq)"
+
 
 def present(
     duration=120,

@@ -24,6 +24,8 @@ from eegnb import generate_save_fn
 
 from scipy import stats
 
+__title__ = "Auditory SSAEP (orig)"
+
 
 def present(
     duration=120,

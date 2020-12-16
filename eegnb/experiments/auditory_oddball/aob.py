@@ -13,6 +13,8 @@ from optparse import OptionParser
 
 from eegnb import generate_save_fn
 
+__title__ = "Auditory oddball (orig)"
+
 
 def present(
     duration=120,
