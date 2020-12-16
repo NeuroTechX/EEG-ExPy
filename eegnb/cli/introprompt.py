@@ -41,14 +41,15 @@ def intro_prompt():
         "freeeeg32",
     ]
 
-    experiments = { '0': "visual-N170",
-                    '1': "visual-P300",
-                    '2': "visual-SSVEP",
-                    '3a': "auditory-oddball orig",
-                    '3b': "auditory-oddball diaconescu", 
-                    '4a': "auditory-SSAEP orig",
-                    "4b": "auditory-SSAEP onefreq"}
-    
+    experiments = {
+        "0": "visual-N170",
+        "1": "visual-P300",
+        "2": "visual-SSVEP",
+        "3a": "auditory-oddball orig",
+        "3b": "auditory-oddball diaconescu",
+        "4a": "auditory-SSAEP orig",
+        "4b": "auditory-SSAEP onefreq",
+    }
 
     # have the user input which device they intend to record with
     print(
