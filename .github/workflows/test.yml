@@ -47,9 +47,10 @@ jobs:
     - name: Install MacOS/Windows dependencies
       run: |
         python -m pip install --upgrade pip wheel
-
         pip install .
-
+    - name: Typecheck
+      run: |
+        python -m mypy
     - name: Run eegnb install test
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then

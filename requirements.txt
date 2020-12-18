@@ -1,4 +1,3 @@
-
 # Main repo requirements
 psychopy==2020.2.3
 scikit-learn==0.23.2
@@ -18,6 +17,9 @@ pyserial==3.5
 h5py>=3.1.0
 pyo>=1.0.3; platform_system == "Linux"
 wxPython>=4.0 ; platform_system == "Linux"
+
+# Test requirements
+mypy>=0.790
 
 # Docs requirements
 sphinx==3.1.1
