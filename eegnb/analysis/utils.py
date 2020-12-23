@@ -3,6 +3,7 @@ import os
 import copy
 import math
 from collections import OrderedDict
+from typing import Union, List
 
 from mne import create_info, concatenate_raws
 from mne.io import RawArray
@@ -12,7 +13,7 @@ import numpy as np
 import seaborn as sns
 from matplotlib import pyplot as plt
 
-from eegnb import get_recording_dir
+from eegnb import _get_recording_dir
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 
@@ -21,8 +22,13 @@ sns.set_style("white")
 
 
 def load_csv_as_raw(
-    fnames, sfreq, ch_ind, aux_ind=None, replace_ch_names=None, verbose=1
-):
+    fnames: List[str],
+    sfreq: float,
+    ch_ind,
+    aux_ind=None,
+    replace_ch_names=None,
+    verbose=1,
+) -> RawArray:
     """Load CSV files into an MNE Raw object.
 
     Args:
@@ -82,15 +88,15 @@ def load_csv_as_raw(
 
 
 def load_data(
-    subject_id,
-    session_nb,
-    device_name,
-    experiment,
+    subject_id: Union[str, int],
+    session_nb: Union[str, int],
+    device_name: str,
+    experiment: str,
     replace_ch_names=None,
     verbose=1,
     site="local",
     data_dir=None,
-):
+) -> RawArray:
     """Load CSV files from the /data directory into a Raw object.
 
     This is a utility function that simplifies access to eeg-notebooks
@@ -125,21 +131,14 @@ def load_data(
         (mne.io.RawArray): loaded EEG
     """
 
-    if subject_id == "all":
-        subject_str = "subject*"
-    else:
-        subject_str = "subject%04.f" % subject_id
-
-    if session_nb == "all":
-        session_str = "session*"
-    else:
-        session_str = "session%03.f" % session_nb
-
+    subject_str = "*" if subject_id == "all" else f"subject{subject_id:04}"
+    session_str = "*" if session_nb == "all" else f"session{session_nb:03}"
     if site == "all":
         site = "*"
 
     data_path = (
-        get_recording_dir(device_name, experiment, subject_str, session_str) / "*.csv"
+        _get_recording_dir(device_name, experiment, subject_str, session_str, site)
+        / "*.csv"
     )
     fnames = glob(str(data_path))
 

@@ -10,15 +10,29 @@ def get_recording_dir(
     experiment: str,
     subject_id: int,
     session_nb: int,
+    site="local",
     data_dir=DATA_DIR,
 ) -> Path:
     # convert subject ID to 4-digit number
-    subject_str = "subject%04.f" % subject_id
-    session_str = "session%03.f" % session_nb
+    subject_str = f"subject{subject_id:04}"
+    session_str = f"session{session_nb:03}"
+    return _get_recording_dir(
+        board_name, experiment, subject_str, session_str, site, data_dir=data_dir
+    )
 
+
+def _get_recording_dir(
+    board_name: str,
+    experiment: str,
+    subject_str: str,
+    session_str: str,
+    site: str,
+    data_dir=DATA_DIR,
+) -> Path:
+    """A subroutine of get_recording_dir that accepts subject and session as strings"""
     # folder structure is /DATA_DIR/experiment/site/subject/session/*.csv
     recording_dir = (
-        Path(data_dir) / experiment / "local" / board_name / subject_str / session_str
+        Path(data_dir) / experiment / site / board_name / subject_str / session_str
     )
 
     # check if directory exists, if not, make the directory
