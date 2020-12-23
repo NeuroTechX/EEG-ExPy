@@ -12,7 +12,7 @@ import numpy as np
 import seaborn as sns
 from matplotlib import pyplot as plt
 
-from eegnb import DATA_DIR
+from eegnb import get_recording_dir
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 
@@ -138,13 +138,10 @@ def load_data(
     if site == "all":
         site = "*"
 
-    if data_dir is None:
-        data_dir = DATA_DIR
-
-    data_path = os.path.join(
-        data_dir, experiment, site, device_name, subject_str, session_str, "*.csv"
+    data_path = (
+        get_recording_dir(device_name, experiment, subject_str, session_str) / "*.csv"
     )
-    fnames = glob(data_path)
+    fnames = glob(str(data_path))
 
     sfreq = SAMPLE_FREQS[device_name]
     ch_ind = EEG_INDICES[device_name]
