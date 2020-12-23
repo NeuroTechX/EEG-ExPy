@@ -7,7 +7,6 @@ Steady-State Response (ASSR) - stimulus presentation.
 
 """
 
-import time
 from optparse import OptionParser
 
 import numpy as np
