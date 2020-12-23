@@ -1,4 +1,3 @@
-import time
 from optparse import OptionParser
 
 import numpy as np
