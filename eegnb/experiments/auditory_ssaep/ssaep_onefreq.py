@@ -9,8 +9,7 @@ This variant allows for a single tone (single pair of carrier and modulation fre
 
 """
 
-from time import time, sleep
-from optparse import OptionParser
+from time import time
 
 import numpy as np
 from pandas import DataFrame
@@ -21,20 +20,13 @@ from psychopy import visual, core, event, sound
 from pylsl import StreamInfo, StreamOutlet
 from scipy import stats
 
-import os
-from glob import glob
-from random import choice
-
-
-from eegnb import generate_save_fn
-
 __title__ = "Auditory SSAEP (single freq)"
 
 
 def present(
+    save_fn: str,
     duration=120,
     eeg=None,
-    save_fn=None,
     iti=0.5,
     soa=3.0,
     jitter=0.2,
@@ -42,7 +34,6 @@ def present(
     cf1=1000,
     amf1=40,
 ):
-
     # Create markers stream outlet
     info = StreamInfo("Markers", "Markers", 1, 0, "int32", "myuidw43536")
     outlet = StreamOutlet(info)
@@ -121,11 +112,6 @@ def present(
 
     # start the EEG stream=
     if eeg:
-        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
-            save_fn = generate_save_fn(eeg.device_name, "ssaep", "unnamed")
-            print(
-                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
-            )
         eeg.start(save_fn, duration=record_duration)
 
     for ii, trial in trials.iterrows():

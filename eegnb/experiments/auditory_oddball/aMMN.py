@@ -12,18 +12,17 @@ from eegnb import generate_save_fn
 
 
 def present(
-    record_duration=120,
+    save_fn: str,
+    duration=120,
     stim_types=None,
     itis=None,
     additional_labels={},
     secs=0.07,
     volume=0.8,
     eeg=None,
-    save_fn=None,
 ):
-
     markernames = [1, 2]
-    record_duration = np.float32(record_duration)
+    record_duration = np.float32(duration)
 
     ## Initialize stimuli
     # aud1 = sound.Sound('C', octave=5, sampleRate=44100, secs=secs)
@@ -52,11 +51,6 @@ def present(
 
     # start the EEG stream, will delay 5 seconds to let signal settle
     if eeg:
-        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
-            save_fn = generate_save_fn(eeg.device_name, "auditoryaMMN", "unnamed")
-            print(
-                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
-            )
         eeg.start(save_fn, duration=record_duration)
 
     show_instructions(10)

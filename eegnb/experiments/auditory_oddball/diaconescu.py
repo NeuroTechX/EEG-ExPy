@@ -4,6 +4,7 @@ import numpy as np
 import h5py
 
 import eegnb
+from . import aMMN
 
 __title__ = "Auditory oddball (diaconescu)"
 
@@ -38,7 +39,7 @@ def maketonesnums(num):
     return newArray
 
 
-def present():
+def present(duration: int, eeg, save_fn: str):
     eegnb_dir = os.path.dirname(eegnb.__file__)
     mcond_file = os.path.join(
         eegnb_dir, "experiments", "auditory_oddball", "MUSE_conditions.mat"
@@ -82,10 +83,10 @@ def present():
         newAdditionalMarkers.append(newAdditionalMarker)
 
     aMMN.present(
-        record_duration=record_duration,
+        duration=duration,
         stim_types=stim_types,
         itis=itis,
         additional_labels={"labels": newAdditionalMarkers},
-        eeg=eeg_device,
+        eeg=eeg,
         save_fn=save_fn,
     )

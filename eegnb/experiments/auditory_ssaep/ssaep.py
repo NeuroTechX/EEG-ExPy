@@ -7,27 +7,19 @@ Steady-State Response (ASSR) - stimulus presentation.
 
 """
 
-from optparse import OptionParser
+
+from time import time
 
 import numpy as np
 from pandas import DataFrame
 from psychopy import visual, core, event, sound
-from pylsl import StreamInfo, StreamOutlet
-
-import os
-from time import time, sleep
-from glob import glob
-from random import choice
-from optparse import OptionParser
-
-from eegnb import generate_save_fn
-
 from scipy import stats
 
 __title__ = "Auditory SSAEP (orig)"
 
 
 def present(
+    save_fn: str,
     duration=120,
     n_trials=2010,
     iti=0.5,
@@ -36,7 +28,6 @@ def present(
     volume=0.8,
     random_state=42,
     eeg=None,
-    save_fn=None,
     cf1=900,
     amf1=45,
     cf2=770,
@@ -108,11 +99,6 @@ def present(
 
     # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
     if eeg:
-        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
-            save_fn = generate_save_fn(eeg.device_name, "auditoryaMMN", "unnamed")
-            print(
-                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
-            )
         eeg.start(save_fn, duration=record_duration)
     start = time()
 

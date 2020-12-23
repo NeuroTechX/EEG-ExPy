@@ -1,22 +1,15 @@
-from optparse import OptionParser
-
 import numpy as np
 from pandas import DataFrame
 from psychopy import visual, core, event, sound
-from pylsl import StreamInfo, StreamOutlet
 
-import os
-from time import time, sleep
-from glob import glob
-from random import choice
-from optparse import OptionParser
-
-from eegnb import generate_save_fn
+from time import time
 
 __title__ = "Auditory oddball (orig)"
 
 
 def present(
+    save_fn: str,
+    eeg=None,
     duration=120,
     n_trials=2010,
     iti=0.3,
@@ -25,8 +18,6 @@ def present(
     secs=0.2,
     volume=0.8,
     random_state=42,
-    eeg=None,
-    save_fn=None,
     s1_freq="C",
     s2_freq="D",
     s1_octave=5,
@@ -99,11 +90,6 @@ def present(
 
     # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
     if eeg:
-        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
-            save_fn = generate_save_fn(eeg.device_name, "auditoryaMMN", "unnamed")
-            print(
-                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
-            )
         eeg.start(save_fn, duration=record_duration)
     start = time()
 
@@ -121,11 +107,8 @@ def present(
         # Push sample
         if eeg:
             timestamp = time()
-            if eeg.backend == "muselsl":
-                marker = [markernames[ind]]
-                marker = list(map(int, marker))
-            else:
-                marker = markernames[ind]
+            marker = [markernames[ind]]
+            marker = list(map(int, marker))
 
             eeg.push_sample(marker=marker, timestamp=timestamp)
 
