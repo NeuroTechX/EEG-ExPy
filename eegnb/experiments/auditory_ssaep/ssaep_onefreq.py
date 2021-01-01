@@ -23,11 +23,10 @@ from scipy import stats
 __title__ = "Auditory SSAEP (single freq)"
 
 
-<<<<<<< HEAD
+
 def present(duration=365, eeg=None, save_fn=None, iti = 0., soa = 1.0, jitter = 0., 
             n_trials = 180, cf1 = 1000, amf1 = 40):
 
-=======
 def present(
     save_fn: str,
     duration=120,
@@ -39,7 +38,8 @@ def present(
     cf1=1000,
     amf1=40,
 ):
->>>>>>> NeuroTechX/master
+
+
     # Create markers stream outlet
     info = StreamInfo("Markers", "Markers", 1, 0, "int32", "myuidw43536")
     outlet = StreamOutlet(info)
@@ -61,9 +61,7 @@ def present(
     fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0, rgb=[1, 0, 0])
     fixation.setAutoDraw(True)
 
-<<<<<<< HEAD
 
-=======
     def generate_am_waveform(
         carrier_freq, am_freq, secs=1, sample_rate=44100, am_type="sine"
     ):
@@ -108,7 +106,7 @@ def present(
         am_out = carrier * am
 
         return am_out
->>>>>>> NeuroTechX/master
+
 
     # Generate stimuli
     am1 = generate_am_waveform(cf1, amf1, secs=soa, sample_rate=44100)
@@ -119,14 +117,12 @@ def present(
     auds = [aud1]
 
     mywin.flip()
-<<<<<<< HEAD
+
 	
 	# Show the instructions screen
     show_instructions(10)
     
-=======
 
->>>>>>> NeuroTechX/master
     # start the EEG stream=
     if eeg:
         eeg.start(save_fn, duration=record_duration)
@@ -165,7 +161,7 @@ def present(
         eeg.stop()
 
     mywin.close()
-<<<<<<< HEAD
+
 	
 	
 	
@@ -246,5 +242,3 @@ def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=44100,
         am_out = carrier * am
 
         return am_out
-=======
->>>>>>> NeuroTechX/master
