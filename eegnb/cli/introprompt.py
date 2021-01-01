@@ -2,78 +2,41 @@ import os
 
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from .utils import run_experiment
+from .utils import run_experiment, get_exp_desc, experiments
 
 
-def intro_prompt():
-    """This function handles the user prompts for inputting information about the session they wish to record."""
+def device_prompt() -> EEG:
     # define the names of the available boards
-    boards = [
-        "None",
-        "Muse2016",
-        "Muse2",
-        "MuseS",
-        "OpenBCI Ganglion",
-        "OpenBCI Cyton",
-        "OpenBCI Cyton + Daisy",
-        "G.Tec Unicorn",
-        "BrainBit",
-        "Notion 1",
-        "Notion 2",
-        "Synthetic",
-    ]
+    # boards is a mapping from board code to board description
+    boards = {
+        "none": "None",
+        "muse2016": "Muse (2016)",
+        "muse2": "Muse 2",
+        "museS": "Muse S",
+        "ganglion": "OpenBCI Ganglion",
+        "cyton": "OpenBCI Cyton",
+        "cyton_daisy": "OpenBCI Cyton + Daisy",
+        "unicord": "G.Tec Unicorn",
+        "brainbit": "BrainBit",
+        "notion1": "Notion 1",
+        "notion2": "Notion 2",
+        "synthetic": "Synthetic",
+        "freeeeg32": "FreeEEG32",
+    }
 
-    # also define the board codes for passing to functions
-    board_codes = [
-        "none",
-        "muse2016",
-        "muse2",
-        "museS",
-        "ganglion",
-        "cyton",
-        "cyton_daisy",
-        "unicorn",
-        "brainbit",
-        "notion1",
-        "notion2",
-        "synthetic",
-    ]
+    print("Please enter the integer value corresponding to your EEG device: \n")
+    print("\n".join(f"[{i:2}] {board}" for i, board in enumerate(boards.values())))
 
-    experiments = { '0': "visual-N170",
-                    '1': "visual-P300",
-                    '2': "visual-SSVEP",
-                    '3a': "auditory-oddball orig",
-                    '3b': "auditory-oddball diaconescu", 
-                    '4a': "auditory-SSAEP orig",
-                    "4b": "auditory-SSAEP onefreq"}
-    
+    board_idx = int(input("\nEnter Board Selection: "))
 
-    # have the user input which device they intend to record with
-    print(
-        "Welcome to NeurotechX EEG Notebooks. \n"
-        "Please enter the integer value corresponding to your EEG device: \n"
-        f"[0] {boards[0]} \n"
-        f"[1] {boards[1]} \n"
-        f"[2] {boards[2]} \n"
-        f"[3] {boards[3]} \n"
-        f"[4] {boards[4]} \n"
-        f"[5] {boards[5]} \n"
-        f"[6] {boards[6]} \n"
-        f"[7] {boards[7]} \n"
-        f"[8] {boards[8]} \n"
-        f"[9] {boards[9]} \n"
-        f"[10] {boards[10]} \n",
-        f"[11] {boards[11]} \n",
-    )
+    # Board_codes are the actual names to be passed to the EEG class
+    board_code = list(boards.keys())[board_idx]
+    board_desc = list(boards.values())[board_idx]
 
-    board_idx = int(input("Enter Board Selection: "))
-    board_selection = board_codes[
-        board_idx
-    ]  # Board_codes are the actual names to be passed to the EEG class
-    print(f"Selected board {boards[board_idx]} \n")
+    print(f"Selected board: {board_desc} \n")
 
     # Handles connectivity selection if an OpenBCI board is being used
-    if board_selection in ["cyton", "cyton_daisy", "ganglion"]:
+    if board_code in ["cyton", "cyton_daisy", "ganglion"]:
 
         # determine whether board is connected via Wifi or BLE
         print(
@@ -85,37 +48,60 @@ def intro_prompt():
 
         # add "_wifi" suffix to the end of the board name for brainflow
         if connect_idx == 1:
-            board_selection = board_selection + "_wifi"
-
-        if board_selection == "ganglion":
+            board_code = board_code + "_wifi"
+        if board_code == "ganglion":
             # If the Ganglion is being used, you can enter optional Ganglion mac address
             ganglion_mac_address = input(
                 "\nGanglion MAC Address (Press Enter to Autoscan): "
             )
-        elif board_selection == "ganglion_wifi":
+        elif board_code == "ganglion_wifi":
             # IP address is required for this board configuration
             ip_address = input("\nEnter Ganglion+WiFi IP Address: ")
-        elif board_selection == "cyton_wifi" or board_selection == "cyton_daisy_wifi":
+        elif board_code == "cyton_wifi" or board_code == "cyton_daisy_wifi":
             print(
-                f"\n{boards[board_idx]} + WiFi is not supported. Please use the dongle that was shipped with the device.\n"
+                f"\n{board_desc} + WiFi is not supported. Please use the dongle that was shipped with the device.\n"
             )
             exit()
 
-    # Experiment selection
+    # initialize the EEG device
+    if board_code.startswith("ganglion"):
+        if board_code == "ganglion_wifi":
+            eeg_device = EEG(device=board_code, ip_addr=ip_address)
+        else:
+            eeg_device = EEG(device=board_code, mac_addr=ganglion_mac_address)
+    else:
+        eeg_device = EEG(device=board_code)
+
+    return eeg_device
+
+
+def exp_prompt():
+    print("\nPlease select which experiment you would like to run: \n")
     print(
-        "\nPlease select which experiment you would like to run: \n"
-        "[0] visual n170 \n"
-        "[1] visual p300 \n"
-        "[2] ssvep \n"
-        "[3a] auditory oddball, orig version\n"
-        "[3b] auditory oddball, diaconescu version\n"
-        "[4a] auditory ssaep, orig version \n"
-        "[4b] auditory ssaep, single freq version\n"
+        "\n".join(
+            [
+                "[{}] {}".format(i, get_exp_desc(exp))
+                for i, exp in enumerate(experiments.keys())
+            ]
+        )
     )
 
-    exp_idx = str(input("Enter Experiment Selection: "))
-    exp_selection = experiments[exp_idx]
-    print(f"Selected experiment {exp_selection} \n")
+    exp_idx = int(input("\nEnter Experiment Selection: "))
+    exp_selection = list(experiments.keys())[exp_idx]
+    print(f"Selected experiment: {exp_selection} \n")
+
+    return exp_selection
+
+
+def intro_prompt():
+    """This function handles the user prompts for inputting information about the session they wish to record."""
+    print("Welcome to NeurotechX EEG Notebooks\n")
+
+    # ask the user which device to use
+    eeg_device = device_prompt()
+
+    # ask the user which experiment to run
+    exp_selection = exp_prompt()
 
     # record duration
     print("Now, enter the duration of the recording (in seconds). \n")
@@ -129,29 +115,20 @@ def intro_prompt():
     print("\nNext, enter the session number you are recording for. \n")
     session_nb = int(input("Enter session #: "))
 
-    # start the EEG device
-    if board_selection.startswith("ganglion"):
-        if board_selection == "ganglion_wifi":
-            eeg_device = EEG(device=board_selection, ip_addr=ip_address)
-        else:
-            eeg_device = EEG(device=board_selection, mac_addr=ganglion_mac_address)
-    else:
-        eeg_device = EEG(device=board_selection)
-
     # ask if they are ready to begin
     print("\nEEG device successfully connected!")
     input("Press [ENTER] when ready to begin...")
 
     # generate the save file name
-    save_fn = generate_save_fn(board_selection, exp_selection, subj_id, session_nb)
+    save_fn = generate_save_fn(
+        eeg_device.device_name, exp_selection, subj_id, session_nb
+    )
 
     return eeg_device, exp_selection, duration, save_fn
 
 
 def main():
-
     eeg_device, experiment, record_duration, save_fn = intro_prompt()
-
     run_experiment(experiment, record_duration, eeg_device, save_fn)
 
 

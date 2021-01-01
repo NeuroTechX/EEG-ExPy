@@ -590,9 +590,7 @@ def main():
     )
 
     (options, args) = parser.parse_args()
-    present(options.duration)
-    present(options.subject)
-    present(options.n)
+    present(options.duration, options.subject, options.n)
 
 
 if __name__ == "__main__":

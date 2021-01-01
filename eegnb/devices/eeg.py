@@ -34,6 +34,7 @@ brainflow_devices = [
     "brainbit",
     "notion1",
     "notion2",
+    "freeeeg32",
 ]
 
 
@@ -188,6 +189,11 @@ class EEG:
         elif self.device_name == "notion2":
             self.brainflow_id = BoardIds.NOTION_2_BOARD.value
 
+        elif self.device_name == "freeeeg32":
+            self.brainflow_id = BoardIds.FREEEEG32_BOARD.value
+            if self.serial_port is None:
+                self.brainflow_params.serial_port = get_openbci_usb()
+
         elif self.device_name == "synthetic":
             self.brainflow_id = BoardIds.SYNTHETIC_BOARD.value
 
@@ -228,6 +234,8 @@ class EEG:
         ):
             # if a ganglion is used, use recommended default EEG channel names
             ch_names = ["fp1", "fp2", "tp7", "tp8"]
+        elif (self.brainflow_id == BoardIds.FREEEEG32_BOARD.value):
+            ch_names = [f'eeg_{i}' for i in range(0,32)]
         else:
             # otherwise select eeg channel names via brainflow API
             ch_names = BoardShim.get_eeg_names(self.brainflow_id)
