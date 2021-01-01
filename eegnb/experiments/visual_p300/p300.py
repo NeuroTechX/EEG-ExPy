@@ -10,6 +10,8 @@ from psychopy import visual, core, event
 from eegnb import generate_save_fn
 from eegnb.stimuli import CAT_DOG
 
+__title__ = "Visual P300"
+
 
 def present(duration=120, eeg=None, save_fn=None):
     n_trials = 2010
