@@ -25,19 +25,8 @@ __title__ = "Auditory SSAEP (single freq)"
 
 
 def present(duration=365, eeg=None, save_fn=None, iti = 0., soa = 1.0, jitter = 0., 
-            n_trials = 180, cf1 = 1000, amf1 = 40):
+    n_trials = 180, cf1 = 1000, amf1 = 40):
 
-def present(
-    save_fn: str,
-    duration=120,
-    eeg=None,
-    iti=0.5,
-    soa=3.0,
-    jitter=0.2,
-    n_trials=150,
-    cf1=1000,
-    amf1=40,
-):
 
 
     # Create markers stream outlet
@@ -62,50 +51,6 @@ def present(
     fixation.setAutoDraw(True)
 
 
-    def generate_am_waveform(
-        carrier_freq, am_freq, secs=1, sample_rate=44100, am_type="sine"
-    ):
-        """Generate an amplitude-modulated waveform.
-
-        Generate a sine wave amplitude-modulated by a second sine wave or a
-        Gaussian envelope with standard deviation = period_AM/8.
-
-        Args:
-            carrier_freq (float): carrier wave frequency, in Hz
-            am_freq (float): amplitude modulation frequency, in Hz
-
-        Keyword Args:
-            secs (float): duration of the stimulus, in seconds
-            sample_rate (float): sampling rate of the sound, in Hz
-            am_type (str): amplitude-modulation type
-                'gaussian' -> Gaussian with std defined by `gaussian_std`
-                'sine' -> sine wave
-            gaussian_std_ratio (float): only used if `am_type` is 'gaussian'.
-                Ratio between AM period and std of the Gaussian envelope. E.g.,
-                gaussian_std = 8 means the Gaussian window has 8 standard
-                deviations around its mean inside one AM period.
-
-        Returns:
-            (numpy.ndarray): sound samples
-        """
-        t = np.arange(0, secs, 1.0 / sample_rate)
-
-        if am_type == "gaussian":
-            period = int(sample_rate / am_freq)
-            std = period / gaussian_std_ratio
-            norm_window = stats.norm.pdf(np.arange(period), period / 2, std)
-            norm_window /= np.max(norm_window)
-            n_windows = int(np.ceil(secs * am_freq))
-            am = np.tile(norm_window, n_windows)
-            am = am[: len(t)]
-
-        elif am_type == "sine":
-            am = np.sin(2 * np.pi * am_freq * t)
-
-        carrier = 0.5 * np.sin(2 * np.pi * carrier_freq * t) + 0.5
-        am_out = carrier * am
-
-        return am_out
 
 
     # Generate stimuli
