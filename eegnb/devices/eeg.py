@@ -39,6 +39,8 @@ brainflow_devices = [
 
 
 class EEG:
+    device_name: str
+
     def __init__(
         self,
         device=None,
@@ -234,8 +236,8 @@ class EEG:
         ):
             # if a ganglion is used, use recommended default EEG channel names
             ch_names = ["fp1", "fp2", "tp7", "tp8"]
-        elif (self.brainflow_id == BoardIds.FREEEEG32_BOARD.value):
-            ch_names = [f'eeg_{i}' for i in range(0,32)]
+        elif self.brainflow_id == BoardIds.FREEEEG32_BOARD.value:
+            ch_names = [f"eeg_{i}" for i in range(0, 32)]
         else:
             # otherwise select eeg channel names via brainflow API
             ch_names = BoardShim.get_eeg_names(self.brainflow_id)
