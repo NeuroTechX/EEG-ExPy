@@ -19,7 +19,7 @@ __title__ = "Auditory SSAEP (orig)"
 
 
 def present(
-    save_fn: str,
+    save_fn: None,
     duration=120,
     n_trials=2010,
     iti=0.5,
