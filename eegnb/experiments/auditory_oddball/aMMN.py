@@ -12,7 +12,7 @@ from eegnb import generate_save_fn
 
 
 def present(
-    save_fn: str,
+    save_fn: None,
     duration=120,
     stim_types=None,
     itis=None,
