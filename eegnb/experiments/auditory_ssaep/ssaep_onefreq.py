@@ -64,8 +64,8 @@ def present(duration=365, eeg=None, save_fn=None, iti = 0., soa = 1.0, jitter = 
     mywin.flip()
 
 	
-	# Show the instructions screen
-    show_instructions(10)
+    # Show the instructions screen
+    show_instructions(duration)
     
 
     # start the EEG stream=
