@@ -8,7 +8,7 @@ __title__ = "Auditory oddball (orig)"
 
 
 def present(
-    save_fn: str,
+    save_fn = None,
     eeg=None,
     duration=120,
     n_trials=2010,
