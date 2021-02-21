@@ -496,10 +496,11 @@ an experiment.</p>
 <span class="kn">from</span> <span class="nn">eegnb.experiments.visual_ssvep</span> <span class="kn">import</span> <span class="n">ssvep</span>
 
 <span class="c1"># Define some variables</span>
-<span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;muse&#39;</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_ssvep&#39;</span>
-<span class="n">subject</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span>
-<span class="n">record_duration</span><span class="o">=</span><span class="mi">120</span>
+<span class="n">board_name</span> <span class="o">=</span> <span class="s2">&quot;muse&quot;</span>
+<span class="n">experiment</span> <span class="o">=</span> <span class="s2">&quot;visual_ssvep&quot;</span>
+<span class="n">subject_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">session_nb</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span>
 </pre></div>
 </div>
 </div>
@@ -509,7 +510,7 @@ an experiment.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
 
 <span class="c1"># Create save file name</span>
-<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">session_nb</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">save_fn</span><span class="p">)</span>
 </pre></div>
 </div>
