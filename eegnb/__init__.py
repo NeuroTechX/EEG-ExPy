@@ -4,7 +4,13 @@ from time import strftime, gmtime
 DATA_DIR = path.join(path.expanduser("~/"), ".eegnb", "data")
 
 
-def generate_save_fn(board_name, experiment, subject_id, session_nb, data_dir=DATA_DIR):
+def generate_save_fn(
+    board_name: str,
+    experiment: str,
+    subject_id: int,
+    session_nb: int,
+    data_dir=DATA_DIR,
+):
     """Generates a file name with the proper trial number for the current subject/experiment combo"""
 
     # convert subject ID to 4-digit number
