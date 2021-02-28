@@ -1,5 +1,5 @@
 # Main repo requirements
-psychopy==2020.2.3
+# psychopy==2020.2.3                                **eegnb-rpi mod**
 scikit-learn==0.23.2
 pandas==1.1.1
 numpy==1.19.1
@@ -15,8 +15,8 @@ pysocks==1.7.1
 pywinhook==1.6.0; platform_system == "Windows"
 pyserial==3.5
 h5py>=3.1.0
-pyo>=1.0.3; platform_system == "Linux"
-wxPython>=4.0 ; platform_system == "Linux"
+# pyo>=1.0.3; platform_system == "Linux"             **eegnb-rpi mod**
+# wxPython>=4.0 ; platform_system == "Linux"         **eegnb-rpi mod**
 
 # Test requirements
 mypy>=0.790
