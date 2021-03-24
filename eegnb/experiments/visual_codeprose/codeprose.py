@@ -7,7 +7,7 @@ An experiment to see if one can distinguish between reading code vs prose using 
      https://arxiv.org/abs/1903.03426
 """
 
-from time import time, strftime, gmtime
+from time import time, time_ns, strftime, gmtime
 from typing import List
 from pathlib import Path
 from dataclasses import dataclass, field
@@ -33,7 +33,7 @@ class ExperimentSpec:
     def output_dir(self) -> Path:
         return Path(
             get_recording_dir(
-                self.eeg_device.device_name,
+                self.eeg_device.device_name or "none",
                 "visual-codeprose",
                 self.subject,
                 self.session,
@@ -69,11 +69,13 @@ def present(duration: int, eeg: EEG, subject=0, session=0, **kwargs) -> None:
         practice(window)
 
     # Run the experiment
-    df = run(window, n_trials=5)
+    df = run(window)
 
     # save the behavioural data into CSV file
     fn = f"subject{subject}_session{session}_behOutput_{strftime('%Y-%m-%d-%H.%M.%S', gmtime())}.csv"
     df.to_csv(spec.output_dir / fn)
+
+    print(df)
 
     # Overall Accuracy
     # TODO: Actually measure accuracy
@@ -87,26 +89,12 @@ def present(duration: int, eeg: EEG, subject=0, session=0, **kwargs) -> None:
     window.close()
 
 
-def run(window: visual.Window, n_trials: int) -> pd.DataFrame:
-    # Setup log
-    codeorprose = np.random.binomial(1, 0.5, n_trials)
-
-    trials = pd.DataFrame(dict(codeorprose=codeorprose))
-
+def run(window: visual.Window) -> pd.DataFrame:
     # Get ready screen
-    text = visual.TextStim(
-        win=window,
-        text="find the arrow keys, and begin fixating now. the first trial is about to begin",
-        color=[-1, -1, -1],
-        pos=[0, 5],
+    fixate(
+        window,
+        "Find the arrow keys, and begin fixating now.\n\nThe first trial is about to begin.",
     )
-    text.draw()
-
-    fixation = visual.GratingStim(win=window, size=0.2, pos=[0, 0], sf=0)
-    fixation.draw()
-
-    window.flip()
-    core.wait(1)
 
     # TODO: Make sure clocks are handled correctly
     # create a clock for rt's
@@ -114,6 +102,7 @@ def run(window: visual.Window, n_trials: int) -> pd.DataFrame:
     # create a timer for the experiment and EEG markers
     start = time()
 
+    # TODO: Add more sources of text/code
     # TODO: Place somewhere reasonable, figure out how to distribute with eegnb?
     img_path = Path("/home/erb/Skola/Exjobb/other/2016-materials/materials.final/")
     assert img_path.exists()
@@ -121,50 +110,72 @@ def run(window: visual.Window, n_trials: int) -> pd.DataFrame:
     code_imgs = (img_path / "comp").glob("*.png")
     prose_imgs = (img_path / "prose/bugs").glob("*.PNG")
 
+    # Setup log
+    trials = pd.DataFrame(
+        [["code", img] for img in code_imgs] + [["prose", img] for img in prose_imgs],
+        columns=["type", "image_path"],
+    )
+
     # saving trial information for output
     responses: List[dict] = []
 
     for ii, trial in trials.iterrows():
-        stimuli = "code" if trials["codeorprose"].iloc[ii] == 0 else "prose"
-        print(f"Trial {ii} with stimuli {stimuli}")
-        try:
-            image_path = next(code_imgs) if stimuli == "code" else next(prose_imgs)
-        except StopIteration:
-            # TODO: Do something more reasonable if we run out of images
-            break
+        print(
+            f"Trial {ii}: stimuli type '{trial['type']}' (image {trial['image_path']})"
+        )
 
-        image = visual.ImageStim(win=window, image=image_path)
+        image = visual.ImageStim(win=window, image=trial["image_path"])
         image.draw()
 
         window.flip()
         t_presented = clock.getTime()
+        t_presented_utc = time_ns()
 
         core.wait(0.1)
-        keys = event.waitKeys(keyList=["left", "right"], timeStamped=clock)
+        keys = event.waitKeys(keyList=["up", "down"], timeStamped=clock)
         print(keys)
         t_answered = clock.getTime()
+        t_answered_utc = time_ns()
 
-        response = True if keys[0][0] == "right" else False
+        response = True if keys[0][0] == "up" else False
 
         # TODO
         responses.append(
             {
-                "stimuli": stimuli,
-                "image": image,
+                "type": trial["type"],
+                "image_path": trial["image_path"],
                 "response": response,
                 "t_presented": t_presented,
+                "t_presented_utc": t_presented_utc,
                 "t_answered": t_answered,
+                "t_answered_utc": t_answered_utc,
             }
         )
 
     return pd.DataFrame(responses)
 
 
+def fixate(window: visual.Window, text: str = None):
+    stim = visual.TextStim(
+        win=window,
+        text=text,
+        color=[-1, -1, -1],
+        pos=[0, 5],
+    )
+    stim.draw()
+
+    fixation = visual.GratingStim(win=window, size=0.2, pos=[0, 0], sf=0)
+    fixation.draw()
+
+    window.flip()
+    core.wait(3)
+
+
 def goodbye(window):
     # Goodbye Screen
     text = visual.TextStim(
         win=window,
-        text="Thank you for participating. Press spacebar to exit the experiment.",
+        text="Thank you for participating.\n\nPress spacebar to exit the experiment.",
         color=[-1, -1, -1],
         pos=[0, 5],
     )
@@ -200,7 +211,8 @@ def instructions(window):
 
     text = visual.TextStim(
         win=window,
-        text="To answer 'correct' on a problem, press the right (>) arrow key.\nTo answer 'false', press the left (<) arrow key.\n\nPress space to continue.",
+        text="To answer 'correct', press the up arrow key.\nTo answer 'false', press the down arrow key.\n\nPress space to continue.",
+        wrapWidth=100,
     )
     text.draw()
     window.flip()
