@@ -10,6 +10,8 @@ from psychopy import visual, core, event
 from eegnb import generate_save_fn
 from eegnb.stimuli import CAT_DOG
 
+__title__ = "Visual P300"
+
 
 def present(duration=120, eeg=None, save_fn=None):
     n_trials = 2010
@@ -27,10 +29,10 @@ def present(duration=120, eeg=None, save_fn=None):
         return visual.ImageStim(win=mywin, image=fn)
 
     # Setup graphics
-    mywin = visual.Window([1600, 900], monitor='testMonitor', units="deg", fullscr=True)
+    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
 
-    targets = list(map(load_image, glob(os.path.join(CAT_DOG, 'target-*.jpg'))))
-    nontargets = list(map(load_image, glob(os.path.join(CAT_DOG, 'nontarget-*.jpg'))))
+    targets = list(map(load_image, glob(os.path.join(CAT_DOG, "target-*.jpg"))))
+    nontargets = list(map(load_image, glob(os.path.join(CAT_DOG, "nontarget-*.jpg"))))
     stim = [nontargets, targets]
 
     # Show instructions
@@ -39,8 +41,10 @@ def present(duration=120, eeg=None, save_fn=None):
     # start the EEG stream, will delay 5 seconds to let signal settle
     if eeg:
         if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
-            save_fn = generate_save_fn(eeg.device_name, 'visual_p300', 'unnamed')
-            print(f'No path for a save file was passed to the experiment. Saving data to {save_fn}')
+            save_fn = generate_save_fn(eeg.device_name, "visual_p300", "unnamed")
+            print(
+                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
+            )
         eeg.start(save_fn, duration=record_duration)
 
     # Iterate through the events
@@ -50,19 +54,18 @@ def present(duration=120, eeg=None, save_fn=None):
         core.wait(iti + np.random.rand() * jitter)
 
         # Select and display image
-        label = trials['image_type'].iloc[ii]
+        label = trials["image_type"].iloc[ii]
         image = choice(targets if label == 1 else nontargets)
         image.draw()
 
         # Push sample
         if eeg:
             timestamp = time()
-            if eeg.backend == 'muselsl':
+            if eeg.backend == "muselsl":
                 marker = [markernames[label]]
             else:
                 marker = markernames[label]
             eeg.push_sample(marker=marker, timestamp=timestamp)
-
 
         mywin.flip()
 
@@ -75,16 +78,14 @@ def present(duration=120, eeg=None, save_fn=None):
         event.clearEvents()
 
     # Cleanup
-    if eeg: eeg.stop()
+    if eeg:
+        eeg.stop()
     mywin.close()
-
-
 
 
 def show_instructions(duration):
 
-    instruction_text = \
-    """
+    instruction_text = """
     Welcome to the P300 experiment! 
  
     Stay still, focus on the centre of the screen, and try not to blink. 
@@ -94,23 +95,18 @@ def show_instructions(duration):
     Press spacebar to continue. 
     
     """
-    instruction_text = instruction_text %duration
+    instruction_text = instruction_text % duration
 
     # graphics
-    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg",
-                          fullscr=True)
+    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
 
     mywin.mouseVisible = False
 
-    #Instructions
-    text = visual.TextStim(
-        win=mywin,
-        text=instruction_text,
-        color=[-1, -1, -1])
+    # Instructions
+    text = visual.TextStim(win=mywin, text=instruction_text, color=[-1, -1, -1])
     text.draw()
     mywin.flip()
     event.waitKeys(keyList="space")
 
     mywin.mouseVisible = True
     mywin.close()
-
