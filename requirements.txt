@@ -17,6 +17,7 @@ pyserial==3.5
 h5py>=3.1.0
 pyo>=1.0.3; platform_system == "Linux"
 wxPython>=4.0 ; platform_system == "Linux"
+click
 
 # Test requirements
 mypy>=0.790

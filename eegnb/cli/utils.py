@@ -1,3 +1,5 @@
+from eegnb.devices.eeg import EEG
+
 from eegnb.experiments.visual_n170 import n170
 from eegnb.experiments.visual_p300 import p300
 from eegnb.experiments.visual_ssvep import ssvep
@@ -24,9 +26,13 @@ def get_exp_desc(exp: str):
     return "{} (no description)".format(exp)
 
 
-def run_experiment(experiment: str, record_duration: float, eeg_device: str, save_fn):
+def run_experiment(
+    experiment: str, eeg_device: EEG, record_duration: float = None, save_fn=None
+):
     if experiment in experiments:
         module = experiments[experiment]
         module.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)  # type: ignore
     else:
-        print("Error: Unknown experiment {}".format(experiment))
+        print("\nError: Unknown experiment '{}'".format(experiment))
+        print("\nExperiment can be one of:")
+        print("\n".join([" - " + exp for exp in experiments]))
