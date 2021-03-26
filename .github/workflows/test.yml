@@ -55,10 +55,8 @@ jobs:
           Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
           export DISPLAY=:0
         fi
-        echo "first test: print help menu"
         eegnb --help
-        echo "second test: runexp with no args"
-        eegnb runexp
+        eegnb runexp --help
 
   typecheck:
     runs-on: ${{ matrix.os }}
