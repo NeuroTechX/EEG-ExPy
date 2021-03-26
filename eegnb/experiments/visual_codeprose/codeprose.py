@@ -7,7 +7,7 @@ An experiment to see if one can distinguish between reading code vs prose using 
      https://arxiv.org/abs/1903.03426
 """
 
-from time import time, time_ns, strftime, gmtime
+from time import time_ns, strftime, gmtime
 from typing import List
 from pathlib import Path
 from dataclasses import dataclass, field
@@ -93,12 +93,15 @@ def run(window: visual.Window) -> pd.DataFrame:
     clock = core.Clock()
 
     # TODO: Add more sources of text/code
+
+    # Source of files: https://web.eecs.umich.edu/~weimerw/fmri.html
+    # Direct link: https://web.eecs.umich.edu/~weimerw/fmri-resources/2016-materials.zip
     # TODO: Place somewhere reasonable, figure out how to distribute with eegnb?
     img_path = Path("/home/erb/Skola/Exjobb/other/2016-materials/materials.final/")
     assert img_path.exists()
 
     code_imgs = (img_path / "comp").glob("*.png")
-    prose_imgs = (img_path / "prose/bugs").glob("*.PNG")
+    prose_imgs = (img_path / "prose" / "bugs").glob("*.PNG")
 
     # Setup log
     trials = pd.DataFrame(
