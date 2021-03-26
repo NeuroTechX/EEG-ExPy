@@ -16,10 +16,12 @@ jobs:
         os: [ubuntu-18.04, windows-latest, macOS-latest]
         python_version: [3.7]
         include:
+          - os: ubuntu-18.04
+            python_version: 3.8
           # Experimental: Python 3.9
           # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/50
-          - os: ubuntu-18.04
-            python_version: 3.9
+          #- os: ubuntu-18.04
+          #  python_version: 3.9
 
     steps:
     - uses: actions/checkout@v2
