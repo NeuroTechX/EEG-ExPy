@@ -13,7 +13,6 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from ...devices.eeg import EEG
 
-import numpy as np
 import pandas as pd
 from psychopy import visual, core, event
 
@@ -41,11 +40,6 @@ class ExperimentSpec:
         )
 
 
-# 1 - Code
-# 2 - Prose
-cue_markernames = [1, 2]
-
-
 # TODO: These default values are bad, they should be passed down correctly
 def present(duration: int, eeg: EEG, subject=0, session=0, **kwargs) -> None:
     spec = ExperimentSpec("visual_codeprose", eeg, subject, session)
@@ -54,17 +48,15 @@ def present(duration: int, eeg: EEG, subject=0, session=0, **kwargs) -> None:
 
     # graphics
     window = visual.Window(
-        [1440, 900], monitor="testMonitor", units="deg", fullscr=True
+        [1920, 1080], monitor="testMonitor", units="deg", fullscr=True, color="black"
     )
     window.mouseVisible = False
 
-    instruct = 1
-    practicing = 1
-
-    # Instructions function below
-    # TODO: Implement instructions and practice
+    instruct = True
     if instruct:
         instructions(window)
+
+    practicing = True
     if practicing:
         practice(window)
 
@@ -99,8 +91,6 @@ def run(window: visual.Window) -> pd.DataFrame:
     # TODO: Make sure clocks are handled correctly
     # create a clock for rt's
     clock = core.Clock()
-    # create a timer for the experiment and EEG markers
-    start = time()
 
     # TODO: Add more sources of text/code
     # TODO: Place somewhere reasonable, figure out how to distribute with eegnb?
@@ -132,19 +122,15 @@ def run(window: visual.Window) -> pd.DataFrame:
         t_presented_utc = time_ns()
 
         core.wait(0.1)
-        keys = event.waitKeys(keyList=["up", "down"], timeStamped=clock)
-        print(keys)
+        keys = event.waitKeys(keyList=["up", "down", "space"], timeStamped=clock)
         t_answered = clock.getTime()
         t_answered_utc = time_ns()
 
-        response = True if keys[0][0] == "up" else False
-
-        # TODO
         responses.append(
             {
                 "type": trial["type"],
                 "image_path": trial["image_path"],
-                "response": response,
+                "response": keys[0][0],
                 "t_presented": t_presented,
                 "t_presented_utc": t_presented_utc,
                 "t_answered": t_answered,
@@ -152,23 +138,21 @@ def run(window: visual.Window) -> pd.DataFrame:
             }
         )
 
+        fixate(window, "Relax\n\nThe next trial will start soon")
+
     return pd.DataFrame(responses)
 
 
 def fixate(window: visual.Window, text: str = None):
-    stim = visual.TextStim(
+    visual.TextStim(
         win=window,
         text=text,
-        color=[-1, -1, -1],
         pos=[0, 5],
-    )
-    stim.draw()
-
-    fixation = visual.GratingStim(win=window, size=0.2, pos=[0, 0], sf=0)
-    fixation.draw()
+    ).draw()
+    visual.GratingStim(win=window, size=0.2, sf=0).draw()
 
     window.flip()
-    core.wait(3)
+    event.waitKeys(keyList="space", maxWait=5)
 
 
 def goodbye(window):
@@ -176,8 +160,6 @@ def goodbye(window):
     text = visual.TextStim(
         win=window,
         text="Thank you for participating.\n\nPress spacebar to exit the experiment.",
-        color=[-1, -1, -1],
-        pos=[0, 5],
     )
     text.draw()
     window.flip()
@@ -188,8 +170,6 @@ def practice(window):
     text = visual.TextStim(
         win=window,
         text="Practice not implemented yet.\n\nPress space to continue.",
-        color=[-1, -1, -1],
-        pos=[0, 5],
     )
     text.draw()
     window.flip()
@@ -203,11 +183,11 @@ def instructions(window):
     text = visual.TextStim(
         win=window,
         text="We will show you alternating images of code or prose, and it is your task to answer questions about the problems presented.\n\nPress space to continue.",
-        color=[-1, -1, -1],
-        pos=[0, 5],
     )
     text.draw()
     window.flip()
+
+    event.waitKeys(keyList="space")
 
     text = visual.TextStim(
         win=window,
