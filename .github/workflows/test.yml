@@ -14,19 +14,28 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-18.04, windows-latest, macOS-latest]
-        python_version: [3.6]
+        python_version: [3.7]
+        include:
+          - os: ubuntu-18.04
+            python_version: 3.8
+          # Experimental: Python 3.9
+          # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/50
+          #- os: ubuntu-18.04
+          #  python_version: 3.9
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python_version }}
-    - name: Install swig
-      if: "startsWith(runner.os, 'windows')"
-      run: |
-        (New-Object System.Net.WebClient).DownloadFile("http://prdownloads.sourceforge.net/swig/swigwin-4.0.1.zip","swigwin-4.0.1.zip");
-        Expand-Archive .\swigwin-4.0.1.zip .;
-        echo "$((Get-Item .).FullName)/swigwin-4.0.1" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    # Not needed if pywinhook is installed from wheels
+    #- name: Install swig
+    #  if: "startsWith(runner.os, 'windows')"
+    #  run: |
+    #    (New-Object System.Net.WebClient).DownloadFile("http://prdownloads.sourceforge.net/swig/swigwin-4.0.1.zip","swigwin-4.0.1.zip");
+    #    Expand-Archive .\swigwin-4.0.1.zip .;
+    #    echo "$((Get-Item .).FullName)/swigwin-4.0.1" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
     - name: Install APT dependencies
       if: "startsWith(runner.os, 'Linux')"
       run: |
