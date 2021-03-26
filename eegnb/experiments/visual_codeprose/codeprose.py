@@ -7,7 +7,8 @@ An experiment to see if one can distinguish between reading code vs prose using 
      https://arxiv.org/abs/1903.03426
 """
 
-from time import time_ns, strftime, gmtime
+# TODO: Switch to using time_ns when Python 3.7 is the minimum version for eegnb
+from time import time, strftime, gmtime
 from typing import List
 from pathlib import Path
 from dataclasses import dataclass, field
@@ -122,12 +123,12 @@ def run(window: visual.Window) -> pd.DataFrame:
 
         window.flip()
         t_presented = clock.getTime()
-        t_presented_utc = time_ns()
+        t_presented_utc = time()
 
         core.wait(0.1)
         keys = event.waitKeys(keyList=["up", "down", "space"], timeStamped=clock)
         t_answered = clock.getTime()
-        t_answered_utc = time_ns()
+        t_answered_utc = time()
 
         responses.append(
             {
