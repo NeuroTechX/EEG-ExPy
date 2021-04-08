@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>P300 Load and Visualize Data &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -483,7 +484,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-visual-p300-01r-p300-viz-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="p300-load-and-visualize-data">
+<section class="sphx-glr-example-title" id="p300-load-and-visualize-data">
 <span id="sphx-glr-auto-examples-visual-p300-01r-p300-viz-py"></span><h1>P300 Load and Visualize Data<a class="headerlink" href="#p300-load-and-visualize-data" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrates loading, organizing, and visualizing ERP response data from the visual P300 experiment. The experiment uses a visual oddball paradigm. Images of cats and dogs are shwn in a rapid serial visual presentation (RSVP) stream, with cats and dogs categorized respectively as ‘targets’ or ‘non-targets’, according to which has high or low probability of occurring, respectively.</p>
 <p>The data used is the first subject and first session of the one of the eeg-notebooks P300 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.</p>
@@ -491,7 +492,7 @@
 in the specified data directory, they will be quickly downloaded from the cloud.</p>
 <p>After loading the data, we place it in an MNE <cite>Epochs</cite> object, and obtain the trial-averaged response.</p>
 <p>The final figure plotted at the end shows the P300 response ERP waveform.</p>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -537,9 +538,8 @@ From: https://drive.google.com/uc?id=1OLcj-zSjqdNrsBSUAsGBXOwWDnGWTVFC
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
 0.00B [00:00, ?B/s]
-4.72MB [00:00, 36.3MB/s]
-8.91MB [00:00, 35.4MB/s]
-18.4MB [00:00, 60.3MB/s]
+4.72MB [00:00, 44.8MB/s]
+18.4MB [00:00, 108MB/s]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
@@ -566,8 +566,8 @@ Creating RawArray with float64 data, n_channels=6, n_times=30732
 Ready.
 </pre></div>
 </div>
-</div>
-<div class="section" id="visualize-the-power-spectrum">
+</section>
+<section id="visualize-the-power-spectrum">
 <h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">()</span>
 </pre></div>
@@ -582,8 +582,8 @@ Generating coords using: [0.    0.    0.    0.095]
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="filteriing">
+</section>
+<section id="filteriing">
 <h2>Filteriing<a class="headerlink" href="#filteriing" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
 <span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
@@ -609,8 +609,8 @@ Generating coords using: [0.    0.    0.    0.095]
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="epoching">
+</section>
+<section id="epoching">
 <h2>Epoching<a class="headerlink" href="#epoching" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span>
 <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
@@ -635,8 +635,8 @@ sample drop %:  1.5503875968992276
  &#39;Target&#39;: 184&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="epoch-average">
+</section>
+<section id="epoch-average">
 <h2>Epoch average<a class="headerlink" href="#epoch-average" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conditions</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 <span class="n">conditions</span><span class="p">[</span><span class="s1">&#39;Non-target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -648,7 +648,7 @@ sample drop %:  1.5503875968992276
 </pre></div>
 </div>
 <img alt="TP9, AF8, AF7, TP10" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__p300_viz_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.173 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.174 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-p300-01r-p300-viz-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e500d6e9072380c7b8d43c4a40d8e4f1/01r__p300_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__p300_viz.py</span></code></a></p>
@@ -658,8 +658,8 @@ sample drop %:  1.5503875968992276
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

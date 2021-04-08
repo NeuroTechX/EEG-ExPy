@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Running Experiments &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -477,10 +478,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="running-experiments">
+  <section id="running-experiments">
 <h1>Running Experiments<a class="headerlink" href="#running-experiments" title="Permalink to this headline">¶</a></h1>
 <p>After you have installed the library there are two methods for collecting data. The first is using the command line tool with the flags detailed below. This is the easiest and recommended for users without much programming experience. The other method involves calling the experiment presentations from within a jupyter notebook (or custom python script).</p>
-<div class="section" id="command-line-interface">
+<section id="command-line-interface">
 <h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
 <p>To activate the command line tool, open a command/terminal prompt and enter <code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">runexp</span></code> followed by the appropriate flags for your device, desired experiment, and more. The possible flags are</p>
 <ul class="simple">
@@ -490,10 +491,10 @@
 <li><p><em>-of ; -outfname</em>: Save file name (this will be automatically generated to match default file system if left blank).</p></li>
 <li><p><em>-ip ; –inprom</em>: Bypass the other flags to activate an interactive prompt.</p></li>
 </ul>
-<div class="section" id="using-the-introprompt-flag">
+<section id="using-the-introprompt-flag">
 <h3>Using the introprompt flag<a class="headerlink" href="#using-the-introprompt-flag" title="Permalink to this headline">¶</a></h3>
 <p>If using the <code class="docutils literal notranslate"><span class="pre">-ip</span></code> flag the user will be prompted to input the various session parameters. The prompts are detailed below.</p>
-<div class="section" id="board-selection">
+<section id="board-selection">
 <h4>Board Selection<a class="headerlink" href="#board-selection" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Welcome</span> <span class="n">to</span> <span class="n">NeurotechX</span> <span class="n">EEG</span> <span class="n">Notebooks</span><span class="o">.</span> 
 <span class="n">Please</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">integer</span> <span class="n">value</span> <span class="n">corresponding</span> <span class="n">to</span> <span class="n">your</span> <span class="n">EEG</span> <span class="n">device</span><span class="p">:</span> 
@@ -513,8 +514,8 @@
 </pre></div>
 </div>
 <p>Here you specify which of the supported boards you are using to collect data. EEG Notebooks supports a number of different consumer boards with various backends. This step ensures that the proper backend and device parameters are used. <strong>If you are using an OpenBCI board</strong> there will be an additional prompt asking for the desired connection method. Right now it is recommended to use the USB dongle over the wifi shield.</p>
-</div>
-<div class="section" id="experiment-selection">
+</section>
+<section id="experiment-selection">
 <h4>Experiment Selection<a class="headerlink" href="#experiment-selection" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">select</span> <span class="n">which</span> <span class="n">experiment</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">run</span><span class="p">:</span> 
 <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">visual</span> <span class="n">n170</span> 
@@ -525,8 +526,8 @@
 </pre></div>
 </div>
 <p>This section allows you to select one of three experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.</p>
-</div>
-<div class="section" id="recording-duration">
+</section>
+<section id="recording-duration">
 <h4>Recording Duration<a class="headerlink" href="#recording-duration" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Now</span><span class="p">,</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">duration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">recording</span> <span class="p">(</span><span class="ow">in</span> <span class="n">seconds</span><span class="p">)</span><span class="o">.</span> 
 
@@ -534,16 +535,16 @@
 </pre></div>
 </div>
 <p>This is the duration of each recording. It is standard to use 120 second (2 minute) long recordings per recording, but some people might experience visual fatigue and difficulty not blinking for as long, so you are welcome to adjust length as needed.</p>
-</div>
-<div class="section" id="subject-id">
+</section>
+<section id="subject-id">
 <h4>Subject ID<a class="headerlink" href="#subject-id" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Next</span><span class="p">,</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">ID</span><span class="c1"># of the subject you are recording data from. </span>
 
 <span class="n">Enter</span> <span class="n">subject</span> <span class="n">ID</span><span class="c1">#:</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="session-number">
+</section>
+<section id="session-number">
 <h4>Session Number<a class="headerlink" href="#session-number" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Next</span><span class="p">,</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">session</span> <span class="n">number</span> <span class="n">you</span> <span class="n">are</span> <span class="n">recording</span> <span class="k">for</span><span class="o">.</span> 
 
@@ -552,13 +553,13 @@
 </div>
 <p>The session number corresponds to each time you sit down to take multiple recordings. If you put your device on and run this script 5 consecutive times you would use the same session number every time. However, if you were to take a break then return for an additional 3 recordings, the last 3 would have a new session number. For more information about how this corresponds to saving data please see the documentation page on loading and saving data.</p>
 <p>If you are using <strong>OpenBCI on Windows/MacOS</strong> you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see <a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html">Initiating an EEG Stream</a>.</p>
-</div>
-<div class="section" id="confirmation">
+</section>
+<section id="confirmation">
 <h4>Confirmation<a class="headerlink" href="#confirmation" title="Permalink to this headline">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="section" id="using-jupyter-notebooks-or-a-custom-script">
+</section>
+</section>
+</section>
+<section id="using-jupyter-notebooks-or-a-custom-script">
 <h2>Using Jupyter Notebooks or a custom script<a class="headerlink" href="#using-jupyter-notebooks-or-a-custom-script" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to import all of the necessary library dependencies. These are necessary for generating a save file name which conforms to the default folder structure, streaming and recording EEG data, and running the stimulus presentation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
@@ -608,8 +609,8 @@
 <span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

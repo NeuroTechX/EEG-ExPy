@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Loading and Saving Data &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -96,7 +97,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -171,7 +172,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -398,7 +399,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -475,24 +476,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="loading-and-saving-data">
+  <section id="loading-and-saving-data">
 <h1>Loading and Saving Data<a class="headerlink" href="#loading-and-saving-data" title="Permalink to this headline">¶</a></h1>
 <p>Knowing where the data is saved is integral to the functionality of EEG Notebooks. EEG Notebooks saves data to a default location in a hidden directory. From this directory, the individual files can be found based on a folder structure outlined below in the <strong>naming convention.</strong></p>
-<div class="section" id="locating-the-default-data-directory">
+<section id="locating-the-default-data-directory">
 <h2>Locating the Default Data Directory<a class="headerlink" href="#locating-the-default-data-directory" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="windows-10">
+<section id="windows-10">
 <h3>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h3>
 <p>The default directory is found at the location <code class="docutils literal notranslate"><span class="pre">C:\Users\*USER_NAME*\.eegnb</span></code> an example of which is pictured below.
 <img alt="fig" src="../_images/windows_default_directory.PNG" /></p>
-</div>
-<div class="section" id="linux">
+</section>
+<section id="linux">
 <h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="macos">
+</section>
+<section id="macos">
 <h3>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="changing-the-default-data-directory">
+</section>
+</section>
+<section id="changing-the-default-data-directory">
 <h2>Changing the Default Data Directory<a class="headerlink" href="#changing-the-default-data-directory" title="Permalink to this headline">¶</a></h2>
 <p>The default directory for saving data is automatically set within the library. If you want to save and analyze data to/from a new directory, it must be passed as a parameter to both the <code class="docutils literal notranslate"><span class="pre">eegnb.generate_save_fn()</span></code> and <code class="docutils literal notranslate"><span class="pre">eegnb.analysis.load_data()</span></code> functions.</p>
 <p><strong>Saving to new directory:</strong></p>
@@ -534,8 +535,8 @@
         <span class="p">)</span> 
 </pre></div>
 </div>
-</div>
-<div class="section" id="naming-convention">
+</section>
+<section id="naming-convention">
 <h2>Naming Convention<a class="headerlink" href="#naming-convention" title="Permalink to this headline">¶</a></h2>
 <p>From the specified data directory, EEG notebooks then follows a specific set of naming conventions to define subdirectories and save the data. The full path ends up taking the form</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DATA_DIR</span>\<span class="n">experiment</span>\<span class="n">site</span>\<span class="n">device</span>\<span class="n">subject</span><span class="c1">#\session#\file_name.csv</span>
@@ -553,11 +554,11 @@
 <p><strong>Subject #:</strong> When entering subject ID as a parameter, you only need to specify the integer value. The integer will be formatted to <code class="docutils literal notranslate"><span class="pre">subjectXXXX</span></code> where “XXXX” is a four-digit representation of the integer ID#.</p>
 <p><strong>Session #:</strong> A session in this case would be the full period of time which you have the device on and are taking multiple recordings. For example: if you put the headset on and take five recordings, all five of these recording would belong to session number 1. Once you take a break from consecutive recordings, then this would constitute a new session. Just like the subject ID, this value is passed as an integer and gets converted to a read-able format.</p>
 <p><strong>File name:</strong> The file name is automatically generated in the format <code class="docutils literal notranslate"><span class="pre">recording_date_time.csv</span></code></p>
-<div class="section" id="examples">
+<section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

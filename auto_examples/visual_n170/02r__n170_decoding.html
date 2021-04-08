@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>N170 Decoding &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -483,12 +484,12 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-visual-n170-02r-n170-decoding-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="n170-decoding">
+<section class="sphx-glr-example-title" id="n170-decoding">
 <span id="sphx-glr-auto-examples-visual-n170-02r-n170-decoding-py"></span><h1>N170 Decoding<a class="headerlink" href="#n170-decoding" title="Permalink to this headline">¶</a></h1>
 <p>This example runs a set of machine learning algorithms on the N170 faces/houses
 dataset, and compares them in terms of classification performance.</p>
 <p>The data used is exactly the same as in the N170 <cite>load_and_visualize</cite> example.</p>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -517,8 +518,8 @@ dataset, and compares them in terms of classification performance.</p>
 <span class="kn">from</span> <span class="nn">pyriemann.classification</span> <span class="kn">import</span> <span class="n">MDM</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="load-data">
+</section>
+<section id="load-data">
 <h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h2>
 <p>( See the n170 <cite>load_and_visualize</cite> example for further description of this)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
@@ -537,10 +538,6 @@ dataset, and compares them in terms of classification performance.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
 Ready.
@@ -560,10 +557,14 @@ Ready.
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
 </pre></div>
 </div>
-</div>
-<div class="section" id="filteriing">
+</section>
+<section id="filteriing">
 <h2>Filteriing<a class="headerlink" href="#filteriing" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
 </pre></div>
@@ -583,8 +584,8 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 &lt;RawArray | 6 x 184380 (720.2 s), ~8.5 MB, data loaded&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="epoching">
+</section>
+<section id="epoching">
 <h2>Epoching<a class="headerlink" href="#epoching" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span>
 <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
@@ -610,8 +611,8 @@ sample drop %:  4.003407155025551
  &#39;House&#39;: 565&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="run-classification">
+</section>
+<section id="run-classification">
 <h2>Run classification<a class="headerlink" href="#run-classification" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clfs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 <span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;Vect + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
@@ -654,8 +655,8 @@ XdawnCov + TS
 XdawnCov + MDM
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot-decoding-results">
+</section>
+<section id="plot-decoding-results">
 <h2>Plot Decoding Results<a class="headerlink" href="#plot-decoding-results" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">auc</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC&#39;</span><span class="p">])</span>
 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">methods</span>
@@ -667,7 +668,7 @@ XdawnCov + MDM
 </pre></div>
 </div>
 <img alt="02r  n170 decoding" class="sphx-glr-single-img" src="../../_images/sphx_glr_02r__n170_decoding_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  20.061 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  9.283 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-02r-n170-decoding-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d5962f611a1c0434100c2f3706093684/02r__n170_decoding.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__n170_decoding.py</span></code></a></p>
@@ -677,8 +678,8 @@ XdawnCov + MDM
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

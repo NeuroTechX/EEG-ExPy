@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>EEG-Notebooks Documentation Developer Notes &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -96,7 +97,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -171,7 +172,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto_examples/visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -398,7 +399,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -475,7 +476,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="eeg-notebooks-documentation-developer-notes">
+  <section id="eeg-notebooks-documentation-developer-notes">
 <h1>EEG-Notebooks Documentation Developer Notes<a class="headerlink" href="#eeg-notebooks-documentation-developer-notes" title="Permalink to this headline">¶</a></h1>
 <p>The documentation page can be found at https://neurotechx.github.io/eeg-notebooks</p>
 <p>The documentation source files are a combination of plain-text <code class="docutils literal notranslate"><span class="pre">.rst</span></code>, <code class="docutils literal notranslate"><span class="pre">.md</span></code>, and <code class="docutils literal notranslate"><span class="pre">.py</span></code> files.</p>
@@ -489,7 +490,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">.py</span></code> files in <code class="docutils literal notranslate"><span class="pre">examples</span></code> contain mixtures of python code and <code class="docutils literal notranslate"><span class="pre">.rst</span></code>-format documentation, which are converted through <code class="docutils literal notranslate"><span class="pre">sphinx-gallery</span></code> into a set of web-pages with formatted text and code and in-line figures. In addition, <code class="docutils literal notranslate"><span class="pre">sphinx-gallery</span></code> creates executable <code class="docutils literal notranslate"><span class="pre">.py</span></code> and <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files for each example page, and adds download links to these at the bottom of each page.</p>
 <p>The documentation building command actually executes the python code in each of the <code class="docutils literal notranslate"><span class="pre">examples</span></code> files, and creates figures from them. Errors in the python code lead to incompletely built webpages.</p>
 <p>( Side-note: The title <code class="docutils literal notranslate"><span class="pre">EEG-Notebooks</span></code> was originally conceived with the idea of having complete Python-based EEG experiments runnable from a jupyter notebook, with those notebooks being the main contents of the repo. At the user-level, this is still largely the case; but at the development level, we have now switched over from maintaining a set of <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> source files, to maintaining a set of <code class="docutils literal notranslate"><span class="pre">.py</span></code> files (in the <code class="docutils literal notranslate"><span class="pre">examples</span> <span class="pre">folder),</span> <span class="pre">that</span> <span class="pre">are</span> <span class="pre">converted</span> <span class="pre">to</span> </code>.ipynb<code class="docutils literal notranslate"><span class="pre">files</span> <span class="pre">when</span> <span class="pre">the</span></code>sphinx-gallery<code class="docutils literal notranslate"><span class="pre">documentation</span> <span class="pre">is</span> <span class="pre">compiled.</span> <span class="pre">This</span> <span class="pre">is</span> <span class="pre">much</span> <span class="pre">better</span> <span class="pre">and</span> <span class="pre">sustainable</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">point</span> <span class="pre">of</span> <span class="pre">view</span> <span class="pre">of</span> <span class="pre">version</span> <span class="pre">control,</span> <span class="pre">since</span> <span class="pre">multiple-user</span> <span class="pre">contributions</span> <span class="pre">to</span></code>ipynb` files gets very hairy with git )</p>
-<div class="section" id="building-the-doc-site">
+<section id="building-the-doc-site">
 <h2>Building the doc site<a class="headerlink" href="#building-the-doc-site" title="Permalink to this headline">¶</a></h2>
 <p>The documentation build has only been tested in linux. It may also work on Mac.</p>
 <p>First: install the docs dependencies in a new or existing python environment
@@ -505,8 +506,8 @@
 <p><code class="docutils literal notranslate"><span class="pre">localhost:8001</span></code></p>
 <p>When you are happy with the changes, commit and push the source files, and run the command that builds documentation and pushes to <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code></p>
-</div>
-<div class="section" id="misc-notes">
+</section>
+<section id="misc-notes">
 <h2>Misc notes<a class="headerlink" href="#misc-notes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">doc/index.rst</span></code> defines the overall site structure and table-of-contents tree</p></li>
@@ -514,8 +515,8 @@
 <li><p>Examples pages can be built individually, rather than re-running the entire doc build process</p></li>
 <li><p>The current doc build takes approximately 10 minutes</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

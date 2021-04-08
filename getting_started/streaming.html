@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Initiating an EEG Stream &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -477,7 +478,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="initiating-an-eeg-stream">
+  <section id="initiating-an-eeg-stream">
 <h1>Initiating an EEG Stream<a class="headerlink" href="#initiating-an-eeg-stream" title="Permalink to this headline">¶</a></h1>
 <p>Before getting going with running an experiment, it is important to first verify that a connection between your computer and EEG device has been successfully established, and the raw EEG data is being streamed and recorded properly.</p>
 <p>The exact steps for this vary with the device (MUSE, OpenBCI, others) and operating system (Windows, Mac, Linux) used. When using these instructions, you should make sure you are consulting the section appropriate for your combination of device and OS.</p>
@@ -493,15 +494,15 @@ the various devices and backends behind one easy call.</p>
 </pre></div>
 </div>
 <p>These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the variou support devices.</p>
-<div class="section" id="supported-devices">
+<section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline">¶</a></h2>
 <p>Below is a lst of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.</p>
-<div class="section" id="interaxon-muse">
+<section id="interaxon-muse">
 <h3>Interaxon Muse<a class="headerlink" href="#interaxon-muse" title="Permalink to this headline">¶</a></h3>
 <p><strong>Device Names:</strong> <em>‘muse2016’</em>, <em>‘muse2’</em>, and <em>‘museS’</em>
 <strong>Backend:</strong> MuseLSL
 <strong>Needed Parameters:</strong>  No other parameters are needed, however, if running on Windows 10, then you must also start blue muse before running the experiments.</p>
-<div class="section" id="using-the-muse-on-windows">
+<section id="using-the-muse-on-windows">
 <h4>Using the Muse on Windows<a class="headerlink" href="#using-the-muse-on-windows" title="Permalink to this headline">¶</a></h4>
 <p>To initialize the EEG stream on window you must have Bluemuse running in the background. Open a terminal and start
 bluemuse using <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">bluemuse;</span></code> which should open up a GUI. If you have the USB dongle plugged in and the muse turned on
@@ -509,9 +510,9 @@ then you should see a GUI which looks something like the image below.</p>
 <p><img alt="fig" src="../_images/bluemuse.PNG" /></p>
 <p>Once you press the <strong>Start Streaming</strong> button, muse will be streaming data in the background and can the above code can
 be run to begin the notebooks interfacing with the bluemuse backend.</p>
-</div>
-</div>
-<div class="section" id="openbci-ganglion">
+</section>
+</section>
+<section id="openbci-ganglion">
 <h3>OpenBCI Ganglion<a class="headerlink" href="#openbci-ganglion" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/ganglion.png" /></p>
 <p><strong>Device Name:</strong> <em>‘ganglion’</em>
@@ -526,48 +527,48 @@ be run to begin the notebooks interfacing with the bluemuse backend.</p>
 </ul>
 <p><em><strong>Finding the Ganglion’s MAC address</strong></em></p>
 <p>(Information needed)</p>
-</div>
-<div class="section" id="openbci-cyton">
+</section>
+<section id="openbci-cyton">
 <h3>OpenBCI Cyton<a class="headerlink" href="#openbci-cyton" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/cyton.png" /></p>
 <p><strong>Device Name:</strong> <em>‘cyton’</em>
 <strong>Backend:</strong> Brainflow
 <strong>Needed Parameters:</strong>
 <strong>Optional Parameters:</strong></p>
-</div>
-<div class="section" id="openbci-cyton-daisy">
+</section>
+<section id="openbci-cyton-daisy">
 <h3>OpenBCI Cyton + Daisy<a class="headerlink" href="#openbci-cyton-daisy" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/cyton_daisy.png" />
 <strong>Device Name:</strong> <em>‘cyton_daisy’</em>
 <strong>Backend:</strong> Brainflow
 <strong>Needed Parameters:</strong>
 <strong>Optional Parameters:</strong></p>
-</div>
-<div class="section" id="neurosity-notion-versions-1-and-2">
+</section>
+<section id="neurosity-notion-versions-1-and-2">
 <h3>Neurosity Notion (versions 1 and 2)<a class="headerlink" href="#neurosity-notion-versions-1-and-2" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/notion.png" />
 <strong>Device Name:</strong> <em>‘notion1’</em> or <em>‘notion2’</em>
 <strong>Backend:</strong> Brainflow
 <strong>Needed Parameters:</strong>  No additional parameters are needed to connect to the Notion. It is necessary however to make sure the Notion is on the same network and readable by Neurosity’s developer console.</p>
-<div class="section" id="connecting-on-windows">
+<section id="connecting-on-windows">
 <h4>Connecting on Windows<a class="headerlink" href="#connecting-on-windows" title="Permalink to this headline">¶</a></h4>
 <p>In order to connect to the Notion on Windows you must first turn off your network firewall for the Open Sound Control (OSC) protocol to function for the notion.</p>
-</div>
-</div>
-<div class="section" id="brainbit-eeg-headband">
+</section>
+</section>
+<section id="brainbit-eeg-headband">
 <h3>BrainBit EEG Headband<a class="headerlink" href="#brainbit-eeg-headband" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/brainbit.png" />
 <strong>Device Name:</strong> <em>‘brainbit’</em>
 <strong>Backend:</strong> Brainflow</p>
-</div>
-<div class="section" id="g-tec-unicorn">
+</section>
+<section id="g-tec-unicorn">
 <h3>G.Tec Unicorn<a class="headerlink" href="#g-tec-unicorn" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/gtec-unicorn.jpg" />
 <strong>Device Name:</strong> <em>‘unicorn’</em>
 <strong>Backend:</strong> Brainflow</p>
-</div>
-</div>
-<div class="section" id="initiating-a-muse-stream-in-windows-using-bluemuse">
+</section>
+</section>
+<section id="initiating-a-muse-stream-in-windows-using-bluemuse">
 <h2>Initiating a Muse stream in Windows using Bluemuse<a class="headerlink" href="#initiating-a-muse-stream-in-windows-using-bluemuse" title="Permalink to this headline">¶</a></h2>
 <p>To initialize the EEG stream on window you must have Bluemuse running in the background. Open a terminal and start
 bluemuse using <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">bluemuse;</span></code> which should open up a GUI. If you have the USB dongle plugged in and the muse turned on
@@ -575,8 +576,8 @@ then you should see a GUI which looks something like the image below.</p>
 <p><img alt="fig" src="../_images/bluemuse.PNG" /></p>
 <p>Once you press the <strong>Start Streaming</strong> button, muse will be streaming data in the background and can the above code can
 be run to begin the notebooks interfacing with the bluemuse backend.</p>
-</div>
-<div class="section" id="finding-the-usb-port-of-the-openbci-usb-dongle">
+</section>
+<section id="finding-the-usb-port-of-the-openbci-usb-dongle">
 <h2>Finding the USB port of the OpenBCI USB dongle<a class="headerlink" href="#finding-the-usb-port-of-the-openbci-usb-dongle" title="Permalink to this headline">¶</a></h2>
 <p>If the library is not connecting to an OpenBCI device this might be an issue of defaulting to the wrong serial
 port. If this is happening you can check the serial port of the dongle by opening the OpenBCI GUI and navigating to the
@@ -597,8 +598,8 @@ menu pictures below.</p>
 </div>
 <p>This issue is more common on windows installations, and the image above is shown on a windows OS. However it might still
 be possible for it to happen in Linux and in any case, the process for determining the USB port of the dongle is the same.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

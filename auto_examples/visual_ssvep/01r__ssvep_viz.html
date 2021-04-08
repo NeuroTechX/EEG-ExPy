@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>SSVEP Visualization &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -483,7 +484,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="ssvep-visualization">
+<section class="sphx-glr-example-title" id="ssvep-visualization">
 <span id="sphx-glr-auto-examples-visual-ssvep-01r-ssvep-viz-py"></span><h1>SSVEP Visualization<a class="headerlink" href="#ssvep-visualization" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrates loading, organizing, and visualizing data from the steady-state visual evoked potentials (SSVEP) experiment.</p>
 <p>The data used is the first subject and first session of the one of the eeg-notebooks ssvep example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.</p>
@@ -538,8 +539,8 @@ From: https://drive.google.com/uc?id=1zj9Wx-YEMJo7GugUUu7Sshcybfsr-Fze
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
 0.00B [00:00, ?B/s]
-4.72MB [00:00, 37.0MB/s]
-5.14MB [00:00, 39.8MB/s]
+4.72MB [00:00, 37.4MB/s]
+5.14MB [00:00, 40.0MB/s]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
@@ -553,12 +554,12 @@ Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30732
@@ -566,7 +567,7 @@ Creating RawArray with float64 data, n_channels=6, n_times=30732
 Ready.
 </pre></div>
 </div>
-<div class="section" id="visualize-the-power-spectrum">
+<section id="visualize-the-power-spectrum">
 <h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">()</span>
 </pre></div>
@@ -581,8 +582,8 @@ Generating coords using: [0.    0.    0.    0.095]
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="epoching">
+</section>
+<section id="epoching">
 <h2>Epoching<a class="headerlink" href="#epoching" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next, we will chunk (epoch) the data into segments representing the data 100ms before to 800ms after each stimulus.</span>
 <span class="c1"># Note: we will not reject epochs here because the amplitude of the SSVEP at POz is so large it is difficult to separate from eye blinks</span>
@@ -601,8 +602,8 @@ Event IDs: [1 2]
 sample drop %:  2.538071065989844
 </pre></div>
 </div>
-</div>
-<div class="section" id="stimuli-specific-psd">
+</section>
+<section id="stimuli-specific-psd">
 <h2>Stimuli-Specific PSD<a class="headerlink" href="#stimuli-specific-psd" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next, we can compare the PSD of epochs specifically during 20hz and 30hz stimulus presentation</span>
 
@@ -649,8 +650,8 @@ sample drop %:  2.538071065989844
 Effective window size : 4.016 (s)
 </pre></div>
 </div>
-</div>
-<div class="section" id="spectrogram">
+</section>
+<section id="spectrogram">
 <h2>Spectrogram<a class="headerlink" href="#spectrogram" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also look for SSVEPs in the spectrogram, which uses color to represent the power of frequencies in the EEG signal over time</span>
 
@@ -681,7 +682,7 @@ Effective window size : 4.016 (s)
 Applying baseline correction (mode: logratio)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.255 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.686 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/89f5ff349033ec3c3d48bcfb2c3c3de2/01r__ssvep_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__ssvep_viz.py</span></code></a></p>
@@ -691,8 +692,8 @@ Applying baseline correction (mode: logratio)
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

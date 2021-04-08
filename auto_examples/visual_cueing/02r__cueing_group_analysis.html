@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Cueing Group Analysis &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -483,9 +484,9 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="cueing-group-analysis">
+<section class="sphx-glr-example-title" id="cueing-group-analysis">
 <span id="sphx-glr-auto-examples-visual-cueing-02r-cueing-group-analysis-py"></span><h1>Cueing Group Analysis<a class="headerlink" href="#cueing-group-analysis" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard pythonic importa</span>
 <span class="kn">import</span>  <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -506,8 +507,8 @@
 <span class="c1"># sphinx_gallery_thumbnail_number = 1</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="download-the-data">
+</section>
+<section id="download-the-data">
 <h2>Download the data<a class="headerlink" href="#download-the-data" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 <span class="n">cueing_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
@@ -517,8 +518,8 @@
       <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="load-data-into-mne-objects">
+</section>
+<section id="load-data-into-mne-objects">
 <h2>Load data into MNE objects<a class="headerlink" href="#load-data-into-mne-objects" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># MNE is a very powerful Python library for analyzing EEG data. It provides helpful functions for performing key tasks such as filtering EEG data, rejecting artifacts, and grouping EEG data into chunks (epochs).</span>
 
@@ -1609,11 +1610,11 @@ Applying baseline correction (mode: mean)
 Applying baseline correction (mode: mean)
 (29, 100, 769)
 (29, 100)
-[-1.8633016529355792e-10, -5.1944926980414183e-11, 3.965717366845672e-11, -9.439937924298794e-11, 1.5395426956925892e-10, nan, nan, 1.4375205304704658e-10, 6.156413801289012e-12, -3.4542289627376073e-11, nan, 1.4040022690241426e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.7562617842721688e-12, 3.498985471214217e-11, -7.358448888412759e-11, -2.066739867471912e-11, 5.833832231476227e-11, -1.1353507280272358e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164926025e-13, 1.582422070183946e-10, nan, 2.9726944442082217e-11, -2.7053453190038454e-11, 1.0032262566341906e-10]
+[-1.8633016529355808e-10, -5.1944926980414965e-11, 3.96571736684569e-11, -9.439937924298791e-11, 1.5395426956925833e-10, nan, nan, 1.437520530470469e-10, 6.15641380129071e-12, -3.4542289627375666e-11, nan, 1.4040022690241464e-10, 4.525057557972959e-11, 8.133414421717155e-11, 1.7562617842722684e-12, 3.498985471214273e-11, -7.358448888412824e-11, -2.066739867471927e-11, 5.833832231476275e-11, -1.1353507280272309e-10, 2.0578545669354574e-10, 8.136129078256597e-11, 2.231124565129551e-09, 4.4172040164905027e-13, 1.582422070183948e-10, nan, 2.9726944442082346e-11, -2.705345319003903e-11, 1.0032262566341938e-10]
 </pre></div>
 </div>
-</div>
-<div class="section" id="combine-subjects">
+</section>
+<section id="combine-subjects">
 <h2>Combine subjects<a class="headerlink" href="#combine-subjects" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GrandAvg_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_diff_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">GrandAvg_Ipsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_Ipsi_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -1708,11 +1709,11 @@ Applying baseline correction (mode: mean)
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f39e0276908&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f6698218be0&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-t-test">
+</section>
+<section id="compute-t-test">
 <h2>Compute t test<a class="headerlink" href="#compute-t-test" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span>
 <span class="n">num_good</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">diff_out</span><span class="p">))</span>
@@ -1726,15 +1727,15 @@ Applying baseline correction (mode: mean)
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.024561362956429e-11
-Contra Mean: -2.6175863611708354e-11
-Mean Diff: 1.1642147724127268e-10
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.024561362956394e-11
+Contra Mean: -2.617586361170838e-11
+Mean Diff: 1.1642147724127237e-10
 t(24) = 1.394
 p = 0.169
 </pre></div>
 </div>
-</div>
-<div class="section" id="save-average-powers-ipsi-and-contra">
+</section>
+<section id="save-average-powers-ipsi-and-contra">
 <h2>Save average powers ipsi and contra<a class="headerlink" href="#save-average-powers-ipsi-and-contra" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span>
@@ -1746,12 +1747,12 @@ p = 0.169
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529355792e-10, -5.1944926980414183e-11, 3.965717366845672e-11, -9.439937924298794e-11, 1.5395426956925892e-10, nan, nan, 1.4375205304704658e-10, 6.156413801289012e-12, -3.4542289627376073e-11, nan, 1.4040022690241426e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.7562617842721688e-12, 3.498985471214217e-11, -7.358448888412759e-11, -2.066739867471912e-11, 5.833832231476227e-11, -1.1353507280272358e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164926025e-13, 1.582422070183946e-10, nan, 2.9726944442082217e-11, -2.7053453190038454e-11, 1.0032262566341906e-10]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529355808e-10, -5.1944926980414965e-11, 3.96571736684569e-11, -9.439937924298791e-11, 1.5395426956925833e-10, nan, nan, 1.437520530470469e-10, 6.15641380129071e-12, -3.4542289627375666e-11, nan, 1.4040022690241464e-10, 4.525057557972959e-11, 8.133414421717155e-11, 1.7562617842722684e-12, 3.498985471214273e-11, -7.358448888412824e-11, -2.066739867471927e-11, 5.833832231476275e-11, -1.1353507280272309e-10, 2.0578545669354574e-10, 8.136129078256597e-11, 2.231124565129551e-09, 4.4172040164905027e-13, 1.582422070183948e-10, nan, 2.9726944442082346e-11, -2.705345319003903e-11, 1.0032262566341938e-10]
 Saved subject averages for each condition to 375CueingEEG.csv file in present directory
 </pre></div>
 </div>
-</div>
-<div class="section" id="save-spectra">
+</section>
+<section id="save-spectra">
 <h2>Save spectra<a class="headerlink" href="#save-spectra" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Ipsi_spectra_out</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingIpsiSpec.csv&#39;</span><span class="p">)</span>
@@ -1765,7 +1766,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Saved Spectra to 375Cueing*Spec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  42.706 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  40.328 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d57fff739827ca575034e03b51d68a54/02r__cueing_group_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__cueing_group_analysis.py</span></code></a></p>
@@ -1775,8 +1776,8 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

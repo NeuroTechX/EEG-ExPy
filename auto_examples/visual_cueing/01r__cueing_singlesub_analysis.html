@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Cueing Single Subject Analysis &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -483,9 +484,9 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-visual-cueing-01r-cueing-singlesub-analysis-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="cueing-single-subject-analysis">
+<section class="sphx-glr-example-title" id="cueing-single-subject-analysis">
 <span id="sphx-glr-auto-examples-visual-cueing-01r-cueing-singlesub-analysis-py"></span><h1>Cueing Single Subject Analysis<a class="headerlink" href="#cueing-single-subject-analysis" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -506,8 +507,8 @@
 <span class="c1"># sphinx_gallery_thumbnail_number = 1</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="load-data">
+</section>
+<section id="load-data">
 <h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h2>
 <p>We will use the eeg-notebooks visual cueing example dataset</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
@@ -536,14 +537,15 @@ From: https://drive.google.com/uc?id=1ABOVJ9S0BeJOsqdGFnexaTFZ-ZcsIXfQ
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
 0.00B [00:00, ?B/s]
-3.15MB [00:00, 31.4MB/s]
-17.3MB [00:00, 72.3MB/s]
-31.5MB [00:00, 98.1MB/s]
-41.4MB [00:00, 50.8MB/s]
-50.9MB [00:01, 42.4MB/s]
-67.6MB [00:01, 53.4MB/s]
-84.4MB [00:01, 64.2MB/s]
-102MB [00:01, 67.5MB/s]
+11.0MB [00:00, 109MB/s]
+22.0MB [00:00, 97.2MB/s]
+32.0MB [00:00, 74.0MB/s]
+47.7MB [00:00, 99.4MB/s]
+58.7MB [00:00, 89.8MB/s]
+68.7MB [00:01, 44.3MB/s]
+84.4MB [00:01, 61.2MB/s]
+93.8MB [00:01, 54.5MB/s]
+102MB [00:01, 67.0MB/s]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
@@ -558,8 +560,8 @@ Creating RawArray with float64 data, n_channels=6, n_times=61296
 Ready.
 </pre></div>
 </div>
-</div>
-<div class="section" id="visualize-the-power-spectrum">
+</section>
+<section id="visualize-the-power-spectrum">
 <h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Permalink to this headline">¶</a></h2>
 <p>Plot raw data</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
@@ -570,8 +572,8 @@ Ready.
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNEBrowseFigure size 640x480 with 4 Axes&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="power-spectral-density">
+</section>
+<section id="power-spectral-density">
 <h2>Power Spectral Density<a class="headerlink" href="#power-spectral-density" title="Permalink to this headline">¶</a></h2>
 <p>One way to analyze the SSVEP is to plot the power spectral density, or PSD. SSVEPs should appear as peaks in power for certain frequencies. We expect clear peaks in the spectral domain at the stimulation frequencies of 30 and 20 Hz.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">();</span>
@@ -589,8 +591,8 @@ Generating coords using: [0.    0.    0.    0.095]
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="filtering">
+</section>
+<section id="filtering">
 <h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
 <p>Most ERP components are composed of lower frequency fluctuations in the EEG signal. Thus, we can filter out all frequencies between 1 and 30 hz in order to increase our ability to detect them.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
@@ -617,8 +619,8 @@ Generating coords using: [0.    0.    0.    0.095]
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="epoching">
+</section>
+<section id="epoching">
 <h2>Epoching<a class="headerlink" href="#epoching" title="Permalink to this headline">¶</a></h2>
 <p>Next, we will chunk (epoch) the data into segments representing the data 1000ms before to 2000ms after each cue, we will reject every epoch where the amplitude of the signal exceeded 100 uV, which should most eye blinks.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
@@ -661,8 +663,8 @@ Event IDs: [ 1  2 11 12 21 22]
 sample drop %:  95.77464788732395
 </pre></div>
 </div>
-</div>
-<div class="section" id="spectrogram">
+</section>
+<section id="spectrogram">
 <h2>Spectrogram<a class="headerlink" href="#spectrogram" title="Permalink to this headline">¶</a></h2>
 <p>We can also look for SSVEPs in the spectrogram, which uses color to represent the power of frequencies in the EEG signal over time</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">frequencies</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -713,8 +715,8 @@ No baseline correction applied
 No baseline correction applied
 </pre></div>
 </div>
-</div>
-<div class="section" id="now-we-compute-and-plot-the-differences">
+</section>
+<section id="now-we-compute-and-plot-the-differences">
 <h2>Now we compute and plot the differences<a class="headerlink" href="#now-we-compute-and-plot-the-differences" title="Permalink to this headline">¶</a></h2>
 <p>time frequency window for analysis</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">f_low</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1"># Hz</span>
@@ -793,11 +795,11 @@ No baseline correction applied
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f39e30c8470&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f669a6070a0&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="target-epoching">
+</section>
+<section id="target-epoching">
 <h2>Target Epoching<a class="headerlink" href="#target-epoching" title="Permalink to this headline">¶</a></h2>
 <p>Next, we will chunk (epoch) the data into segments representing the data .200ms before to 1000ms after each target, we will reject every epoch where the amplitude of the signal exceeded ? uV, which should most eye blinks.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
@@ -826,7 +828,7 @@ Event IDs: [ 1  2 11 12 21 22]
 sample drop %:  89.67136150234741
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.840 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.317 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-01r-cueing-singlesub-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c8168bec3b40b12111ac87ce4dfeac13/01r__cueing_singlesub_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__cueing_singlesub_analysis.py</span></code></a></p>
@@ -836,8 +838,8 @@ sample drop %:  89.67136150234741
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

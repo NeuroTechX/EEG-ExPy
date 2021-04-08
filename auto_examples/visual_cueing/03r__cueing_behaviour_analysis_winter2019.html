@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Cueing Behavioural Analysis Winter 2019 &mdash; EEG Notebooks 0.0.0 documentation</title>
@@ -98,7 +99,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
@@ -173,7 +174,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Experiments</span></p>
+<p><span class="caption-text">Experiments</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
@@ -400,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Misc</span></p>
+<p><span class="caption-text">Misc</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../misc/muse_info.html">Technical Information about the MUSE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
@@ -483,9 +484,9 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-visual-cueing-03r-cueing-behaviour-analysis-winter2019-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="cueing-behavioural-analysis-winter-2019">
+<section class="sphx-glr-example-title" id="cueing-behavioural-analysis-winter-2019">
 <span id="sphx-glr-auto-examples-visual-cueing-03r-cueing-behaviour-analysis-winter2019-py"></span><h1>Cueing Behavioural Analysis Winter 2019<a class="headerlink" href="#cueing-behavioural-analysis-winter-2019" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="setup">
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard Pythonic imports</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -507,8 +508,8 @@
       <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="analyze-mat-behavioural-data-for-accuracy-and-rt">
+</section>
+<section id="analyze-mat-behavioural-data-for-accuracy-and-rt">
 <h2>Analyze .mat behavioural data for Accuracy and RT<a class="headerlink" href="#analyze-mat-behavioural-data-for-accuracy-and-rt" title="Permalink to this headline">¶</a></h2>
 <p>Load in subjects</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Fall 2018</span>
@@ -721,7 +722,7 @@ Subject - 309
 [[361.7079635  364.45366275]
  [547.10713075 611.45526175]
  [600.073256   587.019756  ]
- [535.04144725 533.250092  ]
+ [528.29669975 537.8690605 ]
  [419.24263125 439.1580675 ]
  [456.3330375  631.1320265 ]
  [446.95026625 556.038382  ]
@@ -750,7 +751,7 @@ Proportion Accurate
 [[0.98305085 0.96428571]
  [1.         1.        ]
  [0.91680961 0.88974359]
- [0.97767857 0.96428571]
+ [0.98809524 1.        ]
  [0.9822995  1.        ]
  [0.95403439 0.6       ]
  [0.92346939 0.97727273]
@@ -818,7 +819,7 @@ Proportion Accurate
 0           101  0.983051    0.964286  361.707963  364.453663
 1           102  1.000000    1.000000  547.107131  611.455262
 2           103  0.916810    0.889744  600.073256  587.019756
-3           104  0.977679    0.964286  535.041447  533.250092
+3           104  0.988095    1.000000  528.296700  537.869061
 4           106  0.982299    1.000000  419.242631  439.158067
 5           108  0.954034    0.600000  456.333038  631.132027
 6           109  0.923469    0.977273  446.950266  556.038382
@@ -845,7 +846,7 @@ Proportion Accurate
 27          309  0.957184    1.000000  435.428464  437.121910
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.215 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.197 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-03r-cueing-behaviour-analysis-winter2019-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e9b19063c25fc9c3a038b9f1dad5d806/03r__cueing_behaviour_analysis_winter2019.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03r__cueing_behaviour_analysis_winter2019.py</span></code></a></p>
@@ -855,8 +856,8 @@ Proportion Accurate
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
