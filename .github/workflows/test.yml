@@ -72,7 +72,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python_version: [3.6]
+        python_version: [3.7]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
