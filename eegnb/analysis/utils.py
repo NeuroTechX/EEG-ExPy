@@ -65,6 +65,7 @@ def load_csv_as_raw(
                 c if c not in replace_ch_names.keys() else replace_ch_names[c]
                 for c in ch_names
             ]
+        print(ch_names)
 
         # Transpose EEG data and convert from uV to Volts
         data = data.values[:, ch_ind + [-1]].T
@@ -90,6 +91,7 @@ def load_data(
     verbose=1,
     site="local",
     data_dir=None,
+    inc_chans=None
 ):
     """Load CSV files from the /data directory into a Raw object.
 
@@ -111,6 +113,8 @@ def load_data(
         device_name (str): name of device. For a list of supported devices, see
             eegnb.analysis.utils.SAMPLE_FREQS.
         experiment (int or str): experiment name or number.
+        inc_chans (array_like): (Optional) Selective list of the number of the
+            channels to be imported
 
     Keyword Args:
         replace_ch_names (dict or None): dictionary containing a mapping to
@@ -147,7 +151,12 @@ def load_data(
     fnames = glob(data_path)
 
     sfreq = SAMPLE_FREQS[device_name]
+
     ch_ind = EEG_INDICES[device_name]
+
+    if inc_chans is not None:
+        ch_ind = inc_chans
+
     if device_name in ["muse2016", "muse2", "museS"]:
         return load_csv_as_raw(
             fnames,
