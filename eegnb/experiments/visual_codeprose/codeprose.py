@@ -15,6 +15,7 @@ from dataclasses import dataclass, field
 from ...devices.eeg import EEG
 
 import pandas as pd
+import sklearn
 from psychopy import visual, core, event
 
 from eegnb import get_recording_dir
@@ -109,6 +110,9 @@ def run(window: visual.Window) -> pd.DataFrame:
         [["code", img] for img in code_imgs] + [["prose", img] for img in prose_imgs],
         columns=["type", "image_path"],
     )
+
+    # Shuffle trials
+    trials = sklearn.utils.shuffle(trials)
 
     # saving trial information for output
     responses: List[dict] = []
