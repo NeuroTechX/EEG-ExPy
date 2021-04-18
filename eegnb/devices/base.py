@@ -91,3 +91,11 @@ class EEGDevice(metaclass=ABCMeta):
 def test_create():
     device = EEGDevice.create("synthetic")
     assert device
+
+
+def test_instantiate_should_fail():
+    # abstract base class should not be instantiated on its own
+    import pytest
+
+    with pytest.raises(TypeError):
+        EEGDevice("test")  # type: ignore

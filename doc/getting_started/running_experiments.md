@@ -77,7 +77,7 @@ The first step is to import all of the necessary library dependencies. These are
 
 ```python
 from eegnb import generate_save_fn
-from eegnb.devices.eeg import EEG
+from eegnb.devices import EEGDevice
 from eegnb.experiments.visual_n170 import n170
 ```
 
@@ -94,10 +94,10 @@ record_duration = 120
 save_fn = generate_save_fn(board_name, experiment, subject, session)
 ```
 
-Next it is necessary to call the `eegnb.devices.eeg.EEG` class which handles all of the backend processes related to each device.
+Next it is necessary to create an instance of the `eegnb.devices.EEGDevice` class which handles all of the backend processes related to each device.
 
 ```python
-eeg_device = EEG(device=board_name)
+eeg_device = EEGDevice.create(device_name=board_name)
 ```
 
 Finally, we call the `present` method of the class corresponding to our desired experiment, in this case the visual N170. We pass both the EEG device and generated save file name in order to collect and save data. The presentation can also be run without an EEG device/save file for testing and debugging.
@@ -110,7 +110,7 @@ All together the example script looks like
 ```python
 # Imports
 from eegnb import generate_save_fn
-from eegnb.devices.eeg import EEG
+from eegnb.devices import EEGDevice
 from eegnb.experiments.visual_n170 import n170
 
 # Define some variables
@@ -124,7 +124,7 @@ record_duration = 120
 save_fn = generate_save_fn(board_name, experiment, subject, session)
 
 # Setup EEG device
-eeg_device = EEG(device=board_name)
+eeg_device = EEGDevice.create(device_name=board_name)
 
 # Run stimulus presentation
 n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)

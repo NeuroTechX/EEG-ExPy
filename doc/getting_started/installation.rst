@@ -113,7 +113,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
    # Imports
     import os
     from eegnb import generate_save_fn
-    from eegnb.devices.eeg import EEG
+    from eegnb.devices import EEGDevice
     from eegnb.experiments.visual_n170 import n170
     from eegnb.analysis.utils import load_data
 
@@ -126,7 +126,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
     record_duration=120
 
     # Initiate EEG device
-    eeg_device = EEG(device=board_name)
+    eeg_device = EEGDevice.create(device=board_name)
 
     # Create output filename
     save_fn = generate_save_fn(board_name, experiment, subject)

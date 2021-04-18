@@ -4,25 +4,24 @@ Before getting going with running an experiment, it is important to first verify
 
 The exact steps for this vary with the device (MUSE, OpenBCI, others) and operating system (Windows, Mac, Linux) used. When using these instructions, you should make sure you are consulting the section appropriate for your combination of device and OS.
 
-Initiating an EEG stream is a relatively easy process using the `eegnb.devices.eeg.EEG` class which abstracts the
-the various devices and backends behind one easy call.
+Initiating an EEG stream is a relatively easy process using the `eegnb.devices.EEGDevice` class which abstracts the various devices and backends behind one easy call.
 
 ```python
-from eegnb.devices.eeg import EEG
+from eegnb.devices import EEGDevice
 
 # define the name for the board you are using and call the EEG object
-eeg = EEG(device='cyton')
+eeg = EEGDevice.create(device='cyton')
 
 # start the stream
 eeg.start()
 ```
 
-These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the variou support devices.
+These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the various support devices.
 
 
 ## Supported Devices
 
-Below is a lst of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.
+Below is a list of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.
 
 ### Interaxon Muse
 **Device Names:** *'muse2016'*, *'muse2'*, and *'museS'*
@@ -111,10 +110,10 @@ menu pictures below.
 
 Now that we have the COM port, we can initiate the stream by passing it to the EEG device in the object call.
 ```python
-from eegnb.devices.eeg import EEG
+from eegnb.devices import EEGDevice
 
 # define the name for the board you are using and call the EEG object
-eeg = EEG(
+eeg = EEGDevice.create(
     device='cyton',
     serial_port='COM7'
 )
