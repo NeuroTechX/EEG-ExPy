@@ -91,5 +91,17 @@ def view():
     raise NotImplementedError
 
 
+def test_cli():
+    from click.testing import CliRunner
+
+    runner = CliRunner()
+    result = runner.invoke(main, ["--help"])
+    assert result.exit_code == 0
+
+    runner = CliRunner()
+    result = runner.invoke(runexp, ["--help"])
+    assert result.exit_code == 0
+
+
 if __name__ == "__main__":
     main()
