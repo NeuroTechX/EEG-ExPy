@@ -3,6 +3,8 @@ from eegnb.devices.eeg import EEG
 from eegnb.experiments.visual_n170 import n170
 from eegnb.experiments.visual_p300 import p300
 from eegnb.experiments.visual_ssvep import ssvep
+from eegnb.experiments.visual_cueing import cueing
+from eegnb.experiments.visual_codeprose import codeprose
 from eegnb.experiments.auditory_oddball import aob, diaconescu
 from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
 
@@ -11,6 +13,8 @@ experiments = {
     "visual-N170": n170,
     "visual-P300": p300,
     "visual-SSVEP": ssvep,
+    "visual-cue": cueing,
+    "visual-codeprose": codeprose,
     "auditory-SSAEP orig": ssaep,
     "auditory-SSAEP onefreq": ssaep_onefreq,
     "auditory-oddball orig": aob,
