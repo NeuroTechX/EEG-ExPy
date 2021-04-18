@@ -2,7 +2,7 @@ name: Test
 
 on:
   push:
-    branches: [ master, 'dev/*' ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -57,7 +57,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip wheel
         pip install .
-    - name: Run eegnb install test
+    - name: Run eegnb cli test
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -66,6 +66,10 @@ jobs:
         fi
         eegnb --help
         eegnb runexp --help
+    - name: Run tests
+      shell: bash
+      run: |
+        pytest
 
   typecheck:
     runs-on: ${{ matrix.os }}

@@ -1,10 +1,13 @@
 import click
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @click.group(name="eegnb")
 def main():
     """eeg-notebooks command line interface"""
-    pass
+    logging.basicConfig(level=logging.INFO)
 
 
 @main.command()
@@ -55,13 +58,16 @@ def runexp(
         run_introprompt()
     else:
         from .utils import run_experiment
-        from eegnb.devices.eeg import EEG
+        from eegnb.devices import EEGDevice
 
         if eegdevice == "ganglion":
             # if the ganglion is chosen a MAC address should also be proviced
-            eeg = EEG(device=eegdevice, mac_addr=macaddr)
+            eeg = EEGDevice.create(device_name=eegdevice, mac_addr=macaddr)
         else:
-            eeg = EEG(device=eegdevice)
+            if eegdevice:
+                eeg = EEGDevice.create(device_name=eegdevice)
+            else:
+                print("No EEG device provided, using a synthetic one.")
 
         run_experiment(experiment, eeg, recdur, outfname)
 

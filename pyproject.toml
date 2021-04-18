@@ -1,0 +1,16 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov-report=term --cov-report=xml --cov-report=html --cov=eegnb --profile --nbval-lax --current-env"
+testpaths = [
+    "eegnb/devices",
+    "eegnb/cli",
+]
+python_files = ["*.py", "*.ipynb"]
+
+[tool.coverage.report]
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+    # Don't complain if tests don't hit defensive assertion code
+    "raise NotImplementedError"
+]

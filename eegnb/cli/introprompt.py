@@ -1,11 +1,9 @@
-import os
-
 from eegnb import generate_save_fn
-from eegnb.devices.eeg import EEG
+from eegnb.devices import EEGDevice
 from .utils import run_experiment, get_exp_desc, experiments
 
 
-def device_prompt() -> EEG:
+def device_prompt() -> EEGDevice:
     # define the names of the available boards
     # boards is a mapping from board code to board description
     boards = {
@@ -51,9 +49,7 @@ def device_prompt() -> EEG:
             board_code = board_code + "_wifi"
         if board_code == "ganglion":
             # If the Ganglion is being used, you can enter optional Ganglion mac address
-            ganglion_mac_address = input(
-                "\nGanglion MAC Address (Press Enter to Autoscan): "
-            )
+            mac_address = input("\nGanglion MAC Address (Press Enter to Autoscan): ")
         elif board_code == "ganglion_wifi":
             # IP address is required for this board configuration
             ip_address = input("\nEnter Ganglion+WiFi IP Address: ")
@@ -66,13 +62,11 @@ def device_prompt() -> EEG:
     # initialize the EEG device
     if board_code.startswith("ganglion"):
         if board_code == "ganglion_wifi":
-            eeg_device = EEG(device=board_code, ip_addr=ip_address)
+            return EEGDevice.create(device_name=board_code, ip_addr=ip_address)
         else:
-            eeg_device = EEG(device=board_code, mac_addr=ganglion_mac_address)
+            return EEGDevice.create(device_name=board_code, mac_addr=mac_address)
     else:
-        eeg_device = EEG(device=board_code)
-
-    return eeg_device
+        return EEGDevice.create(device_name=board_code)
 
 
 def exp_prompt():
