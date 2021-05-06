@@ -537,18 +537,18 @@ From: https://drive.google.com/uc?id=1ABOVJ9S0BeJOsqdGFnexaTFZ-ZcsIXfQ
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
 0.00B [00:00, ?B/s]
-6.29MB [00:00, 62.1MB/s]
-16.3MB [00:00, 81.6MB/s]
-25.7MB [00:00, 61.5MB/s]
-34.1MB [00:00, 35.0MB/s]
-42.5MB [00:01, 35.2MB/s]
-50.9MB [00:01, 32.3MB/s]
-59.2MB [00:01, 39.9MB/s]
-67.6MB [00:01, 43.5MB/s]
-76.0MB [00:01, 49.8MB/s]
-84.4MB [00:01, 43.1MB/s]
-101MB [00:02, 64.5MB/s]
-102MB [00:02, 48.6MB/s]
+8.91MB [00:00, 21.6MB/s]
+17.3MB [00:00, 30.6MB/s]
+25.7MB [00:00, 27.2MB/s]
+34.1MB [00:01, 35.0MB/s]
+42.5MB [00:01, 42.7MB/s]
+50.9MB [00:01, 34.1MB/s]
+59.2MB [00:01, 35.8MB/s]
+67.6MB [00:01, 38.3MB/s]
+81.3MB [00:02, 55.2MB/s]
+88.6MB [00:02, 58.0MB/s]
+95.9MB [00:02, 45.7MB/s]
+102MB [00:02, 41.9MB/s]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=61296
@@ -564,6 +564,7 @@ Ready.
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
+Cropping annotations 0 - 718.3125
 </pre></div>
 </div>
 </section>
@@ -682,7 +683,7 @@ sample drop %:  95.77464788732395
 <span class="c1"># Left Cue</span>
 <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;LeftCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
                       <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
 <span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;TP9 - Ipsi&#39;</span><span class="p">);</span>
 <span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
@@ -693,7 +694,7 @@ sample drop %:  95.77464788732395
 <span class="c1"># Right Cue</span>
 <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;RightCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
                       <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
 <span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;TP9 - Contra&#39;</span><span class="p">);</span>
 <span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
@@ -801,7 +802,7 @@ No baseline correction applied
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fd49b6a04c0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fb071bc0700&gt;
 </pre></div>
 </div>
 </section>
@@ -813,8 +814,8 @@ No baseline correction applied
            <span class="s1">&#39;ValidTarget_Left&#39;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span><span class="s1">&#39;ValidTarget_Right&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">}</span>
 
 <span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
-                <span class="n">tmin</span><span class="o">=-.</span><span class="mi">2</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:</span><span class="o">.</span><span class="mi">0001</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">tmin</span><span class="o">=-</span><span class="mf">.2</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:</span><span class="mf">.0001</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sample drop %: &#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
 
@@ -834,7 +835,7 @@ Event IDs: [ 1  2 11 12 21 22]
 sample drop %:  89.67136150234741
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.318 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.627 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-01r-cueing-singlesub-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c8168bec3b40b12111ac87ce4dfeac13/01r__cueing_singlesub_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__cueing_singlesub_analysis.py</span></code></a></p>

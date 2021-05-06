@@ -602,7 +602,7 @@
     <span class="c1"># Left Cue</span>
     <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;LeftCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
                           <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
     <span class="c1">#tfr.plot(picks=[0], mode=&#39;logratio&#39;,</span>
     <span class="c1">#         title=&#39;TP9 - Ipsi&#39;);</span>
     <span class="c1">#tfr.plot(picks=[3], mode=&#39;logratio&#39;,</span>
@@ -613,7 +613,7 @@
     <span class="c1"># Right Cue</span>
     <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;RightCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
                           <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">],</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
     <span class="c1">#tfr.plot(picks=[0], mode=&#39;logratio&#39;,</span>
     <span class="c1">#         title=&#39;TP9 - Contra&#39;);</span>
     <span class="c1">#tfr.plot(picks=[3], mode=&#39;logratio&#39;,</span>
@@ -998,6 +998,7 @@ Ready.
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
+Cropping annotations 0 - 718.21875
 Filtering raw data in 3 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
 Using filter length: 61296
@@ -1471,6 +1472,7 @@ Ready.
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
+Cropping annotations 0 - 718.3125
 Filtering raw data in 3 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
 Using filter length: 61296
@@ -1670,7 +1672,7 @@ Applying baseline correction (mode: mean)
 Applying baseline correction (mode: mean)
 (29, 100, 769)
 (29, 100)
-[-1.8633016529355808e-10, -5.1944926980414965e-11, 3.96571736684569e-11, -9.439937924298791e-11, 1.5395426956925833e-10, nan, nan, 1.437520530470469e-10, 6.15641380129071e-12, -3.4542289627375666e-11, nan, 1.4040022690241464e-10, 4.525057557972959e-11, 8.133414421717155e-11, 1.7562617842722684e-12, 3.498985471214273e-11, -7.358448888412824e-11, -2.066739867471927e-11, 5.833832231476275e-11, -1.1353507280272309e-10, 2.0578545669354574e-10, 8.136129078256597e-11, 2.231124565129551e-09, 4.4172040164905027e-13, 1.582422070183948e-10, nan, 2.9726944442082346e-11, -2.705345319003903e-11, 1.0032262566341938e-10]
+[-1.8633016529355787e-10, -5.19449269804142e-11, 3.965717366845671e-11, -9.439937924298795e-11, 1.5395426956925892e-10, nan, nan, 1.437520530470466e-10, 6.1564138012890024e-12, -3.45422896273761e-11, nan, 1.4040022690241423e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.756261784272176e-12, 3.498985471214219e-11, -7.35844888841276e-11, -2.066739867471912e-11, 5.833832231476227e-11, -1.1353507280272355e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164926025e-13, 1.5824220701839464e-10, nan, 2.9726944442082217e-11, -2.7053453190038464e-11, 1.0032262566341905e-10]
 </pre></div>
 </div>
 </section>
@@ -1769,7 +1771,7 @@ Applying baseline correction (mode: mean)
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fd498ff03a0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fb06f516490&gt;
 </pre></div>
 </div>
 </section>
@@ -1787,9 +1789,9 @@ Applying baseline correction (mode: mean)
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.024561362956394e-11
-Contra Mean: -2.617586361170838e-11
-Mean Diff: 1.1642147724127237e-10
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.024561362956431e-11
+Contra Mean: -2.6175863611708354e-11
+Mean Diff: 1.1642147724127268e-10
 t(24) = 1.394
 p = 0.169
 </pre></div>
@@ -1807,7 +1809,7 @@ p = 0.169
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529355808e-10, -5.1944926980414965e-11, 3.96571736684569e-11, -9.439937924298791e-11, 1.5395426956925833e-10, nan, nan, 1.437520530470469e-10, 6.15641380129071e-12, -3.4542289627375666e-11, nan, 1.4040022690241464e-10, 4.525057557972959e-11, 8.133414421717155e-11, 1.7562617842722684e-12, 3.498985471214273e-11, -7.358448888412824e-11, -2.066739867471927e-11, 5.833832231476275e-11, -1.1353507280272309e-10, 2.0578545669354574e-10, 8.136129078256597e-11, 2.231124565129551e-09, 4.4172040164905027e-13, 1.582422070183948e-10, nan, 2.9726944442082346e-11, -2.705345319003903e-11, 1.0032262566341938e-10]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529355787e-10, -5.19449269804142e-11, 3.965717366845671e-11, -9.439937924298795e-11, 1.5395426956925892e-10, nan, nan, 1.437520530470466e-10, 6.1564138012890024e-12, -3.45422896273761e-11, nan, 1.4040022690241423e-10, 4.5250575579732215e-11, 8.133414421717214e-11, 1.756261784272176e-12, 3.498985471214219e-11, -7.35844888841276e-11, -2.066739867471912e-11, 5.833832231476227e-11, -1.1353507280272355e-10, 2.0578545669354466e-10, 8.136129078256675e-11, 2.231124565129559e-09, 4.4172040164926025e-13, 1.5824220701839464e-10, nan, 2.9726944442082217e-11, -2.7053453190038464e-11, 1.0032262566341905e-10]
 Saved subject averages for each condition to 375CueingEEG.csv file in present directory
 </pre></div>
 </div>
@@ -1826,7 +1828,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Saved Spectra to 375Cueing*Spec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  39.448 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  48.888 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d57fff739827ca575034e03b51d68a54/02r__cueing_group_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__cueing_group_analysis.py</span></code></a></p>
