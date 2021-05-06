@@ -85,3 +85,9 @@ Contact
 
 The best place for general discussion on eeg-notebooks functionality is the `issues page <https://github.com/NeuroTechX/eeg-notebooks/issues/new/choose>`_. For more general questions and discussions, you can e-mail `john.griffiths@utoronto.ca`, or ping us on the `NeuroTechX Discord <https://discord.gg/zYCBfBf4W4>`_ or `NeuroTechX slack <https://neurotechx.herokuapp.com>`_.
 
+
+
+.. image:: https://github.com/NeuroTechX/eeg-notebooks/raw/master/doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png
+   :align: center
+   :scale: 50
+   
