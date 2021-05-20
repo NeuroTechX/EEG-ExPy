@@ -1,4 +1,5 @@
-import os
+from typing import Tuple
+from pathlib import Path
 
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
@@ -75,7 +76,7 @@ def device_prompt() -> EEG:
     return eeg_device
 
 
-def exp_prompt():
+def exp_prompt() -> str:
     print("\nPlease select which experiment you would like to run: \n")
     print(
         "\n".join(
@@ -93,7 +94,7 @@ def exp_prompt():
     return exp_selection
 
 
-def intro_prompt():
+def intro_prompt() -> Tuple[EEG, str, int, Path]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
     print("Welcome to NeurotechX EEG Notebooks\n")
 
@@ -127,9 +128,9 @@ def intro_prompt():
     return eeg_device, exp_selection, duration, save_fn
 
 
-def main():
+def main() -> None:
     eeg_device, experiment, record_duration, save_fn = intro_prompt()
-    run_experiment(experiment, record_duration, eeg_device, save_fn)
+    run_experiment(experiment, eeg_device, record_duration, save_fn)
 
 
 if __name__ == "__main__":
