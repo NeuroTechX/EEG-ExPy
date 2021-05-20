@@ -14,6 +14,9 @@ pysocks==1.7.1
 pyserial==3.5
 h5py>=3.1.0
 pyo>=1.0.3; platform_system == "Linux"
+
+# This might try to build from source on linux (since there are no wheels for Linux on PyPI)
+# You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
 click
 
@@ -26,7 +29,10 @@ pywinhook>=1.6.0 ; platform_system == "Windows" and (python_version == "3.7" or 
 pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinhook-1.6.2-cp39-cp39-win_amd64.whl ; platform_system == "Windows" and python_version == "3.9"
 
 # Test requirements
-mypy>=0.790
+mypy
+pytest
+pytest-cov
+nbval
 
 # Docs requirements
 sphinx==3.1.1

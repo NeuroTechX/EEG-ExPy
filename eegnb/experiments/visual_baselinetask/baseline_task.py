@@ -18,7 +18,7 @@ outlet = StreamOutlet(info)
 start = time()
 
 # Initialize stimuli
-aud1 = sound.Sound("C", octave=5, sampleRate=44100, secs=0.5, bits=8)
+aud1 = sound.Sound("C", octave=5, sampleRate=44100, secs=0.5)
 aud1.setVolume(0.025)
 
 # Setup graphics
