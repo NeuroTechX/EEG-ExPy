@@ -15,8 +15,9 @@ import numpy as np
 import pandas as pd
 
 from brainflow import BoardShim, BoardIds, BrainFlowInputParams
-from muselsl import stream, list_muses, record
-from pylsl import StreamInfo, StreamOutlet
+from muselsl import stream, list_muses, record, constants as mlsl_cnsts
+
+from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from eegnb.devices.utils import get_openbci_usb, create_stim_array
 
@@ -84,7 +85,8 @@ class EEG:
     def _init_muselsl(self):
         # Currently there's nothing we need to do here. However keeping the
         # option open to add things with this init method.
-        pass
+        self._muse_recent_inlet = None
+
 
     def _start_muse(self, duration):
 
@@ -121,6 +123,45 @@ class EEG:
 
     def _muse_push_sample(self, marker, timestamp):
         self.muse_StreamOutlet.push_sample(marker, timestamp)
+
+
+    def _muse_get_recent(self, max_samples=100, restart_inlet=False):
+        
+        if self._muse_recent_inlet and restart_inlet == False:
+            inlet = self._muse_recent_inlet
+
+        else:
+            # Initiate a new lsl stream
+            streams = resolve_byprop('type', 'EEG', timeout=mlsl_cnsts.LSL_SCAN_TIMEOUT)
+            inlet = StreamInlet(streams[0], max_chunklen=mlsl_cnsts.LSL_EEG_CHUNK)
+
+        self._muse_recent_inlet = inlet
+
+        _ = inlet.pull_chunk() # seems to be necessary to do this first...
+        time.sleep(1)
+        samples, timestamps = inlet.pull_chunk(timeout=0.0, max_samples=max_samples)
+
+        samples = np.array(samples)
+        timestamps = np.array(timestamps)
+
+        info = inlet.info()
+        description = info.desc()
+        sfreq = info.nominal_srate()
+        #window = 10
+        #n_samples = int(self.sfreq * window)
+        n_chans = info.channel_count()
+        ch = description.child('channels').first_child()
+        ch_names = [ch.child_value('label')]
+        for i in range(n_chans):
+            ch = ch.next_sibling()
+            lab = ch.child_value('label')
+            if lab != '':
+                ch_names.append(lab)
+        df = pd.DataFrame(samples, index=timestamps, columns=ch_names) 
+        
+        
+        return df
+
 
     ##########################
     #   BrainFlow functions  #
@@ -265,6 +306,11 @@ class EEG:
         last_timestamp = self.board.get_current_board_data(1)[-1][0]
         self.markers.append([marker, last_timestamp])
 
+
+    def _brainflow_get_recent(self):
+        # TO DO
+        pass
+
     def start(self, fn, duration=None):
         """Starts the EEG device based on the defined backend.
 
@@ -297,3 +343,23 @@ class EEG:
             self._stop_brainflow()
         elif self.backend == "muselsl":
             pass
+
+
+
+    def get_recent(self):
+        """
+        Usage:
+        -------
+        from eegnb.devices.eeg import EEG
+        this_eeg = EEG(device='museS')
+        df_rec = this_eeg.get_recent()
+        """
+
+        if self.backend == "brainflow":
+            df = self._brainflow_get_recent()
+        elif self.backend == "muselsl":
+            df = self._muse_get_recent()
+    
+        return df
+
+
