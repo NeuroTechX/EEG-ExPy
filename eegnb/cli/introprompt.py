@@ -129,7 +129,7 @@ def intro_prompt():
 
 def main():
     eeg_device, experiment, record_duration, save_fn = intro_prompt()
-    run_experiment(experiment, record_duration, eeg_device, save_fn)
+    run_experiment(experiment, eeg_device, record_duration, save_fn)
 
 
 if __name__ == "__main__":
