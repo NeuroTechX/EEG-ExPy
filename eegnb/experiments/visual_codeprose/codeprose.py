@@ -83,6 +83,16 @@ def present(duration: int, eeg: EEG, subject=0, session=0, **kwargs) -> None:
     window.close()
 
 
+def download_images(dest):
+    import urllib.request as urllib
+    import zipfile
+
+    url = "https://web.eecs.umich.edu/~weimerw/fmri-resources/2016-materials.zip"
+    filehandle, _ = urllib.urlretrieve(url)
+    with zipfile.ZipFile(filehandle, "r") as f:
+        f.extractall(dest)
+
+
 def run(window: visual.Window) -> pd.DataFrame:
     # Get ready screen
     fixate(
@@ -98,8 +108,14 @@ def run(window: visual.Window) -> pd.DataFrame:
 
     # Source of files: https://web.eecs.umich.edu/~weimerw/fmri.html
     # Direct link: https://web.eecs.umich.edu/~weimerw/fmri-resources/2016-materials.zip
-    # TODO: Place somewhere reasonable, figure out how to distribute with eegnb?
-    img_path = Path("/home/erb/Skola/Exjobb/other/2016-materials/materials.final/")
+    image_path = Path("~/.eegnb/tmp/").expanduser()
+    if not image_path.exists():
+        print("Images not found, downloading...")
+        image_path.mkdir(parents=True)
+        download_images(image_path)
+        print("Done!")
+
+    img_path = image_path / "materials.final"
     assert img_path.exists()
 
     code_imgs = (img_path / "comp").glob("*.png")
