@@ -12,6 +12,7 @@ addopts = """
 """
 testpaths = [
     "eegnb",
-    "examples",
+    "tests",
+    #"examples",
 ]
 python_files = ["*.py", "*.ipynb"]
