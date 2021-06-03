@@ -21,6 +21,8 @@ from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from eegnb.devices.utils import get_openbci_usb, create_stim_array
 
+from eegnb.analysis.utils import filter,_check_samples
+
 # list of brainflow devices
 brainflow_devices = [
     "ganglion",
@@ -361,5 +363,50 @@ class EEG:
             df = self._muse_get_recent()
     
         return df
+
+
+
+
+    def check_sigquality(self,return_res=True,print_res=True,n_samples=500,n_times=1,pause_time=5):
+        """
+        Usage:
+        ------
+
+        from eegnb.devices.eeg import EEG
+        this_eeg = EEG(device='museS')
+
+        this_eeg.check_sigquality(n_times=5,pause_time=5)
+
+        """
+        
+
+
+        all_res,all_var = [],[]
+
+        for _ in range(n_times):
+
+            time.sleep(pause_time)
+
+            #df = self.get_recent()
+            df = self._muse_get_recent(max_samples=n_samples) # aim is to use the above command 
+            df_filt = filter(df.values)
+            df_filt = pd.DataFrame(df_filt.T,index=df.columns,columns=df.index.values).T
+
+            res = _check_samples(df_filt,df.columns)
+            var = df_filt.var(axis=0)
+
+            if print_res:
+                print("\n\nSignal Quality check: ")
+                print(res)
+
+                print('variance:')
+                print(var)
+
+            all_res.append(res)
+            all_var.append(var)
+
+        if return_res:
+            return all_res,all_var
+
 
 
