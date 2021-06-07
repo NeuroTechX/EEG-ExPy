@@ -8,12 +8,7 @@ def main():
 
 
 @main.command()
-@click.option(
-    "-ex",
-    "--experiment",
-    help="Experiment to run",
-    prompt="Experiment to run",
-)
+@click.option("-ex", "--experiment", help="Experiment to run")
 @click.option("-ed", "--eegdevice", help="EEG device to use")
 @click.option("-ma", "--macaddr", help="MAC address of device to use (if applicable)")
 @click.option("-rd", "--recdur", help="Recording duration", type=float)
@@ -22,7 +17,7 @@ def main():
     "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
 )
 def runexp(
-    experiment: str,
+    experiment: str = None,
     eegdevice: str = None,
     macaddr: str = None,
     recdur: float = None,
@@ -39,7 +34,7 @@ def runexp(
     This is the quickest way to run eeg-notebooks experiments,
     but requires knowledge of formatting for available options
 
-    $ eegnb runexp -ed museS -ex visual-N170 -rd 10 -of test.csv
+    $ eegnb runexp -ex visual-N170 -ed museS -rd 10 -of test.csv
 
 
     Launch the interactive command line experiment setup+run tool
@@ -49,7 +44,7 @@ def runexp(
     $ eegnb runexp -ip
     """
     if prompt:
-        print("run command line prompt script")
+        #import and run the introprompt script
         from .introprompt import main as run_introprompt
 
         run_introprompt()
@@ -64,26 +59,6 @@ def runexp(
             eeg = EEG(device=eegdevice)
 
         run_experiment(experiment, eeg, recdur, outfname)
-
-
-@main.command()
-@click.option("-ed", "--eegdevice", help="EEG device to use")
-@click.option("-vr", "--version", help="Viewer version (for muselsl)")
-def view():
-    """
-    View live EEG stream.
-
-    Examples: TODO
-    """
-    print("add viewer functionality here")
-
-    # args = parser.parse_args(sys.argv[2:])
-    # from . import view
-    # view(args.window, args.scale, args.refresh,
-    #     args.figure, args.version, args.backend)
-
-    raise NotImplementedError
-
 
 if __name__ == "__main__":
     main()
