@@ -17,7 +17,7 @@ def main():
     "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
 )
 def runexp(
-    experiment: str = None,
+    experiment: str,
     eegdevice: str = None,
     macaddr: str = None,
     recdur: float = None,
