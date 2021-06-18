@@ -1,4 +1,5 @@
 import click
+from time import sleep
 
 
 @click.group(name="eegnb")
@@ -44,7 +45,7 @@ def runexp(
     $ eegnb runexp -ip
     """
     if prompt:
-        #import and run the introprompt script
+        # import and run the introprompt script
         from .introprompt import main as run_introprompt
 
         run_introprompt()
@@ -59,6 +60,49 @@ def runexp(
             eeg = EEG(device=eegdevice)
 
         run_experiment(experiment, eeg, recdur, outfname)
+
+
+@main.command()
+@click.option("-ed", "--eegdevice", help="EEG device to use", required=True)
+def check(eegdevice: str, n_times=5, pause_time=5, thres_var=100):
+    """
+    Run signal quality check.
+
+    Usage:
+        eegnb check --eegdevice museS
+    """
+    print("Running signal quality check...")
+    print(f"Using threshold variance: {thres_var}")
+    from eegnb.devices.eeg import EEG
+
+    CHECKMARK = "✓"
+    CROSS = "x"
+
+    eeg = EEG(device=eegdevice)
+    # eeg.start(None)
+
+    for _ in range(n_times):
+        res, var = eeg.check(n_samples=pause_time * 256)
+
+        indicators = "\n".join(
+            [
+                f"  {k:>4}: {CHECKMARK if v else CROSS}   (var: {round(var[k], 1):>5})"
+                for k, v in res.items()
+            ]
+        )
+        print("\nSignal quality:")
+        print(indicators)
+
+        bad_channels = [k for k, v in res.items() if not v]
+        if bad_channels:
+            print(f"Bad channels: {', '.join(bad_channels)}")
+        else:
+            print("All good!")
+            # TODO: Check that signal stays good for a while?
+            break
+
+        sleep(pause_time)
+
 
 if __name__ == "__main__":
     main()
