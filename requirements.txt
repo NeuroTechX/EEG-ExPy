@@ -28,6 +28,10 @@ dataclasses; python_version == '3.6'
 pywinhook>=1.6.0 ; platform_system == "Windows" and (python_version == "3.7" or python_version == "3.8")
 pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinhook-1.6.2-cp39-cp39-win_amd64.whl ; platform_system == "Windows" and python_version == "3.9"
 
+# pyglet downgrade to prevent threadmode warning on windows
+# See issue: https://github.com/psychopy/psychopy/issues/2876
+pyglet==1.4.10 ; platform_system == "Windows"
+
 # Test requirements
 mypy
 pytest

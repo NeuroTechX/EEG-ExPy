@@ -4,13 +4,18 @@ After you have installed the library there are two methods for collecting data. 
 ## Command Line Interface
 To activate the command line tool, open a command/terminal prompt and enter `eegnb runexp` followed by the appropriate flags for your device, desired experiment, and more. The possible flags are
 * *-ed ; --eegdevice*: The device being used to record data. Each device has a specific string to be passed which can be seen on the [Initiating an EEG Stream](https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html) under the `EEG.device` parameter for the respective device.
-* *-ex ; --expt*: The experiment to be run 
+* *-ex ; --experiment*: The experiment to be run
+* *-ma ; --macaddr*: The MAC address of device to use (applicable devices e.g ganglion)
 * *-rd ; --recdur*: Duration of recording (in seconds).
-* *-of ; -outfname*: Save file name (this will be automatically generated to match default file system if left blank).
-* *-ip ; --inprom*: Bypass the other flags to activate an interactive prompt.
+* *-of ; --outfname*: Save file name (this will be automatically generated to match default file system if left blank).
+* *-ip ; --prompt*: Bypass the other flags to activate an interactive prompt.
 
 ### Using the introprompt flag
 If using the `-ip` flag the user will be prompted to input the various session parameters. The prompts are detailed below.
+
+```
+eegnb runexp -ip
+```
 
 #### Board Selection
 ```
@@ -35,9 +40,9 @@ Here you specify which of the supported boards you are using to collect data. EE
 #### Experiment Selection
 ```
 Please select which experiment you would like to run: 
-[0] visual n170 
-[1] visual p300 
-[2] ssvep 
+[0] Visual N170
+[1] Visual P300
+[2] Visual SSVEP
 
 Enter Experiment Selection:
 ```
