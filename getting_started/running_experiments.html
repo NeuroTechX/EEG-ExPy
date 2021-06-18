@@ -486,14 +486,18 @@
 <p>To activate the command line tool, open a command/terminal prompt and enter <code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">runexp</span></code> followed by the appropriate flags for your device, desired experiment, and more. The possible flags are</p>
 <ul class="simple">
 <li><p><em>-ed ; –eegdevice</em>: The device being used to record data. Each device has a specific string to be passed which can be seen on the <a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html">Initiating an EEG Stream</a> under the <code class="docutils literal notranslate"><span class="pre">EEG.device</span></code> parameter for the respective device.</p></li>
-<li><p><em>-ex ; –expt</em>: The experiment to be run</p></li>
+<li><p><em>-ex ; –experiment</em>: The experiment to be run</p></li>
+<li><p><em>-ma ; –macaddr</em>: The MAC address of device to use (applicable devices e.g ganglion)</p></li>
 <li><p><em>-rd ; –recdur</em>: Duration of recording (in seconds).</p></li>
-<li><p><em>-of ; -outfname</em>: Save file name (this will be automatically generated to match default file system if left blank).</p></li>
-<li><p><em>-ip ; –inprom</em>: Bypass the other flags to activate an interactive prompt.</p></li>
+<li><p><em>-of ; –outfname</em>: Save file name (this will be automatically generated to match default file system if left blank).</p></li>
+<li><p><em>-ip ; –prompt</em>: Bypass the other flags to activate an interactive prompt.</p></li>
 </ul>
 <section id="using-the-introprompt-flag">
 <h3>Using the introprompt flag<a class="headerlink" href="#using-the-introprompt-flag" title="Permalink to this headline">¶</a></h3>
 <p>If using the <code class="docutils literal notranslate"><span class="pre">-ip</span></code> flag the user will be prompted to input the various session parameters. The prompts are detailed below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb</span> <span class="n">runexp</span> <span class="o">-</span><span class="n">ip</span>
+</pre></div>
+</div>
 <section id="board-selection">
 <h4>Board Selection<a class="headerlink" href="#board-selection" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Welcome</span> <span class="n">to</span> <span class="n">NeurotechX</span> <span class="n">EEG</span> <span class="n">Notebooks</span><span class="o">.</span> 
@@ -518,9 +522,9 @@
 <section id="experiment-selection">
 <h4>Experiment Selection<a class="headerlink" href="#experiment-selection" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">select</span> <span class="n">which</span> <span class="n">experiment</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">run</span><span class="p">:</span> 
-<span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">visual</span> <span class="n">n170</span> 
-<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">visual</span> <span class="n">p300</span> 
-<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">ssvep</span> 
+<span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">N170</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">P300</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">SSVEP</span>
 
 <span class="n">Enter</span> <span class="n">Experiment</span> <span class="n">Selection</span><span class="p">:</span>
 </pre></div>
