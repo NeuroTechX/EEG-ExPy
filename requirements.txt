@@ -38,6 +38,9 @@ pytest
 pytest-cov
 nbval
 
+# Types
+types-requests
+
 # Docs requirements
 sphinx==3.1.1
 sphinx-gallery==0.8.1
