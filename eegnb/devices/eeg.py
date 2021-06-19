@@ -5,9 +5,9 @@
 
 """
 
-import os, sys
-
+import sys
 import time
+import logging
 from time import sleep
 from multiprocessing import Process
 
@@ -16,10 +16,11 @@ import pandas as pd
 
 from brainflow import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
-
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from eegnb.devices.utils import get_openbci_usb, create_stim_array
+
+logger = logging.getLogger(__name__)
 
 # list of brainflow devices
 brainflow_devices = [
@@ -87,9 +88,7 @@ class EEG:
         # option open to add things with this init method.
         self._muse_recent_inlet = None
 
-
     def _start_muse(self, duration):
-
         if sys.platform in ["linux", "linux2", "darwin"]:
             # Look for muses
             self.muses = list_muses()
@@ -109,7 +108,8 @@ class EEG:
 
         # Start a background process that will stream data from the first available Muse
         print("starting background recording process")
-        print("will save to file: %s" % self.save_fn)
+        if self.save_fn:
+            print("will save to file: %s" % self.save_fn)
         self.recording = Process(target=record, args=(duration, self.save_fn))
         self.recording.start()
 
@@ -118,50 +118,45 @@ class EEG:
         self.push_sample([99], timestamp=time.time())
 
     def _stop_muse(self):
-
         pass
 
     def _muse_push_sample(self, marker, timestamp):
         self.muse_StreamOutlet.push_sample(marker, timestamp)
 
-
-    def _muse_get_recent(self, max_samples=100, restart_inlet=False):
-        
-        if self._muse_recent_inlet and restart_inlet == False:
+    def _muse_get_recent(self, n_samples=256, restart_inlet=False):
+        if self._muse_recent_inlet and not restart_inlet:
             inlet = self._muse_recent_inlet
-
         else:
             # Initiate a new lsl stream
-            streams = resolve_byprop('type', 'EEG', timeout=mlsl_cnsts.LSL_SCAN_TIMEOUT)
+            streams = resolve_byprop("type", "EEG", timeout=mlsl_cnsts.LSL_SCAN_TIMEOUT)
+            if not streams:
+                raise Exception("Couldn't find any stream, is your device connected?")
             inlet = StreamInlet(streams[0], max_chunklen=mlsl_cnsts.LSL_EEG_CHUNK)
+            self._muse_recent_inlet = inlet
 
-        self._muse_recent_inlet = inlet
+        info = inlet.info()
+        sfreq = info.nominal_srate()
+        description = info.desc()
+        # window = 10
+        # n_samples = int(self.sfreq * window)
+        n_chans = info.channel_count()
 
-        _ = inlet.pull_chunk() # seems to be necessary to do this first...
-        time.sleep(1)
-        samples, timestamps = inlet.pull_chunk(timeout=0.0, max_samples=max_samples)
-
+        samples, timestamps = inlet.pull_chunk(
+            timeout=(n_samples / sfreq) + 0.5, max_samples=n_samples
+        )
         samples = np.array(samples)
         timestamps = np.array(timestamps)
 
-        info = inlet.info()
-        description = info.desc()
-        sfreq = info.nominal_srate()
-        #window = 10
-        #n_samples = int(self.sfreq * window)
-        n_chans = info.channel_count()
-        ch = description.child('channels').first_child()
-        ch_names = [ch.child_value('label')]
+        ch = description.child("channels").first_child()
+        ch_names = [ch.child_value("label")]
         for i in range(n_chans):
             ch = ch.next_sibling()
-            lab = ch.child_value('label')
-            if lab != '':
+            lab = ch.child_value("label")
+            if lab != "":
                 ch_names.append(lab)
-        df = pd.DataFrame(samples, index=timestamps, columns=ch_names) 
-        
-        
-        return df
 
+        df = pd.DataFrame(samples, index=timestamps, columns=ch_names)
+        return df
 
     ##########################
     #   BrainFlow functions  #
@@ -180,7 +175,7 @@ class EEG:
 
         if self.device_name == "ganglion":
             self.brainflow_id = BoardIds.GANGLION_BOARD.value
-            if self.serial_port == None:
+            if self.serial_port is None:
                 self.brainflow_params.serial_port = get_openbci_usb()
             # set mac address parameter in case
             if self.mac_address is None:
@@ -306,7 +301,6 @@ class EEG:
         last_timestamp = self.board.get_current_board_data(1)[-1][0]
         self.markers.append([marker, last_timestamp])
 
-
     def _brainflow_get_recent(self):
         # TO DO
         pass
@@ -327,7 +321,8 @@ class EEG:
             self._start_muse(duration)
 
     def push_sample(self, marker, timestamp):
-        """Universal method for pushing a marker and its timestamp to store alongside the EEG data.
+        """
+        Universal method for pushing a marker and its timestamp to store alongside the EEG data.
 
         Parameters:
             marker (int): marker number for the stimuli being presented.
@@ -344,9 +339,7 @@ class EEG:
         elif self.backend == "muselsl":
             pass
 
-
-
-    def get_recent(self):
+    def get_recent(self, n_samples: int = 256):
         """
         Usage:
         -------
@@ -358,8 +351,32 @@ class EEG:
         if self.backend == "brainflow":
             df = self._brainflow_get_recent()
         elif self.backend == "muselsl":
-            df = self._muse_get_recent()
-    
+            df = self._muse_get_recent(n_samples)
+        else:
+            raise ValueError(f"Unknown backend {self.backend}")
         return df
 
+    def check(self, n_samples=256, var_thres=100):
+        """
+        Usage:
+        ------
 
+        from eegnb.devices.eeg import EEG
+        eeg = EEG(device='museS')
+        eeg.check(n_samples=256)
+
+        """
+        from eegnb.analysis.utils import filter
+
+        df = self.get_recent(n_samples=n_samples)
+        assert len(df) == n_samples
+
+        n_channels = 4
+        sfreq = 256
+
+        vals = df.values[:, :n_channels]
+        df.values[:, :n_channels] = filter(vals, n_channels, sfreq)
+
+        var = df.var(axis=0)
+        res = dict(zip(df.columns[:n_channels], var < var_thres))
+        return res, var

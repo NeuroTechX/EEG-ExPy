@@ -1,24 +1,30 @@
-from glob import glob
-import os
 import copy
 import math
+import logging
 from collections import OrderedDict
-from typing import Union, List
+from glob import glob
+from typing import Union, List, Dict
 
-from mne import create_info, concatenate_raws
-from mne.io import RawArray
-from mne.channels import make_standard_montage
 import pandas as pd
 import numpy as np
 import seaborn as sns
+from mne import create_info, concatenate_raws
+from mne.io import RawArray
+from mne.channels import make_standard_montage
+from mne.filter import create_filter
 from matplotlib import pyplot as plt
+from scipy.signal import lfilter, lfilter_zi
 
 from eegnb import _get_recording_dir
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 
+# this should probably not be done here
 sns.set_context("talk")
 sns.set_style("white")
+
+
+logger = logging.getLogger(__name__)
 
 
 def load_csv_as_raw(
@@ -322,3 +328,32 @@ def plot_highlight_regions(
     sns.despine()
 
     return fig, axes
+
+
+# Bjareholt Tools
+# ==================
+# From    https://github.com/ErikBjare/thesis/blob/master/src/eegclassify/clean.py
+# ------
+
+
+def filter(
+    X: np.ndarray,
+    n_chans: int,
+    sfreq: int,
+    low: float = 3,
+    high: float = 40,
+    verbose: bool = False,
+) -> np.ndarray:
+    """Inspired by viewer_v2.py in muse-lsl"""
+    window = 10
+    n_samples = int(sfreq * window)
+    data_f = np.zeros((n_samples, n_chans))
+
+    af = [1.0]
+    bf = create_filter(data_f.T, sfreq, low, high, method="fir", verbose=verbose)
+
+    zi = lfilter_zi(bf, af)
+    filt_state = np.tile(zi, (n_chans, 1)).transpose()
+    filt_samples, filt_state = lfilter(bf, af, X, axis=0, zi=filt_state)
+
+    return filt_samples
