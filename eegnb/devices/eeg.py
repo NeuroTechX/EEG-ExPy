@@ -380,3 +380,53 @@ class EEG:
         var = df.var(axis=0)
         res = dict(zip(df.columns[:n_channels], var < var_thres))
         return res, var
+
+    def check_report(self, n_times: int=10, pause_time=5, sample_rate=256, thres_var=100,n_goods=2):
+        """
+        Usage:
+        ------
+        
+        from eegnb.devices.eeg import EEG
+        EEG(device='museS').check_report()
+
+        """
+        print("\n\nRunning signal quality check...")
+        print(f"Using threshold variance: {thres_var}")
+
+        CHECKMARK = "√" 
+        CROSS = "x"
+
+        print(f"running check (up to) {n_times} times, with {pause_time}-second windows")
+        print(f"will stop after {n_goods} good check results in a row")
+        
+        
+        
+        good_count=0
+        for _ in range(n_times):
+            print(f'\n\n\n{_+1}/{n_times}') 
+            res, var = self.check(n_samples=pause_time * sample_rate)
+
+            indicators = "\n".join(
+            [
+                f"  {k:>4}: {CHECKMARK if v else CROSS}   (var: {round(var[k], 1):>5})"
+                for k, v in res.items()
+            ]
+            )
+            print("\nSignal quality:")
+            print(indicators)
+
+            bad_channels = [k for k, v in res.items() if not v]
+            if bad_channels:
+                print(f"Bad channels: {', '.join(bad_channels)}")
+                good_count=0  # reset good checks count if there are any bad chans
+            else:
+                print('No bad channels')
+                good_count+=1 
+
+            if good_count==n_goods:
+                print("\n\n\nAll good! You can proceed on to data collection :) ")
+                break
+
+            sleep(pause_time)
+
+
