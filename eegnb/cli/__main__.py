@@ -75,7 +75,7 @@ def check(eegdevice: str, n_times=5, pause_time=5, thres_var=100):
     print(f"Using threshold variance: {thres_var}")
     from eegnb.devices.eeg import EEG
 
-    CHECKMARK = "✓"
+    CHECKMARK = "√" # "✓"
     CROSS = "x"
 
     eeg = EEG(device=eegdevice)
