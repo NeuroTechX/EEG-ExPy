@@ -18,7 +18,7 @@ from brainflow import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
-from eegnb.devices.utils import get_openbci_usb, create_stim_array
+from eegnb.devices.utils import get_openbci_usb, create_stim_array, SAMPLE_FREQS, EEG_INDICES
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +42,7 @@ brainflow_devices = [
 
 class EEG:
     device_name: str
+    stream_started: bool = False
 
     def __init__(
         self,
@@ -114,7 +115,7 @@ class EEG:
         self.recording.start()
 
         time.sleep(5)
-
+        self.stream_started = True
         self.push_sample([99], timestamp=time.time())
 
     def _stop_muse(self):
@@ -253,6 +254,7 @@ class EEG:
         self.board.start_stream()
         # wait for signal to settle
         sleep(5)
+        self.stream_started = True
 
     def _stop_brainflow(self):
         """This functions kills the brainflow backend and saves the data to a CSV file."""
@@ -262,8 +264,34 @@ class EEG:
         self.board.stop_stream()
         self.board.release_session()
 
+        # Extract relevant metadata from board
+        ch_names, eeg_data, timestamps = self._brainflow_extract(data)
+        
+        # Create a column for the stimuli to append to the EEG data
+        stim_array = create_stim_array(timestamps, self.markers)
+        timestamps = timestamps[
+            ..., None
+        ]  # Add an additional dimension so that shapes match
+        total_data = np.append(timestamps, eeg_data, 1)
+        total_data = np.append(
+            total_data, stim_array, 1
+        )  # Append the stim array to data.
+
+        # Subtract five seconds of settling time from beginning
+        total_data = total_data[5 * self.sfreq :]
+        data_df = pd.DataFrame(total_data, columns=["timestamps"] + ch_names + ["stim"])
+        data_df.to_csv(self.save_fn, index=False)
+
+    def _brainflow_extract(self, data):
+        """
+        Formats the data returned from brainflow to get
+
+        ch_names; list of channel names
+        eeg_data: NDArray of eeg samples
+        timestamps: NDArray of timestamps
+        """
         # transform data for saving
-        data = data.T  # transpose data
+        data = data.T
 
         # get the channel names for EEG data
         if (
@@ -282,29 +310,37 @@ class EEG:
         eeg_data = data[:, BoardShim.get_eeg_channels(self.brainflow_id)]
         timestamps = data[:, BoardShim.get_timestamp_channel(self.brainflow_id)]
 
-        # Create a column for the stimuli to append to the EEG data
-        stim_array = create_stim_array(timestamps, self.markers)
-        timestamps = timestamps[
-            ..., None
-        ]  # Add an additional dimension so that shapes match
-        total_data = np.append(timestamps, eeg_data, 1)
-        total_data = np.append(
-            total_data, stim_array, 1
-        )  # Append the stim array to data.
-
-        # Subtract five seconds of settling time from beginning
-        total_data = total_data[5 * self.sfreq :]
-        data_df = pd.DataFrame(total_data, columns=["timestamps"] + ch_names + ["stim"])
-        data_df.to_csv(self.save_fn, index=False)
+        return ch_names, eeg_data, timestamps
 
     def _brainflow_push_sample(self, marker):
         last_timestamp = self.board.get_current_board_data(1)[-1][0]
         self.markers.append([marker, last_timestamp])
 
-    def _brainflow_get_recent(self):
-        # TO DO
-        pass
+    def _brainflow_get_recent(self, n_samples=256, restart_stream=False):
 
+        # initialize brainflow if not set
+        if self.board == None:
+            self._init_brainflow()
+        
+        # start brainflow stream if none exists or explicity requested
+        if ( not self.stream_started ) or restart_stream:
+            self._start_brainflow()
+
+        # get the latest data
+        data = self.board.get_current_board_data(n_samples)
+
+        ch_names, eeg_data, timestamps = self._brainflow_extract(data)
+
+        eeg_data = np.array(eeg_data)
+        timestamps = np.array(timestamps)
+
+        df = pd.DataFrame(eeg_data, index=timestamps, columns=ch_names)
+        # print (df)
+        return df
+
+    #################################
+    #   Highlevel device functions  #
+    #################################
     def start(self, fn, duration=None):
         """Starts the EEG device based on the defined backend.
 
@@ -349,13 +385,16 @@ class EEG:
         """
 
         if self.backend == "brainflow":
-            df = self._brainflow_get_recent()
+            df = self._brainflow_get_recent(n_samples)
         elif self.backend == "muselsl":
             df = self._muse_get_recent(n_samples)
         else:
             raise ValueError(f"Unknown backend {self.backend}")
         return df
 
+    ###############################
+    #   Signal Quality functions  #
+    ###############################
     def check(self, n_samples=256, var_thres=100):
         """
         Usage:
@@ -371,8 +410,8 @@ class EEG:
         df = self.get_recent(n_samples=n_samples)
         assert len(df) == n_samples
 
-        n_channels = 4
-        sfreq = 256
+        n_channels = len(EEG_INDICES[self.device_name])
+        sfreq = SAMPLE_FREQS[self.device_name]
 
         vals = df.values[:, :n_channels]
         df.values[:, :n_channels] = filter(vals, n_channels, sfreq)
@@ -381,7 +420,7 @@ class EEG:
         res = dict(zip(df.columns[:n_channels], var < var_thres))
         return res, var
 
-    def check_report(self, n_times: int=10, pause_time=5, sample_rate=256, thres_var=100,n_goods=2):
+    def check_report(self, n_times: int=10, pause_time=5, thres_var=100,n_goods=2):
         """
         Usage:
         ------
@@ -399,11 +438,10 @@ class EEG:
         print(f"running check (up to) {n_times} times, with {pause_time}-second windows")
         print(f"will stop after {n_goods} good check results in a row")
         
-        
-        
+        sample_rate = SAMPLE_FREQS[self.device_name]
         good_count=0
         for _ in range(n_times):
-            print(f'\n\n\n{_+1}/{n_times}') 
+            print(f'\n\n\nCheck {_+1}/{n_times}') 
             res, var = self.check(n_samples=pause_time * sample_rate)
 
             indicators = "\n".join(
