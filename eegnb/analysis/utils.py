@@ -362,7 +362,7 @@ def filter(
 
 
 
-def check(eeg, n_samples=256, var_thres=100):
+def check(eeg, n_samples=256, std_thres=10):
     """
     Usage:
     ------
@@ -384,14 +384,14 @@ def check(eeg, n_samples=256, var_thres=100):
     vals = df.values[:, :n_channels]
     df.values[:, :n_channels] = filter(vals, n_channels, sfreq)
 
-    var = df.var(axis=0)
-    res = dict(zip(df.columns[:n_channels], var < var_thres))
+    std = df.std(axis=0)
+    res = dict(zip(df.columns[:n_channels], std < std_thres))
     
-    return res, var
+    return res, std
 
 
 
-def check_report(eeg, n_times: int=10, pause_time=5, sample_rate=256, thres_var=100,n_goods=2):
+def check_report(eeg, n_times: int=10, pause_time=5, sample_rate=256, thres_std=10,n_goods=2):
     """
     Usage:
     ------
@@ -402,7 +402,7 @@ def check_report(eeg, n_times: int=10, pause_time=5, sample_rate=256, thres_var=
     """
 
     print("\n\nRunning signal quality check...")
-    print(f"Using threshold variance: {thres_var}")
+    print(f"Using threshold stdev: {thres_std}")
 
     CHECKMARK = "√"
     CROSS = "x"
@@ -415,11 +415,11 @@ def check_report(eeg, n_times: int=10, pause_time=5, sample_rate=256, thres_var=
 
     for _ in range(n_times):
         print(f'\n\n\n{_+1}/{n_times}')
-        res, var = check(eeg, n_samples=pause_time * sample_rate)
+        res, std = check(eeg, n_samples=pause_time * sample_rate)
 
         indicators = "\n".join(
         [
-            f"  {k:>4}: {CHECKMARK if v else CROSS}   (var: {round(var[k], 1):>5})"
+            f"  {k:>4}: {CHECKMARK if v else CROSS}   (std: {round(std[k], 1):>5})"
                 for k, v in res.items()
         ]
                               )
