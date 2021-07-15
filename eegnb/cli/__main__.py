@@ -74,10 +74,10 @@ def checkreport(eegdevice: str):
     """
     
     from eegnb.devices.eeg import EEG
-    
+    from eegnb.analysis.utils import check_report 
     eeg = EEG(device=eegdevice)
     
-    eeg.check_report()
+    check_report(eeg)
     
     # TODO: implement command line options for non-default check_report params
     #       ( n_times, pause_time, thres_var, etc. )
