@@ -65,12 +65,12 @@ def runexp(
 
 @main.command()
 @click.option("-ed", "--eegdevice", help="EEG device to use", required=True)
-def checkreport(eegdevice: str):
+def checksigqual(eegdevice: str):
     """
     Run signal quality check.
 
     Usage:
-        eegnb checkreport --eegdevice museS
+        eegnb checksigqual --eegdevice museS
     """
     
     from eegnb.devices.eeg import EEG
