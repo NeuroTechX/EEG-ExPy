@@ -62,47 +62,29 @@ def runexp(
         run_experiment(experiment, eeg, recdur, outfname)
 
 
+
 @main.command()
 @click.option("-ed", "--eegdevice", help="EEG device to use", required=True)
-def check(eegdevice: str, n_times=5, pause_time=5, thres_var=100):
+def checkreport(eegdevice: str):
     """
     Run signal quality check.
 
     Usage:
-        eegnb check --eegdevice museS
+        eegnb checkreport --eegdevice museS
     """
-    print("Running signal quality check...")
-    print(f"Using threshold variance: {thres_var}")
+    
     from eegnb.devices.eeg import EEG
-
-    CHECKMARK = "✓"
-    CROSS = "x"
-
+    from eegnb.analysis.utils import check_report 
     eeg = EEG(device=eegdevice)
-    # eeg.start(None)
-
-    for _ in range(n_times):
-        res, var = eeg.check(n_samples=pause_time * 256)
-
-        indicators = "\n".join(
-            [
-                f"  {k:>4}: {CHECKMARK if v else CROSS}   (var: {round(var[k], 1):>5})"
-                for k, v in res.items()
-            ]
-        )
-        print("\nSignal quality:")
-        print(indicators)
-
-        bad_channels = [k for k, v in res.items() if not v]
-        if bad_channels:
-            print(f"Bad channels: {', '.join(bad_channels)}")
-        else:
-            print("All good!")
-            # TODO: Check that signal stays good for a while?
-            break
-
-        sleep(pause_time)
-
+    
+    check_report(eeg)
+    
+    # TODO: implement command line options for non-default check_report params
+    #       ( n_times, pause_time, thres_var, etc. )
+    #       [ tried to do this but keeps defaulting to None rather than default 
+    #         valuess in the function definition ]
+    
+    
 
 if __name__ == "__main__":
     main()

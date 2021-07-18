@@ -356,27 +356,3 @@ class EEG:
             raise ValueError(f"Unknown backend {self.backend}")
         return df
 
-    def check(self, n_samples=256, var_thres=100):
-        """
-        Usage:
-        ------
-
-        from eegnb.devices.eeg import EEG
-        eeg = EEG(device='museS')
-        eeg.check(n_samples=256)
-
-        """
-        from eegnb.analysis.utils import filter
-
-        df = self.get_recent(n_samples=n_samples)
-        assert len(df) == n_samples
-
-        n_channels = 4
-        sfreq = 256
-
-        vals = df.values[:, :n_channels]
-        df.values[:, :n_channels] = filter(vals, n_channels, sfreq)
-
-        var = df.var(axis=0)
-        res = dict(zip(df.columns[:n_channels], var < var_thres))
-        return res, var

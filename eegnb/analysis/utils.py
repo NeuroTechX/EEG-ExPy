@@ -4,6 +4,7 @@ import logging
 from collections import OrderedDict
 from glob import glob
 from typing import Union, List, Dict
+from time import sleep
 
 import pandas as pd
 import numpy as np
@@ -357,3 +358,88 @@ def filter(
     filt_samples, filt_state = lfilter(bf, af, X, axis=0, zi=filt_state)
 
     return filt_samples
+
+
+
+
+def check(eeg, n_samples=256, std_thres=10):
+    """
+    Usage:
+    ------
+
+    from eegnb.devices.eeg import EEG
+    from eegnb.analysis.utils import check
+    eeg = EEG(device='museS')
+    check(eeg, n_samples=256)
+
+    """
+    
+
+    df = eeg.get_recent(n_samples=n_samples)
+    assert len(df) == n_samples
+
+    n_channels = 4
+    sfreq = 256
+
+    vals = df.values[:, :n_channels]
+    df.values[:, :n_channels] = filter(vals, n_channels, sfreq)
+
+    std = df.std(axis=0)
+    res = dict(zip(df.columns[:n_channels], std < std_thres))
+    
+    return res, std
+
+
+
+def check_report(eeg, n_times: int=10, pause_time=5, sample_rate=256, thres_std=10,n_goods=2):
+    """
+    Usage:
+    ------
+    from eegnb.devices.eeg import EEG
+    from eegnb.analysis.utils import check_report
+    eeg = EEG(device='museS')
+    check_report(eeg)
+    """
+
+    print("\n\nRunning signal quality check...")
+    print(f"Using threshold stdev: {thres_std}")
+
+    CHECKMARK = "√"
+    CROSS = "x"
+
+        
+    print(f"running check (up to) {n_times} times, with {pause_time}-second windows")
+    print(f"will stop after {n_goods} good check results in a row")
+
+    good_count=0
+
+    for _ in range(n_times):
+        print(f'\n\n\n{_+1}/{n_times}')
+        res, std = check(eeg, n_samples=pause_time * sample_rate)
+
+        indicators = "\n".join(
+        [
+            f"  {k:>4}: {CHECKMARK if v else CROSS}   (std: {round(std[k], 1):>5})"
+                for k, v in res.items()
+        ]
+                              )
+        print("\nSignal quality:")
+        print(indicators)
+
+        
+        bad_channels = [k for k, v in res.items() if not v]
+        if bad_channels:
+            print(f"Bad channels: {', '.join(bad_channels)}")
+            good_count=0  # reset good checks count if there are any bad chans
+        else:
+            print('No bad channels')
+            good_count+=1
+
+        if good_count==n_goods:
+            print("\n\n\nAll good! You can proceed on to data collection :) ")
+            break
+
+        sleep(pause_time)
+
+
+
