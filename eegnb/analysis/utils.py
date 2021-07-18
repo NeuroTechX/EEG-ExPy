@@ -391,7 +391,7 @@ def check(eeg, n_samples=256, std_thres=10):
 
 
 
-def check_report(eeg, n_times: int=10, pause_time=5, sample_rate=256, thres_std=10,n_goods=2):
+def check_report(eeg, n_times: int=60, pause_time=5, sample_rate=256, thres_std=10,n_goods=2):
     """
     Usage:
     ------
