@@ -13,6 +13,7 @@ matplotlib==3.3.3
 pysocks==1.7.1
 pyserial==3.5
 h5py>=3.1.0
+pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
 
 # This might try to build from source on linux (since there are no wheels for Linux on PyPI)
