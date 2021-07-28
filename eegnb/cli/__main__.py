@@ -1,6 +1,8 @@
+from eegnb import DATA_DIR
 import click
 from time import sleep
-
+from os import path
+import shutil
 
 @click.group(name="eegnb")
 def main():
@@ -84,7 +86,44 @@ def checksigqual(eegdevice: str):
     #       [ tried to do this but keeps defaulting to None rather than default 
     #         valuess in the function definition ]
     
+
+@main.command()
+@click.option("-ex", "--experiment", help="Experiment to zip", required=False)
+@click.option(
+    "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
+)
+def runzip(experiment: str,
+           prompt: bool = False):
     
+    # return None
+    """
+    Run data zipping
+
+    Usage
+
+    $ eegnb runzip -ex visual-N170
+    
+    Launch the interactive command line to select experiment
+
+    $ eegnb runzip -ip
+
+    """
+
+    if prompt:
+    # import and run the introprompt script
+        from .introprompt import intro_prompt_zip
+        
+        experiment=intro_prompt_zip()
+    
+    zip_directory=path.join(DATA_DIR,experiment,'local_ntcs')
+
+    if not path.isdir(zip_directory):
+        raise ValueError ('Directory does not exist')
+
+    output_filename=path.join(path.expanduser("~/Desktop"),experiment+'_zipped')
+    print('Zipped To {}'.format(output_filename))
+
+    shutil.make_archive(output_filename,'zip',zip_directory)
 
 if __name__ == "__main__":
     main()
