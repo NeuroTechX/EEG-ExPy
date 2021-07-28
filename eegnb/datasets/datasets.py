@@ -1,9 +1,5 @@
-import glob
-import os
-import requests
-import zipfile
-import gdown
-
+import os,sys,glob,shutil,numpy as np, pandas as pd
+import requests, zipfile,gdown
 from eegnb import DATA_DIR
 
 
@@ -157,3 +153,34 @@ def fetch_dataset(
                         fnames += fpaths
 
     return fnames
+
+
+
+def zip_data_folders(experiment: str,
+                     site: str="local_ntcs"):
+
+    """
+    Run data zipping
+
+    Usage
+
+    from eegnb.datasets.datasets import zip_data_folders
+    zip_data_folders(experiment='visual-N170')
+
+
+    See also the command-line program
+    eegnb runzip -ip
+
+    """
+
+    zip_directory=os.path.join(DATA_DIR,experiment,site)
+
+    if not os.path.isdir(zip_directory):
+        raise ValueError ('Directory does not exist')
+
+    output_filename=os.path.join(os.path.expanduser("~/Desktop"),experiment+'_zipped')
+    print('Zipped To {}'.format(output_filename))
+
+    shutil.make_archive(output_filename,'zip',zip_directory)
+
+
