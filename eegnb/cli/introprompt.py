@@ -135,7 +135,7 @@ def intro_prompt() -> Tuple[EEG, str, int, Path]:
 
     return eeg_device, exp_selection, duration, save_fn
 
-def intro_prompt_zip() -> str:
+def intro_prompt_zip() -> Tuple[str,str]:
     """This function handles the user prompts for inputting information for zipping their function."""
 
     # ask the user which experiment to zip
