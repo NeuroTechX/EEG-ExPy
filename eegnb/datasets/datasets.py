@@ -1,5 +1,6 @@
 import os,sys,glob,shutil,numpy as np, pandas as pd
 import requests, zipfile,gdown
+from datetime import datetime
 from eegnb import DATA_DIR
 
 
@@ -183,7 +184,9 @@ def zip_data_folders(experiment: str,
 
     print('Files Found! Zipping all files in {} '.format(zip_directory))
 
-    output_filename=os.path.join(os.path.expanduser("~/Desktop"),experiment+'_zipped')
+    date_time=datetime.now()
+    datetime_str=date_time.strftime("%d_%m_%Y_%H:%M")
+    output_filename=os.path.join(os.path.expanduser("~/Desktop"),experiment+'_'+site+'-'+datetime_str+'_zipped')
     
     shutil.make_archive(output_filename,'zip',zip_directory)
     print('Zip file location is at {}\n '.format(output_filename))
