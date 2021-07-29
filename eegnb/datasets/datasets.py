@@ -1,4 +1,5 @@
 import os,sys,glob,shutil,numpy as np, pandas as pd
+from brainflow.data_filter import DataFilter
 import requests, zipfile,gdown
 from eegnb import DATA_DIR
 
@@ -173,14 +174,18 @@ def zip_data_folders(experiment: str,
 
     """
 
+    print('\nRunning Data Zipper')
     zip_directory=os.path.join(DATA_DIR,experiment,site)
-
+    print('Looking for {} within {} \n'.format(experiment+'/'+site,DATA_DIR))
+    
     if not os.path.isdir(zip_directory):
-        raise ValueError ('Directory does not exist')
+        print('Invalid Directory')
+        raise ValueError ('{} directory does not exist'.format(zip_directory))
+
+    print('Files Found! Zipping all files in {} '.format(zip_directory))
 
     output_filename=os.path.join(os.path.expanduser("~/Desktop"),experiment+'_zipped')
-    print('Zipped To {}'.format(output_filename))
-
+    
     shutil.make_archive(output_filename,'zip',zip_directory)
-
+    print('Zip file location is at {}\n '.format(output_filename))
 

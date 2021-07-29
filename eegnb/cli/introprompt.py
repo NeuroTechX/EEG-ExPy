@@ -93,6 +93,14 @@ def exp_prompt() -> str:
 
     return exp_selection
 
+def site_prompt() -> str:
+    print("\nPlease select which specific folder you would like to zip. Default 'local_ntcs' :")
+    site=str(input('Enter folder: '))
+    if site=="":
+        site="local_ntcs"
+
+    print("Selected Folder : {} \n".format(site))
+    return site
 
 def intro_prompt() -> Tuple[EEG, str, int, Path]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
@@ -132,8 +140,9 @@ def intro_prompt_zip() -> str:
 
     # ask the user which experiment to zip
     exp_selection = exp_prompt()
+    site= site_prompt()
     
-    return exp_selection
+    return exp_selection,site
 
 
 def main() -> None:
