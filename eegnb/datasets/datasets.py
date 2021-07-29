@@ -1,5 +1,4 @@
 import os,sys,glob,shutil,numpy as np, pandas as pd
-from brainflow.data_filter import DataFilter
 import requests, zipfile,gdown
 from eegnb import DATA_DIR
 
