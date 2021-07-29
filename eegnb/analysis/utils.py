@@ -377,7 +377,7 @@ def check(eeg, n_samples=256, std_thres=10):
     df = eeg.get_recent(n_samples=n_samples)
     assert len(df) == n_samples
 
-    n_channels = eeg.n_channels # 4
+    n_channels = eeg.n_chans # 4
     sfreq = eeg.sfreq # 256
 
     vals = df.values[:, :n_channels]
@@ -411,9 +411,10 @@ def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
 
     good_count=0
 
+    n_samples = int(pause_time*eeg.sfreq)
     for _ in range(n_times):
         print(f'\n\n\n{_+1}/{n_times}')
-        res, std = check(eeg, n_samples=pause_time*eeg.sfreq)
+        res, std = check(eeg, n_samples=n_samples)
 
         indicators = "\n".join(
         [

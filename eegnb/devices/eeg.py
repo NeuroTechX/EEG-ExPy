@@ -18,7 +18,7 @@ from brainflow import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
-from eegnb.devices.utils import get_openbci_usb, create_stim_array,SAMPLE_FREQ,EEG_INDICES
+from eegnb.devices.utils import get_openbci_usb, create_stim_array,SAMPLE_FREQS,EEG_INDICES
 
 
 logger = logging.getLogger(__name__)
@@ -76,6 +76,8 @@ class EEG:
             self.timestamp_channel = BoardShim.get_timestamp_channel(self.brainflow_id)
         elif self.backend == "muselsl":
             self._init_muselsl()
+            self._muse_get_recent() # run this at initialization to get some 
+                                    # stream metadata into the eeg class
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
@@ -126,7 +128,7 @@ class EEG:
     def _muse_push_sample(self, marker, timestamp):
         self.muse_StreamOutlet.push_sample(marker, timestamp)
 
-    def _muse_get_recent(self, n_samples=256, restart_inlet=False):
+    def _muse_get_recent(self, n_samples: int=256, restart_inlet: bool=False):
         if self._muse_recent_inlet and not restart_inlet:
             inlet = self._muse_recent_inlet
         else:
@@ -140,13 +142,16 @@ class EEG:
         info = inlet.info()
         sfreq = info.nominal_srate()
         description = info.desc()
-        # window = 10
-        # n_samples = int(self.sfreq * window)
         n_chans = info.channel_count()
 
-        samples, timestamps = inlet.pull_chunk(
-            timeout=(n_samples / sfreq) + 0.5, max_samples=n_samples
-        )
+        self.sfreq = sfreq
+        self.info = info
+        self.n_chans = n_chans
+
+        timeout = (n_samples/sfreq)+0.5
+        samples, timestamps = inlet.pull_chunk(timeout=timeout,
+                                               max_samples=n_samples)
+
         samples = np.array(samples)
         timestamps = np.array(timestamps)
 
