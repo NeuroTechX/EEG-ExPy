@@ -373,13 +373,12 @@ def check(eeg, n_samples=256, std_thres=10):
     check(eeg, n_samples=256)
 
     """
-    
 
     df = eeg.get_recent(n_samples=n_samples)
     assert len(df) == n_samples
 
-    n_channels = 4
-    sfreq = 256
+    n_channels = eeg.n_channels # 4
+    sfreq = eeg.sfreq # 256
 
     vals = df.values[:, :n_channels]
     df.values[:, :n_channels] = filter(vals, n_channels, sfreq)
@@ -391,7 +390,7 @@ def check(eeg, n_samples=256, std_thres=10):
 
 
 
-def check_report(eeg, n_times: int=60, pause_time=5, sample_rate=256, thres_std=10,n_goods=2):
+def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
     """
     Usage:
     ------
@@ -406,7 +405,6 @@ def check_report(eeg, n_times: int=60, pause_time=5, sample_rate=256, thres_std=
 
     CHECKMARK = "√"
     CROSS = "x"
-
         
     print(f"running check (up to) {n_times} times, with {pause_time}-second windows")
     print(f"will stop after {n_goods} good check results in a row")
@@ -415,7 +413,7 @@ def check_report(eeg, n_times: int=60, pause_time=5, sample_rate=256, thres_std=
 
     for _ in range(n_times):
         print(f'\n\n\n{_+1}/{n_times}')
-        res, std = check(eeg, n_samples=pause_time * sample_rate)
+        res, std = check(eeg, n_samples=pause_time*eeg.sfreq)
 
         indicators = "\n".join(
         [
