@@ -377,8 +377,8 @@ def check(eeg, n_samples=256, std_thres=10):
     df = eeg.get_recent(n_samples=n_samples)
     assert len(df) == n_samples
 
-    n_channels = eeg.n_chans # 4
-    sfreq = eeg.sfreq # 256
+    n_channels = eeg.n_channels
+    sfreq = eeg.sfreq
 
     vals = df.values[:, :n_channels]
     df.values[:, :n_channels] = filter(vals, n_channels, sfreq)

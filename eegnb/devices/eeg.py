@@ -69,6 +69,8 @@ class EEG:
         self.other = other
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
+        self.n_channels = len(EEG_INDICES[self.device_name])
+        self.sfreq = SAMPLE_FREQS[self.device_name]
 
     def initialize_backend(self):
         if self.backend == "brainflow":
@@ -262,6 +264,7 @@ class EEG:
 
     def _start_brainflow(self):
         self.board.start_stream()
+        self.stream_started = True
         # wait for signal to settle
         sleep(5)
 
@@ -364,16 +367,11 @@ class EEG:
         if fn:
             self.save_fn = fn
 
-        if self.backend == "brainflow":  # Start brainflow backend
-            df = self._brainflow_get_recent(n_samples)
+        if self.backend == "brainflow":
             self._start_brainflow()
             self.markers = []
-            self._brainflow_get_recent(n_samples)
         elif self.backend == "muselsl":
             self._start_muse(duration)
-
-        self.n_channels = len(EEG_INDICES[self.device_name])
-        self.sfreq = SAMPLE_FREQS[self.device_name]
 
 
     def push_sample(self, marker, timestamp):
@@ -405,7 +403,7 @@ class EEG:
         """
 
         if self.backend == "brainflow":
-            df = self._brainflow_get_recent()
+            df = self._brainflow_get_recent(n_samples)
         elif self.backend == "muselsl":
             df = self._muse_get_recent(n_samples)
         else:
