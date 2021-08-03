@@ -1,7 +1,8 @@
+import os 
 from typing import Tuple
 from pathlib import Path
 
-from eegnb import generate_save_fn
+from eegnb import generate_save_fn, DATA_DIR
 from eegnb.devices.eeg import EEG
 from .utils import run_experiment, get_exp_desc, experiments
 
@@ -93,9 +94,21 @@ def exp_prompt() -> str:
 
     return exp_selection
 
-def site_prompt() -> str:
-    print("\nPlease select which specific folder you would like to zip. Default 'local_ntcs' :")
-    site=str(input('Enter folder: '))
+def site_prompt(experiment:str) -> str:
+    experiment_dir=os.path.join(DATA_DIR,experiment)
+        
+    if not (os.path.isdir(experiment_dir)):
+        print('Folder {} does not exist in {}\n'.format(experiment,DATA_DIR))
+        raise ValueError ('Directory does not exist')
+
+    if len(os.listdir(experiment_dir) ) == 0:
+        print('No subfolders exist in {}' .format(experiment_dir))
+        raise ValueError ('Directory is empty')  
+
+    print("\nPlease select which experiment subfolder you would like to zip. Default 'local_ntcs'")
+    print("\nCurrent subfolders for experiment {}:\n".format(experiment))
+    print(os.listdir(experiment_dir))
+    site=str(input('\nEnter folder: '))
     if site=="":
         site="local_ntcs"
 
@@ -140,7 +153,7 @@ def intro_prompt_zip() -> Tuple[str,str]:
 
     # ask the user which experiment to zip
     exp_selection = exp_prompt()
-    site= site_prompt()
+    site= site_prompt(exp_selection)
     
     return exp_selection,site
 
