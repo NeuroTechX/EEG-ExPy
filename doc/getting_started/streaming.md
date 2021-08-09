@@ -22,7 +22,7 @@ These two lines of code abstract a lot of the heavy lifting with respect to swit
 
 ## Supported Devices
 
-Below is a lst of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.
+Below is a list of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.
 
 ### Interaxon Muse
 **Device Names:** *'muse2016'*, *'muse2'*, and *'museS'*
@@ -42,7 +42,7 @@ be run to begin the notebooks interfacing with the bluemuse backend.
 ### OpenBCI Ganglion
 ![fig](../img/ganglion.png)
 
-**Device Name:** *'ganglion'*
+**Device Name:** *'ganglion'* or *'ganglion_wifi'* with WiFi Shield
 **Backend:** Brainflow
 **Needed Parameters:**
 * *mac_addr*: MAC Address (see below for instructions on getting the MAC address)
@@ -58,14 +58,14 @@ be run to begin the notebooks interfacing with the bluemuse backend.
 ### OpenBCI Cyton
 ![fig](../img/cyton.png)
 
-**Device Name:** *'cyton'*
+**Device Name:** *'cyton'*  or *'cyton_wifi'* with WiFi Shield
 **Backend:** Brainflow
 **Needed Parameters:**
 **Optional Parameters:**
 
 ### OpenBCI Cyton + Daisy
 ![fig](../img/cyton_daisy.png)
-**Device Name:** *'cyton_daisy'*
+**Device Name:** *'cyton_daisy'*  or *'cyton_daisy_wifi'* with WiFi Shield
 **Backend:** Brainflow
 **Needed Parameters:**
 **Optional Parameters:**
