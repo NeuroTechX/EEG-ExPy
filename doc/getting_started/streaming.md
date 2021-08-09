@@ -17,7 +17,7 @@ eeg = EEG(device='cyton')
 eeg.start()
 ```
 
-These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the variou support devices.
+These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the various support devices.
 
 
 ## Supported Devices
