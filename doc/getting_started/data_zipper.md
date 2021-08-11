@@ -10,7 +10,7 @@ The possible flags are
 * *-s ; --site*: Subfolder within the experiment
 * *-ip ; --prompt*: Bypass the other flags to activate an interactive prompt
 
-** Using the introprompt flag **
+**Using the introprompt flag**
 
 If using the -ip flag the user will be prompted to input the various session parameters. The prompts are detailed below.
 
