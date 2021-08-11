@@ -43,6 +43,12 @@ Please select which experiment you would like to run:
 [0] Visual N170
 [1] Visual P300
 [2] Visual SSVEP
+[3] visual-cue (no description)
+[4] visual-codeprose (no description)
+[5] Auditory SSAEP (orig)
+[6] Auditory SSAEP (single freq)
+[7] Auditory oddball (orig)
+[8] Auditory oddball (diaconescu)
 
 Enter Experiment Selection:
 ```
