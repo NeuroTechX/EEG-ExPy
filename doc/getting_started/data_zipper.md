@@ -3,12 +3,12 @@ After you have ran experiments, you can compress all recorded data as a zip fold
 
 **Command Line Interface**
 
-To activate the command line tool, open a command/terminal prompt and enter `eegnb runzip` followed by the appropriate flag for your desired experiment. Command line tool looks through folders in '~/.eegnb/data' for compression. Zip files will be outputted in the format of ~/Desktop with the following filename {experiment_name}_{site}-{day_month_year}{hour:minute}_zipped
+To activate the command line tool, open a command/terminal prompt and enter `eegnb runzip` followed by the appropriate flag for your desired experiment. Command line tool looks through folders in `~/.eegnb/data` for compression. Zip files will be outputted in the format of ~/Desktop with the following filename {experiment_name}_{site}-{day_month_year}{hour:minute}_zipped
 The possible flags are
 
 * *-ex ; --experiment*: The experiment to be run
 * *-s ; --site*: Subfolder within the experiment
-* * *-ip ; --prompt*: Bypass the other flags to activate an interactive prompt
+* *-ip ; --prompt*: Bypass the other flags to activate an interactive prompt
 
 **Using the introprompt flag**
 
