@@ -52,7 +52,7 @@ Please select which experiment you would like to run:
 
 Enter Experiment Selection:
 ```
-This section allows you to select one of above experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.
+This section allows you to select one of the above experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.
 
 
 #### Recording Duration
