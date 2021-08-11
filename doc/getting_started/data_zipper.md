@@ -11,6 +11,7 @@ The possible flags are
 * *-ip ; --prompt*: Bypass the other flags to activate an interactive prompt
 
 **Using the introprompt flag**
+If using the -ip flag the user will be prompted to input the various session parameters. The prompts are detailed below.
 
 *** Experiment Selection ***
 ```
