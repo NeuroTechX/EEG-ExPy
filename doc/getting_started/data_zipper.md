@@ -10,10 +10,11 @@ The possible flags are
 * *-s ; --site*: Subfolder within the experiment
 * *-ip ; --prompt*: Bypass the other flags to activate an interactive prompt
 
-**Using the introprompt flag**
+** Using the introprompt flag **
+
 If using the -ip flag the user will be prompted to input the various session parameters. The prompts are detailed below.
 
-*** Experiment Selection ***
+** Experiment Selection **
 ```
 Please select which experiment you would like to run: 
 [0] Visual N170
@@ -30,7 +31,7 @@ Enter Experiment Selection:
 ```
 This section allows you to select one of the above experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.
 
-*** Site Selection ***
+** Site Selection **
 ```
 Please select which experiment subfolder you would like to zip. Default 'local_ntcs'
 
