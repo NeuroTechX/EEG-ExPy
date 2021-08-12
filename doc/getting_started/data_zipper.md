@@ -42,5 +42,5 @@ Current subfolders for experiment visual-N170:
 Enter folder:
 ```
 
-This selection allows you to select the subfolder for the experiment you have previously chosen. The example provided was for example sites in the visual-N170 folder.
+This selection allows you to select the subfolder for the experiment you have previously chosen. The example provided was for sample sites in the visual-N170 folder.
 
