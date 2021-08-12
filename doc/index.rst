@@ -8,6 +8,7 @@
    getting_started/installation
    getting_started/streaming
    getting_started/running_experiments
+   getting_started/data_zipper
    getting_started/analysis
    getting_started/available_notebooks
 
