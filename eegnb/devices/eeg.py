@@ -37,6 +37,7 @@ brainflow_devices = [
     "notion1",
     "notion2",
     "freeeeg32",
+    "crown",
 ]
 
 
@@ -71,6 +72,7 @@ class EEG:
     def initialize_backend(self):
         if self.backend == "brainflow":
             self._init_brainflow()
+            self.timestamp_channel = BoardShim.get_timestamp_channel(self.brainflow_id)
         elif self.backend == "muselsl":
             self._init_muselsl()
 
@@ -227,6 +229,9 @@ class EEG:
         elif self.device_name == "notion2":
             self.brainflow_id = BoardIds.NOTION_2_BOARD.value
 
+        elif self.device_name == "crown":
+            self.brainflow_id = BoardIds.CROWN_BOARD.value
+
         elif self.device_name == "freeeeg32":
             self.brainflow_id = BoardIds.FREEEEG32_BOARD.value
             if self.serial_port is None:
@@ -298,7 +303,7 @@ class EEG:
         data_df.to_csv(self.save_fn, index=False)
 
     def _brainflow_push_sample(self, marker):
-        last_timestamp = self.board.get_current_board_data(1)[-1][0]
+        last_timestamp = self.board.get_current_board_data(1)[self.timestamp_channel][0]
         self.markers.append([marker, last_timestamp])
 
     def _brainflow_get_recent(self):

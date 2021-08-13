@@ -22,6 +22,7 @@ def device_prompt() -> EEG:
         "brainbit": "BrainBit",
         "notion1": "Notion 1",
         "notion2": "Notion 2",
+        "crown": "Crown",
         "synthetic": "Synthetic",
         "freeeeg32": "FreeEEG32",
     }
