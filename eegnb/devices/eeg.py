@@ -18,7 +18,7 @@ from brainflow import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
-from eegnb.devices.utils import get_openbci_usb, create_stim_array,SAMPLE_FREQS,EEG_INDICES
+from eegnb.devices.utils import get_openbci_usb, create_stim_array,SAMPLE_FREQS,EEG_INDICES,EEG_CHANNELS
 
 
 logger = logging.getLogger(__name__)
@@ -71,6 +71,7 @@ class EEG:
         self.initialize_backend()
         self.n_channels = len(EEG_INDICES[self.device_name])
         self.sfreq = SAMPLE_FREQS[self.device_name]
+        self.channels = EEG_CHANNELS[self.device_name]
 
     def initialize_backend(self):
         if self.backend == "brainflow":
