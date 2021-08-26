@@ -17,6 +17,7 @@ from matplotlib import pyplot as plt
 from scipy.signal import lfilter, lfilter_zi
 
 from eegnb import _get_recording_dir
+from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 
@@ -341,11 +342,19 @@ def filter(
     X: np.ndarray,
     n_chans: int,
     sfreq: int,
+    device_backend: str,
     low: float = 3,
     high: float = 40,
     verbose: bool = False,
 ) -> np.ndarray:
     """Inspired by viewer_v2.py in muse-lsl"""
+    if device_backend == "muselsl":
+        pass
+    elif device_backend == "brainflow":
+        X = X / 1000 # adjust scale of readings
+    else:
+        raise ValueError(f"Unknown backend {device_backend}")
+    
     window = 10
     n_samples = int(sfreq * window)
     data_f = np.zeros((n_samples, n_chans))
@@ -360,9 +369,7 @@ def filter(
     return filt_samples
 
 
-
-
-def check(eeg, n_samples=256, std_thres=10):
+def check(eeg: EEG, n_samples=256, std_thres=15):
     """
     Usage:
     ------
@@ -372,17 +379,29 @@ def check(eeg, n_samples=256, std_thres=10):
     eeg = EEG(device='museS')
     check(eeg, n_samples=256)
 
+    The std_thres value is the upper bound of accepted
+    standard deviation for a quality recording.
+
+    thresholds = {
+        bad: 15,
+        good: 10,
+        great: 1.5 // Below 1.5 usually indicates not connected to anything
+    }
+
     """
-    
 
     df = eeg.get_recent(n_samples=n_samples)
     assert len(df) == n_samples
 
-    n_channels = 4
-    sfreq = 256
+    n_channels = eeg.n_channels
+    sfreq = eeg.sfreq
+    device_backend = eeg.backend
 
     vals = df.values[:, :n_channels]
-    df.values[:, :n_channels] = filter(vals, n_channels, sfreq)
+    df.values[:, :n_channels] = filter(vals, 
+                                    n_channels,
+                                    sfreq,
+                                    device_backend)
 
     std = df.std(axis=0)
     res = dict(zip(df.columns[:n_channels], std < std_thres))
@@ -391,7 +410,7 @@ def check(eeg, n_samples=256, std_thres=10):
 
 
 
-def check_report(eeg, n_times: int=60, pause_time=5, sample_rate=256, thres_std=10,n_goods=2):
+def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
     """
     Usage:
     ------
@@ -406,16 +425,16 @@ def check_report(eeg, n_times: int=60, pause_time=5, sample_rate=256, thres_std=
 
     CHECKMARK = "√"
     CROSS = "x"
-
         
     print(f"running check (up to) {n_times} times, with {pause_time}-second windows")
     print(f"will stop after {n_goods} good check results in a row")
 
     good_count=0
 
+    n_samples = int(pause_time*eeg.sfreq)
     for _ in range(n_times):
         print(f'\n\n\n{_+1}/{n_times}')
-        res, std = check(eeg, n_samples=pause_time * sample_rate)
+        res, std = check(eeg, n_samples=n_samples)
 
         indicators = "\n".join(
         [
