@@ -369,7 +369,7 @@ def filter(
     return filt_samples
 
 
-def check(eeg: EEG, n_samples=256, std_thres=10):
+def check(eeg: EEG, n_samples=256, std_thres=15):
     """
     Usage:
     ------
@@ -378,6 +378,15 @@ def check(eeg: EEG, n_samples=256, std_thres=10):
     from eegnb.analysis.utils import check
     eeg = EEG(device='museS')
     check(eeg, n_samples=256)
+
+    The std_thres value is the upper bound of accepted
+    standard deviation for a quality recording.
+
+    thresholds = {
+        bad: 15,
+        good: 10,
+        great: 1.5 // Below 1.5 usually indicates not connected to anything
+    }
 
     """
 
