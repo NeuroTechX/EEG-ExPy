@@ -91,17 +91,20 @@ def checksigqual(eegdevice: str):
 
 @main.command()
 @click.option("-ex", "--experiment", help="Experiment to zip", required=False)
+@click.option("-s", "--site", help="Specific Directory", default='local_ntcs',required=False)
 @click.option("-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True)
 def runzip(experiment: str,
+           site: str,
            prompt: bool = False):
     
     # return None
-    """
+    """eeg
     Run data zipping
 
     Usage
 
     $ eegnb runzip -ex visual-N170
+    $ eegnb runzip -ex visual-N170 -s local-ntcs-2
     
     Launch the interactive command line to select experiment
 
@@ -111,9 +114,9 @@ def runzip(experiment: str,
 
     if prompt:
         from .introprompt import intro_prompt_zip
-        experiment=intro_prompt_zip()
+        experiment,site=intro_prompt_zip()
     
-    zip_data_folders(experiment)
+    zip_data_folders(experiment,site)
 
 
 

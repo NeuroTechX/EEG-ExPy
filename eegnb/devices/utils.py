@@ -16,6 +16,7 @@ EEG_CHANNELS = {
     "synthetic": BoardShim.get_eeg_names(BoardIds.SYNTHETIC_BOARD.value),
     "notion1": BoardShim.get_eeg_names(BoardIds.NOTION_1_BOARD.value),
     "notion2": BoardShim.get_eeg_names(BoardIds.NOTION_2_BOARD.value),
+    "crown": BoardShim.get_eeg_names(BoardIds.CROWN_BOARD.value),
     "freeeeg32": [f'eeg_{i}' for i in range(0,32)],
 }
 
@@ -38,6 +39,7 @@ EEG_INDICES = {
     "synthetic": BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value),
     "notion1": BoardShim.get_eeg_channels(BoardIds.NOTION_1_BOARD.value),
     "notion2": BoardShim.get_eeg_channels(BoardIds.NOTION_2_BOARD.value),
+    "crown": BoardShim.get_eeg_channels(BoardIds.CROWN_BOARD.value),
     "freeeeg32": BoardShim.get_eeg_channels(BoardIds.FREEEEG32_BOARD.value),
 }
 
@@ -53,6 +55,7 @@ SAMPLE_FREQS = {
     "synthetic": BoardShim.get_sampling_rate(BoardIds.SYNTHETIC_BOARD.value),
     "notion1": BoardShim.get_sampling_rate(BoardIds.NOTION_1_BOARD.value),
     "notion2": BoardShim.get_sampling_rate(BoardIds.NOTION_2_BOARD.value),
+    "crown": BoardShim.get_sampling_rate(BoardIds.CROWN_BOARD.value),
     "freeeeg32": BoardShim.get_sampling_rate(BoardIds.FREEEEG32_BOARD.value),
 }
 
@@ -64,6 +67,7 @@ def create_stim_array(timestamps, markers):
         timestamps (array of floats): Timestamps from the EEG data.
         markers (array of ints): Markers and their associated timestamps.
     """
+    marker_max = np.max(markers)
     num_samples = len(timestamps)
     stim_array = np.zeros((num_samples, 1))
     for marker in markers:
