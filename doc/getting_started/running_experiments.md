@@ -43,10 +43,16 @@ Please select which experiment you would like to run:
 [0] Visual N170
 [1] Visual P300
 [2] Visual SSVEP
+[3] visual-cue (no description)
+[4] visual-codeprose (no description)
+[5] Auditory SSAEP (orig)
+[6] Auditory SSAEP (single freq)
+[7] Auditory oddball (orig)
+[8] Auditory oddball (diaconescu)
 
 Enter Experiment Selection:
 ```
-This section allows you to select one of three experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.
+This section allows you to select one of the above experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.
 
 
 #### Recording Duration
