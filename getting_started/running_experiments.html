@@ -49,7 +49,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Analyzing data" href="analysis.html" />
+    <link rel="next" title="Data Zipping" href="data_zipper.html" />
     <link rel="prev" title="Initiating an EEG Stream" href="streaming.html" /> 
 </head>
 
@@ -151,6 +151,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_zipper.html">Data Zipping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_zipper.html#command-line-interface">Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_zipper.html#using-the-introprompt-flag">Using the introprompt flag</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analyzing data</a></li>
@@ -525,11 +530,17 @@
 <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">N170</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">P300</span>
 <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">SSVEP</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">visual</span><span class="o">-</span><span class="n">cue</span> <span class="p">(</span><span class="n">no</span> <span class="n">description</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">visual</span><span class="o">-</span><span class="n">codeprose</span> <span class="p">(</span><span class="n">no</span> <span class="n">description</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">SSAEP</span> <span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">SSAEP</span> <span class="p">(</span><span class="n">single</span> <span class="n">freq</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">oddball</span> <span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">oddball</span> <span class="p">(</span><span class="n">diaconescu</span><span class="p">)</span>
 
 <span class="n">Enter</span> <span class="n">Experiment</span> <span class="n">Selection</span><span class="p">:</span>
 </pre></div>
 </div>
-<p>This section allows you to select one of three experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.</p>
+<p>This section allows you to select one of the above experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.</p>
 </section>
 <section id="recording-duration">
 <h4>Recording Duration<a class="headerlink" href="#recording-duration" title="Permalink to this headline">¶</a></h4>
@@ -624,7 +635,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="analysis.html" class="btn btn-neutral float-right" title="Analyzing data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="data_zipper.html" class="btn btn-neutral float-right" title="Data Zipping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="streaming.html" class="btn btn-neutral float-left" title="Initiating an EEG Stream" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

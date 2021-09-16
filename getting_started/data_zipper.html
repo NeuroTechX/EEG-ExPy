@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Visual Go-No-Go &mdash; EEG Notebooks 0.0.0 documentation</title>
+  <title>Data Zipping &mdash; EEG Notebooks 0.0.0 documentation</title>
   
 
   
@@ -49,8 +49,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="All Notebook Examples" href="all_examples.html" />
-    <link rel="prev" title="Cueing Group Analysis Winter 2019" href="../auto_examples/visual_cueing/04r__cueing_group_analysis_winter2019.html" /> 
+    <link rel="next" title="Analyzing data" href="analysis.html" />
+    <link rel="prev" title="Running Experiments" href="running_experiments.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -100,88 +100,88 @@
             
             
               <p><span class="caption-text">Getting Started</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/installation.html#muse-recordings-on-mac-bled112-dongle">MUSE recordings on Mac: BLED112 Dongle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/installation.html#muse-recordings-on-linux">MUSE recordings on Linux</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#muse-recordings-on-mac-bled112-dongle">MUSE recordings on Mac: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#muse-recordings-on-linux">MUSE recordings on Linux</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/installation.html#issues">Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/installation.html#common-problems">Common Problems</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/installation.html#bug-reports">Bug reports</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/streaming.html#supported-devices">Supported Devices</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/streaming.html#interaxon-muse">Interaxon Muse</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/streaming.html#using-the-muse-on-windows">Using the Muse on Windows</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/streaming.html#openbci-ganglion">OpenBCI Ganglion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/streaming.html#openbci-cyton">OpenBCI Cyton</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/streaming.html#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/streaming.html#connecting-on-windows">Connecting on Windows</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/streaming.html#brainbit-eeg-headband">BrainBit EEG Headband</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/streaming.html#g-tec-unicorn">G.Tec Unicorn</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/streaming.html#initiating-a-muse-stream-in-windows-using-bluemuse">Initiating a Muse stream in Windows using Bluemuse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/streaming.html#finding-the-usb-port-of-the-openbci-usb-dongle">Finding the USB port of the OpenBCI USB dongle</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/running_experiments.html">Running Experiments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/running_experiments.html#command-line-interface">Command Line Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/running_experiments.html#using-the-introprompt-flag">Using the introprompt flag</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/running_experiments.html#session-number">Session Number</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/running_experiments.html#confirmation">Confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#issues">Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#common-problems">Common Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#bug-reports">Bug reports</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="streaming.html">Initiating an EEG Stream</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="streaming.html#supported-devices">Supported Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="streaming.html#interaxon-muse">Interaxon Muse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="streaming.html#using-the-muse-on-windows">Using the Muse on Windows</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/data_zipper.html">Data Zipping</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/data_zipper.html#command-line-interface">Command Line Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/data_zipper.html#using-the-introprompt-flag">Using the introprompt flag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="streaming.html#openbci-ganglion">OpenBCI Ganglion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="streaming.html#openbci-cyton">OpenBCI Cyton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="streaming.html#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="streaming.html#connecting-on-windows">Connecting on Windows</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/analysis.html">Analyzing data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/available_notebooks.html">Available Notebooks</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/available_notebooks.html#visual-p300-with-oddball-paradigm">Visual P300 with Oddball paradigm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/available_notebooks.html#n170">N170</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/available_notebooks.html#ssvep">SSVEP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/available_notebooks.html#old-notebooks">Old Notebooks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/available_notebooks.html#go-no-go">Go/No-Go</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/available_notebooks.html#ssaep">SSAEP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/available_notebooks.html#c1-and-p1">C1 and P1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/available_notebooks.html#auditory-p300">Auditory P300</a></li>
+<li class="toctree-l3"><a class="reference internal" href="streaming.html#brainbit-eeg-headband">BrainBit EEG Headband</a></li>
+<li class="toctree-l3"><a class="reference internal" href="streaming.html#g-tec-unicorn">G.Tec Unicorn</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/available_notebooks.html#unvalidated-experiments-and-other-phenomena">Unvalidated Experiments and other phenomena</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/available_notebooks.html#n100-p200">N100 - P200</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/available_notebooks.html#on-task-beta">On-task Beta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/available_notebooks.html#alpha-reset">Alpha reset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="streaming.html#initiating-a-muse-stream-in-windows-using-bluemuse">Initiating a Muse stream in Windows using Bluemuse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="streaming.html#finding-the-usb-port-of-the-openbci-usb-dongle">Finding the USB port of the OpenBCI USB dongle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running_experiments.html">Running Experiments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="running_experiments.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="running_experiments.html#using-the-introprompt-flag">Using the introprompt flag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#session-number">Session Number</a></li>
+<li class="toctree-l4"><a class="reference internal" href="running_experiments.html#confirmation">Confirmation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Zipping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-introprompt-flag">Using the introprompt flag</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analyzing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="available_notebooks.html">Available Notebooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="available_notebooks.html#visual-p300-with-oddball-paradigm">Visual P300 with Oddball paradigm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="available_notebooks.html#n170">N170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="available_notebooks.html#ssvep">SSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="available_notebooks.html#old-notebooks">Old Notebooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="available_notebooks.html#go-no-go">Go/No-Go</a></li>
+<li class="toctree-l3"><a class="reference internal" href="available_notebooks.html#ssaep">SSAEP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="available_notebooks.html#c1-and-p1">C1 and P1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="available_notebooks.html#auditory-p300">Auditory P300</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="available_notebooks.html#unvalidated-experiments-and-other-phenomena">Unvalidated Experiments and other phenomena</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="available_notebooks.html#n100-p200">N100 - P200</a></li>
+<li class="toctree-l3"><a class="reference internal" href="available_notebooks.html#on-task-beta">On-task Beta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="available_notebooks.html#alpha-reset">Alpha reset</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <p><span class="caption-text">Experiments</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="vn170.html">Visual N170</a><ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#setup">Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
@@ -208,7 +208,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="vp300.html">Visual P300</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/vp300.html">Visual P300</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_p300/00x__p300_run_experiment.html">P300 run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_p300/00x__p300_run_experiment.html#setup">Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_p300/00x__p300_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
@@ -233,7 +233,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="vssvep.html">Visual SSVEP</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/vssvep.html">Visual SSVEP</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_ssvep/00x__ssvep_run_experiment.html">SSVEP run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_ssvep/00x__ssvep_run_experiment.html#setup">Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_ssvep/00x__ssvep_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
@@ -257,7 +257,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cueing.html">Visual Cueing</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/cueing.html">Visual Cueing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_cueing/01r__cueing_singlesub_analysis.html">Cueing Single Subject Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_cueing/01r__cueing_singlesub_analysis.html#setup">Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_cueing/01r__cueing_singlesub_analysis.html#load-data">Load Data</a></li>
@@ -297,8 +297,8 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Visual Go-No-Go</a></li>
-<li class="toctree-l1"><a class="reference internal" href="all_examples.html">All Notebook Examples</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/gonogo.html">Visual Go-No-Go</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/all_examples.html">All Notebook Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_cueing/01r__cueing_singlesub_analysis.html">Cueing Single Subject Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_cueing/01r__cueing_singlesub_analysis.html#setup">Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_cueing/01r__cueing_singlesub_analysis.html#load-data">Load Data</a></li>
@@ -466,7 +466,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Visual Go-No-Go</li>
+      <li>Data Zipping</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -483,23 +483,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <hr class="docutils" />
-<section id="visual-go-no-go">
-<h1>Visual Go-No-Go<a class="headerlink" href="#visual-go-no-go" title="Permalink to this headline">¶</a></h1>
-<p>An experiment designed to investigate the event-related potentials that can be detected during a Go-No-Go Task, which measures executive, inhibitory control and sustained attention. The subject is rapidly presented with a sequence of circles and squares and is asked to indicate, by pressing the spacebar, whether a shape is a circle.</p>
-<dl class="field-list simple">
-<dt class="field-odd">orphan</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
-<div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/12812c6275fa4a49792d7f7384f3d252/visual_gonogo_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">visual_gonogo_python.zip</span></code></a></p>
+  <section id="data-zipping">
+<h1>Data Zipping<a class="headerlink" href="#data-zipping" title="Permalink to this headline">¶</a></h1>
+<p>After you have ran experiments, you can compress all recorded data as a zip folder. The method for doing this is using the command line tool with the flags detailed below.</p>
+<section id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<p>To activate the command line tool, open a command/terminal prompt and enter <code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">runzip</span></code> followed by the appropriate flag for your desired experiment. Command line tool looks through folders in <code class="docutils literal notranslate"><span class="pre">~/.eegnb/data</span></code> for compression. Zip files will be outputted in the format of <code class="docutils literal notranslate"><span class="pre">~/Desktop</span></code> with the following filename <code class="docutils literal notranslate"><span class="pre">{experiment_name}_{site}-{day_month_year_hour:minute}_zipped</span></code>
+The possible flags are</p>
+<ul class="simple">
+<li><p><em>-ex ; –experiment</em>: The experiment to be run</p></li>
+<li><p><em>-s ; –site</em>: Subfolder within the experiment</p></li>
+<li><p><em>-ip ; –prompt</em>: Bypass the other flags to activate an interactive prompt</p></li>
+</ul>
+</section>
+<section id="using-the-introprompt-flag">
+<h2>Using the introprompt flag<a class="headerlink" href="#using-the-introprompt-flag" title="Permalink to this headline">¶</a></h2>
+<p>If using the -ip flag the user will be prompted to input the various session parameters. The prompts are detailed below.</p>
+<p><strong>Experiment Selection</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">select</span> <span class="n">which</span> <span class="n">experiment</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">run</span><span class="p">:</span> 
+<span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">N170</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">P300</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">Visual</span> <span class="n">SSVEP</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">visual</span><span class="o">-</span><span class="n">cue</span> <span class="p">(</span><span class="n">no</span> <span class="n">description</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">visual</span><span class="o">-</span><span class="n">codeprose</span> <span class="p">(</span><span class="n">no</span> <span class="n">description</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">SSAEP</span> <span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">SSAEP</span> <span class="p">(</span><span class="n">single</span> <span class="n">freq</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">oddball</span> <span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">Auditory</span> <span class="n">oddball</span> <span class="p">(</span><span class="n">diaconescu</span><span class="p">)</span>
+
+<span class="n">Enter</span> <span class="n">Experiment</span> <span class="n">Selection</span><span class="p">:</span>
+</pre></div>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/5ea8fb0b660bbd8665ebbc30a424eb42/visual_gonogo_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">visual_gonogo_jupyter.zip</span></code></a></p>
+<p>This section allows you to select one of the above experiments to run. There are other experiments available, however, they have not yet been updated for the new API to be device agnostic. As they get updated, more experiments will populate this section.</p>
+<p><strong>Site Selection</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">select</span> <span class="n">which</span> <span class="n">experiment</span> <span class="n">subfolder</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="nb">zip</span><span class="o">.</span> <span class="n">Default</span> <span class="s1">&#39;local_ntcs&#39;</span>
+
+<span class="n">Current</span> <span class="n">subfolders</span> <span class="k">for</span> <span class="n">experiment</span> <span class="n">visual</span><span class="o">-</span><span class="n">N170</span><span class="p">:</span>
+
+<span class="p">[</span><span class="s1">&#39;local&#39;</span><span class="p">,</span><span class="s1">&#39;local_ntcs&#39;</span><span class="p">,</span><span class="s1">&#39;temp&#39;</span><span class="p">]</span>
+
+<span class="n">Enter</span> <span class="n">folder</span><span class="p">:</span>
+</pre></div>
 </div>
-</div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+<p>This selection allows you to select the subfolder for the experiment you have previously chosen. The example provided was for sample sites in the visual-N170 folder.</p>
+</section>
 </section>
 
 
@@ -510,10 +537,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="all_examples.html" class="btn btn-neutral float-right" title="All Notebook Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="analysis.html" class="btn btn-neutral float-right" title="Analyzing data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../auto_examples/visual_cueing/04r__cueing_group_analysis_winter2019.html" class="btn btn-neutral float-left" title="Cueing Group Analysis Winter 2019" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="running_experiments.html" class="btn btn-neutral float-left" title="Running Experiments" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

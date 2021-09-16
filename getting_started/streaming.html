@@ -153,6 +153,11 @@
 <li class="toctree-l2"><a class="reference internal" href="running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="data_zipper.html">Data Zipping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_zipper.html#command-line-interface">Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_zipper.html#using-the-introprompt-flag">Using the introprompt flag</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analyzing data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="available_notebooks.html">Available Notebooks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="available_notebooks.html#visual-p300-with-oddball-paradigm">Visual P300 with Oddball paradigm</a></li>
@@ -481,7 +486,7 @@
   <section id="initiating-an-eeg-stream">
 <h1>Initiating an EEG Stream<a class="headerlink" href="#initiating-an-eeg-stream" title="Permalink to this headline">¶</a></h1>
 <p>Before getting going with running an experiment, it is important to first verify that a connection between your computer and EEG device has been successfully established, and the raw EEG data is being streamed and recorded properly.</p>
-<p>The exact steps for this vary with the device (MUSE, OpenBCI, others) and operating system (Windows, Mac, Linux) used. When using these instructions, you should make sure you are consulting the section appropriate for your combination of device and OS.</p>
+<p>The exact steps for this varies with the device (MUSE, OpenBCI, others) and operating system (Windows, Mac, Linux) used. When using these instructions, you should make sure you are consulting the section appropriate for your combination of device and OS.</p>
 <p>Initiating an EEG stream is a relatively easy process using the <code class="docutils literal notranslate"><span class="pre">eegnb.devices.eeg.EEG</span></code> class which abstracts the
 the various devices and backends behind one easy call.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
@@ -493,10 +498,10 @@ the various devices and backends behind one easy call.</p>
 <span class="n">eeg</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the variou support devices.</p>
+<p>These two lines of code abstract a lot of the heavy lifting with respect to switching streaming backends for the various support devices.</p>
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline">¶</a></h2>
-<p>Below is a lst of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.</p>
+<p>Below is a list of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.</p>
 <section id="interaxon-muse">
 <h3>Interaxon Muse<a class="headerlink" href="#interaxon-muse" title="Permalink to this headline">¶</a></h3>
 <p><strong>Device Names:</strong> <em>‘muse2016’</em>, <em>‘muse2’</em>, and <em>‘museS’</em>
@@ -515,7 +520,7 @@ be run to begin the notebooks interfacing with the bluemuse backend.</p>
 <section id="openbci-ganglion">
 <h3>OpenBCI Ganglion<a class="headerlink" href="#openbci-ganglion" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/ganglion.png" /></p>
-<p><strong>Device Name:</strong> <em>‘ganglion’</em>
+<p><strong>Device Name:</strong> <em>‘ganglion’</em> or <em>‘ganglion_wifi’</em> with WiFi Shield
 <strong>Backend:</strong> Brainflow
 <strong>Needed Parameters:</strong></p>
 <ul class="simple">
@@ -531,7 +536,7 @@ be run to begin the notebooks interfacing with the bluemuse backend.</p>
 <section id="openbci-cyton">
 <h3>OpenBCI Cyton<a class="headerlink" href="#openbci-cyton" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/cyton.png" /></p>
-<p><strong>Device Name:</strong> <em>‘cyton’</em>
+<p><strong>Device Name:</strong> <em>‘cyton’</em>  or <em>‘cyton_wifi’</em> with WiFi Shield
 <strong>Backend:</strong> Brainflow
 <strong>Needed Parameters:</strong>
 <strong>Optional Parameters:</strong></p>
@@ -539,7 +544,7 @@ be run to begin the notebooks interfacing with the bluemuse backend.</p>
 <section id="openbci-cyton-daisy">
 <h3>OpenBCI Cyton + Daisy<a class="headerlink" href="#openbci-cyton-daisy" title="Permalink to this headline">¶</a></h3>
 <p><img alt="fig" src="../_images/cyton_daisy.png" />
-<strong>Device Name:</strong> <em>‘cyton_daisy’</em>
+<strong>Device Name:</strong> <em>‘cyton_daisy’</em>  or <em>‘cyton_daisy_wifi’</em> with WiFi Shield
 <strong>Backend:</strong> Brainflow
 <strong>Needed Parameters:</strong>
 <strong>Optional Parameters:</strong></p>
