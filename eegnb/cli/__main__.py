@@ -2,6 +2,7 @@ from eegnb import DATA_DIR
 import click
 from time import sleep
 from os import path
+import os
 import shutil
 from eegnb.datasets.datasets import zip_data_folders
 
@@ -66,7 +67,6 @@ def runexp(
         run_experiment(experiment, eeg, recdur, outfname)
 
 
-
 @main.command()
 @click.option("-ed", "--eegdevice", help="EEG device to use", required=True)
 def checksigqual(eegdevice: str):
@@ -76,28 +76,30 @@ def checksigqual(eegdevice: str):
     Usage:
         eegnb checksigqual --eegdevice museS
     """
-    
+
     from eegnb.devices.eeg import EEG
-    from eegnb.analysis.utils import check_report 
+    from eegnb.analysis.utils import check_report
+
     eeg = EEG(device=eegdevice)
-    
+
     check_report(eeg)
-    
+
     # TODO: implement command line options for non-default check_report params
     #       ( n_times, pause_time, thres_var, etc. )
-    #       [ tried to do this but keeps defaulting to None rather than default 
+    #       [ tried to do this but keeps defaulting to None rather than default
     #         valuess in the function definition ]
-    
+
 
 @main.command()
 @click.option("-ex", "--experiment", help="Experiment to zip", required=False)
-@click.option("-s", "--site", help="Specific Directory", default='local_ntcs',required=False)
-@click.option("-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True)
-def runzip(experiment: str,
-           site: str,
-           prompt: bool = False):
-    
-    # return None
+@click.option(
+    "-s", "--site", help="Specific Directory", default="local_ntcs", required=False
+)
+@click.option(
+    "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
+)
+def runzip(experiment: str, site: str, prompt: bool = False):
+
     """eeg
     Run data zipping
 
@@ -114,10 +116,62 @@ def runzip(experiment: str,
 
     if prompt:
         from .introprompt import intro_prompt_zip
-        experiment,site=intro_prompt_zip()
-    
-    zip_data_folders(experiment,site)
 
+        experiment, site = intro_prompt_zip()
+
+    zip_data_folders(experiment, site)
+
+
+@main.command()
+def localdata_report():
+    """
+    Run local data summary
+
+    Usage
+
+    $eegnb localdata-report
+    """
+
+    print("\n EEG-Notebooks Local Data Report")
+    print("\n ===============================\n")
+    print(
+        " Here is a short report of eeg-notebooks-related EEG data that was found on this machine:\n"
+    )
+
+    directory_contents = os.listdir(DATA_DIR)
+    # print(directory_contents)
+
+    example_datasets = []
+    recorded_datasets = []
+    for dir in directory_contents:
+
+        dir_contents = os.path.join(DATA_DIR, dir)
+        subdir_contents = os.listdir(dir_contents)
+        for subdir in subdir_contents:
+            subdir_path = os.path.join(DATA_DIR, dir, subdir)
+            print(subdir_path)
+            if os.path.isdir(subdir_path):
+                if len(os.listdir(subdir_path)) == 0:
+                    subdir_path = subdir_path + " [EMPTY]"
+                if "eegnb_examples" in subdir:
+                    example_datasets.append(subdir_path)
+                else:
+                    recorded_datasets.append(subdir_path)
+
+    print("\n 1. Default Data \n")
+    print(" ------------------\n")
+    print(" The default eeg-notebooks data location on this machine is\n")
+    print(" {}".format(DATA_DIR))
+    print("\n (note that `.eegnb` is a hidden folder)\n")
+    print("\n Folders where you have downloaded the eeg-notebooks example datasets:\n")
+    for items in example_datasets:
+        print(" {}".format(items))
+
+    print("\n\n 2. Your recorded data\n")
+    print(" ------------------\n")
+    print("\n Folders where you have recorded your own data:\n")
+    for items in recorded_datasets:
+        print(" {}".format(items))
 
 
 if __name__ == "__main__":
