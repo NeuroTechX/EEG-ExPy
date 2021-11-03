@@ -8,7 +8,7 @@ from .utils import run_experiment, get_exp_desc, experiments
 
 
 def device_prompt() -> EEG:
-    # define the names of the available devices  ( / 'boards' ) 
+    # define the names of the available boards
     # boards is a mapping from board code to board description
     boards = {
         "none": "None",
@@ -30,13 +30,13 @@ def device_prompt() -> EEG:
     print("Please enter the integer value corresponding to your EEG device: \n")
     print("\n".join(f"[{i:2}] {board}" for i, board in enumerate(boards.values())))
 
-    board_idx = int(input("\nEnter Device Selection: "))
+    board_idx = int(input("\nEnter Board Selection: "))
 
     # Board_codes are the actual names to be passed to the EEG class
     board_code = list(boards.keys())[board_idx]
     board_desc = list(boards.values())[board_idx]
 
-    print(f"Selected device: {board_desc} \n")
+    print(f"Selected board: {board_desc} \n")
 
     # Handles connectivity selection if an OpenBCI board is being used
     if board_code in ["cyton", "cyton_daisy", "ganglion"]:
