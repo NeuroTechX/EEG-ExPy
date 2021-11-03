@@ -6,8 +6,11 @@ import serial
 from brainflow import BoardShim, BoardIds
 
 
-# Default channel names for the various brainflow devices.
+# Default channel names for the various EEG devices.
 EEG_CHANNELS = {
+    "muse2016": ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "muse2": ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "museS": ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
     "ganglion": ["fp1", "fp2", "tp7", "tp8"],
     "cyton": BoardShim.get_eeg_names(BoardIds.CYTON_BOARD.value),
     "cyton_daisy": BoardShim.get_eeg_names(BoardIds.CYTON_DAISY_BOARD.value),
