@@ -41,10 +41,10 @@ In recent years, however, developments in hardware and software technologies are
 
 The core aim of the EEG-Notebooks project is to provide the critical 'glue' that pulls together the various enabling technologies necessary for running these experiments and analyzing the data. This includes functionality for 
 
-- streaming data from various relatively new wireless consumer-grade EEG devices  
-- visual and auditory stimulus presentation, concurrent with and time-locked to the EEG recordings  
-- a growing library of well-documented, ready-to-use, and ready-to-modify experiments 
-- signal processing, statistical, and machine learning data analysis functionalities
+* streaming data from various relatively new wireless consumer-grade EEG devices  
+* visual and auditory stimulus presentation, concurrent with and time-locked to the EEG recordings  
+* a growing library of well-documented, ready-to-use, and ready-to-modify experiments 
+* signal processing, statistical, and machine learning data analysis functionalities
 
 A real one-stop-shop!
 
