@@ -81,7 +81,6 @@ The session number corresponds to each time you sit down to take multiple record
 If you are using **OpenBCI on Windows/MacOS** you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see [Initiating an EEG Stream](https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html).
 
 
-#### Confirmation
 
 ## Using Jupyter Notebooks or a custom script
 The first step is to import all of the necessary library dependencies. These are necessary for generating a save file name which conforms to the default folder structure, streaming and recording EEG data, and running the stimulus presentation.
