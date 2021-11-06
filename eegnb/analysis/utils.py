@@ -149,7 +149,7 @@ def load_data(
         site = "*"
 
     data_path = (
-        _get_recording_dir(device_name, experiment, subject_str, session_str, site)
+        _get_recording_dir(device_name, experiment, subject_str, session_str, site, data_dir)
         / "*.csv"
     )
     fnames = glob(str(data_path))
