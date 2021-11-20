@@ -107,6 +107,10 @@ def present(duration=120, eeg=None, save_fn=None):
 
     # Set up stimuli
     frame_rate = np.round(mywin.getActualFrameRate())  # Frame rate, in Hz
+    if frame_rate is None:
+        print('Display refresh rate unable to be detected, trying lowering the refresh rate.')
+        return
+    print('Display refresh rate detected: {}Hz\n'.format(frame_rate))
     freqs = get_possible_ssvep_freqs(frame_rate, stim_type="reversal")
     stim_patterns = [
         init_flicker_stim(frame_rate, 2, soa),
