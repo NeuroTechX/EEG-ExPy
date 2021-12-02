@@ -1,5 +1,5 @@
 import os 
-from typing import Tuple
+from typing import Tuple, Union
 from pathlib import Path
 
 from eegnb import generate_save_fn, DATA_DIR
@@ -7,7 +7,7 @@ from eegnb.devices.eeg import EEG
 from .utils import run_experiment, get_exp_desc, experiments
 
 
-def device_prompt(returndeviceobj=False) -> dict or EEG : 
+def device_prompt(returndeviceobj=False) -> Union[dict,EEG]: 
     # define the names of the available boards
     # boards is a mapping from board code to board description
     boards = {
@@ -121,7 +121,7 @@ def site_prompt(experiment:str) -> str:
     print("Selected Folder : {} \n".format(site))
     return site
 
-def intro_prompt() -> Tuple[dict, str, int, Path] or Tuple[EEG, str, int, Path]:
+def intro_prompt() -> Union[ Tuple[dict, str, int, Path], Tuple[EEG, str, int, Path] ]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
     print("Welcome to NeurotechX EEG Notebooks\n")
 
