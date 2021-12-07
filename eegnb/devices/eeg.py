@@ -264,7 +264,10 @@ class EEG:
         self.board.prepare_session()
 
     def _start_brainflow(self):
-        self.board.start_stream()
+        # only start stream if non exists
+        if not self.stream_started:
+            self.board.start_stream()
+        
         self.stream_started = True
         # wait for signal to settle
         sleep(5)
@@ -333,15 +336,14 @@ class EEG:
         self.markers.append([marker, last_timestamp])
 
 
-    def _brainflow_get_recent(self, n_samples=256, restart_stream=False):
+    def _brainflow_get_recent(self, n_samples=256):
 
         # initialize brainflow if not set
         if self.board == None:
             self._init_brainflow()
 
-        # start brainflow stream if none exists or explicity requested
-        if ( not self.stream_started ) or restart_stream:
-            self._start_brainflow()
+        # start branflow stream
+        self._start_brainflow()
 
         # get the latest data
         data = self.board.get_current_board_data(n_samples)
