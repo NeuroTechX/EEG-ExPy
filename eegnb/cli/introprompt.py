@@ -116,7 +116,7 @@ def site_prompt(experiment:str) -> str:
     print("Selected Folder : {} \n".format(site))
     return site
 
-def intro_prompt() -> Tuple[EEG, str, int, Path]:
+def intro_prompt() -> Tuple[EEG, str, int, str]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
     print("Welcome to NeurotechX EEG Notebooks\n")
 
@@ -147,7 +147,7 @@ def intro_prompt() -> Tuple[EEG, str, int, Path]:
         eeg_device.device_name, exp_selection, subj_id, session_nb 
     )
 
-    return eeg_device, exp_selection, duration, save_fn
+    return eeg_device, exp_selection, duration, str(save_fn)
 
 
 def intro_prompt_zip() -> Tuple[str,str]:
