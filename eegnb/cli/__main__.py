@@ -60,19 +60,17 @@ def runexp(
         eeg, experiment, recdur, outfname = intro_prompt()
     else:
         if eegdevice == "ganglion":
-            # if the ganglion is chosen a MAC address should also be proviced
+            # if the ganglion is chosen a MAC address should also be provided
             eeg = EEG(device=eegdevice, mac_addr=macaddr)
         else:
             eeg = EEG(device=eegdevice)
-        print("\nEEG device successfully connected!")
-
 
     def askforsigqualcheck():
-        do_sigqual = input("Run signal quality check? (y/n). Recommend y \n")
+        do_sigqual = input("\n\nRun signal quality check? (y/n). Recommend y \n")
         if do_sigqual == 'y':
             check_report(eeg)
         elif do_sigqual != 'n':
-            "sorry, didn't recognize answer. "
+            "Sorry, didn't recognize answer. "
             askforsigqualcheck()
     
     if dosigqualcheck:
@@ -80,6 +78,8 @@ def runexp(
 
 
     run_experiment(experiment, eeg, recdur, outfname)
+
+    print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
 
 
 
