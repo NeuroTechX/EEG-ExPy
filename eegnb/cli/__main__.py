@@ -56,27 +56,25 @@ def runexp(
     $ eegnb runexp -ip
     """
 
-    #from .introprompt import intro_prompt
-    #from .utils import run_experiment
-    #from eegnb.devices.eeg import EEG
-    #from eegnb.analysis.utils import check_report 
-
     if prompt:
-        eeg_deviceargs, experiment, recdur, outfname = intro_prompt()
+        eeg, experiment, recdur, outfname = intro_prompt()
     else:
-        eeg_deviceargs = {'device': eegdevice, 'mac_addr': macaddr} 
-
-    eeg = EEG(**eeg_deviceargs)
-    print("\nEEG device successfully connected!")
+        if eegdevice == "ganglion":
+            # if the ganglion is chosen a MAC address should also be proviced
+            eeg = EEG(device=eegdevice, mac_addr=macaddr)
+        else:
+            eeg = EEG(device=eegdevice)
+        print("\nEEG device successfully connected!")
 
 
     def askforsigqualcheck():
-        doit = input("Run signal quality check? (y/n). Recommend y \n")
-        if doit == 'y':
+        do_sigqual = input("Run signal quality check? (y/n). Recommend y \n")
+        if do_sigqual == 'y':
             check_report(eeg)
-        elif doit != 'n':
+        elif do_sigqual != 'n':
             "sorry, didn't recognize answer. "
             askforsigqualcheck()
+    
     if dosigqualcheck:
         askforsigqualcheck()
 

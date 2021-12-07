@@ -9,12 +9,13 @@ from pandas import DataFrame
 from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
+from eegnb.devices.eeg import EEG
 from eegnb.stimuli import FACE_HOUSE
 
 __title__ = "Visual N170"
 
 
-def present(duration=120, eeg=None, save_fn=None):
+def present(duration=120, eeg: EEG=None, save_fn=None):
     n_trials = 2010
     iti = 0.4
     soa = 0.3

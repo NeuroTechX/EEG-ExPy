@@ -1,5 +1,5 @@
 import os 
-from typing import Tuple, Union
+from typing import Tuple
 from pathlib import Path
 
 from eegnb import generate_save_fn, DATA_DIR
@@ -7,7 +7,7 @@ from eegnb.devices.eeg import EEG
 from .utils import run_experiment, get_exp_desc, experiments
 
 
-def device_prompt(returndeviceobj=False) -> Union[dict,EEG]: 
+def device_prompt() -> EEG: 
     # define the names of the available boards
     # boards is a mapping from board code to board description
     boards = {
@@ -65,21 +65,16 @@ def device_prompt(returndeviceobj=False) -> Union[dict,EEG]:
                 f"\n{board_desc} + WiFi is not supported. Please use the dongle that was shipped with the device.\n"
             )
             exit()
-
-
-    eeg_deviceargs = {'device': board_code}
        
     if board_code.startswith("ganglion"):
         if board_code == "ganglion_wifi":
-            eeg_deviceargs['ip_addr'] = ip_address
+            eeg_device = EEG(device=board_code, ip_addr=ip_address)
         else:
-            eeg_deviceargs['mac_addr'] = ganglion_mac_address
-   
-    if returndeviceobj:
-        eeg_device = EEG(**eeg_deviceargs)
-        return eeg_device
+            eeg_device = EEG(device=board_code, mac_addr=ganglion_mac_address)
     else:
-        return eeg_deviceargs
+        eeg_device = EEG(device=board_code)
+
+    return eeg_device
 
 
 
@@ -121,13 +116,12 @@ def site_prompt(experiment:str) -> str:
     print("Selected Folder : {} \n".format(site))
     return site
 
-def intro_prompt() -> Union[ Tuple[dict, str, int, Path], Tuple[EEG, str, int, Path] ]:
+def intro_prompt() -> Tuple[EEG, str, int, Path]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
     print("Welcome to NeurotechX EEG Notebooks\n")
 
     # ask the user which device to use
-    #eeg_device = device_prompt()
-    eeg_deviceargs = device_prompt() 
+    eeg_device = device_prompt()
 
     # ask the user which experiment to run
     exp_selection = exp_prompt()
@@ -150,11 +144,10 @@ def intro_prompt() -> Union[ Tuple[dict, str, int, Path], Tuple[EEG, str, int, P
 
     # generate the save file name
     save_fn = generate_save_fn(
-        eeg_deviceargs['device'], exp_selection, subj_id, session_nb # eeg_device.device_name, exp_selection, subj_id, session_nb 
-        )
+        eeg_device.device_name, exp_selection, subj_id, session_nb 
+    )
 
-    #return eeg_device, exp_selection, duration, save_fn
-    return eeg_deviceargs, exp_selection, duration, save_fn
+    return eeg_device, exp_selection, duration, save_fn
 
 
 def intro_prompt_zip() -> Tuple[str,str]:
