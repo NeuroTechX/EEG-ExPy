@@ -7,7 +7,7 @@ Important: Watch the instructional videos (link).
 ## Summary of the steps:
 
 1. Register
-2. Check your e-mail. Get the 
+2. Check your e-mail. This will give you a personalized link for uploading your recorded data. It will also give you these instructions.
 3. 
 
 
@@ -24,14 +24,18 @@ Important: Watch the instructional videos (link).
 - the file will be x
 
 
-### OpenBCI Ports
+### OpenBCI Ports and drivers
+
+- ...
 
 ### OpenBCI Channel positions
 
+- If 8 then X. If 4 then X. Do not use arbitrarily chosen channel locations. 
+- 
 
 ### Python is not 3.7
 
-
+- Don't use python 3.8. See anaconda installation command. 
 
 
 
