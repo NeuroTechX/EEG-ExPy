@@ -1,5 +1,8 @@
 # NTCS Phase 1 Instructions
 
+## Summary of the steps:
+
+
 
 
 ## FAQs, Troubleshooting, Gotchas
@@ -9,6 +12,8 @@
 ### OpenBCI Ports
 
 ### Python is not 3.7
+
+
 
 
 
