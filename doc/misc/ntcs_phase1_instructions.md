@@ -6,9 +6,15 @@ Important: Watch the instructional videos (link).
 
 ## Summary of the steps:
 
-1. Register
+1. Register and run through the informed consent. 
 2. Check your e-mail. This will give you a personalized link for uploading your recorded data. It will also give you these instructions.
-3. 
+3. Install eeg-notebooks. 
+4. Connect your eeg-device. 
+5. Run experiment, record your data
+6. Upload to the form via the personalized link from your first e-mail.
+
+
+
 
 
 ## FAQs, Troubleshooting, Gotchas
