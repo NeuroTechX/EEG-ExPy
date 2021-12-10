@@ -1,11 +1,14 @@
 # NTCS Phase 1 Instructions
 
-Important: Watch the instructional video (link).
+Important: Watch the instructional videos (link).
+
 
 
 ## Summary of the steps:
 
-
+1. Register
+2. Check your e-mail. Get the 
+3. 
 
 
 ## FAQs, Troubleshooting, Gotchas
@@ -21,8 +24,10 @@ Important: Watch the instructional video (link).
 - the file will be x
 
 
-
 ### OpenBCI Ports
+
+### OpenBCI Channel positions
+
 
 ### Python is not 3.7
 
