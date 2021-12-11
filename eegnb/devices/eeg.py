@@ -269,8 +269,13 @@ class EEG:
             self.board.start_stream()
         
         self.stream_started = True
+
         # wait for signal to settle
-        sleep(5)
+        if (self.device_name.find("cyton") != -1) or (self.device_name.find("ganglion") != -1):
+            # wait longer for openbci cyton / ganglion
+            sleep(10)
+        else:
+            sleep(5)
 
     def _stop_brainflow(self):
         """This functions kills the brainflow backend and saves the data to a CSV file."""
