@@ -69,9 +69,22 @@ The signal quality checker utility will cease when there are two successful 'goo
 
 
 
+### 7. After recording, locate and zip your recorded data
 
+#### 7.1 Take a look at what's there
 
-### 7. Locate and zip your recorded data
+When you have completed your recording session (or at any other time), you can check what data files you have recorded with eeg-notebooks using the following convenient command line utility:
+
+`eegnb checkdirs`
+
+This will print out to the command line a list of the folders and files present in the default storage location. This list includes two principal types: the demo data, and data you have recorded (`local' data). Note that any other data saved at non-default locations that you have specified yourself may not be included in this list. 
+
+The default location is `~/.eegnb/data', file naming convention of `{experiment_name}_{site}-{day_month_year_hour:minute}'.csv - such as X.csv. 
+
+#### 7.2 Compress your data
+
+When you are ready to continue, run the file zipper command line utility. This will create a new file on your desktop. 
+
 
 ### 8. Upload your zipped data file to your personalized URL
 
