@@ -35,7 +35,32 @@ Important: Watch the instructional videos (link).
 
 ### 6. Run the visual N170 experiment
 
-**important**: The following
+#### 6.1 Initiate an EEG stream
+
+#### 6.2 Check your signal quality
+
+#### 6.3 Run the experiment
+
+The NTCS Phase 1 experiment is lasts approximately 1 hour.
+
+When you are ready to begin proper data collection, you should ensure that you have sufficient time to complete (best to budget 1.5-2 hours), that you will not be interrupted during this time, and that you will be able to focus on the visual images presented on the screen with no distractions from your local environment. A small, quiet room such as an office or bedroom is ideal. 
+
+The experiment consists of 10 short (5 minute) blocks, separated by short (~2 minute) rest periods. 
+
+You are responsible for the timing of your rest periods and for initiating the next block on time after 2 minutes. 
+
+To initiate a block, you will use the interactive command line prompt, where you should enter your device and subject information.
+
+After the prompt questions are completed, the command line signal quality checker will be automatically launched. Take this opportunity if needed to adjust your device location on the head to maximize signal quality. 
+
+The signal quality checker utility will cease when there are two successful 'good signal' evaluations, at which point you are good to go. 
+
+
+
+
+eegnb runexp -ip muse2016
+
+
 
 
 
