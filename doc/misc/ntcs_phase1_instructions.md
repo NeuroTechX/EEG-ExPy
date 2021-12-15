@@ -2,6 +2,7 @@
 
 Important: Watch the instructional videos (link).
 
+>Note: much of the info on this page will be familiar as it has probably been provided to you already. You should aim to read through all of the info here, but you **absolutely must** read [Step 6 'Run the visual N170 experiment']().
 
 
 ## Summary of the steps:
@@ -33,6 +34,10 @@ Important: Watch the instructional videos (link).
 #### 5.2 OpenBCI users: install OpenBCI GUI
 
 ### 6. Run the visual N170 experiment
+
+**important**: The following
+
+
 
 ### 7. Locate and zip your recorded data
 
