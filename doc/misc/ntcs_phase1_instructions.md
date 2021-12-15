@@ -41,11 +41,21 @@ Important: Watch the instructional videos (link).
 
 #### 6.3 Run the experiment
 
+##### 6.3.1 Get ready
+
 The NTCS Phase 1 experiment is lasts approximately 1 hour.
 
 When you are ready to begin proper data collection, you should ensure that you have sufficient time to complete (best to budget 1.5-2 hours), that you will not be interrupted during this time, and that you will be able to focus on the visual images presented on the screen with no distractions from your local environment. A small, quiet room such as an office or bedroom is ideal. 
 
-The experiment consists of 10 short (5 minute) blocks, separated by short (~2 minute) rest periods. 
+##### Experiment details
+
+The experiment consists of 10 short (5 minute) blocks, separated by short (~2 minute) rest periods. Each block consists of several hundred trials, each a few seconds long. On each trial a grayscale visual image or either a face or a house is quickly shown on the screen and then removed. The the visual system responds differentially to these type of visual stimuli, in ways that we know are measurable with EEG, and the time course of this differential response (sometimes called a 'difference wave') is what we are particularly interested in. 
+
+After each block, there is a 2 minute rest. Use this time to take a breather and refresh your eyes and get ready for the next block. 
+
+
+
+##### What to do
 
 You are responsible for the timing of your rest periods and for initiating the next block on time after 2 minutes. 
 
@@ -53,12 +63,9 @@ To initiate a block, you will use the interactive command line prompt, where you
 
 After the prompt questions are completed, the command line signal quality checker will be automatically launched. Take this opportunity if needed to adjust your device location on the head to maximize signal quality. 
 
-The signal quality checker utility will cease when there are two successful 'good signal' evaluations, at which point you are good to go. 
+The signal quality checker utility will cease when there are two successful 'good signal' evaluations, at which point you are good to go, and the visual images will begin to appear on screen. 
 
 
-
-
-eegnb runexp -ip muse2016
 
 
 
