@@ -524,7 +524,23 @@
 </section>
 <section id="run-the-visual-n170-experiment">
 <h3>6. Run the visual N170 experiment<a class="headerlink" href="#run-the-visual-n170-experiment" title="Permalink to this headline">¶</a></h3>
-<p><strong>important</strong>: The following</p>
+<section id="initiate-an-eeg-stream">
+<h4>6.1 Initiate an EEG stream<a class="headerlink" href="#initiate-an-eeg-stream" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="check-your-signal-quality">
+<h4>6.2 Check your signal quality<a class="headerlink" href="#check-your-signal-quality" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="run-the-experiment">
+<h4>6.3 Run the experiment<a class="headerlink" href="#run-the-experiment" title="Permalink to this headline">¶</a></h4>
+<p>The NTCS Phase 1 experiment is lasts approximately 1 hour.</p>
+<p>When you are ready to begin proper data collection, you should ensure that you have sufficient time to complete (best to budget 1.5-2 hours), that you will not be interrupted during this time, and that you will be able to focus on the visual images presented on the screen with no distractions from your local environment. A small, quiet room such as an office or bedroom is ideal.</p>
+<p>The experiment consists of 10 short (5 minute) blocks, separated by short (~2 minute) rest periods.</p>
+<p>You are responsible for the timing of your rest periods and for initiating the next block on time after 2 minutes.</p>
+<p>To initiate a block, you will use the interactive command line prompt, where you should enter your device and subject information.</p>
+<p>After the prompt questions are completed, the command line signal quality checker will be automatically launched. Take this opportunity if needed to adjust your device location on the head to maximize signal quality.</p>
+<p>The signal quality checker utility will cease when there are two successful ‘good signal’ evaluations, at which point you are good to go.</p>
+<p>eegnb runexp -ip muse2016</p>
+</section>
 </section>
 <section id="locate-and-zip-your-recorded-data">
 <h3>7. Locate and zip your recorded data<a class="headerlink" href="#locate-and-zip-your-recorded-data" title="Permalink to this headline">¶</a></h3>
