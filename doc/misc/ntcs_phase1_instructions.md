@@ -51,11 +51,56 @@ When you click on the unique uploader link, you will be directed to a small form
 
 ### 6. Run the visual N170 experiment
 
-**important**: The following
+#### 6.1 Initiate an EEG stream
+
+#### 6.2 Check your signal quality
+
+#### 6.3 Run the experiment
+
+##### 6.3.1 Get ready
+
+The NTCS Phase 1 experiment is lasts approximately 1 hour.
+
+When you are ready to begin proper data collection, you should ensure that you have sufficient time to complete (best to budget 1.5-2 hours), that you will not be interrupted during this time, and that you will be able to focus on the visual images presented on the screen with no distractions from your local environment. A small, quiet room such as an office or bedroom is ideal. 
+
+##### Experiment details
+
+The experiment consists of 10 short (5 minute) blocks, separated by short (~2 minute) rest periods. Each block consists of several hundred trials, each a few seconds long. On each trial a grayscale visual image or either a face or a house is quickly shown on the screen and then removed. The the visual system responds differentially to these type of visual stimuli, in ways that we know are measurable with EEG, and the time course of this differential response (sometimes called a 'difference wave') is what we are particularly interested in. 
+
+After each block, there is a 2 minute rest. Use this time to take a breather and refresh your eyes and get ready for the next block. 
 
 
 
-### 7. Locate and zip your recorded data
+##### What to do
+
+You are responsible for the timing of your rest periods and for initiating the next block on time after 2 minutes. 
+
+To initiate a block, you will use the interactive command line prompt, where you should enter your device and subject information.
+
+After the prompt questions are completed, the command line signal quality checker will be automatically launched. Take this opportunity if needed to adjust your device location on the head to maximize signal quality. 
+
+The signal quality checker utility will cease when there are two successful 'good signal' evaluations, at which point you are good to go, and the visual images will begin to appear on screen. 
+
+
+
+
+
+### 7. After recording, locate and zip your recorded data
+
+#### 7.1 Take a look at what's there
+
+When you have completed your recording session (or at any other time), you can check what data files you have recorded with eeg-notebooks using the following convenient command line utility:
+
+`eegnb checkdirs`
+
+This will print out to the command line a list of the folders and files present in the default storage location. This list includes two principal types: the demo data, and data you have recorded (`local' data). Note that any other data saved at non-default locations that you have specified yourself may not be included in this list. 
+
+The default location is `~/.eegnb/data', file naming convention of `{experiment_name}_{site}-{day_month_year_hour:minute}'.csv - such as X.csv. 
+
+#### 7.2 Compress your data
+
+When you are ready to continue, run the file zipper command line utility. This will create a new file on your desktop. 
+
 
 ### 8. Upload your zipped data file to your personalized URL
 
