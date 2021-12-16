@@ -1,6 +1,8 @@
 # NTCS Phase 1 Instructions
 
-Important: Watch the instructional videos. These live demos and discussions show you the specific steps you need to follow, and what to expect when you run them. 
+***First:*** watch the instructional vides. These live demos and discussions show you the specific steps you need to follow, and what to expect when you run them. 
+
+***Second:*** read through all of the information below. You will need to refer back to some parts a few times as you go. 
 
 - [Video 1](): About NTCS
 - [Video 2](): Installing the software
