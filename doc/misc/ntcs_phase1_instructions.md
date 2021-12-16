@@ -1,6 +1,13 @@
 # NTCS Phase 1 Instructions
 
-Important: Watch the instructional videos (link).
+Important: Watch the instructional videos. These live demos and discussions show you the specific steps you need to follow, and what to expect when you run them. 
+
+- [Video 1](): About NTCS
+- [Video 2](): Installing the software
+- [Video 3](): Initiating an EEG stream
+- [Video 4](): Running the experiment
+- [Video 5](): Uploading your data. 
+
 
 >Note: much of the info on this page will be familiar as it has probably been provided to you already. You should aim to read through all of the info here, but you **absolutely must** read [Step 6 'Run the visual N170 experiment']().
 
