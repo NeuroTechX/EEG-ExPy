@@ -7,14 +7,14 @@ Important: Watch the instructional videos (link).
 
 ## Summary of the steps:
 
-1. Register and run through the informed consent. 
-2. Check your e-mail. This will give you a personalized link for uploading your recorded data. It will also give you these instructions.
-3. Install miniconda
-4. Set up your miniconda environment and install eeg-notebooks & dependencies
-5. Setup your eeg-device (links to Muse, OpenBCI, Neurosity specific setups)
-6. Run experiment using the script prompts
-7. Find the recorded data on your local machine
-8. Upload to the form via the personalized link from your first e-mail.
+- Register for the study by completing the **[informed consent form](https://is.gd/neurotech_ch)**. 
+- **Check your e-mail**. This will give you a personalized link for uploading your recorded data. It will also give you these instructions.
+- **Install miniconda**.
+- Set up your miniconda environment and **install eeg-notebooks**.
+- **Setup your eeg-device** (See specific instructions for [OpenBCI](), [Muse](), [Neurosity]() devices)
+- **Run the experiment** using the script prompts
+- Locate the recorded data on your local machine and **run the data zipper command** 
+- **Upload** your data to our secure servers via the personalized link from your first e-mail.
 
 
 ## Full step-by-step instructions
