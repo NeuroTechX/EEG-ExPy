@@ -401,7 +401,7 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
 
 
 
-def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=1, thres_std_high=15, n_goods=2):
+def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=1, thres_std_high=15, n_goods=2,n_inarow=10):
     """
     Usage:
     ------
@@ -459,8 +459,8 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=1, thres
             print("\n\n\nAll good! You can proceed on to data collection :) ")
             break
 
-        # after every 5 trials ask user if they want to cancel or continue
-        if (loop_index+1) % 5 == 0:
+        # after every n_inarow trials ask user if they want to cancel or continue
+        if (loop_index+1) % n_inarow == 0:
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
             prompt_start = time()
