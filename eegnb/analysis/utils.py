@@ -343,6 +343,7 @@ def filter(
     n_chans: int,
     sfreq: int,
     device_backend: str,
+    device_name: str,
     low: float = 3,
     high: float = 40,
     verbose: bool = False,
@@ -351,7 +352,8 @@ def filter(
     if device_backend == "muselsl":
         pass
     elif device_backend == "brainflow":
-        X = X / 1000 # adjust scale of readings
+        if 'muse' not in device_name: # hacky; muse brainflow devices do in fact seem to be in correct units
+            X = X / 1000 # adjust scale of readings
     else:
         raise ValueError(f"Unknown backend {device_backend}")
     
@@ -391,17 +393,25 @@ def check(eeg: EEG, n_samples=256, std_thres=15):
     """
 
     df = eeg.get_recent(n_samples=n_samples)
+    
+    # seems to be necessary to give brainflow cnxn time to settle
+    if len(df) != n_samples: 
+      sleep(10) 
+      df = eeg.get_recent(n_samples=n_samples) 
+
     assert len(df) == n_samples
 
     n_channels = eeg.n_channels
     sfreq = eeg.sfreq
     device_backend = eeg.backend
+    device_name = eeg.device_name
 
     vals = df.values[:, :n_channels]
     df.values[:, :n_channels] = filter(vals, 
                                     n_channels,
                                     sfreq,
-                                    device_backend)
+                                    device_backend,
+                                    device_name)
 
     std = df.std(axis=0)
     res = dict(zip(df.columns[:n_channels], std < std_thres))
@@ -410,7 +420,7 @@ def check(eeg: EEG, n_samples=256, std_thres=15):
 
 
 
-def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
+def check_report(eeg, n_times: int=60, pause_time=10, thres_std=10,n_goods=2):
     """
     Usage:
     ------
@@ -432,6 +442,9 @@ def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
     good_count=0
 
     n_samples = int(pause_time*eeg.sfreq)
+
+    sleep(5)
+
     for _ in range(n_times):
         print(f'\n\n\n{_+1}/{n_times}')
         res, std = check(eeg, n_samples=n_samples)
