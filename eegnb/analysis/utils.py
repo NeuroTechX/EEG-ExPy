@@ -421,6 +421,16 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=1, thres
     }
     """
 
+    # set upper threshold based on device name
+    if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                    "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi"]:
+        thres_std_high = 9
+    elif eeg.device_name in ["notion1", "notion2", "crowm"]:
+        thres_std_high = 15
+    elif eeg.device_name in ["muse2016", "muse2", "museS"]:
+        thres_std_high = 18
+
+
     print("\n\nRunning signal quality check...")
     print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
 
