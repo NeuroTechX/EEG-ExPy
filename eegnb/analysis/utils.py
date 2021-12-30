@@ -401,7 +401,7 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
 
 
 
-def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=1, thres_std_high=15, n_goods=2,n_inarow=10):
+def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, thres_std_high=None, n_goods=2,n_inarow=10):
     """
     Usage:
     ------
@@ -421,16 +421,25 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=1, thres
     }
     """
 
-    # set upper threshold based on device name
-    if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+    # If no upper and lower std thresholds set in function call,
+    # set thresholds based on the following per-device name defaults
+    if thres_std_high is None:
+        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
                     "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi"]:
-        thres_std_high = 9
-    elif eeg.device_name in ["notion1", "notion2", "crowm"]:
-        thres_std_high = 15
-    elif eeg.device_name in ["muse2016", "muse2", "museS"]:
-        thres_std_high = 18
+            thres_std_high = 9
+        elif eeg.device_name in ["notion1", "notion2", "crown"]:
+            thres_std_high = 15
+        elif eeg.device_name in ["muse2016", "muse2", "museS"]:
+            thres_std_high = 18
 
+    if thres_std_low is None:
+        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                               "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
+                               "notion1", "notion2", "crown",
+                               "muse2016", "muse2", "museS"]:
+            thres_std_low = 1
 
+            
     print("\n\nRunning signal quality check...")
     print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
 
