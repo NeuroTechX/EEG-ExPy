@@ -6,6 +6,11 @@ import os
 import shutil
 from eegnb.datasets.datasets import zip_data_folders
 
+from .introprompt import intro_prompt
+from .utils import run_experiment
+from eegnb.devices.eeg import EEG
+from eegnb.analysis.utils import check_report
+
 
 @click.group(name="eegnb")
 def main():
@@ -29,6 +34,7 @@ def runexp(
     recdur: float = None,
     outfname: str = None,
     prompt: bool = False,
+    dosigqualcheck = True,
 ):
     """
     Run experiment.
@@ -49,22 +55,33 @@ def runexp(
 
     $ eegnb runexp -ip
     """
+
     if prompt:
-        # import and run the introprompt script
-        from .introprompt import main as run_introprompt
-
-        run_introprompt()
+        eeg, experiment, recdur, outfname = intro_prompt()
     else:
-        from .utils import run_experiment
-        from eegnb.devices.eeg import EEG
-
         if eegdevice == "ganglion":
-            # if the ganglion is chosen a MAC address should also be proviced
+            # if the ganglion is chosen a MAC address should also be provided
             eeg = EEG(device=eegdevice, mac_addr=macaddr)
         else:
             eeg = EEG(device=eegdevice)
 
-        run_experiment(experiment, eeg, recdur, outfname)
+    def askforsigqualcheck():
+        do_sigqual = input("\n\nRun signal quality check? (y/n). Recommend y \n")
+        if do_sigqual == 'y':
+            check_report(eeg)
+        elif do_sigqual != 'n':
+            "Sorry, didn't recognize answer. "
+            askforsigqualcheck()
+    
+    if dosigqualcheck:
+        askforsigqualcheck()
+
+
+    run_experiment(experiment, eeg, recdur, outfname)
+
+    print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
+
+
 
 
 @main.command()
