@@ -4,7 +4,8 @@ import logging
 from collections import OrderedDict
 from glob import glob
 from typing import Union, List, Dict
-from time import sleep
+from time import sleep, time
+from numpy.core.fromnumeric import std
 
 import pandas as pd
 import numpy as np
@@ -338,7 +339,7 @@ def plot_highlight_regions(
 # ------
 
 
-def filter(
+def channel_filter(
     X: np.ndarray,
     n_chans: int,
     sfreq: int,
@@ -371,7 +372,7 @@ def filter(
     return filt_samples
 
 
-def check(eeg: EEG, n_samples=256, std_thres=15):
+def check(eeg: EEG, n_samples=256) -> pd.Series:
     """
     Usage:
     ------
@@ -380,15 +381,6 @@ def check(eeg: EEG, n_samples=256, std_thres=15):
     from eegnb.analysis.utils import check
     eeg = EEG(device='museS')
     check(eeg, n_samples=256)
-
-    The std_thres value is the upper bound of accepted
-    standard deviation for a quality recording.
-
-    thresholds = {
-        bad: 15,
-        good: 10,
-        great: 1.5 // Below 1.5 usually indicates not connected to anything
-    }
 
     """
 
@@ -407,20 +399,19 @@ def check(eeg: EEG, n_samples=256, std_thres=15):
     device_name = eeg.device_name
 
     vals = df.values[:, :n_channels]
-    df.values[:, :n_channels] = filter(vals, 
+    df.values[:, :n_channels] = channel_filter(vals, 
                                     n_channels,
                                     sfreq,
                                     device_backend,
                                     device_name)
 
-    std = df.std(axis=0)
-    res = dict(zip(df.columns[:n_channels], std < std_thres))
+    std_series = df.std(axis=0)
     
-    return res, std
+    return std_series
 
 
 
-def check_report(eeg, n_times: int=60, pause_time=10, thres_std=10,n_goods=2):
+def check_report(eeg: EEG, n_times: int=60, pause_time=10, thres_std_low=None, thres_std_high=None, n_goods=2,n_inarow=10):
     """
     Usage:
     ------
@@ -428,10 +419,39 @@ def check_report(eeg, n_times: int=60, pause_time=10, thres_std=10,n_goods=2):
     from eegnb.analysis.utils import check_report
     eeg = EEG(device='museS')
     check_report(eeg)
+
+    The thres_std_low & thres_std_high values are the 
+    lower and  upper bound of accepted
+    standard deviation for a quality recording.
+
+    thresholds = {
+        bad: 15,
+        good: 10,
+        great: 1.5 // Below 1 usually indicates not connected to anything
+    }
     """
 
+    # If no upper and lower std thresholds set in function call,
+    # set thresholds based on the following per-device name defaults
+    if thres_std_high is None:
+        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                    "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi"]:
+            thres_std_high = 9
+        elif eeg.device_name in ["notion1", "notion2", "crown"]:
+            thres_std_high = 15
+        elif eeg.device_name in ["muse2016", "muse2", "museS"]:
+            thres_std_high = 18
+
+    if thres_std_low is None:
+        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                               "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
+                               "notion1", "notion2", "crown",
+                               "muse2016", "muse2", "museS"]:
+            thres_std_low = 1
+
+            
     print("\n\nRunning signal quality check...")
-    print(f"Using threshold stdev: {thres_std}")
+    print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
 
     CHECKMARK = "√"
     CROSS = "x"
@@ -445,21 +465,21 @@ def check_report(eeg, n_times: int=60, pause_time=10, thres_std=10,n_goods=2):
 
     sleep(5)
 
-    for _ in range(n_times):
-        print(f'\n\n\n{_+1}/{n_times}')
-        res, std = check(eeg, n_samples=n_samples)
+    for loop_index in range(n_times):
+        print(f'\n\n\n{loop_index+1}/{n_times}')
+        std_series = check(eeg, n_samples=n_samples)
 
         indicators = "\n".join(
         [
-            f"  {k:>4}: {CHECKMARK if v else CROSS}   (std: {round(std[k], 1):>5})"
-                for k, v in res.items()
+            f"  {k:>4}: {CHECKMARK if v >= thres_std_low and v <= thres_std_high else CROSS}  (std: {round(v, 1):>5})"
+                for k, v in std_series.iteritems()
         ]
                               )
         print("\nSignal quality:")
         print(indicators)
 
         
-        bad_channels = [k for k, v in res.items() if not v]
+        bad_channels = [k for k, v in std_series.iteritems() if v < thres_std_low or v > thres_std_high ]
         if bad_channels:
             print(f"Bad channels: {', '.join(bad_channels)}")
             good_count=0  # reset good checks count if there are any bad chans
@@ -471,7 +491,17 @@ def check_report(eeg, n_times: int=60, pause_time=10, thres_std=10,n_goods=2):
             print("\n\n\nAll good! You can proceed on to data collection :) ")
             break
 
+        # after every n_inarow trials ask user if they want to cancel or continue
+        if (loop_index+1) % n_inarow == 0:
+            print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
+
+            prompt_start = time()
+            continue_sigqual = input("\nChecks will resume in 10 seconds...Press 'c' (and ENTER key) if you want to stop adjusting for better quality.\n")
+            while time() < prompt_start + 5:
+                if continue_sigqual == 'c':
+                    break
+            if continue_sigqual == 'c':
+                print("\nStopping signal quality checks!")
+                break
+        
         sleep(pause_time)
-
-
-

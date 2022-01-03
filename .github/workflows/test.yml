@@ -13,10 +13,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
         python_version: [3.7]
         include:
-          - os: ubuntu-18.04
+          - os: ubuntu-latest
             python_version: 3.8
           # Experimental: Python 3.9
           # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/50
