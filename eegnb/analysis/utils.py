@@ -439,14 +439,17 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=10, thres_std_low=None, t
             thres_std_high = 9
         elif eeg.device_name in ["notion1", "notion2", "crown"]:
             thres_std_high = 15
-        elif eeg.device_name in ["muse2016", "muse2", "museS"]:
+        elif 'muse' in eeg.device_name:
             thres_std_high = 18
 
     if thres_std_low is None:
-        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
-                               "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
-                               "notion1", "notion2", "crown",
-                               "muse2016", "muse2", "museS"]:
+
+        if 'muse' in eeg.device_name: 
+            thres_std_low = 1
+
+        elif eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                                 "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
+                                 "notion1", "notion2", "crown"]:
             thres_std_low = 1
 
             
