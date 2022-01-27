@@ -28,16 +28,18 @@ Videos 2-5 include live demos and discussions showing you the specific steps you
 - [Video 5](): Uploading your data. 
 
 
-## Summary of the steps:
+## Summary of the steps
+
+The end-to-end sequence of steps for participating in NTCS are as follows:
 
 - Register for the study by completing the **[informed consent form](https://is.gd/neurotech_ch)**. 
-- **Check your e-mail**. This will give you a personalized link for uploading your recorded data. It will also give you these instructions.
-- **Install miniconda**.
-- Set up your miniconda environment and **install eeg-notebooks**.
-- **Setup your eeg-device** (See specific instructions for [OpenBCI](), [Muse](), [Neurosity]() devices)
-- **Run the experiment** using the script prompts
-- Locate the recorded data on your local machine and **run the data zipper command** 
-- **Upload** your data to our secure servers via the personalized link from your first e-mail.
+- **Check your e-mail**. This will give you a personalized link for uploading your recorded data. It will also give you these instructions.  
+- **Install miniconda**.  
+- Set up your miniconda environment and **install eeg-notebooks**.  
+- **Setup your eeg-device** (See specific instructions for [OpenBCI](), [Muse](), [Neurosity](), [Gtec]() devices).  
+- **Run the experiment** using the script prompts  
+- Locate the recorded data on your local machine and **run the data zipper command**   
+- **Upload** your data to our secure servers via the personalized link from your first e-mail.  
 
 
 ## Full step-by-step instructions
