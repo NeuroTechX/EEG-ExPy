@@ -8,6 +8,8 @@ If this is the first time you are learning about NTCS, check out the [NTCS websi
 
 If you are ready to get going with NTCS Phase 1, have been directed here by other comms from us, or would simply like to browse through to getter a better idea of what's involved, you are in the right place. 
 
+These instructions, and NTCS in general, also double up as an excellent practical introduction to the `eeg-notebooks` software. 
+
 Have fun and thank you for joining on NTCS Phase 1!
 
 
