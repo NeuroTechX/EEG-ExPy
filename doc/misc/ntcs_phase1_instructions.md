@@ -2,7 +2,7 @@
 
 Welcome to the `NeuroTech Challenge Series (NTCS), Phase 1` instructions page. 
 
-`NTCS Phase 1' is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team. 
+`NTCS Phase 1` is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team. 
 
 If this is the first time you are learning about NTCS, check out the [NTCS website](https://neurotech-challenge.com/) for additional info about this and other upcoming challenges and opportunities. 
 
@@ -79,7 +79,7 @@ When you click on the unique uploader link, you will be directed to a small form
 Getting Started Guide for Cyton Board
 https://docs.openbci.com/GettingStarted/Boards/CytonGS/
 
-Make sure to check that your FTDI driver is updates and configured properly:
+**Important** - Make sure to check that your FTDI driver is updates and configured properly:
 https://docs.openbci.com/Troubleshooting/TroubleshootingLanding/
 
 Instructions for setting up your Ultracortex
