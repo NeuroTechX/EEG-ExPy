@@ -2,7 +2,7 @@
 
 Welcome to the `NeuroTech Challenge Series (NTCS), Phase 1` instructions page. 
 
-`NTCS Phase 1' is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team. 
+`NTCS Phase 1` is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team. 
 
 If this is the first time you are learning about NTCS, check out the [NTCS website](https://neurotech-challenge.com/) for additional info about this and other upcoming challenges and opportunities. 
 
@@ -76,6 +76,17 @@ When you click on the unique uploader link, you will be directed to a small form
 #### 5.1 Windows+Muse device users: install BlueMuse software
 
 #### 5.2 OpenBCI users: install OpenBCI GUI
+Getting Started Guide for Cyton Board
+https://docs.openbci.com/GettingStarted/Boards/CytonGS/
+
+**Important** - Make sure to check that your FTDI driver is updates and configured properly:
+https://docs.openbci.com/Troubleshooting/TroubleshootingLanding/
+
+Instructions for setting up your Ultracortex
+https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview
+
+Instructions for setting up the headband kit [Note -- NTCS uses different electrode positions]
+https://docs.openbci.com/AddOns/Headwear/HeadBand/
 
 ### 6. Run the visual N170 experiment
 
