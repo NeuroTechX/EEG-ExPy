@@ -76,6 +76,17 @@ When you click on the unique uploader link, you will be directed to a small form
 #### 5.1 Windows+Muse device users: install BlueMuse software
 
 #### 5.2 OpenBCI users: install OpenBCI GUI
+Getting Started Guide for Cyton Board
+https://docs.openbci.com/GettingStarted/Boards/CytonGS/
+
+Make sure to check that your FTDI driver is updates and configured properly:
+https://docs.openbci.com/Troubleshooting/TroubleshootingLanding/
+
+Instructions for setting up your Ultracortex
+https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview
+
+Instructions for setting up the headband kit [Note -- NTCS uses different electrode positions]
+https://docs.openbci.com/AddOns/Headwear/HeadBand/
 
 ### 6. Run the visual N170 experiment
 
