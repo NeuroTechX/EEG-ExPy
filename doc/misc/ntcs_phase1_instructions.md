@@ -27,6 +27,9 @@ Videos 2-5 include live demos and discussions showing you the specific steps you
 - [Video 4](): Running the experiment
 - [Video 5](): Uploading your data. 
 
+Additionally, you might be interested to check out JG's [introductory lecture on eeg-notebooks](https://www.youtube.com/watch?v=C834sFQvL1c&t=103s). This is not mandatory however for NTCS. 
+
+
 
 ## Summary of the steps
 
