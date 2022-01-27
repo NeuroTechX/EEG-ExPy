@@ -1,17 +1,29 @@
 # NTCS Phase 1 Instructions
 
-***First:*** watch the instructional vides. These live demos and discussions show you the specific steps you need to follow, and what to expect when you run them. 
+Welcome to the `NeuroTech Challenge Series (NTCS), Phase 1` instructions page. 
 
-***Second:*** read through all of the information below. You will need to refer back to some parts a few times as you go. 
+`NTCS Phase 1' is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team. 
+
+If this is the first time you are learning about NTCS, check out the [NTCS website](https://neurotech-challenge.com/) for additional info about this and other upcoming challenges and opportunities. 
+
+If you are ready to get going with NTCS Phase 1, have been directed here by other comms from us, or would simply like to browse through to getter a better idea of what's involved, you are in the right place. 
+
+Have fun and thank you for joining on NTCS Phase 1!
+
+
+## Instructional Videos
+
+We recommend that before you get going on the steps listed below, you watch the instructional videos. 
+
+Video 1 is a short general overview and big picture. You should watch this fully first before continuing. 
+
+Videos 2-5 include live demos and discussions showing you the specific steps you need to follow, and what to expect when you run them. For these, it is probably best to go back and forth a bit between the instructions text below and stepping through sections carefully, as needed. 
 
 - [Video 1](): About NTCS
 - [Video 2](): Installing the software
 - [Video 3](): Initiating an EEG stream
 - [Video 4](): Running the experiment
 - [Video 5](): Uploading your data. 
-
-
->Note: much of the info on this page will be familiar as it has probably been provided to you already. You should aim to read through all of the info here, but you **absolutely must** read [Step 6 'Run the visual N170 experiment']().
 
 
 ## Summary of the steps:
