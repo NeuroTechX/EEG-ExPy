@@ -70,6 +70,17 @@ When you click on the unique uploader link, you will be directed to a small form
 ### 3. Install miniconda 
 
 ### 4. Set up environment and install eeg-notebooks
+https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html
+
+conda create -n "env1" python=3.7 git pip wxpython
+
+conda activate "env1"
+
+git clone https://github.com/NeuroTechX/eeg-notebooks
+
+cd eeg-notebooks
+
+pip install -e .
 
 ### 5. Set up your EEG Device
 
@@ -89,6 +100,12 @@ Instructions for setting up the headband kit [Note -- NTCS uses different electr
 https://docs.openbci.com/AddOns/Headwear/HeadBand/
 
 ### 6. Run the visual N170 experiment
+activate your conda environment
+
+then run the command: 
+eegnb runexp -ip
+
+and follow the prompts for your specific hardware. When it asks which experiment to run, select "Visual N170"
 
 #### 6.1 Initiate an EEG stream
 
