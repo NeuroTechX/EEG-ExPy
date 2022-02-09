@@ -8,15 +8,16 @@ from pandas import DataFrame
 from psychopy import visual, core, event, sound
 from pylsl import StreamInfo, StreamOutlet
 
+from eegnb import generate_save_fn
+from eegnb.devices.eeg import EEG
+#from eegnb.stimuli import FACE_HOUSE
 
-def present(
-    duration=120,
-    stim_types=None,
-    itis=None,
-    additional_labels={},
-    secs=0.07,
-    volume=0.8,
-):
+
+def present(duration=120, eeg: EEG=None, save_fn=None,
+            stim_types=None, itis=None, additional_labels={},
+            secs=0.07, volume=0.8,tone1_hz =440, tone2_hz = 528):
+
+    soa = 0 # ?
 
     # additional_labels is dict with column names as keys and column vecs as values,
     # that will be added to the dataframe
@@ -42,11 +43,11 @@ def present(
 
     # Initialize stimuli
     # aud1 = sound.Sound('C', octave=5, sampleRate=44100, secs=secs)
-    aud1 = sound.Sound(440, secs=secs)  # , octave=5, sampleRate=44100, secs=secs)
+    aud1 = sound.Sound(tone1_hz, secs=secs)  # , octave=5, sampleRate=44100, secs=secs)
     aud1.setVolume(volume)
 
     # aud2 = sound.Sound('D', octave=6, sampleRate=44100, secs=secs)
-    aud2 = sound.Sound(528, secs=secs)
+    aud2 = sound.Sound(tone2_hz, secs=secs)
     aud2.setVolume(volume)
     auds = [aud1, aud2]
 
@@ -69,6 +70,23 @@ def present(
     fixation.setAutoDraw(True)
     mywin.flip()
 
+    # Show the instructions screen
+    show_instructions(10)
+
+    # Start the EEG stream
+    if eeg:
+        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
+            # random_id = random.randint(1000,10000)
+            random_id = 9999
+            save_fn = generate_save_fn(eeg.device_name, "auditory_erp_arrayin", random_id, random_id, "unnamed")
+            print(
+                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
+            )
+        eeg.start(save_fn, duration=record_duration + 5)
+
+    # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
+    start = time.time()
+
     for ii, trial in trials.iterrows():
 
         # Intertrial interval
@@ -84,31 +102,78 @@ def present(
             additional_stamps += [trial[k]]
 
         # Send marker
-        timestamp = time.time()
+        #timestamp = time.time()
         # outlet.push_sample([markernames[ind]], timestamp)
 
-        outlet.push_sample(additional_stamps + [markernames[ind]], timestamp)
+        #outlet.push_sample(additional_stamps + [markernames[ind]], timestamp)
 
         # Offset
         # time.sleep(soa)
         # if (time.time() - start) > record_duration:
         #    break
 
-        # offset
-        # core.wait(soa)
 
+        # Send marker
+        # outlet.push_sample([markernames[ind]], timestamp)
+        #outlet.push_sample(additional_stamps + [markernames[ind]], timestamp)
+
+        # Push sample
+        if eeg:
+            timestamp = time.time()
+            if eeg.backend == "muselsl":
+                marker = [markernames[ind]]
+                #marker = [markernames[label]]
+            else:
+                marker = markernames[ind]
+            eeg.push_sample(marker=additional_stamps + marker, timestamp=timestamp)
+
+        mywin.flip()
+
+        # offset
+        core.wait(soa)
+        mywin.flip()
         if len(event.getKeys()) > 0 or (time.time() - start) > record_duration:
             break
+
         event.clearEvents()
 
-        # if len(event.getKeys()) > 0 or (time() - start) > record_duration:
-        #    break
-        # event.clearEvents()
-
     # Cleanup
+    if eeg:
+        eeg.stop()
+
     mywin.close()
 
+
     return trials
+
+
+def show_instructions(duration):
+
+    instruction_text = """
+    Welcome to the N170 experiment! 
+ 
+    Stay still, focus on the centre of the screen, and try not to blink. 
+
+    This block will run for %s seconds.
+
+    Press spacebar to continue. 
+    
+    """
+    instruction_text = instruction_text % duration
+
+    # graphics
+    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
+
+    mywin.mouseVisible = False
+
+    # Instructions
+    text = visual.TextStim(win=mywin, text=instruction_text, color=[-1, -1, -1])
+    text.draw()
+    mywin.flip()
+    event.waitKeys(keyList="space")
+
+    mywin.mouseVisible = True
+    mywin.close()
 
 
 def main():
