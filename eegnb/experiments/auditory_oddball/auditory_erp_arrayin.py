@@ -124,7 +124,7 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
                 marker = [markernames[ind]]
                 #marker = [markernames[label]]
             else:
-                marker = markernames[ind]
+                marker = markernames[ind]  # type: ignore
             eeg.push_sample(marker=additional_stamps + marker, timestamp=timestamp)
 
         mywin.flip()
