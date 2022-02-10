@@ -1,4 +1,5 @@
 import copy
+from copy import deepcopy
 import math
 import logging
 from collections import OrderedDict
@@ -21,6 +22,7 @@ from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
+                        
 
 # this should probably not be done here
 sns.set_context("talk")
@@ -492,3 +494,47 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
                 break
         
         sleep(pause_time)
+
+
+
+def fix_musemissinglines(orig_f,new_f=''):
+
+    if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
+
+    print('writing fixed file to %s' %new_f)
+
+    # Read oriignal file
+
+    F = open(orig_f, 'r')
+    Ls = F.readlines()
+    newLs = ['' for _ in Ls]
+    
+
+    # Correct first line
+
+    l = Ls[0]
+    newl = deepcopy(l)
+    numcols = len(l.split(','))
+    if numcols == 6:
+      newl = newl.replace('\n', ',Marker\n')
+    newLs[0] = newl
+
+
+    # Correct the rest
+
+    for l_it,l in enumerate(Ls):
+        if l_it!=0:
+            numcols = len(l.split(','))
+            if numcols==6:
+                newline = l.replace('\n', ',0\n')
+            else:
+                newline = l
+            newLs[l_it] = newline
+
+
+    # Write corrected file
+
+    newF = open(new_f, 'w+')
+    newF.writelines(newLs)
+    newF.close()
+                            
