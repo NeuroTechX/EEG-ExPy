@@ -70,6 +70,8 @@ When you click on the unique uploader link, you will be directed to a small form
 ### 3. Install miniconda 
 
 ### 4. Set up environment and install eeg-notebooks
+
+```bash
 https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html
 
 conda create -n "env1" python=3.7 git pip wxpython
@@ -81,6 +83,7 @@ git clone https://github.com/NeuroTechX/eeg-notebooks
 cd eeg-notebooks
 
 pip install -e .
+```
 
 ### 5. Set up your EEG Device
 
