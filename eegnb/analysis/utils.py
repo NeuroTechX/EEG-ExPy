@@ -346,6 +346,7 @@ def channel_filter(
     n_chans: int,
     sfreq: int,
     device_backend: str,
+    device_name: str,
     low: float = 3,
     high: float = 40,
     verbose: bool = False,
@@ -354,7 +355,8 @@ def channel_filter(
     if device_backend == "muselsl":
         pass
     elif device_backend == "brainflow":
-        X = X / 1000 # adjust scale of readings
+        if 'muse' not in device_name: # hacky; muse brainflow devices do in fact seem to be in correct units
+            X = X / 1000 # adjust scale of readings
     else:
         raise ValueError(f"Unknown backend {device_backend}")
     
@@ -385,17 +387,25 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
     """
 
     df = eeg.get_recent(n_samples=n_samples)
+    
+    # seems to be necessary to give brainflow cnxn time to settle
+    if len(df) != n_samples: 
+      sleep(10) 
+      df = eeg.get_recent(n_samples=n_samples) 
+
     assert len(df) == n_samples
 
     n_channels = eeg.n_channels
     sfreq = eeg.sfreq
     device_backend = eeg.backend
+    device_name = eeg.device_name
 
     vals = df.values[:, :n_channels]
     df.values[:, :n_channels] = channel_filter(vals, 
                                     n_channels,
                                     sfreq,
-                                    device_backend)
+                                    device_backend,
+                                    device_name)
 
     std_series = df.std(axis=0)
     
@@ -403,7 +413,7 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
 
 
 
-def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, thres_std_high=None, n_goods=2,n_inarow=10):
+def check_report(eeg: EEG, n_times: int=60, pause_time=10, thres_std_low=None, thres_std_high=None, n_goods=2,n_inarow=10):
     """
     Usage:
     ------
@@ -431,14 +441,17 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
             thres_std_high = 9
         elif eeg.device_name in ["notion1", "notion2", "crown"]:
             thres_std_high = 15
-        elif eeg.device_name in ["muse2016", "muse2", "museS"]:
+        elif 'muse' in eeg.device_name:
             thres_std_high = 18
 
     if thres_std_low is None:
-        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
-                               "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
-                               "notion1", "notion2", "crown",
-                               "muse2016", "muse2", "museS"]:
+
+        if 'muse' in eeg.device_name: 
+            thres_std_low = 1
+
+        elif eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                                 "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
+                                 "notion1", "notion2", "crown"]:
             thres_std_low = 1
 
             
@@ -454,6 +467,9 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     good_count=0
 
     n_samples = int(pause_time*eeg.sfreq)
+
+    sleep(5)
+
     for loop_index in range(n_times):
         print(f'\n\n\n{loop_index+1}/{n_times}')
         std_series = check(eeg, n_samples=n_samples)

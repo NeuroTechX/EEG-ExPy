@@ -39,6 +39,10 @@ brainflow_devices = [
     "notion2",
     "freeeeg32",
     "crown",
+    "museS_bfn", # bfn = brainflow with native bluetooth;
+    "museS_bfb", # bfb = brainflow with BLED dongle bluetooth
+    "muse2_bfn",
+    "muse2_bfb"
 ]
 
 
@@ -246,6 +250,18 @@ class EEG:
             if self.serial_port is None:
                 self.brainflow_params.serial_port = get_openbci_usb()
 
+        elif self.device_name == "museS_bfn":
+            self.brainflow_id = BoardIds.MUSE_S_BOARD.value
+
+        elif self.device_name == "museS_bfb":
+            self.brainflow_id = BoardIds.MUSE_S_BLED_BOARD.value
+
+        elif self.device_name == "muse2_bfn":
+            self.brainflow_id = BoardIds.MUSE_2_BOARD.value
+    
+        elif self.device_name == "muse2_bfn":
+            self.brainflow_id = BoardIds.MUSE_2_BLED_BOARD.value
+    
         elif self.device_name == "synthetic":
             self.brainflow_id = BoardIds.SYNTHETIC_BOARD.value
 
