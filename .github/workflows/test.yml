@@ -59,10 +59,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip wheel
         pip install .
-    - name: Typecheck
-      run: |
-        # Exclude visual_cueing due to errors
-        python -m mypy --exclude 'examples/visual_cueing'
     - name: Run eegnb install test
       shell: bash
       run: |
@@ -80,3 +76,45 @@ jobs:
           export DISPLAY=:0
         fi
         pytest
+
+  typecheck:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python_version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python_version }}
+    - name: Install APT dependencies
+      if: "startsWith(runner.os, 'Linux')"
+      run: |
+        # update archive links
+        sudo apt-get update
+        # xvfb is a dependency to create a virtual display
+        # libgtk-3-dev is a requirement for wxPython
+        # freeglut3-dev is a requirement for a wxPython dependency
+        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev
+    - name: Install Linux dependencies
+      if: "startsWith(runner.os, 'Linux')"
+      run: |
+        python -m pip install --upgrade pip wheel
+
+        # Install wxPython wheels since they are distribution-specific and therefore not on PyPI
+        # See: https://wxpython.org/pages/downloads/index.html
+        pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
+
+        pip install .
+    - name: Install MacOS/Windows dependencies
+      run: |
+        python -m pip install --upgrade pip wheel
+        pip install .
+    - name: Typecheck
+      run: |
+        # Exclude visual_cueing due to errors
+        python -m mypy --exclude 'examples/visual_cueing'
