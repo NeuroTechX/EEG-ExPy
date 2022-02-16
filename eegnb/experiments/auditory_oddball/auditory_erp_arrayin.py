@@ -150,9 +150,9 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
 def show_instructions(duration):
 
     instruction_text = """
-    Welcome to the N170 experiment! 
+    Welcome to the Auditory Oddball Experiment! 
  
-    Stay still, focus on the centre of the screen, and try not to blink. 
+    Stay still, focus on the centre of the screen, listen to the tones, and try not to blink. 
 
     This block will run for %s seconds.
 
