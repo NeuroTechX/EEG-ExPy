@@ -259,7 +259,7 @@ class EEG:
         elif self.device_name == "muse2_bfn":
             self.brainflow_id = BoardIds.MUSE_2_BOARD.value
     
-        elif self.device_name == "muse2_bfn":
+        elif self.device_name == "muse2_bfb":
             self.brainflow_id = BoardIds.MUSE_2_BLED_BOARD.value
     
         elif self.device_name == "synthetic":
