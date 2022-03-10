@@ -93,7 +93,28 @@ pip install -e .
 ### 5. Set up your EEG Device
 
 
-#### 5.1 Windows+Muse device users: install BlueMuse software
+#### 5.1 Windows+Muse device users 
+
+EEG-Notebooks supports two general options for streaming data from muse devices in windows:
+
+1. `Brainflow'
+
+2. `Bluemuse'
+
+
+Whilst `BlueMuse' is an excellent tool, the preferred option is `Brainflow', as this is run directly within Python without having to manage an additional streaming tool. 
+
+However, we have found that `Brainflow` does not work on all Windows machines, particularly Windows 11. 
+
+We recommend `brainflow`; try that first. 
+
+You might therefore need to do some 
+
+**How to check the brainflow is working ok with the muse**
+
+**BlueMuse**
+
+
 
 #### 5.2 OpenBCI Devices
 
