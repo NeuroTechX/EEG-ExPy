@@ -124,25 +124,34 @@ First, some general notes:
 
 #### 5.1 Windows+Muse device users 
 
-EEG-Notebooks supports two general options for streaming data from muse devices in windows:
-
-1. `Brainflow`
-
-2. `Bluemuse`
-
+EEG-Notebooks supports two general options for streaming data from muse devices in windows: `Brainflow` and  `Bluemuse`. 
 
 Whilst `BlueMuse` is an excellent tool, the preferred option is `Brainflow`, as this is run directly within Python without having to manage an additional streaming tool. 
 
-However, we have found that `Brainflow` does not work on all Windows machines, particularly Windows 11. 
+However, we have found that `Brainflow` does not work on all Windows machines, particularly in some Windows 11 computers. 
 
-We recommend `brainflow`; try that first. 
+So you may need to take a trial-and-error approach here. 
 
-You might therefore need to do some 
+Ideally the default option, Brainflow (with native bluetooth), will work well for you immediately, and there will be no need to read further on this topic. 
+
+The `eeg-notebooks` codes for the 3 currently available muse models are `muse2016`, `muse2`, and `museS`.
+
+For each of these, there is the option to strean on either `muselsl` (via `BlueMuse`), `Brainflow` with *native* bluetooth, or `Brainflow` with *BLED dongle* bluetooth. For a muse 2 device, the codes for these three streaming options would be `muse2_bfn`, `muse2_bfb`, `muse2`.
+
 
 **How to check the brainflow is working ok with the muse**
 
+The easiest way to check if default native-bluetooth Brainflow connection is working on your machine is the following:
+
+- Complete the installation instructions above
+- Try running the signal quality checker (see below). `eegnb checksigqual -ed muse2_bfn`
+- If the flashing lights have gone solid on your device, and the command line signal checker has launched, then you're in good shape!
+
+
+
 **BlueMuse**
 
+Grab the [latest BlueMuse version](https://github.com/kowalej/BlueMuse/releases) and follow the [installation instructions](https://github.com/kowalej/BlueMuse). 
 
 
 #### 5.2 OpenBCI Devices
