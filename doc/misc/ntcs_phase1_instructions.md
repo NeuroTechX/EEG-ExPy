@@ -47,7 +47,7 @@ The end-to-end sequence of steps for participating in NTCS are as follows:
 
 ## TL;DR instructions version
 
-1. Start anaconda and activate envirnment
+1. Start anaconda and activate environment
 
 `conda activate ntcs`
 
@@ -59,7 +59,9 @@ The end-to-end sequence of steps for participating in NTCS are as follows:
 
 `eegnb runexp -ip`
 
-4. Repeat `step 3` x10 times, with (up to) 2 minute breaks in between.
+Specify 5 minutes (600 seconds) run duration
+
+4. Repeat step 3 ten times, with (up to) 2 minute breaks in between.
 
 5. Zip data and upload to website via your personalized link. 
 
