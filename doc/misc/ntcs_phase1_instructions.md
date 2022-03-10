@@ -233,9 +233,17 @@ When you are ready to continue, run the file zipper command line utility. This w
 
 ### 8. Upload your zipped data file to your personalized URL
 
+Final step - go back to the e-mail you received after completing the consent form. This contains your personalized URL for uploading your data.  
+
+
+
 ### 9. Make use of your newfangled knowledge!
 
+Congratulations~ You have completed Neurotech Challenge Phase 1. 
 
+As a bonus, you now have a working knowledge of how to run cognitive neuroscience experiments on your personal computer with your mobile EEG system. There are many other interesting experiments in `eeg-notebooks` that you might be interested to try out, and they're extremely easy to customize, modify, and extend. Follow your nose and have fun! 
+
+Also, drop us a line at `team@neurotech-challenge.com`, tell us how you found NTCS Phase 1. We'd love to hear from you~
 
 
 
@@ -244,27 +252,15 @@ When you are ready to continue, run the file zipper command line utility. This w
 
 ### Where are my files?
 
-- they go into a hidden folder
-- run the cmdline function
-
-### How do I upload the files?
-
-- run the zipper function
-- the file will be x
+Check out the info in point 7. 
 
 
 ### OpenBCI Ports and drivers
 
-- ...
+This is a major gotcha. So much so we're listing it twice. If you are using OpenBCI on Windows, MAKE SURE you have configured the FTDI driver as described above. Otherwise the sampling rate will be 1/16 the desired level and you won't get any decent date. 
 
-### OpenBCI Channel positions
-
-- If 8 then X. If 4 then X. Do not use arbitrarily chosen channel locations. 
-- 
 
 ### Python is not 3.7
 
-- Don't use python 3.8. See anaconda installation command. 
-
-
+- Python 3.8+ is not currently supported by `eeg-notebooks`. If you type `Python` and the prompt tells you it is not `Python 3.7`, and this was not something you indended, then something has gone wrong with your installation or environment setup. Go back and repeat the environment setup steps; if the issue persists, repeat the `miniconda` install steps. 
 
