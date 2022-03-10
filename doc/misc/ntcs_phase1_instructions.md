@@ -12,6 +12,23 @@ These instructions, and NTCS in general, also double up as an excellent practica
 
 **Have fun** and **thank you** for joining on NTCSP1!
 
+## On this page
+
+This page is your reference location for how to participate in NTCSP1.  
+
+We have tried to keep it fairly succinct, whilst also including all the key info. At some points there is relevant documentation in other locations which does not make sense to duplicate here (e.g. installation of third-party software such as Miniconda or Bluemuse), in which cases we provide links. There are also links to other additional information at various points that is informative but not essential for you to consult. 
+
+***Contents:***
+
+- [Instructional Videos](#instructional-videos)     
+- [Summary of Steps](#summary-of-the-steps)   
+- [TL;DR Version](#tl-dr-instructions-version)  
+- [Full instructions](#full-step-by-step-instructions)   
+- [FAQs](#faqs,-troubleshooting,-gotchas)  
+
+
+
+
 
 ## Instructional Videos
 
