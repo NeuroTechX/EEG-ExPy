@@ -45,6 +45,28 @@ The end-to-end sequence of steps for participating in NTCS are as follows:
 - **Upload** your data to our secure servers via the personalized link from your first e-mail.  
 
 
+## TL;DR instructions version
+
+1. Start anaconda and activate envirnment
+
+`conda activate ntcs`
+
+2. Run signal quality checker
+
+`eegnb checksigqual -ed cyton`
+
+3. Run N170 experiment 
+
+`eegnb runexp -ip`
+
+4. Repeat `step 3` x10 times, with (up to) 2 minute breaks in between.
+
+5. Zip data and upload to website via your personalized link. 
+
+
+
+
+
 ## Full step-by-step instructions
 
 ### 1. Sign up and provide informed consent.
@@ -224,7 +246,7 @@ When you have completed your recording session (or at any other time), you can c
 
 This will print out to the command line a list of the folders and files present in the default storage location. This list includes two principal types: the demo data, and data you have recorded (`local' data). Note that any other data saved at non-default locations that you have specified yourself may not be included in this list. 
 
-The default location is `~/.eegnb/data', file naming convention of `{experiment_name}_{site}-{day_month_year_hour:minute}'.csv - such as X.csv. 
+The default location is `~/.eegnb/data`, file naming convention of `{experiment_name}_{site}-{day_month_year_hour:minute}.csv` - such as `C:\Users\eeglab\.eegnb\data\visual-N170\local\museS_bfn\subject0001\session001\recording_2021-12-24-05.25.25.csv`. 
 
 #### 7.2 Compress your data
 
