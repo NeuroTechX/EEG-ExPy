@@ -79,9 +79,9 @@ Follow the instructions on this page of the eeg-notebooks docs
 https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html
 
 ```
-conda create -n "env1" python=3.7 git pip wxpython
+conda create -n "ntcs" python=3.7 git pip wxpython
 
-conda activate "env1"
+conda activate "ntcs"
 
 git clone https://github.com/NeuroTechX/eeg-notebooks
 
@@ -127,18 +127,43 @@ https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview
   - Note that the NTCS uses different electrode positions than the ones in this guide. You will need to adjust your setup so that the electrodes are on the back of the head
 
 ### 6. Run the visual N170 experiment
-activate your conda environment
 
-then run the command: 
-eegnb runexp -ip
+First, activate your conda environment
+
+`conda activate ntcs`
+
+Turn on your EEG device, and put it on your head. 
+
+
+#### 6.1 Check your signal quality
+
+Before starting data collection, you need to first verify that your readings have acceptable signal quality. 
+
+`eeg-notebooks` has a simple command-line program for this purpose. Launch it with 
+
+`eegnb checksigqual -ed mydevice`
+
+(`ed` here stands for 'eeg device')
+
+The signal quality checker performs a signal quality check every 5 seconds, and displays results on the command line. 
+
+It will repeat this 10 times by default. If the signal is evaluated as good for all channels on the device for two runs in row, the program will automatically abort, and you are ready to move on to data collection. 
+
+Once you launch the signal quality checker, you should do what you can to achieve good signal on all channels. First and foremost this means keeping still, breathing gently, and keeping eye movements and blinks to a minimum. 
+
+After you have passed the initial signal quality check, you can move on to the experiment. 
+
+You should repeat the signal quality checker a few times throughout the data collection - especially if you need to adjust the EEG position substantially for some reason. It is not necessary to re-run the signal quality check before all 10 recordings, however. 
+
+
+#### 6.2 Run the experiment
+
+Launch the run experiment "interactive prompt" with the command: 
+
+`eegnb runexp -ip`
 
 and follow the prompts for your specific hardware. When it asks which experiment to run, select "Visual N170"
 
-#### 6.1 Initiate an EEG stream
-
-#### 6.2 Check your signal quality
-
-#### 6.3 Run the experiment
 
 ##### 6.3.1 Get ready
 
