@@ -40,9 +40,8 @@ Videos 2-5 include live demos and discussions showing you the specific steps you
 
 - [Video 1](https://www.youtube.com/watch?v=LdRG1DFqx5w): About NTCS
 - [Video 2](): Installing the software
-- [Video 3](): Initiating an EEG stream
-- [Video 4](): Running the experiment
-- [Video 5](): Uploading your data. 
+- [Video 3](): Running the experiment
+- [Video 4](): Uploading your data. 
 
 Additionally, you might be interested to check out JG's [introductory lecture on eeg-notebooks](https://www.youtube.com/watch?v=C834sFQvL1c&t=103s). This is not mandatory however for NTCS. 
 
