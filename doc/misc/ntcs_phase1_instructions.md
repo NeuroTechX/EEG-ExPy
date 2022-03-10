@@ -1,16 +1,16 @@
 # NTCS Phase 1 Instructions
 
-Welcome to the `NeuroTech Challenge Series (NTCS)`, `Phase 1` instructions page. 
+Welcome to the **NeuroTech Challenge Series (NTCS)**, **Phase 1 (P1)** instructions page. 
 
-`NTCS Phase 1` is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team. 
+**NTCSP1** is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team. 
 
 If this is the first time you are learning about NTCS, check out the [NTCS website](https://neurotech-challenge.com/) for additional info about this and other upcoming challenges and opportunities. 
 
-If you are ready to get going with NTCS Phase 1, have been directed here by other comms from us, or would simply like to browse through to getter a better idea of what's involved, you are in the right place. 
+If you are ready to get going with NTCSP1, have been directed here by other comms from us, or would simply like to browse through to getter a better idea of what's involved, you are in the right place. 
 
 These instructions, and NTCS in general, also double up as an excellent practical introduction to the `eeg-notebooks` software. 
 
-Have fun and thank you for joining on NTCS Phase 1!
+Have fun and thank you for joining on NTCSPhase 1!
 
 
 ## Instructional Videos
