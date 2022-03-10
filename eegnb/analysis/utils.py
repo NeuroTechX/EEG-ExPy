@@ -413,7 +413,7 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
 
 
 
-def check_report(eeg: EEG, n_times: int=60, pause_time=10, thres_std_low=None, thres_std_high=None, n_goods=2,n_inarow=10):
+def check_report(eeg: EEG, n_times: int=30, pause_time=5, thres_std_low=None, thres_std_high=None, n_goods=2,n_inarow=10):
     """
     Usage:
     ------

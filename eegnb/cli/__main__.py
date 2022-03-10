@@ -1,3 +1,8 @@
+
+from psychopy import prefs
+prefs.hardware['audioLib'] = ['PTB']
+from psychopy import sound
+
 from eegnb import DATA_DIR
 import click
 from time import sleep
