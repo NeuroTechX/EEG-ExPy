@@ -21,7 +21,7 @@ Video 1 is a short general overview and big picture. You should watch this fully
 
 Videos 2-5 include live demos and discussions showing you the specific steps you need to follow, and what to expect when you run them. For these, it is probably best to go back and forth a bit between the instructions text below and stepping through sections carefully, as needed. 
 
-- [Video 1](): About NTCS
+- [Video 1](https://www.youtube.com/watch?v=LdRG1DFqx5w): About NTCS
 - [Video 2](): Installing the software
 - [Video 3](): Initiating an EEG stream
 - [Video 4](): Running the experiment
