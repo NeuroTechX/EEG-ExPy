@@ -81,7 +81,7 @@ https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html
 ```
 conda create -n "ntcs" python=3.7 git pip wxpython
 
-conda activate "ntcs"
+conda activate ntcs
 
 git clone https://github.com/NeuroTechX/eeg-notebooks
 
@@ -97,12 +97,12 @@ pip install -e .
 
 EEG-Notebooks supports two general options for streaming data from muse devices in windows:
 
-1. `Brainflow'
+1. `Brainflow`
 
-2. `Bluemuse'
+2. `Bluemuse`
 
 
-Whilst `BlueMuse' is an excellent tool, the preferred option is `Brainflow', as this is run directly within Python without having to manage an additional streaming tool. 
+Whilst `BlueMuse` is an excellent tool, the preferred option is `Brainflow`, as this is run directly within Python without having to manage an additional streaming tool. 
 
 However, we have found that `Brainflow` does not work on all Windows machines, particularly Windows 11. 
 
