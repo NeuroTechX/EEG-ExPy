@@ -2,7 +2,7 @@
 
 Welcome to the **NeuroTech Challenge Series (NTCS)**, **Phase 1 (P1)** instructions page. 
 
-**NTCSP1** is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH) [KCNI](krembilneuroinformatics.ca), in collaboration with [OpenBCI](https://openbci.com), [NeuroTechX](neurotechx.com), and the eeg-notebooks core developer team. 
+**NTCSP1** is an international citizen science research study, run by researchers at the University of Toronto and the [CAMH KCNI](krembilneuroinformatics.ca), in collaboration with [OpenBCI](https://openbci.com), [NeuroTechX](neurotechx.com), and the eeg-notebooks core developer team. 
 
 If this is the first time you are learning about NTCS, check out the [NTCS website](https://neurotech-challenge.com/) for additional info about this and other upcoming challenges and opportunities. 
 
