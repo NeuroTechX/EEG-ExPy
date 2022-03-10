@@ -116,11 +116,13 @@ pip install -e .
 
 ### 5. Set up your EEG Device
 
+First, some general notes:
+
+- We have some [general device and streaming notes](https://github.com/NeuroTechX/eeg-notebooks/blob/2ee42af999ed2d15626ea5865a2147791e1fbde7/doc/getting_started/streaming.md) 
+- Muse users should also check out the additional *muse device usage information* [here](https://github.com/NeuroTechX/eeg-notebooks/blob/master/doc/misc/muse_info.md).
+
 
 #### 5.1 Windows+Muse device users 
-
-Muse users - check out the additional *muse device usage information* [here](https://github.com/NeuroTechX/eeg-notebooks/blob/master/doc/misc/muse_info.md).
-
 
 EEG-Notebooks supports two general options for streaming data from muse devices in windows:
 
