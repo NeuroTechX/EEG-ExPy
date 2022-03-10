@@ -10,7 +10,7 @@ If you are ready to get going with NTCSP1, have been directed here by other comm
 
 These instructions, and NTCS in general, also double up as an excellent practical introduction to the `eeg-notebooks` software. 
 
-Have fun and thank you for joining on NTCSPhase 1!
+**Have fun** and **thank you** for joining on NTCSP1!
 
 
 ## Instructional Videos
