@@ -119,6 +119,9 @@ pip install -e .
 
 #### 5.1 Windows+Muse device users 
 
+Muse users - check out the additional *muse device usage information* [here](https://github.com/NeuroTechX/eeg-notebooks/blob/master/doc/misc/muse_info.md).
+
+
 EEG-Notebooks supports two general options for streaming data from muse devices in windows:
 
 1. `Brainflow`
