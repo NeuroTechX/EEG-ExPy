@@ -1,4 +1,8 @@
-import os
+from psychopy import prefs
+#change the pref libraty to PTB and set the latency mode to high precision
+prefs.hardware['audioLib'] = 'PTB'
+prefs.hardware['audioLatencyMode'] = 3
+
 from time import time
 from glob import glob
 from random import choice
