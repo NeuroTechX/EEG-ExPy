@@ -432,5 +432,11 @@ class EEG:
             df = self._muse_get_recent(n_samples)
         else:
             raise ValueError(f"Unknown backend {self.backend}")
+
+        # Sort out the sensor coils
+        sorted_cols = sorted(df.columns)
+        df = df[sorted_cols]
+
+
         return df
 
