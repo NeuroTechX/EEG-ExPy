@@ -501,7 +501,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=10, thres_std_low=None, t
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
             prompt_start = time()
-            continue_sigqual = input("\nChecks will resume in 10 seconds...Press 'c' (and ENTER key) if you want to stop adjusting for better quality.\n")
+            continue_sigqual = input("\nChecks will resume in %s seconds...Press 'c' (and ENTER key) if you want to stop adjusting for better quality.\n" %pause_time)
             while time() < prompt_start + 5:
                 if continue_sigqual == 'c':
                     break
