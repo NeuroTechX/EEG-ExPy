@@ -1,6 +1,6 @@
 
 #change the pref libraty to PTB and set the latency mode to high precision
-from pyschopy import prefs
+from psychopy import prefs
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
