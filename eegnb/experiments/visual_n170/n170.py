@@ -3,6 +3,7 @@ from psychopy import prefs
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
+import os
 from time import time
 from glob import glob
 from random import choice
