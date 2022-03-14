@@ -19,9 +19,10 @@ from eegnb.devices.eeg import EEG
 #from eegnb.stimuli import FACE_HOUSE
 
 
-def present(duration=120, eeg: EEG=None, save_fn=None,
+def present(eeg: EEG=None, save_fn=None,
             stim_types=None, itis=None, additional_labels={},
-            secs=0.07, volume=0.8,tone1_hz =440, tone2_hz = 528):
+            secs=0.07, volume=0.8,tone1_hz =440, tone2_hz = 528,
+            do_fixation=True):
 
     soa = 0 # ?
 
@@ -44,9 +45,6 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
     markernames = [1, 2]
     start = time.time()
 
-    # Set up trial parameters
-    record_duration = np.float32(duration)
-
     # Initialize stimuli
     # aud1 = sound.Sound('C', octave=5, sampleRate=44100, secs=secs)
     aud1 = sound.Sound(tone1_hz, secs=secs)  # , octave=5, sampleRate=44100, secs=secs)
@@ -58,26 +56,24 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
     auds = [aud1, aud2]
 
     # Setup trial list
-    # sound_ind = np.random.binomial(1, 0.25, n_trials)
-    # itis = iti + np.random.rand(n_trials) * jitter
-    # trials = DataFrame(dict(sound_ind=sound_ind, iti=itis))
-    # trials['soa'] = soa
-    # trials['secs'] = secs
     trials = DataFrame(dict(sound_ind=stim_types, iti=itis))
+
+    record_duration_int = int(round(trials.iti.values.sum(),-1))
+    record_duration_float = np.float32(record_duration_int)
 
     for col_name, col_vec in additional_labels.items():
         trials[col_name] = col_vec
 
-    # Setup graphics
-    mywin = visual.Window(
-        [1920, 1080], monitor="testMonitor", units="deg", fullscr=True
-    )
-    fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0, rgb=[1, 0, 0])
-    fixation.setAutoDraw(True)
-    mywin.flip()
+    if do_fixation:
+        # Setup graphics
+        mywin = visual.Window(
+        [1920, 1080], monitor="testMonitor", units="deg", fullscr=True)
+        fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0, rgb=[1, 0, 0])
+        fixation.setAutoDraw(True)
+        mywin.flip()
 
-    # Show the instructions screen
-    show_instructions(10)
+        # Show the instructions screen
+        show_instructions(record_duration_int)
 
     # Start the EEG stream
     if eeg:
@@ -88,7 +84,7 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
             print(
                 f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
             )
-        eeg.start(save_fn, duration=record_duration + 5)
+        eeg.start(save_fn, duration=record_duration_float + 5)
 
     # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
     start = time.time()
@@ -126,28 +122,42 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
         # Push sample
         if eeg:
             timestamp = time.time()
+
+            marker = additional_stamps +  [markernames[ind]]
+
+            """
             if eeg.backend == "muselsl":
-                marker = [markernames[ind]]
-                #marker = [markernames[label]]
+                #marker = [markernames[ind]]
+                marker = additional_stamps + [markernames[ind]]
             else:
                 marker = markernames[ind]  # type: ignore
-            eeg.push_sample(marker=additional_stamps + marker, timestamp=timestamp)
+                mark
+            """
 
-        mywin.flip()
+            #eeg.push_sample(marker=additional_stamps + marker, timestamp=timestamp)
+            eeg.push_sample(marker=marker,timestamp=timestamp)
 
-        # offset
-        core.wait(soa)
-        mywin.flip()
-        if len(event.getKeys()) > 0 or (time.time() - start) > record_duration:
+
+        if do_fixation:
+            mywin.flip()
+
+            # offset
+            core.wait(soa)
+            mywin.flip()
+
+        if len(event.getKeys()) > 0 or (time.time() - start) > (record_duration_float+5):
             break
-
+        
         event.clearEvents()
 
-    # Cleanup
-    if eeg:
-        eeg.stop()
 
-    mywin.close()
+
+    # Cleanup
+    if eeg: eeg.stop()
+
+
+    if do_fixation:
+        mywin.close()
 
 
     return trials
