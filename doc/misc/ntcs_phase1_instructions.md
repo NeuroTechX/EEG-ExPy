@@ -41,7 +41,7 @@ Videos 2-5 include live demos and discussions showing you the specific steps you
 - [Video 1](https://www.youtube.com/watch?v=LdRG1DFqx5w): About NTCS
 - [Video 2](https://youtu.be/tc1yIGUjMV4): Docs and getting started
 - [Video 3](): Connecting your EEG device and checking signal quality
-- [Video 4](https://drive.google.com/file/d/1BBknwp9RrIPUrocYP0JbIwj-CNQXPW7u/view?usp=sharing): Running the N170 experiment, reviewing and uploading your data. 
+- [Video 4](https://youtu.be/zYeNrSjNk5g): Running the N170 experiment, reviewing and uploading your data. 
 
 Additionally, you might be interested to check out JG's [introductory lecture on eeg-notebooks](https://www.youtube.com/watch?v=C834sFQvL1c&t=103s). This is not mandatory however for NTCS. 
 
