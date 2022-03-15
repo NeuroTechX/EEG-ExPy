@@ -10,7 +10,7 @@ pyriemann>=0.2.7
 jupyter
 muselsl>=2.0.2
 brainflow>=4.8.2
-gdown==3.12.2
+gdown
 matplotlib>=3.3.3
 pysocks==1.7.1
 pyserial==3.5
