@@ -32,7 +32,7 @@ We have tried to keep it fairly succinct, whilst also including all the key info
 
 ## Instructional Videos
 
-We recommend that before you get going on the steps listed below, you watch the ]instructional videos](https://www.youtube.com/playlist?list=PLwFAVRNJkK_gjRQ4SVXa3HDJKy9T0mq0G). 
+We recommend that before you get going on the steps listed below, you watch the [instructional videos](https://www.youtube.com/playlist?list=PLwFAVRNJkK_gjRQ4SVXa3HDJKy9T0mq0G). 
 
 Video 1 is a short general overview and big picture. You should watch this fully first before continuing. 
 
