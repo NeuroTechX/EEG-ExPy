@@ -482,23 +482,35 @@
             
   <section id="ntcs-phase-1-instructions">
 <h1>NTCS Phase 1 Instructions<a class="headerlink" href="#ntcs-phase-1-instructions" title="Permalink to this headline">¶</a></h1>
-<p>Welcome to the <code class="docutils literal notranslate"><span class="pre">NeuroTech</span> <span class="pre">Challenge</span> <span class="pre">Series</span> <span class="pre">(NTCS),</span> <span class="pre">Phase</span> <span class="pre">1</span></code> instructions page.</p>
-<p><code class="docutils literal notranslate"><span class="pre">NTCS</span> <span class="pre">Phase</span> <span class="pre">1</span></code> is an international citizen science research study, run by researchers at the University of Toronto and the Centre for Addiction and Mental Health (CAMH), in collaboration with OpenBCI, NeuroTechX, and the eeg-notebooks core developer team.</p>
+<p>Welcome to the <strong>NeuroTech Challenge Series (NTCS)</strong>, <strong>Phase 1 (P1)</strong> instructions page.</p>
+<p><strong>NTCSP1</strong> is an international citizen science research study, run by researchers at the University of Toronto and the <a class="reference external" href="krembilneuroinformatics.ca">CAMH KCNI</a>, in collaboration with <a class="reference external" href="https://openbci.com">OpenBCI</a>, <a class="reference external" href="neurotechx.com">NeuroTechX</a>, and the eeg-notebooks core developer team.</p>
 <p>If this is the first time you are learning about NTCS, check out the <a class="reference external" href="https://neurotech-challenge.com/">NTCS website</a> for additional info about this and other upcoming challenges and opportunities.</p>
-<p>If you are ready to get going with NTCS Phase 1, have been directed here by other comms from us, or would simply like to browse through to getter a better idea of what’s involved, you are in the right place.</p>
+<p>If you are ready to get going with NTCSP1, have been directed here by other comms from us, or would simply like to browse through to getter a better idea of what’s involved, you are in the right place.</p>
 <p>These instructions, and NTCS in general, also double up as an excellent practical introduction to the <code class="docutils literal notranslate"><span class="pre">eeg-notebooks</span></code> software.</p>
-<p>Have fun and thank you for joining on NTCS Phase 1!</p>
+<p><strong>Have fun</strong> and <strong>thank you</strong> for joining on NTCSP1!</p>
+<section id="on-this-page">
+<h2>On this page<a class="headerlink" href="#on-this-page" title="Permalink to this headline">¶</a></h2>
+<p>This page is your reference location for how to participate in NTCSP1.</p>
+<p>We have tried to keep it fairly succinct, whilst also including all the key info. At some points there is relevant documentation in other locations which does not make sense to duplicate here (e.g. installation of third-party software such as Miniconda or Bluemuse), in which cases we provide links. There are also links to other additional information at various points that is informative but not essential for you to consult.</p>
+<p><em><strong>Contents:</strong></em></p>
+<ul class="simple">
+<li><p><a class="reference external" href="#instructional-videos">Instructional Videos</a></p></li>
+<li><p><a class="reference external" href="#summary-of-the-steps">Summary of Steps</a></p></li>
+<li><p><a class="reference external" href="#tl-dr-instructions-version">TL;DR Version</a></p></li>
+<li><p><a class="reference external" href="#full-step-by-step-instructions">Full instructions</a></p></li>
+<li><p><a class="reference external" href="#faqs,-troubleshooting,-gotchas">FAQs</a></p></li>
+</ul>
+</section>
 <section id="instructional-videos">
 <h2>Instructional Videos<a class="headerlink" href="#instructional-videos" title="Permalink to this headline">¶</a></h2>
-<p>We recommend that before you get going on the steps listed below, you watch the instructional videos.</p>
+<p>We recommend that before you get going on the steps listed below, you watch the ]instructional videos](https://www.youtube.com/playlist?list=PLwFAVRNJkK_gjRQ4SVXa3HDJKy9T0mq0G).</p>
 <p>Video 1 is a short general overview and big picture. You should watch this fully first before continuing.</p>
 <p>Videos 2-5 include live demos and discussions showing you the specific steps you need to follow, and what to expect when you run them. For these, it is probably best to go back and forth a bit between the instructions text below and stepping through sections carefully, as needed.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="#">Video 1</a>: About NTCS</p></li>
-<li><p><a class="reference external" href="#">Video 2</a>: Installing the software</p></li>
-<li><p><a class="reference external" href="#">Video 3</a>: Initiating an EEG stream</p></li>
-<li><p><a class="reference external" href="#">Video 4</a>: Running the experiment</p></li>
-<li><p><a class="reference external" href="#">Video 5</a>: Uploading your data.</p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=LdRG1DFqx5w">Video 1</a>: About NTCS</p></li>
+<li><p><a class="reference external" href="https://youtu.be/tc1yIGUjMV4">Video 2</a>: Docs and getting started</p></li>
+<li><p><a class="reference external" href="https://youtu.be/Xv0yuSQJOPA">Video 3</a>: Connecting your EEG device and checking signal quality</p></li>
+<li><p><a class="reference external" href="https://youtu.be/zYeNrSjNk5g">Video 4</a>: Running the N170 experiment, reviewing and uploading your data.</p></li>
 </ul>
 <p>Additionally, you might be interested to check out JG’s <a class="reference external" href="https://www.youtube.com/watch?v=C834sFQvL1c&amp;t=103s">introductory lecture on eeg-notebooks</a>. This is not mandatory however for NTCS.</p>
 </section>
@@ -515,6 +527,26 @@
 <li><p>Locate the recorded data on your local machine and <strong>run the data zipper command</strong></p></li>
 <li><p><strong>Upload</strong> your data to our secure servers via the personalized link from your first e-mail.</p></li>
 </ul>
+</section>
+<section id="tl-dr-instructions-version">
+<h2>TL;DR instructions version<a class="headerlink" href="#tl-dr-instructions-version" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Start anaconda and activate environment</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">ntcs</span></code></p>
+<ol class="simple">
+<li><p>Run signal quality checker</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">checksigqual</span> <span class="pre">-ed</span> <span class="pre">cyton</span></code></p>
+<ol class="simple">
+<li><p>Run N170 experiment</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">runexp</span> <span class="pre">-ip</span></code></p>
+<p>Specify 5 minutes (600 seconds) run duration</p>
+<ol class="simple">
+<li><p>Repeat step 3 ten times, with (up to) 2 minute breaks in between.</p></li>
+<li><p>Zip data and upload to website via your personalized link.</p></li>
+</ol>
 </section>
 <section id="full-step-by-step-instructions">
 <h2>Full step-by-step instructions<a class="headerlink" href="#full-step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
@@ -535,54 +567,108 @@
 </section>
 <section id="install-miniconda">
 <h3>3. Install miniconda<a class="headerlink" href="#install-miniconda" title="Permalink to this headline">¶</a></h3>
+<p>Miniconda makes it easy to manage multiple different Python installations on the same machine. While using miniconda environments is not required, we strongly recommend it.</p>
+<p>Get the latest version of minconda: https://docs.conda.io/en/latest/miniconda.html</p>
+<p>Installation instructions: https://conda.io/projects/conda/en/latest/user-guide/install/index.html</p>
 </section>
 <section id="set-up-environment-and-install-eeg-notebooks">
 <h3>4. Set up environment and install eeg-notebooks<a class="headerlink" href="#set-up-environment-and-install-eeg-notebooks" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html
+<p>Follow the instructions on this page of the eeg-notebooks docs
+https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;ntcs&quot;</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.7</span> <span class="n">git</span> <span class="n">pip</span> <span class="n">wxpython</span>
 
-conda create -n <span class="s2">&quot;env1&quot;</span> <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 git pip wxpython
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">ntcs</span>
 
-conda activate <span class="s2">&quot;env1&quot;</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">NeuroTechX</span><span class="o">/</span><span class="n">eeg</span><span class="o">-</span><span class="n">notebooks</span>
 
-git clone https://github.com/NeuroTechX/eeg-notebooks
+<span class="n">cd</span> <span class="n">eeg</span><span class="o">-</span><span class="n">notebooks</span>
 
-<span class="nb">cd</span> eeg-notebooks
-
-pip install -e .
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </div>
 </section>
 <section id="set-up-your-eeg-device">
 <h3>5. Set up your EEG Device<a class="headerlink" href="#set-up-your-eeg-device" title="Permalink to this headline">¶</a></h3>
-<section id="windows-muse-device-users-install-bluemuse-software">
-<h4>5.1 Windows+Muse device users: install BlueMuse software<a class="headerlink" href="#windows-muse-device-users-install-bluemuse-software" title="Permalink to this headline">¶</a></h4>
+<p>First, some general notes:</p>
+<ul class="simple">
+<li><p>We have some <a class="reference external" href="https://github.com/NeuroTechX/eeg-notebooks/blob/2ee42af999ed2d15626ea5865a2147791e1fbde7/doc/getting_started/streaming">general device and streaming notes</a></p></li>
+<li><p>Muse users should also check out the additional <em>muse device usage information</em> <a class="reference external" href="https://github.com/NeuroTechX/eeg-notebooks/blob/master/doc/misc/muse_info">here</a>.</p></li>
+</ul>
+<section id="windows-muse-device-users">
+<h4>5.1 Windows+Muse device users<a class="headerlink" href="#windows-muse-device-users" title="Permalink to this headline">¶</a></h4>
+<p>EEG-Notebooks supports two general options for streaming data from muse devices in windows: <code class="docutils literal notranslate"><span class="pre">Brainflow</span></code> and  <code class="docutils literal notranslate"><span class="pre">Bluemuse</span></code>.</p>
+<p>Whilst <code class="docutils literal notranslate"><span class="pre">BlueMuse</span></code> is an excellent tool, the preferred option is <code class="docutils literal notranslate"><span class="pre">Brainflow</span></code>, as this is run directly within Python without having to manage an additional streaming tool.</p>
+<p>However, we have found that <code class="docutils literal notranslate"><span class="pre">Brainflow</span></code> does not work on all Windows machines, particularly in some Windows 11 computers.</p>
+<p>So you may need to take a trial-and-error approach here.</p>
+<p>Ideally the default option, Brainflow (with native bluetooth), will work well for you immediately, and there will be no need to read further on this topic.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">eeg-notebooks</span></code> codes for the 3 currently available muse models are <code class="docutils literal notranslate"><span class="pre">muse2016</span></code>, <code class="docutils literal notranslate"><span class="pre">muse2</span></code>, and <code class="docutils literal notranslate"><span class="pre">museS</span></code>.</p>
+<p>For each of these, there is the option to strean on either <code class="docutils literal notranslate"><span class="pre">muselsl</span></code> (via <code class="docutils literal notranslate"><span class="pre">BlueMuse</span></code>), <code class="docutils literal notranslate"><span class="pre">Brainflow</span></code> with <em>native</em> bluetooth, or <code class="docutils literal notranslate"><span class="pre">Brainflow</span></code> with <em>BLED dongle</em> bluetooth. For a muse 2 device, the codes for these three streaming options would be <code class="docutils literal notranslate"><span class="pre">muse2_bfn</span></code>, <code class="docutils literal notranslate"><span class="pre">muse2_bfb</span></code>, <code class="docutils literal notranslate"><span class="pre">muse2</span></code>.</p>
+<p><strong>How to check the brainflow is working ok with the muse</strong></p>
+<p>The easiest way to check if default native-bluetooth Brainflow connection is working on your machine is the following:</p>
+<ul class="simple">
+<li><p>Complete the installation instructions above</p></li>
+<li><p>Try running the signal quality checker (see below). <code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">checksigqual</span> <span class="pre">-ed</span> <span class="pre">muse2_bfn</span></code></p></li>
+<li><p>If the flashing lights have gone solid on your device, and the command line signal checker has launched, then you’re in good shape!</p></li>
+</ul>
+<p><strong>BlueMuse</strong></p>
+<p>Grab the <a class="reference external" href="https://github.com/kowalej/BlueMuse/releases">latest BlueMuse version</a> and follow the <a class="reference external" href="https://github.com/kowalej/BlueMuse">installation instructions</a>.</p>
 </section>
-<section id="openbci-users-install-openbci-gui">
-<h4>5.2 OpenBCI users: install OpenBCI GUI<a class="headerlink" href="#openbci-users-install-openbci-gui" title="Permalink to this headline">¶</a></h4>
-<p>Getting Started Guide for Cyton Board
-https://docs.openbci.com/GettingStarted/Boards/CytonGS/</p>
+<section id="openbci-devices">
+<h4>5.2 OpenBCI Devices<a class="headerlink" href="#openbci-devices" title="Permalink to this headline">¶</a></h4>
+<p>EEG Notebooks supports the OpenBCI Cyton (8 channel) and Ganglion (4 channel) boards.
+OpenBCI Getting Started Guides:</p>
+<ul class="simple">
+<li><p>Cyton: https://docs.openbci.com/GettingStarted/Boards/CytonGS/</p></li>
+<li><p>Ganglion: https://docs.openbci.com/GettingStarted/Boards/GanglionGS/</p></li>
+</ul>
 <p><strong>Important</strong> - Make sure to check that your FTDI driver is updates and configured properly:
 https://docs.openbci.com/Troubleshooting/TroubleshootingLanding/</p>
-<p>Instructions for setting up your Ultracortex
-https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview</p>
-<p>Instructions for setting up the headband kit [Note – NTCS uses different electrode positions]
-https://docs.openbci.com/AddOns/Headwear/HeadBand/</p>
+<p>It’s important to set up your electrodes so that they are mapped to the correct <a class="reference external" href="https://en.wikipedia.org/wiki/10%E2%80%9320_system_(EEG)#Higher-resolution_systems">10-20 locations</a>. See table below</p>
+<p>|   | 8 Channel  | 4 Channel |
+| :————: | :————: | :————: |
+| Ch 1  | FP1  | P7  |
+| Ch 2  | FP2  | P8  |
+| Ch 3  |  C3 | O1  |
+| Ch 4  | C4  | O2  |
+| Ch 5  | P7  | -  |
+| Ch 6  | P8  | -  |
+| Ch 7  | O1  | -  |
+| Ch 8  | O2  | -  |
+|Board| Cyton | Cyton or Ganglion|</p>
+<p>OpenBCI Headset Guides:</p>
+<ul class="simple">
+<li><p>Ultracortex:
+https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview</p></li>
+<li><p>Headband Kit: https://docs.openbci.com/AddOns/Headwear/HeadBand/</p>
+<ul>
+<li><p>Note that the NTCS uses different electrode positions than the ones in this guide. You will need to adjust your setup so that the electrodes are on the back of the head</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 <section id="run-the-visual-n170-experiment">
 <h3>6. Run the visual N170 experiment<a class="headerlink" href="#run-the-visual-n170-experiment" title="Permalink to this headline">¶</a></h3>
-<p>activate your conda environment</p>
-<p>then run the command:
-eegnb runexp -ip</p>
-<p>and follow the prompts for your specific hardware. When it asks which experiment to run, select “Visual N170”</p>
-<section id="initiate-an-eeg-stream">
-<h4>6.1 Initiate an EEG stream<a class="headerlink" href="#initiate-an-eeg-stream" title="Permalink to this headline">¶</a></h4>
-</section>
+<p>First, activate your conda environment</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">ntcs</span></code></p>
+<p>Turn on your EEG device, and put it on your head.</p>
 <section id="check-your-signal-quality">
-<h4>6.2 Check your signal quality<a class="headerlink" href="#check-your-signal-quality" title="Permalink to this headline">¶</a></h4>
+<h4>6.1 Check your signal quality<a class="headerlink" href="#check-your-signal-quality" title="Permalink to this headline">¶</a></h4>
+<p>Before starting data collection, you need to first verify that your readings have acceptable signal quality.</p>
+<p><code class="docutils literal notranslate"><span class="pre">eeg-notebooks</span></code> has a simple command-line program for this purpose. Launch it with</p>
+<p><code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">checksigqual</span> <span class="pre">-ed</span> <span class="pre">mydevice</span></code></p>
+<p>(<code class="docutils literal notranslate"><span class="pre">ed</span></code> here stands for ‘eeg device’)</p>
+<p>The signal quality checker performs a signal quality check every 5 seconds, and displays results on the command line.</p>
+<p>It will repeat this 10 times by default. If the signal is evaluated as good for all channels on the device for two runs in row, the program will automatically abort, and you are ready to move on to data collection.</p>
+<p>Once you launch the signal quality checker, you should do what you can to achieve good signal on all channels. First and foremost this means keeping still, breathing gently, and keeping eye movements and blinks to a minimum.</p>
+<p>After you have passed the initial signal quality check, you can move on to the experiment.</p>
+<p>You should repeat the signal quality checker a few times throughout the data collection - especially if you need to adjust the EEG position substantially for some reason. It is not necessary to re-run the signal quality check before all 10 recordings, however.</p>
 </section>
 <section id="run-the-experiment">
-<h4>6.3 Run the experiment<a class="headerlink" href="#run-the-experiment" title="Permalink to this headline">¶</a></h4>
+<h4>6.2 Run the experiment<a class="headerlink" href="#run-the-experiment" title="Permalink to this headline">¶</a></h4>
+<p>Launch the run experiment “interactive prompt” with the command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">runexp</span> <span class="pre">-ip</span></code></p>
+<p>and follow the prompts for your specific hardware. When it asks which experiment to run, select “Visual N170”</p>
 <section id="get-ready">
 <h5>6.3.1 Get ready<a class="headerlink" href="#get-ready" title="Permalink to this headline">¶</a></h5>
 <p>The NTCS Phase 1 experiment is lasts approximately 1 hour.</p>
@@ -609,7 +695,7 @@ eegnb runexp -ip</p>
 <p>When you have completed your recording session (or at any other time), you can check what data files you have recorded with eeg-notebooks using the following convenient command line utility:</p>
 <p><code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">checkdirs</span></code></p>
 <p>This will print out to the command line a list of the folders and files present in the default storage location. This list includes two principal types: the demo data, and data you have recorded (`local’ data). Note that any other data saved at non-default locations that you have specified yourself may not be included in this list.</p>
-<p>The default location is <code class="docutils literal notranslate"><span class="pre">~/.eegnb/data',</span> <span class="pre">file</span> <span class="pre">naming</span> <span class="pre">convention</span> <span class="pre">of</span> </code>{experiment_name}_{site}-{day_month_year_hour:minute}’.csv - such as X.csv.</p>
+<p>The default location is <code class="docutils literal notranslate"><span class="pre">~/.eegnb/data</span></code>, file naming convention of <code class="docutils literal notranslate"><span class="pre">{experiment_name}_{site}-{day_month_year_hour:minute}.csv</span></code> - such as <code class="docutils literal notranslate"><span class="pre">C:\Users\eeglab\.eegnb\data\visual-N170\local\museS_bfn\subject0001\session001\recording_2021-12-24-05.25.25.csv</span></code>.</p>
 </section>
 <section id="compress-your-data">
 <h4>7.2 Compress your data<a class="headerlink" href="#compress-your-data" title="Permalink to this headline">¶</a></h4>
@@ -618,44 +704,29 @@ eegnb runexp -ip</p>
 </section>
 <section id="upload-your-zipped-data-file-to-your-personalized-url">
 <h3>8. Upload your zipped data file to your personalized URL<a class="headerlink" href="#upload-your-zipped-data-file-to-your-personalized-url" title="Permalink to this headline">¶</a></h3>
+<p>Final step - go back to the e-mail you received after completing the consent form. This contains your personalized URL for uploading your data.</p>
 </section>
 <section id="make-use-of-your-newfangled-knowledge">
 <h3>9. Make use of your newfangled knowledge!<a class="headerlink" href="#make-use-of-your-newfangled-knowledge" title="Permalink to this headline">¶</a></h3>
+<p>Congratulations~ You have completed Neurotech Challenge Phase 1.</p>
+<p>As a bonus, you now have a working knowledge of how to run cognitive neuroscience experiments on your personal computer with your mobile EEG system. There are many other interesting experiments in <code class="docutils literal notranslate"><span class="pre">eeg-notebooks</span></code> that you might be interested to try out, and they’re extremely easy to customize, modify, and extend. Follow your nose and have fun!</p>
+<p>Also, drop us a line at <code class="docutils literal notranslate"><span class="pre">team&#64;neurotech-challenge.com</span></code>, tell us how you found NTCS Phase 1. We’d love to hear from you~</p>
 </section>
 </section>
 <section id="faqs-troubleshooting-gotchas">
 <h2>FAQs, Troubleshooting, Gotchas<a class="headerlink" href="#faqs-troubleshooting-gotchas" title="Permalink to this headline">¶</a></h2>
 <section id="where-are-my-files">
 <h3>Where are my files?<a class="headerlink" href="#where-are-my-files" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>they go into a hidden folder</p></li>
-<li><p>run the cmdline function</p></li>
-</ul>
-</section>
-<section id="how-do-i-upload-the-files">
-<h3>How do I upload the files?<a class="headerlink" href="#how-do-i-upload-the-files" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>run the zipper function</p></li>
-<li><p>the file will be x</p></li>
-</ul>
+<p>Check out the info in point 7.</p>
 </section>
 <section id="openbci-ports-and-drivers">
 <h3>OpenBCI Ports and drivers<a class="headerlink" href="#openbci-ports-and-drivers" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>…</p></li>
-</ul>
-</section>
-<section id="openbci-channel-positions">
-<h3>OpenBCI Channel positions<a class="headerlink" href="#openbci-channel-positions" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>If 8 then X. If 4 then X. Do not use arbitrarily chosen channel locations.</p></li>
-<li></li>
-</ul>
+<p>This is a major gotcha. So much so we’re listing it twice. If you are using OpenBCI on Windows, MAKE SURE you have configured the FTDI driver as described above. Otherwise the sampling rate will be 1/16 the desired level and you won’t get any decent date.</p>
 </section>
 <section id="python-is-not-3-7">
 <h3>Python is not 3.7<a class="headerlink" href="#python-is-not-3-7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Don’t use python 3.8. See anaconda installation command.</p></li>
+<li><p>Python 3.8+ is not currently supported by <code class="docutils literal notranslate"><span class="pre">eeg-notebooks</span></code>. If you type <code class="docutils literal notranslate"><span class="pre">Python</span></code> and the prompt tells you it is not <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.7</span></code>, and this was not something you indended, then something has gone wrong with your installation or environment setup. Go back and repeat the environment setup steps; if the issue persists, repeat the <code class="docutils literal notranslate"><span class="pre">miniconda</span></code> install steps.</p></li>
 </ul>
 </section>
 </section>
