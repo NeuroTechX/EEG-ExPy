@@ -1,4 +1,5 @@
-import os
+import os,sys
+from datetime import datetime
 from time import time, sleep
 from glob import glob
 from random import choice
@@ -6,9 +7,15 @@ from optparse import OptionParser
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event, sound
-
+from psychopy import visual, core, event, sound, prefs, logging
 from eegnb import generate_save_fn
+
+import h5py
+
+if sys.platform in ["linux", "linux2"]:
+    prefs.resetPrefs()
+    prefs.hardware['audioDriver'] = ["portaudio"]
+    prefs.hardware['audioLib'] = ['PTB', 'pyo','pygame']
 
 
 def present(
@@ -20,6 +27,7 @@ def present(
     secs=0.07,
     volume=0.8,
     eeg=None,
+    fnirs=None
 ):
     markernames = [1, 2]
     record_duration = np.float32(duration)
@@ -53,6 +61,11 @@ def present(
     if eeg:
         eeg.start(save_fn, duration=record_duration)
 
+    # start the fNIRS device
+    if fnirs:
+        fnirs.start()#save_fn, duration=record_duration)
+
+
     show_instructions(10)
 
     # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
@@ -61,7 +74,7 @@ def present(
     # Iterate through the events
     for ii, trial in trials.iterrows():
 
-        iteratorthing = iteratorthing + 1
+        iteratorthing +=1 
 
         # Inter trial interval
         core.wait(trial["iti"])
@@ -71,15 +84,32 @@ def present(
         auds[ind].stop()
         auds[ind].play()
 
-        # Push sample
+
+        # Push triggers
+        #marker = additional_labels["labels"][iteratorthing - 1]
+        
+        if trial['sound_ind']==0:
+            marker = 1
+            marker_name = "deviant"
+        elif trial['sound_ind']==1:
+            marker = 2
+            marker_name = "standard"
+
+
+        timestamp = time()
         if eeg:
-            timestamp = time()
             if eeg.backend == "muselsl":
-                marker = [additional_labels["labels"][iteratorthing - 1]]
-                marker = list(map(int, marker))
+                #marker = [additional_labels["labels"][iteratorthing - 1]]
+                eeg_marker = [marker]
+                eeg_marker = list(map(int, eeg_marker))
             else:
-                marker = additional_labels["labels"][iteratorthing - 1]
-            eeg.push_sample(marker=marker, timestamp=timestamp)
+                eeg_marker = marker # additional_labels["labels"][iteratorthing - 1]
+            eeg.push_sample(marker=eeg_marker, timestamp=timestamp)
+
+        if fnirs:
+            marker_name = 'event_' + str(marker)
+            fnirs.push_sample(timestamp=timestamp, marker=marker,marker_name=marker_name)
+
 
         mywin.flip()
         if len(event.getKeys()) > 0:
@@ -89,12 +119,16 @@ def present(
 
         event.clearEvents()
 
-        if iteratorthing == 1798:
+
+        if iteratorthing == 1798:  # Really not sure where this came from
             sleep(10)
 
     # Cleanup
     if eeg:
         eeg.stop()
+
+    if fnirs: 
+        fnirs.stop()
 
     mywin.close()
 
