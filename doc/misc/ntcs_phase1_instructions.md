@@ -29,7 +29,6 @@ We have tried to keep it fairly succinct, whilst also including all the key info
 
 
 
-
 ## Instructional Videos
 
 We recommend that before you get going on the steps listed below, you watch the [instructional videos](https://www.youtube.com/playlist?list=PLwFAVRNJkK_gjRQ4SVXa3HDJKy9T0mq0G). 
@@ -185,17 +184,6 @@ It's important to set up your electrodes so that they are mapped to the correct 
 
 ![Electrode Table](https://i.imgur.com/5hyJWxO.jpg "Channel Electrode Positions").
 
-|   | 8 Channel  | 4 Channel |
-| :------------: | :------------: | :------------: |
-| Ch 1  | FP1  | P7  |
-| Ch 2  | FP2  | P8  |
-| Ch 3  |  C3 | O1  |
-| Ch 4  | C4  | O2  |
-| Ch 5  | P7  | -  |
-| Ch 6  | P8  | -  |
-| Ch 7  | O1  | -  |
-| Ch 8  | O2  | -  |
-|Board| Cyton | Cyton or Ganglion|
 
 OpenBCI Headset Guides:
 - Ultracortex: 
