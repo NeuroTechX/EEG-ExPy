@@ -35,14 +35,25 @@ We recommend that before you get going on the steps listed below, you watch the 
 
 Video 1 is a short general overview and big picture. You should watch this fully first before continuing. 
 
-Videos 2-5 include live demos and discussions showing you the specific steps you need to follow, and what to expect when you run them. For these, it is probably best to go back and forth a bit between the instructions text below and stepping through sections carefully, as needed. 
+Videos 2-5 include live demos and discussions showing you the specific steps you need to follow, and what to expect when you run them. For these, it is probably best to go back and forth a bit between the instructions text below and stepping through sections carefully, as needed.  
 
-- [Video 1](https://www.youtube.com/watch?v=LdRG1DFqx5w): About NTCS
-- [Video 2](https://youtu.be/tc1yIGUjMV4): Docs and getting started
-- [Video 3](https://youtu.be/Xv0yuSQJOPA): Connecting your EEG device and checking signal quality
-- [Video 4](https://youtu.be/zYeNrSjNk5g): Running the N170 experiment, reviewing and uploading your data. 
 
-Additionally, you might be interested to check out JG's [introductory lecture on eeg-notebooks](https://www.youtube.com/watch?v=C834sFQvL1c&t=103s). This is not mandatory however for NTCS. 
+**[Video 1](https://www.youtube.com/watch?v=LdRG1DFqx5w): About NTCS**  
+[![ About NTCS](http://img.youtube.com/vi/LdRG1DFqx5w/0.jpg)](https://youtu.be/LdRG1DFqx5w?t=1s "About NTCS")  
+
+**[Video 2](https://youtu.be/tc1yIGUjMV4): Docs and getting started**  
+[![ Docs and getting started](http://img.youtube.com/vi/tc1yIGUjMV4/0.jpg)](https://youtu.be/tc1yIGUjMV4?t=1s "Docs and getting started")  
+
+**[Video 3](https://youtu.be/Xv0yuSQJOPA): Connecting your EEG device and checking signal quality**  
+[![ Connecting your EEG device and checking signal quality](http://img.youtube.com/vi/Xv0yuSQJOPA/0.jpg)](https://youtu.be/Xv0yuSQJOPA?t=1s "Connecting your EEG device and checking signal quality")  
+
+**[Video 4](https://youtu.be/zYeNrSjNk5g): Running the N170 experiment, reviewing and uploading your data.**  
+[![ Running the N170 experiment, reviewing and uploading your data](http://img.youtube.com/vi/zYeNrSjNk5g/0.jpg)](https://youtu.be/zYeNrSjNk5g?t=1s "Running the N170 experiment, reviewing and uploading your data")  
+
+
+Additionally, you might be interested to check out **JG's [introductory lecture on eeg-notebooks](https://www.youtube.com/watch?v=C834sFQvL1c&t=103s)**. This is not mandatory however for NTCSP1.   
+
+[![ Intro to EEG Notebooks](http://img.youtube.com/vi/C834sFQvL1c/0.jpg)](https://youtu.be/C834sFQvL1c?t=1s "Intro to EEG-Notebooks")   
 
 
 
