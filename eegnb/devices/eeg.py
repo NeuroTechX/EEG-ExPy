@@ -42,7 +42,9 @@ brainflow_devices = [
     "museS_bfn", # bfn = brainflow with native bluetooth;
     "museS_bfb", # bfb = brainflow with BLED dongle bluetooth
     "muse2_bfn",
-    "muse2_bfb"
+    "muse2_bfb",
+    "muse2016_bfn",
+    "muse2016_bfb"
 ]
 
 
@@ -261,7 +263,13 @@ class EEG:
     
         elif self.device_name == "muse2_bfb":
             self.brainflow_id = BoardIds.MUSE_2_BLED_BOARD.value
+
+        elif self.device_name == "muse2016_bfn":
+            self.brainflow_id = BoardIds.MUSE_2016_BOARD.value
     
+        elif self.device_name == "muse2016_bfb":
+            self.brainflow_id = BoardIds.MUSE_2016_BLED_BOARD.value
+
         elif self.device_name == "synthetic":
             self.brainflow_id = BoardIds.SYNTHETIC_BOARD.value
 
