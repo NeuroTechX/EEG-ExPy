@@ -7,7 +7,7 @@ from eegnb.devices.eeg import EEG
 from .utils import run_experiment, get_exp_desc, experiments
 
 
-def device_prompt() -> EEG:
+def device_prompt() -> EEG: 
     # define the names of the available boards
     # boards is a mapping from board code to board description
     boards = {
@@ -15,6 +15,10 @@ def device_prompt() -> EEG:
         "muse2016": "Muse (2016)",
         "muse2": "Muse 2",
         "museS": "Muse S",
+        "muse2_bfn": "Muse 2 - brainflow, native bluetooth",
+        "muse2_bfb": "Muse 2 - brainflow, BLED bluetooth dongle",
+        "museS_bfn": "Muse S - brainflow, native bluetooth",
+        "museS_bfb": "Muse S - brainflow, BLED bluetooth dongle",
         "ganglion": "OpenBCI Ganglion",
         "cyton": "OpenBCI Cyton",
         "cyton_daisy": "OpenBCI Cyton + Daisy",
@@ -65,8 +69,7 @@ def device_prompt() -> EEG:
                 f"\n{board_desc} + WiFi is not supported. Please use the dongle that was shipped with the device.\n"
             )
             exit()
-
-    # initialize the EEG device
+       
     if board_code.startswith("ganglion"):
         if board_code == "ganglion_wifi":
             eeg_device = EEG(device=board_code, ip_addr=ip_address)
@@ -76,6 +79,7 @@ def device_prompt() -> EEG:
         eeg_device = EEG(device=board_code)
 
     return eeg_device
+
 
 
 def exp_prompt() -> str:
@@ -116,7 +120,7 @@ def site_prompt(experiment:str) -> str:
     print("Selected Folder : {} \n".format(site))
     return site
 
-def intro_prompt() -> Tuple[EEG, str, int, Path]:
+def intro_prompt() -> Tuple[EEG, str, int, str]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
     print("Welcome to NeurotechX EEG Notebooks\n")
 
@@ -139,15 +143,16 @@ def intro_prompt() -> Tuple[EEG, str, int, Path]:
     session_nb = int(input("Enter session #: "))
 
     # ask if they are ready to begin
-    print("\nEEG device successfully connected!")
-    input("Press [ENTER] when ready to begin...")
+    #print("\nEEG device successfully connected!")
+    #input("Press [ENTER] when ready to begin...")
 
     # generate the save file name
     save_fn = generate_save_fn(
-        eeg_device.device_name, exp_selection, subj_id, session_nb
+        eeg_device.device_name, exp_selection, subj_id, session_nb 
     )
 
-    return eeg_device, exp_selection, duration, save_fn
+    return eeg_device, exp_selection, duration, str(save_fn)
+
 
 def intro_prompt_zip() -> Tuple[str,str]:
     """This function handles the user prompts for inputting information for zipping their function."""

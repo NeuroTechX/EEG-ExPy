@@ -1,5 +1,11 @@
 """Generate sound-only auditory oddball stimulus presentation.
 """
+
+from psychopy import prefs
+#change the pref libraty to PTB and set the latency mode to high precision
+prefs.hardware['audioLib'] = 'PTB'
+prefs.hardware['audioLatencyMode'] = 3
+
 import time
 from optparse import OptionParser
 
@@ -8,15 +14,17 @@ from pandas import DataFrame
 from psychopy import visual, core, event, sound
 from pylsl import StreamInfo, StreamOutlet
 
+from eegnb import generate_save_fn
+from eegnb.devices.eeg import EEG
+#from eegnb.stimuli import FACE_HOUSE
 
-def present(
-    duration=120,
-    stim_types=None,
-    itis=None,
-    additional_labels={},
-    secs=0.07,
-    volume=0.8,
-):
+
+def present(eeg: EEG=None, save_fn=None,
+            stim_types=None, itis=None, additional_labels={},
+            secs=0.07, volume=0.8,tone1_hz =440, tone2_hz = 528,
+            do_fixation=True):
+
+    soa = 0 # ?
 
     # additional_labels is dict with column names as keys and column vecs as values,
     # that will be added to the dataframe
@@ -37,37 +45,49 @@ def present(
     markernames = [1, 2]
     start = time.time()
 
-    # Set up trial parameters
-    record_duration = np.float32(duration)
-
     # Initialize stimuli
     # aud1 = sound.Sound('C', octave=5, sampleRate=44100, secs=secs)
-    aud1 = sound.Sound(440, secs=secs)  # , octave=5, sampleRate=44100, secs=secs)
+    aud1 = sound.Sound(tone1_hz, secs=secs)  # , octave=5, sampleRate=44100, secs=secs)
     aud1.setVolume(volume)
 
     # aud2 = sound.Sound('D', octave=6, sampleRate=44100, secs=secs)
-    aud2 = sound.Sound(528, secs=secs)
+    aud2 = sound.Sound(tone2_hz, secs=secs)
     aud2.setVolume(volume)
     auds = [aud1, aud2]
 
     # Setup trial list
-    # sound_ind = np.random.binomial(1, 0.25, n_trials)
-    # itis = iti + np.random.rand(n_trials) * jitter
-    # trials = DataFrame(dict(sound_ind=sound_ind, iti=itis))
-    # trials['soa'] = soa
-    # trials['secs'] = secs
     trials = DataFrame(dict(sound_ind=stim_types, iti=itis))
+
+    record_duration_int = int(round(trials.iti.values.sum(),-1))
+    record_duration_float = np.float32(record_duration_int)
 
     for col_name, col_vec in additional_labels.items():
         trials[col_name] = col_vec
 
-    # Setup graphics
-    mywin = visual.Window(
-        [1920, 1080], monitor="testMonitor", units="deg", fullscr=True
-    )
-    fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0, rgb=[1, 0, 0])
-    fixation.setAutoDraw(True)
-    mywin.flip()
+    if do_fixation:
+        # Setup graphics
+        mywin = visual.Window(
+        [1920, 1080], monitor="testMonitor", units="deg", fullscr=True)
+        fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0, rgb=[1, 0, 0])
+        fixation.setAutoDraw(True)
+        mywin.flip()
+
+        # Show the instructions screen
+        show_instructions(record_duration_int)
+
+    # Start the EEG stream
+    if eeg:
+        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
+            # random_id = random.randint(1000,10000)
+            random_id = 9999
+            save_fn = generate_save_fn(eeg.device_name, "auditory_erp_arrayin", random_id, random_id, "unnamed")
+            print(
+                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
+            )
+        eeg.start(save_fn, duration=record_duration_float + 5)
+
+    # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
+    start = time.time()
 
     for ii, trial in trials.iterrows():
 
@@ -84,31 +104,92 @@ def present(
             additional_stamps += [trial[k]]
 
         # Send marker
-        timestamp = time.time()
+        #timestamp = time.time()
         # outlet.push_sample([markernames[ind]], timestamp)
 
-        outlet.push_sample(additional_stamps + [markernames[ind]], timestamp)
+        #outlet.push_sample(additional_stamps + [markernames[ind]], timestamp)
 
         # Offset
         # time.sleep(soa)
         # if (time.time() - start) > record_duration:
         #    break
 
-        # offset
-        # core.wait(soa)
 
-        if len(event.getKeys()) > 0 or (time.time() - start) > record_duration:
+        # Send marker
+        # outlet.push_sample([markernames[ind]], timestamp)
+        #outlet.push_sample(additional_stamps + [markernames[ind]], timestamp)
+
+        # Push sample
+        if eeg:
+            timestamp = time.time()
+
+            marker = additional_stamps +  [markernames[ind]]
+
+            """
+            if eeg.backend == "muselsl":
+                #marker = [markernames[ind]]
+                marker = additional_stamps + [markernames[ind]]
+            else:
+                marker = markernames[ind]  # type: ignore
+                mark
+            """
+
+            #eeg.push_sample(marker=additional_stamps + marker, timestamp=timestamp)
+            eeg.push_sample(marker=marker,timestamp=timestamp)
+
+
+        if do_fixation:
+            mywin.flip()
+
+            # offset
+            core.wait(soa)
+            mywin.flip()
+
+        if len(event.getKeys()) > 0 or (time.time() - start) > (record_duration_float+5):
             break
+        
         event.clearEvents()
 
-        # if len(event.getKeys()) > 0 or (time() - start) > record_duration:
-        #    break
-        # event.clearEvents()
+
 
     # Cleanup
-    mywin.close()
+    if eeg: eeg.stop()
+
+
+    if do_fixation:
+        mywin.close()
+
 
     return trials
+
+
+def show_instructions(duration):
+
+    instruction_text = """
+    Welcome to the Auditory Oddball Experiment! 
+ 
+    Stay still, focus on the centre of the screen, listen to the tones, and try not to blink. 
+
+    This block will run for %s seconds.
+
+    Press spacebar to continue. 
+    
+    """
+    instruction_text = instruction_text % duration
+
+    # graphics
+    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
+
+    mywin.mouseVisible = False
+
+    # Instructions
+    text = visual.TextStim(win=mywin, text=instruction_text, color=[-1, -1, -1])
+    text.draw()
+    mywin.flip()
+    event.waitKeys(keyList="space")
+
+    mywin.mouseVisible = True
+    mywin.close()
 
 
 def main():

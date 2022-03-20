@@ -6,8 +6,15 @@ import serial
 from brainflow import BoardShim, BoardIds
 
 
-# Default channel names for the various brainflow devices.
+# Default channel names for the various EEG devices.
 EEG_CHANNELS = {
+    "muse2016": ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "muse2":    ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "museS":    ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "muse2_bfn": BoardShim.get_eeg_names(BoardIds.MUSE_2_BOARD.value),
+    "muse2_bfb": BoardShim.get_eeg_names(BoardIds.MUSE_2_BLED_BOARD.value),
+    "museS_bfn": BoardShim.get_eeg_names(BoardIds.MUSE_S_BOARD.value),
+    "museS_bfb": BoardShim.get_eeg_names(BoardIds.MUSE_S_BLED_BOARD.value),
     "ganglion": ["fp1", "fp2", "tp7", "tp8"],
     "cyton": BoardShim.get_eeg_names(BoardIds.CYTON_BOARD.value),
     "cyton_daisy": BoardShim.get_eeg_names(BoardIds.CYTON_DAISY_BOARD.value),
@@ -31,6 +38,10 @@ EEG_INDICES = {
     "muse2016": [1, 2, 3, 4],
     "muse2": [1, 2, 3, 4],
     "museS": [1, 2, 3, 4],
+    "muse2_bfn": BoardShim.get_eeg_channels(BoardIds.MUSE_2_BOARD.value),
+    "muse2_bfb": BoardShim.get_eeg_channels(BoardIds.MUSE_2_BLED_BOARD.value),
+    "museS_bfn": BoardShim.get_eeg_channels(BoardIds.MUSE_S_BOARD.value),
+    "museS_bfb": BoardShim.get_eeg_channels(BoardIds.MUSE_S_BLED_BOARD.value),
     "ganglion": BoardShim.get_eeg_channels(BoardIds.GANGLION_BOARD.value),
     "cyton": BoardShim.get_eeg_channels(BoardIds.CYTON_BOARD.value),
     "cyton_daisy": BoardShim.get_eeg_channels(BoardIds.CYTON_DAISY_BOARD.value),
@@ -47,6 +58,10 @@ SAMPLE_FREQS = {
     "muse2016": 256,
     "muse2": 256,
     "museS": 256,
+    "muse2_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_2_BOARD.value), 
+    "muse2_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_2_BLED_BOARD.value),
+    "museS_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_S_BOARD.value),
+    "museS_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_S_BLED_BOARD.value),
     "ganglion": BoardShim.get_sampling_rate(BoardIds.GANGLION_BOARD.value),
     "cyton": BoardShim.get_sampling_rate(BoardIds.CYTON_BOARD.value),
     "cyton_daisy": BoardShim.get_sampling_rate(BoardIds.CYTON_DAISY_BOARD.value),

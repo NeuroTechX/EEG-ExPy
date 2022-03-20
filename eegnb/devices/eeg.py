@@ -39,6 +39,10 @@ brainflow_devices = [
     "notion2",
     "freeeeg32",
     "crown",
+    "museS_bfn", # bfn = brainflow with native bluetooth;
+    "museS_bfb", # bfb = brainflow with BLED dongle bluetooth
+    "muse2_bfn",
+    "muse2_bfb"
 ]
 
 
@@ -246,6 +250,18 @@ class EEG:
             if self.serial_port is None:
                 self.brainflow_params.serial_port = get_openbci_usb()
 
+        elif self.device_name == "museS_bfn":
+            self.brainflow_id = BoardIds.MUSE_S_BOARD.value
+
+        elif self.device_name == "museS_bfb":
+            self.brainflow_id = BoardIds.MUSE_S_BLED_BOARD.value
+
+        elif self.device_name == "muse2_bfn":
+            self.brainflow_id = BoardIds.MUSE_2_BOARD.value
+    
+        elif self.device_name == "muse2_bfb":
+            self.brainflow_id = BoardIds.MUSE_2_BLED_BOARD.value
+    
         elif self.device_name == "synthetic":
             self.brainflow_id = BoardIds.SYNTHETIC_BOARD.value
 
@@ -264,10 +280,18 @@ class EEG:
         self.board.prepare_session()
 
     def _start_brainflow(self):
-        self.board.start_stream()
+        # only start stream if non exists
+        if not self.stream_started:
+            self.board.start_stream()
+        
         self.stream_started = True
+
         # wait for signal to settle
-        sleep(5)
+        if (self.device_name.find("cyton") != -1) or (self.device_name.find("ganglion") != -1):
+            # wait longer for openbci cyton / ganglion
+            sleep(10)
+        else:
+            sleep(5)
 
     def _stop_brainflow(self):
         """This functions kills the brainflow backend and saves the data to a CSV file."""
@@ -333,15 +357,14 @@ class EEG:
         self.markers.append([marker, last_timestamp])
 
 
-    def _brainflow_get_recent(self, n_samples=256, restart_stream=False):
+    def _brainflow_get_recent(self, n_samples=256):
 
         # initialize brainflow if not set
         if self.board == None:
             self._init_brainflow()
 
-        # start brainflow stream if none exists or explicity requested
-        if ( not self.stream_started ) or restart_stream:
-            self._start_brainflow()
+        # start branflow stream
+        self._start_brainflow()
 
         # get the latest data
         data = self.board.get_current_board_data(n_samples)
@@ -409,5 +432,11 @@ class EEG:
             df = self._muse_get_recent(n_samples)
         else:
             raise ValueError(f"Unknown backend {self.backend}")
+
+        # Sort out the sensor coils
+        sorted_cols = sorted(df.columns)
+        df = df[sorted_cols]
+
+
         return df
 

@@ -1,10 +1,12 @@
 import copy
+from copy import deepcopy
 import math
 import logging
 from collections import OrderedDict
 from glob import glob
 from typing import Union, List, Dict
-from time import sleep
+from time import sleep, time
+from numpy.core.fromnumeric import std
 
 import pandas as pd
 import numpy as np
@@ -20,6 +22,7 @@ from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
+                        
 
 # this should probably not be done here
 sns.set_context("talk")
@@ -338,11 +341,12 @@ def plot_highlight_regions(
 # ------
 
 
-def filter(
+def channel_filter(
     X: np.ndarray,
     n_chans: int,
     sfreq: int,
     device_backend: str,
+    device_name: str,
     low: float = 3,
     high: float = 40,
     verbose: bool = False,
@@ -351,7 +355,8 @@ def filter(
     if device_backend == "muselsl":
         pass
     elif device_backend == "brainflow":
-        X = X / 1000 # adjust scale of readings
+        if 'muse' not in device_name: # hacky; muse brainflow devices do in fact seem to be in correct units
+            X = X / 1000 # adjust scale of readings
     else:
         raise ValueError(f"Unknown backend {device_backend}")
     
@@ -369,7 +374,7 @@ def filter(
     return filt_samples
 
 
-def check(eeg: EEG, n_samples=256, std_thres=15):
+def check(eeg: EEG, n_samples=256) -> pd.Series:
     """
     Usage:
     ------
@@ -379,38 +384,36 @@ def check(eeg: EEG, n_samples=256, std_thres=15):
     eeg = EEG(device='museS')
     check(eeg, n_samples=256)
 
-    The std_thres value is the upper bound of accepted
-    standard deviation for a quality recording.
-
-    thresholds = {
-        bad: 15,
-        good: 10,
-        great: 1.5 // Below 1.5 usually indicates not connected to anything
-    }
-
     """
 
     df = eeg.get_recent(n_samples=n_samples)
+    
+    # seems to be necessary to give brainflow cnxn time to settle
+    if len(df) != n_samples: 
+      sleep(10) 
+      df = eeg.get_recent(n_samples=n_samples) 
+
     assert len(df) == n_samples
 
     n_channels = eeg.n_channels
     sfreq = eeg.sfreq
     device_backend = eeg.backend
+    device_name = eeg.device_name
 
     vals = df.values[:, :n_channels]
-    df.values[:, :n_channels] = filter(vals, 
+    df.values[:, :n_channels] = channel_filter(vals, 
                                     n_channels,
                                     sfreq,
-                                    device_backend)
+                                    device_backend,
+                                    device_name)
 
-    std = df.std(axis=0)
-    res = dict(zip(df.columns[:n_channels], std < std_thres))
+    std_series = df.std(axis=0)
     
-    return res, std
+    return std_series
 
 
 
-def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
+def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, thres_std_high=None, n_goods=2,n_inarow=5):
     """
     Usage:
     ------
@@ -418,10 +421,42 @@ def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
     from eegnb.analysis.utils import check_report
     eeg = EEG(device='museS')
     check_report(eeg)
+
+    The thres_std_low & thres_std_high values are the 
+    lower and  upper bound of accepted
+    standard deviation for a quality recording.
+
+    thresholds = {
+        bad: 15,
+        good: 10,
+        great: 1.5 // Below 1 usually indicates not connected to anything
+    }
     """
 
+    # If no upper and lower std thresholds set in function call,
+    # set thresholds based on the following per-device name defaults
+    if thres_std_high is None:
+        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                    "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi"]:
+            thres_std_high = 9
+        elif eeg.device_name in ["notion1", "notion2", "crown"]:
+            thres_std_high = 15
+        elif 'muse' in eeg.device_name:
+            thres_std_high = 18
+
+    if thres_std_low is None:
+
+        if 'muse' in eeg.device_name: 
+            thres_std_low = 1
+
+        elif eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
+                                 "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
+                                 "notion1", "notion2", "crown"]:
+            thres_std_low = 1
+
+            
     print("\n\nRunning signal quality check...")
-    print(f"Using threshold stdev: {thres_std}")
+    print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
 
     CHECKMARK = "√"
     CROSS = "x"
@@ -432,21 +467,24 @@ def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
     good_count=0
 
     n_samples = int(pause_time*eeg.sfreq)
-    for _ in range(n_times):
-        print(f'\n\n\n{_+1}/{n_times}')
-        res, std = check(eeg, n_samples=n_samples)
+
+    sleep(5)
+
+    for loop_index in range(n_times):
+        print(f'\n\n\n{loop_index+1}/{n_times}')
+        std_series = check(eeg, n_samples=n_samples)
 
         indicators = "\n".join(
         [
-            f"  {k:>4}: {CHECKMARK if v else CROSS}   (std: {round(std[k], 1):>5})"
-                for k, v in res.items()
+            f"  {k:>4}: {CHECKMARK if v >= thres_std_low and v <= thres_std_high else CROSS}  (std: {round(v, 1):>5})"
+                for k, v in std_series.iteritems()
         ]
                               )
         print("\nSignal quality:")
         print(indicators)
 
         
-        bad_channels = [k for k, v in res.items() if not v]
+        bad_channels = [k for k, v in std_series.iteritems() if v < thres_std_low or v > thres_std_high ]
         if bad_channels:
             print(f"Bad channels: {', '.join(bad_channels)}")
             good_count=0  # reset good checks count if there are any bad chans
@@ -458,7 +496,61 @@ def check_report(eeg, n_times: int=60, pause_time=5, thres_std=10,n_goods=2):
             print("\n\n\nAll good! You can proceed on to data collection :) ")
             break
 
+        # after every n_inarow trials ask user if they want to cancel or continue
+        if (loop_index+1) % n_inarow == 0:
+            print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
+
+            prompt_start = time()
+            continue_sigqual = input("\nChecks will resume in %s seconds...Press 'c' (and ENTER key) if you want to stop adjusting for better quality.\n" %pause_time)
+            while time() < prompt_start + 5:
+                if continue_sigqual == 'c':
+                    break
+            if continue_sigqual == 'c':
+                print("\nStopping signal quality checks!")
+                break
+        
         sleep(pause_time)
 
 
 
+def fix_musemissinglines(orig_f,new_f=''):
+
+    if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
+
+    print('writing fixed file to %s' %new_f)
+
+    # Read oriignal file
+
+    F = open(orig_f, 'r')
+    Ls = F.readlines()
+    newLs = ['' for _ in Ls]
+    
+
+    # Correct first line
+
+    l = Ls[0]
+    newl = deepcopy(l)
+    numcols = len(l.split(','))
+    if numcols == 6:
+      newl = newl.replace('\n', ',Marker\n')
+    newLs[0] = newl
+
+
+    # Correct the rest
+
+    for l_it,l in enumerate(Ls):
+        if l_it!=0:
+            numcols = len(l.split(','))
+            if numcols==6:
+                newline = l.replace('\n', ',0\n')
+            else:
+                newline = l
+            newLs[l_it] = newline
+
+
+    # Write corrected file
+
+    newF = open(new_f, 'w+')
+    newF.writelines(newLs)
+    newF.close()
+                            
