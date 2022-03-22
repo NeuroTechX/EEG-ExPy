@@ -155,7 +155,7 @@ def show_instructions(duration):
 	mywin.close()
 		
 		
-def generate_am_waveform(carrier_freq, am_freq, secs=1, sample_rate=44100,
+def generate_am_waveform(carrier_freq, am_freq, secs=1,  sample_rate=sample_rate,
                              am_type='sine'):
         """Generate an amplitude-modulated waveform.
 
