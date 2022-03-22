@@ -24,9 +24,20 @@ __title__ = "Auditory SSAEP (single freq)"
 
 
 
-def present(duration=365, eeg=None, save_fn=None, iti = 0., soa = 1.0, jitter = 0., 
-    n_trials = 180, cf1 = 1000, amf1 = 40):
-
+def present(
+	duration=365,
+	eeg=None,
+	save_fn=None,
+	iti = 0.,
+	soa = 1.0,
+	jitter = 0.,
+	volume=0.8,
+        random_state=42,
+    	n_trials = 180,
+	cf1 = 1000,
+	amf1 = 40,
+	sample_rate=44100,
+):
 
 
     # Create markers stream outlet
