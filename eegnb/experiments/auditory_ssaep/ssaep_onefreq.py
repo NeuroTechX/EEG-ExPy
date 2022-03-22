@@ -65,9 +65,9 @@ def present(
 
 
     # Generate stimuli
-    am1 = generate_am_waveform(cf1, amf1, secs=soa, sample_rate=44100)
+    am1 = generate_am_waveform(cf1, amf1, secs=soa, sample_rate=sample_rate)
 
-    aud1 = sound.Sound(am1)
+    aud1 = sound.Sound(am1, sampleRate=sample_rate)
     aud1.setVolume(0.8)
 
     auds = [aud1]
@@ -154,9 +154,15 @@ def show_instructions(duration):
 	mywin.mouseVisible = True
 	mywin.close()
 		
-		
-def generate_am_waveform(carrier_freq, am_freq, secs=1,  sample_rate=sample_rate,
-                             am_type='sine'):
+
+def generate_am_waveform(
+    carrier_freq,
+    am_freq,
+    secs=1,
+    sample_rate=None,
+    am_type="sine",
+):	
+	
         """Generate an amplitude-modulated waveform.
 
         Generate a sine wave amplitude-modulated by a second sine wave or a
