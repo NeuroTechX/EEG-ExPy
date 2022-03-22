@@ -28,7 +28,7 @@ def present(
 	duration=365,
 	eeg=None,
 	save_fn=None,
-	iti = 0.,
+	iti = 2.,
 	soa = 1.0,
 	jitter = 0.,
 	volume=0.8,
