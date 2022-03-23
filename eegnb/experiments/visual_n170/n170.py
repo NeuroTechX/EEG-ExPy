@@ -21,11 +21,9 @@ from eegnb.stimuli import FACE_HOUSE
 __title__ = "Visual N170"
 
 
-def present(duration=120, eeg: EEG=None, save_fn=None):
-    n_trials = 2010
-    iti = 0.4
-    soa = 0.3
-    jitter = 0.2
+def present(duration=120, eeg: EEG=None, save_fn=None,
+            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2):
+    
     record_duration = np.float32(duration)
     markernames = [1, 2]
 
