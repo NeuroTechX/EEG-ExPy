@@ -193,7 +193,7 @@ def plot_conditions(
     ylim=(-6, 6),
     diff_waveform=(1, 2),
     channel_count=4,
-):
+    channel_order=None):
     """Plot ERP conditions.
     Args:
         epochs (mne.epochs): EEG epochs
@@ -217,6 +217,13 @@ def plot_conditions(
         (matplotlib.figure.Figure): figure object
         (list of matplotlib.axes._subplots.AxesSubplot): list of axes
     """
+
+    if channel_order:
+      channel_order = np.array(channel_order)
+    else:
+      channel_order = np.array(range(channel_count))
+
+
     if isinstance(conditions, dict):
         conditions = OrderedDict(conditions)
 
@@ -224,11 +231,14 @@ def plot_conditions(
         palette = sns.color_palette("hls", len(conditions) + 1)
 
     X = epochs.get_data() * 1e6
+
+    X = X[:,channel_order]
+
     times = epochs.times
     y = pd.Series(epochs.events[:, -1])
 
     midaxis = math.ceil(channel_count / 2)
-    fig, axes = plt.subplots(2, midaxis, figsize=[12, 6], sharex=True, sharey=True)
+    fig, axes = plt.subplots(2, midaxis, figsize=[12, 6], sharex=True, sharey=False)
 
     # get individual plot axis
     plot_axes = []
@@ -254,7 +264,7 @@ def plot_conditions(
             )
             axes[ch].plot(times, diff, color="k", lw=1)
 
-        axes[ch].set_title(epochs.ch_names[ch])
+        axes[ch].set_title(epochs.ch_names[channel_order[ch]])
         axes[ch].set_ylim(ylim)
         axes[ch].axvline(
             x=0, ymin=ylim[0], ymax=ylim[1], color="k", lw=1, label="_nolegend_"
