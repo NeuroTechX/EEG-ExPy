@@ -2,11 +2,11 @@
 N170 Load and Visualize Data
 ===============================
 
-This example demonstrates loading, organizing, and visualizing ERP response data from the visual P300 experiment. 
+This example demonstrates loading, organizing, and visualizing ERP response data from the visual N170 experiment. 
 
-Images of cats and dogs are shown in a rapid serial visual presentation (RSVP) stream.
+Images of faces and houses are shown in a rapid serial visual presentation (RSVP) stream.
 
-The data used is the first subject and first session of the one of the eeg-notebooks P300 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). 
+The data used is the first subject and first session of the one of the eeg-notebooks N170 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). 
 This session consists of six two-minute blocks of continuous recording.  
 
 We first use the `fetch_datasets` to obtain a list of filenames. If these files are not already present 
@@ -14,7 +14,7 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 
 After loading the data, we place it in an MNE `Epochs` object, and obtain the trial-averaged response. 
 
-The final figure plotted at the end shows the P300 response ERP waveform. 
+The final figure plotted at the end shows the N170 response ERP waveform. 
 
 """
 
@@ -101,6 +101,6 @@ conditions['Face'] = [2]
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                           ci=97.5, n_boot=1000, title='',
-                          diff_waveform=(1, 2))
+                          diff_waveform=None)#(1, 2))
 
 
