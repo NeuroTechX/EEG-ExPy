@@ -527,14 +527,14 @@
 </div>
 <section class="sphx-glr-example-title" id="n170-load-and-visualize-data">
 <span id="sphx-glr-auto-examples-visual-n170-01r-n170-viz-py"></span><h1>N170 Load and Visualize Data<a class="headerlink" href="#n170-load-and-visualize-data" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstrates loading, organizing, and visualizing ERP response data from the visual P300 experiment.</p>
-<p>Images of cats and dogs are shown in a rapid serial visual presentation (RSVP) stream.</p>
-<p>The data used is the first subject and first session of the one of the eeg-notebooks P300 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model).
+<p>This example demonstrates loading, organizing, and visualizing ERP response data from the visual N170 experiment.</p>
+<p>Images of faces and houses are shown in a rapid serial visual presentation (RSVP) stream.</p>
+<p>The data used is the first subject and first session of the one of the eeg-notebooks N170 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model).
 This session consists of six two-minute blocks of continuous recording.</p>
 <p>We first use the <cite>fetch_datasets</cite> to obtain a list of filenames. If these files are not already present
 in the specified data directory, they will be quickly downloaded from the cloud.</p>
 <p>After loading the data, we place it in an MNE <cite>Epochs</cite> object, and obtain the trial-averaged response.</p>
-<p>The final figure plotted at the end shows the P300 response ERP waveform.</p>
+<p>The final figure plotted at the end shows the N170 response ERP waveform.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
@@ -579,27 +579,28 @@ From: https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/9.04M [00:00&lt;?, ?B/s]
- 52%|#####2    | 4.72M/9.04M [00:00&lt;00:00, 31.8MB/s]
-100%|##########| 9.04M/9.04M [00:00&lt;00:00, 56.2MB/s]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
+ 29%|##8       | 2.62M/9.04M [00:00&lt;00:00, 25.4MB/s]
+ 58%|#####7    | 5.24M/9.04M [00:00&lt;00:00, 20.2MB/s]
+100%|##########| 9.04M/9.04M [00:00&lt;00:00, 32.8MB/s]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
@@ -701,11 +702,11 @@ sample drop %:  4.003407155025551
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_conditions</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span>
                           <span class="n">ci</span><span class="o">=</span><span class="mf">97.5</span><span class="p">,</span> <span class="n">n_boot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                          <span class="n">diff_waveform</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+                          <span class="n">diff_waveform</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="c1">#(1, 2))</span>
 </pre></div>
 </div>
 <img alt="TP9, AF8, AF7, TP10" class="sphx-glr-single-img" src="../../_images/sphx_glr_01r__n170_viz_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.676 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.921 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-01r-n170-viz-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db7df1055da643ad96640e6377001dbf/01r__n170_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__n170_viz.py</span></code></a></p>
