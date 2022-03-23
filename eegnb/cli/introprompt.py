@@ -15,6 +15,8 @@ def device_prompt() -> EEG:
         "muse2016": "Muse (2016)",
         "muse2": "Muse 2",
         "museS": "Muse S",
+        "muse2016_bfn": "Muse 2016 - brainflow, native bluetooth",
+        "muse2016_bfb": "Muse 2016 - brainflow, BLED bluetooth dongle",        
         "muse2_bfn": "Muse 2 - brainflow, native bluetooth",
         "muse2_bfb": "Muse 2 - brainflow, BLED bluetooth dongle",
         "museS_bfn": "Muse S - brainflow, native bluetooth",

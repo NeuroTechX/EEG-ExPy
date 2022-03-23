@@ -2,7 +2,7 @@
 
 Welcome to the **NeuroTech Challenge Series (NTCS)**, **Phase 1 (P1)** instructions page. 
 
-**NTCSP1** is an international citizen science research study, run by researchers at the University of Toronto and the [CAMH KCNI](krembilneuroinformatics.ca), in collaboration with [OpenBCI](https://openbci.com), [NeuroTechX](neurotechx.com), and the eeg-notebooks core developer team. 
+**NTCSP1** is an international citizen science research study, run by researchers at the University of Toronto and the [CAMH KCNI](www.krembilneuroinformatics.ca), in collaboration with [OpenBCI](https://openbci.com), [NeuroTechX](www.neurotechx.com), and the eeg-notebooks core developer team. 
 
 If this is the first time you are learning about NTCS, check out the [NTCS website](https://neurotech-challenge.com/) for additional info about this and other upcoming challenges and opportunities. 
 
@@ -29,21 +29,31 @@ We have tried to keep it fairly succinct, whilst also including all the key info
 
 
 
-
 ## Instructional Videos
 
 We recommend that before you get going on the steps listed below, you watch the [instructional videos](https://www.youtube.com/playlist?list=PLwFAVRNJkK_gjRQ4SVXa3HDJKy9T0mq0G). 
 
 Video 1 is a short general overview and big picture. You should watch this fully first before continuing. 
 
-Videos 2-5 include live demos and discussions showing you the specific steps you need to follow, and what to expect when you run them. For these, it is probably best to go back and forth a bit between the instructions text below and stepping through sections carefully, as needed. 
+Videos 2-5 include live demos and discussions showing you the specific steps you need to follow, and what to expect when you run them. For these, it is probably best to go back and forth a bit between the instructions text below and stepping through sections carefully, as needed.  
 
-- [Video 1](https://www.youtube.com/watch?v=LdRG1DFqx5w): About NTCS
-- [Video 2](https://youtu.be/tc1yIGUjMV4): Docs and getting started
-- [Video 3](https://youtu.be/Xv0yuSQJOPA): Connecting your EEG device and checking signal quality
-- [Video 4](https://youtu.be/zYeNrSjNk5g): Running the N170 experiment, reviewing and uploading your data. 
 
-Additionally, you might be interested to check out JG's [introductory lecture on eeg-notebooks](https://www.youtube.com/watch?v=C834sFQvL1c&t=103s). This is not mandatory however for NTCS. 
+**[Video 1](https://www.youtube.com/watch?v=LdRG1DFqx5w): About NTCS**  
+[![ About NTCS](http://img.youtube.com/vi/LdRG1DFqx5w/0.jpg)](https://youtu.be/LdRG1DFqx5w?t=1s "About NTCS")  
+
+**[Video 2](https://youtu.be/tc1yIGUjMV4): Docs and getting started**  
+[![ Docs and getting started](http://img.youtube.com/vi/tc1yIGUjMV4/0.jpg)](https://youtu.be/tc1yIGUjMV4?t=1s "Docs and getting started")  
+
+**[Video 3](https://youtu.be/Xv0yuSQJOPA): Connecting your EEG device and checking signal quality**  
+[![ Connecting your EEG device and checking signal quality](http://img.youtube.com/vi/Xv0yuSQJOPA/0.jpg)](https://youtu.be/Xv0yuSQJOPA?t=1s "Connecting your EEG device and checking signal quality")  
+
+**[Video 4](https://youtu.be/zYeNrSjNk5g): Running the N170 experiment, reviewing and uploading your data.**  
+[![ Running the N170 experiment, reviewing and uploading your data](http://img.youtube.com/vi/zYeNrSjNk5g/0.jpg)](https://youtu.be/zYeNrSjNk5g?t=1s "Running the N170 experiment, reviewing and uploading your data")  
+
+
+Additionally, you might be interested to check out **JG's [introductory lecture on eeg-notebooks](https://www.youtube.com/watch?v=C834sFQvL1c&t=103s)**. This is not mandatory however for NTCSP1.   
+
+[![ Intro to EEG Notebooks](http://img.youtube.com/vi/C834sFQvL1c/0.jpg)](https://youtu.be/C834sFQvL1c?t=1s "Intro to EEG-Notebooks")   
 
 
 
@@ -88,7 +98,7 @@ Specify 5 minutes (600 seconds) run duration
 ## Full step-by-step instructions
 
 ### 1. Sign up and provide informed consent.
-The consent form is located at this link: https://is.gd/neurotech_ch. You can open this link from your desktop computer, phone, tablet, or any other device. This form is to inform you about the overview of this project, how your data will be stored and shared, and possible outcomes aftethe study. You cannot take part in the study without filling out this form. You can fill out the consent form once and upload unlimited entries to the dataset. At the end, you will take a small quiz to ensure that you did not skip the information and actually read it though! It is necessary that you get all the questions correctly before moving forward with the study. If you cannot finish the quiz for any reason, we will be happy to reach out to you and resolve any issues! The form will guide you through that process if you cannot finish the quiz in any way. The procedure for filling out the form is described here: 
+The consent form is located at this link: [https://is.gd/neurotech_ch](https://is.gd/neurotech_ch). You can open this link from your desktop computer, phone, tablet, or any other device. This form is to inform you about the overview of this project, how your data will be stored and shared, and possible outcomes aftethe study. You cannot take part in the study without filling out this form. You can fill out the consent form once and upload unlimited entries to the dataset. At the end, you will take a small quiz to ensure that you did not skip the information and actually read it though! It is necessary that you get all the questions correctly before moving forward with the study. If you cannot finish the quiz for any reason, we will be happy to reach out to you and resolve any issues! The form will guide you through that process if you cannot finish the quiz in any way. The procedure for filling out the form is described here: 
 
  1a. When you click on the link, you should be taken to a page like this, where you might be asked to verify being a human!
 
@@ -110,13 +120,14 @@ When you click on the unique uploader link, you will be directed to a small form
 ### 3. Install miniconda 
 Miniconda makes it easy to manage multiple different Python installations on the same machine. While using miniconda environments is not required, we strongly recommend it. 
 
-Get the latest version of minconda: https://docs.conda.io/en/latest/miniconda.html
+Get the latest version of minconda: [https://docs.conda.io/en/latest/miniconda.html](https://docs.conda.io/en/latest/miniconda.html
+)
 
-Installation instructions: https://conda.io/projects/conda/en/latest/user-guide/install/index.html
+Installation instructions: [https://conda.io/projects/conda/en/latest/user-guide/install/index.html](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
 
 ### 4. Set up environment and install eeg-notebooks
 Follow the instructions on this page of the eeg-notebooks docs
-https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html
+[https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html](https://neurotechx.github.io/eeg-notebooks/getting_started/installation.html)
 
 ```
 conda create -n "ntcs" python=3.7 git pip wxpython
@@ -174,31 +185,21 @@ Grab the [latest BlueMuse version](https://github.com/kowalej/BlueMuse/releases)
 
 EEG Notebooks supports the OpenBCI Cyton (8 channel) and Ganglion (4 channel) boards. 
 OpenBCI Getting Started Guides:
-- Cyton: https://docs.openbci.com/GettingStarted/Boards/CytonGS/
-- Ganglion: https://docs.openbci.com/GettingStarted/Boards/GanglionGS/
+- Cyton: [https://docs.openbci.com/GettingStarted/Boards/CytonGS/](https://docs.openbci.com/GettingStarted/Boards/CytonGS/)
+- Ganglion: [https://docs.openbci.com/GettingStarted/Boards/GanglionGS/](https://docs.openbci.com/GettingStarted/Boards/GanglionGS/)
 
 **Important** - Make sure to check that your FTDI driver is updates and configured properly:
-https://docs.openbci.com/Troubleshooting/TroubleshootingLanding/
+[https://docs.openbci.com/Troubleshooting/TroubleshootingLanding/](https://docs.openbci.com/Troubleshooting/TroubleshootingLanding/)
 
 It's important to set up your electrodes so that they are mapped to the correct [10-20 locations](https://en.wikipedia.org/wiki/10%E2%80%9320_system_(EEG)#Higher-resolution_systems). See table below
 
+![Electrode Table](https://i.imgur.com/5hyJWxO.jpg "Channel Electrode Positions").
 
-|   | 8 Channel  | 4 Channel |
-| :------------: | :------------: | :------------: |
-| Ch 1  | FP1  | P7  |
-| Ch 2  | FP2  | P8  |
-| Ch 3  |  C3 | O1  |
-| Ch 4  | C4  | O2  |
-| Ch 5  | P7  | -  |
-| Ch 6  | P8  | -  |
-| Ch 7  | O1  | -  |
-| Ch 8  | O2  | -  |
-|Board| Cyton | Cyton or Ganglion|
 
 OpenBCI Headset Guides:
 - Ultracortex: 
-https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview
-- Headband Kit: https://docs.openbci.com/AddOns/Headwear/HeadBand/
+[https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview](https://docs.openbci.com/AddOns/Headwear/MarkIV/#electrode-location-overview)
+- Headband Kit: [https://docs.openbci.com/AddOns/Headwear/HeadBand/](https://docs.openbci.com/AddOns/Headwear/HeadBand/)
   - Note that the NTCS uses different electrode positions than the ones in this guide. You will need to adjust your setup so that the electrodes are on the back of the head
 
 ### 6. Run the visual N170 experiment
@@ -311,7 +312,7 @@ Check out the info in point 7.
 
 ### OpenBCI Ports and drivers
 
-This is a major gotcha. So much so we're listing it twice. If you are using OpenBCI on Windows, MAKE SURE you have configured the FTDI driver as described above. Otherwise the sampling rate will be 1/16 the desired level and you won't get any decent date. 
+This is a major gotcha. So much so we're listing it twice. If you are using OpenBCI on Windows, MAKE SURE you have configured the FTDI driver as described above. Otherwise the sampling rate will be 1/16 the desired level and you won't get any decent data. 
 
 
 ### Python is not 3.7
