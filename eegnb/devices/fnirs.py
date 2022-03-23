@@ -10,6 +10,9 @@ import sys
 import logging
 from datetime import datetime
 from time import time, sleep
+
+from time import strftime, gmtime
+
 from multiprocessing import Process
 
 import numpy as np
@@ -69,8 +72,7 @@ class FNIRS:
 
         self.kernel_logfile_fname = ''
         self.kernel_logfile_txt = ''
-        self.kernel_evlen = None
-
+        self.kernel_evnum = None
 
 
     def initialize_backend(self):
@@ -100,14 +102,15 @@ class FNIRS:
     def _start_kernel(self): #:, duration):
 
         start_timestamp = int(time()*1e9)
-        
+       
         # Create log file
-        dtstr = str(datetime.now()).replace(' ', '_').split('.')[0]
-        self.kernel_logfile_fname = '/tmp/eegnb_kf_logfile__%s.txt' % dtstr
+        #dtstr = str(datetime.now()).replace(' ', '_').split('.')[0] # think I prefer this to gmtime() tbh
+        self.kernel_logfile_fname = '/tmp/eegnb_kf_logfile__%s.txt' % strftime("%Y-%m-%d-%H.%M.%S", gmtime())
         self.kernel_logfile_txt = []
 
         # Send first data packet 
-        data_to_send = {"id": 0,
+        self.kernel_evnum = 0
+        data_to_send = {"id": self.kernel_evnum,
                         "timestamp": start_timestamp,
                         "event": "start_experiment",
                         "value": "0"
@@ -115,16 +118,17 @@ class FNIRS:
         kernel_sendpack(data_to_send)
         
         # Update logfile text
-        self.kernel_evlen=0
         self.kernel_logfile_txt.append(data_to_send)
 
 
     def _kernel_push_sample(self, timestamp, marker, marker_name):
 
+
         # Send trigger
+        self.kernel_evnum+=1
         adj_timestamp = int(timestamp*1e9)
         data_to_send = {
-                         "id": marker, #event_id,
+                         "id": self.kernel_evnum, #event_id,
                          "timestamp": adj_timestamp,
                          "event": marker_name, #event_name,
                          "value":"1",
@@ -132,17 +136,16 @@ class FNIRS:
         kernel_sendpack(data_to_send)
 
         # Update logfile text
-        self.kernel_evlen+=1            
         self.kernel_logfile_txt.append(data_to_send)
 
 
     def _stop_kernel(self):
 
 
+        self.kernel_evnum+=1
         stop_timestamp = int(time()*1e9)
-        
         data_to_send = {
-                        "id": self.kernel_evlen+1,
+                        "id": self.kernel_evnum,
                         "timestamp": stop_timestamp,
                          "event": "end_experiment",
                          "value": "2",

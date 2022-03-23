@@ -16,12 +16,13 @@ from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
+from eegnb.devices.fnirs import FNIRS
 from eegnb.stimuli import FACE_HOUSE
 
 __title__ = "Visual N170"
 
 
-def present(duration=120, eeg: EEG=None, save_fn=None):
+def present(duration=120, eeg: EEG=None, fnirs: FNIRS=None, save_fn=None):
     n_trials = 2010
     iti = 0.4
     soa = 0.3
@@ -45,9 +46,6 @@ def present(duration=120, eeg: EEG=None, save_fn=None):
     houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, "houses", "*.3.jpg"))))
     stim = [houses, faces]
 
-    # Show the instructions screen
-    show_instructions(duration)
-
     if eeg:
         if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
             random_id = random.randint(1000,10000)
@@ -56,6 +54,15 @@ def present(duration=120, eeg: EEG=None, save_fn=None):
                 f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
             )
         eeg.start(save_fn, duration=record_duration + 5)
+
+
+    # start the fNIRS device
+    if fnirs:
+        fnirs.start()#save_fn, duration=record_duration)
+
+
+    # Show the instructions screen
+    show_instructions(duration)
 
     # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
     start = time()
@@ -70,30 +77,62 @@ def present(duration=120, eeg: EEG=None, save_fn=None):
         image = choice(faces if label == 1 else houses)
         image.draw()
 
-        # Push sample
+
+        # Push triggers
+
+        marker = markernames[label]
+        if marker == 1:
+            marker_name = 'face'
+        elif marker == 2:
+            marker_name = 'house'
+
+
+        timestamp = time()
         if eeg:
-            timestamp = time()
             if eeg.backend == "muselsl":
-                marker = [markernames[label]]
+                #marker = [additional_labels["labels"][iteratorthing - 1]]
+                #eeg_marker = [marker]
+                eeg_marker=[markernames[label]]
+                eeg_marker = list(map(int, eeg_marker))
             else:
-                marker = markernames[label]
-            eeg.push_sample(marker=marker, timestamp=timestamp)
+                #eeg_marker = marker # additional_labels["labels"][iteratorthing - 1]\
+                #eeg_marker = markernames[label]
+                eeg_marker = marker
+            eeg.push_sample(marker=eeg_marker, timestamp=timestamp)
+
+        if fnirs:
+            marker_name = 'event_' + marker_name
+            fnirs.push_sample(timestamp=timestamp, marker=marker,marker_name=marker_name)
+
+
 
         mywin.flip()
 
-        # offset
+        #offset
         core.wait(soa)
         mywin.flip()
-        if len(event.getKeys()) > 0 or (time() - start) > record_duration:
+        if len(event.getKeys()) > 0:
             break
-
+        if (time() - start) > record_duration:
+            break
         event.clearEvents()
+
+
 
     # Cleanup
     if eeg:
         eeg.stop()
 
+    if fnirs:
+        fnirs.stop()
+
+
     mywin.close()
+
+
+
+
+
 
 
 def show_instructions(duration):

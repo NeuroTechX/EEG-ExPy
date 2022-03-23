@@ -107,7 +107,7 @@ def present(
             eeg.push_sample(marker=eeg_marker, timestamp=timestamp)
 
         if fnirs:
-            marker_name = 'event_' + str(marker)
+            marker_name = 'event_' + marker_name
             fnirs.push_sample(timestamp=timestamp, marker=marker,marker_name=marker_name)
 
 

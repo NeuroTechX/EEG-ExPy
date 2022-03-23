@@ -21,12 +21,12 @@ from eegnb.experiments.auditory_oddball import aMMN
 import h5py
 
 # Define some variables
-#eeg_device_name = 'muse2_bfb'
+eeg_device_name = 'museS_bfb'
 fnirs_device_name = "kernelflow"
 experiment = "aMMN" #  i#"visual_n170"
 subject_id = 0
 session_nb = 0
-record_duration = 120
+record_duration = 20
 
 
 #conditions_file = 'MUSE_conditions.mat' 
@@ -46,12 +46,13 @@ itis = np.ones_like(oddball)*0.5
 # Start EEG device
 
 eeg_device = None
-#eeg_device = EEG(device=board_name)
+#eeg_device = EEG(device=eeg_device_name, serial_port='/dev/ttyACM0')#board_name)
+
 
 fnirs_device = FNIRS(device=fnirs_device_name)
 
 ## Create save file name
-#eeg_save_fn = generate_save_fn(eeg_device_name, experiment, subject_id, session_nb)
+eeg_save_fn = generate_save_fn(eeg_device_name, experiment, subject_id, session_nb)
 #print(eeg_save_fn)
 
 ###################################################################################################  
@@ -59,5 +60,5 @@ fnirs_device = FNIRS(device=fnirs_device_name)
 # ---------------------  
 #  
 aMMN.present(eeg = eeg_device, fnirs = fnirs_device, stim_types=stim_types,
-              itis=itis, duration=10)#20)#,save_fn=save_fn)
+              itis=itis, duration=record_duration,save_fn=eeg_save_fn)
 
