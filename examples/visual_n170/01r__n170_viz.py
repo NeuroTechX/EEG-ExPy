@@ -59,7 +59,7 @@ if not os.path.isdir(n170_data_path):
 subject = 1
 session = 1
 raw = load_data(subject,session,
-                experiment='visual-N170', site='eegnb_examples', device_name='muse2016',
+                experiment='visual-N170', site='eegnb_examples', device_name='muse2016_bfn',
                 data_dir = eegnb_data_path)
 
 ###################################################################################################
@@ -85,8 +85,8 @@ event_id = {'House': 1, 'Face': 2}
 
 # Create an MNE Epochs object representing all the epochs around stimulus presentation
 epochs = Epochs(raw, events=events, event_id=event_id, 
-                tmin=-0.1, tmax=0.8, baseline=None,
-                reject={'eeg': 75e-6}, preload=True, 
+                tmin=-0.1, tmax=0.6, baseline=None,
+                reject={'eeg': 5e-5}, preload=True, 
                 verbose=False, picks=[0,1,2,3])
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 epochs
@@ -101,6 +101,11 @@ conditions['Face'] = [2]
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                           ci=97.5, n_boot=1000, title='',
-                          diff_waveform=None)#(1, 2))
+                          diff_waveform=None, #(1, 2))
+                          channel_order=[1,0,2,3]) # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
+
+# Manually adjust the ylims
+for i in [0,2]: ax[i].set_ylim([-0.5,0.5])
+for i in [1,3]: ax[i].set_ylim([-1.5,2.5])
 
 
