@@ -6,6 +6,7 @@ from eegnb import generate_save_fn, DATA_DIR
 from eegnb.devices.eeg import EEG
 from .utils import run_experiment, get_exp_desc, experiments
 
+eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
 
 def device_prompt() -> EEG: 
     # define the names of the available boards
@@ -84,8 +85,8 @@ def device_prompt() -> EEG:
 
 
 
-def exp_prompt() -> str:
-    print("\nPlease select which experiment you would like to run: \n")
+def exp_prompt(runorzip:str='run') -> str:
+    print("\nPlease select which experiment you would like to %s: \n" %runorzip)
     print(
         "\n".join(
             [
@@ -114,10 +115,11 @@ def site_prompt(experiment:str) -> str:
 
     print("\nPlease select which experiment subfolder you would like to zip. Default 'local_ntcs'")
     print("\nCurrent subfolders for experiment {}:\n".format(experiment))
-    print(os.listdir(experiment_dir))
-    site=str(input('\nEnter folder: '))
+    dirslist = [d for d in os.listdir(experiment_dir) if d not in eegnb_sites ]
+    for d in dirslist: print(d + '\n')
+    site=str(input('\nType folder name: '))
     if site=="":
-        site="local_ntcs"
+        site="local"
 
     print("Selected Folder : {} \n".format(site))
     return site
@@ -160,7 +162,7 @@ def intro_prompt_zip() -> Tuple[str,str]:
     """This function handles the user prompts for inputting information for zipping their function."""
 
     # ask the user which experiment to zip
-    exp_selection = exp_prompt()
+    exp_selection = exp_prompt(runorzip='zip')
     site= site_prompt(exp_selection)
     
     return exp_selection,site
