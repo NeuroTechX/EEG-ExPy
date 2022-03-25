@@ -91,12 +91,9 @@ def fetch_dataset(
         destination = os.path.join(data_dir, "downloaded_data.zip")
 
         if download_method == "gdown":
-
             URL = "https://drive.google.com/uc?id=" + gdrive_locs[experiment]
             gdown.download(URL, destination, quiet=False)
-
         elif download_method == "requests":
-
             URL = "https://docs.google.com/uc?export=download"
 
             session = requests.Session()
@@ -120,6 +117,8 @@ def fetch_dataset(
                 for chunk in response.iter_content(CHUNK_SIZE):
                     if chunk:
                         f.write(chunk)
+        else:
+            raise ValueError("download_method not supported")
 
         # unzip the file
         with zipfile.ZipFile(destination, "r") as zip_ref:
