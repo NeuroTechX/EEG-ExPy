@@ -59,7 +59,7 @@ if not os.path.isdir(n170_data_path):
 subject = 1
 session = 1
 raw = load_data(subject,session,
-                experiment='visual-N170', site='eegnb_examples', device_name='muse2016_bfn',
+                experiment='visual-N170', site='eegnb_examples', device_name='muse2016',
                 data_dir = eegnb_data_path)
 
 ###################################################################################################
