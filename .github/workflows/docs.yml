@@ -17,22 +17,14 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        # update archive links
-        sudo apt update
-
-        # See test.yml for description of the following deps
-        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev portaudio19-dev libpulse-dev pulseaudio libsdl2-dev
-
+        make install-deps-apt
         python -m pip install --upgrade pip wheel
 
-        # Install wxPython wheels since they are distribution-specific and therefore not on PyPI
-        # See: https://wxpython.org/pages/downloads/index.html
-        pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
-
+        make install-deps-wxpython
         pip install .
     - name: Build docs
       run: |
-        cd doc && make html
+        make docs
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'
