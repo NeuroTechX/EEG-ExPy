@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.os }}, py-${{ matrix.python_version }}
+    name: test (${{ matrix.os }}, py-${{ matrix.python_version }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -81,6 +81,7 @@ jobs:
         pytest
 
   typecheck:
+    name: typecheck (${{ matrix.os }}, py-${{ matrix.python_version }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
