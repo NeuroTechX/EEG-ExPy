@@ -11,6 +11,9 @@ typecheck:
 docs:
 	cd doc && make html
 
+clean:
+	cd doc && make clean
+
 install-deps-apt:
 	sudo apt-get update  # update archive links
 
@@ -24,6 +27,6 @@ install-deps-apt:
 	sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev portaudio19-dev libpulse-dev pulseaudio libsdl2-dev
 
 install-deps-wxpython:
-# Install wxPython wheels since they are distribution-specific and therefore not on PyPI
-# See: https://wxpython.org/pages/downloads/index.html
-        pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
+	# Install wxPython wheels since they are distribution-specific and therefore not on PyPI
+	# See: https://wxpython.org/pages/downloads/index.html
+	pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
