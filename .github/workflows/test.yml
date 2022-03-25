@@ -67,7 +67,6 @@ jobs:
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
-          pip install -U psychtoolbox  # JG_ADD
           export DISPLAY=:0
         fi
         eegnb --help
