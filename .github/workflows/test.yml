@@ -46,21 +46,20 @@ jobs:
         # xvfb is a dependency to create a virtual display
         # libgtk-3-dev is a requirement for wxPython
         # freeglut3-dev is a requirement for a wxPython dependency
-        # libportaudio2 might be required to import psychopy on Ubuntu
-        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev libportaudio2
+        # portaudio19-dev *might* be required to import psychopy on Ubuntu
+        # libpulse-dev required to build sphinx stuff, for some strange reason
+        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev portaudio19-dev libpulse-dev
+    - name: Upgrade pip
+      run: |
+        python -m pip install --upgrade pip wheel
     - name: Install Linux dependencies
       if: "startsWith(runner.os, 'Linux')"
       run: |
-        python -m pip install --upgrade pip wheel
-
         # Install wxPython wheels since they are distribution-specific and therefore not on PyPI
         # See: https://wxpython.org/pages/downloads/index.html
         pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
-
-        pip install .
-    - name: Install MacOS/Windows dependencies
+    - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip wheel
         pip install .
     - name: Run eegnb install test
       shell: bash  
