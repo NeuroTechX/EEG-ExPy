@@ -2,11 +2,11 @@ import copy
 from copy import deepcopy
 import math
 import logging
+import sys
 from collections import OrderedDict
 from glob import glob
-from typing import Union, List, Dict
+from typing import Union, List
 from time import sleep, time
-from numpy.core.fromnumeric import std
 
 import pandas as pd
 import numpy as np
@@ -16,13 +16,13 @@ from mne.io import RawArray
 from mne.channels import make_standard_montage
 from mne.filter import create_filter
 from matplotlib import pyplot as plt
+from scipy import stats
 from scipy.signal import lfilter, lfilter_zi
 
 from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
-                        
 
 # this should probably not be done here
 sns.set_context("talk")
@@ -30,6 +30,29 @@ sns.set_style("white")
 
 
 logger = logging.getLogger(__name__)
+
+
+def _bootstrap(data, n_boot: int, ci: float):
+    """From: https://stackoverflow.com/a/47582329/965332"""
+    boot_dist = []
+    for i in range(int(n_boot)):
+        resampler = np.random.randint(0, data.shape[0], data.shape[0])
+        sample = data.take(resampler, axis=0)
+        boot_dist.append(np.mean(sample, axis=0))
+    b = np.array(boot_dist)
+    s1 = np.apply_along_axis(stats.scoreatpercentile, 0, b, 50 - ci / 2)
+    s2 = np.apply_along_axis(stats.scoreatpercentile, 0, b, 50 + ci / 2)
+    return (s1, s2)
+
+
+def _tsplotboot(ax, data, n_boot: int, ci: float, **kw):
+    """From: https://stackoverflow.com/a/47582329/965332"""
+    x = np.arange(data.shape[1])
+    est = np.mean(data, axis=0)
+    cis = _bootstrap(data, n_boot, ci)
+    ax.fill_between(x, cis[0], cis[1], alpha=0.2, **kw)
+    ax.plot(x, est, **kw)
+    ax.margins(x=0)
 
 
 def load_csv_as_raw(
@@ -247,15 +270,19 @@ def plot_conditions(
             plot_axes.append(axes[axis_x, axis_y])
     axes = plot_axes
 
+    print("\n\n\n\n\n\n")
+
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
-            sns.tsplot(
-                X[y.isin(cond), ch],
-                time=times,
+            y_cond = y.isin(cond)
+            # make X[y_cond, ch] one-dimensional
+            X_cond = X[y_cond, ch]
+            _tsplotboot(
+                ax=axes[ch],
+                data=X_cond,
                 color=color,
                 n_boot=n_boot,
                 ci=ci,
-                ax=axes[ch],
             )
 
         if diff_waveform:

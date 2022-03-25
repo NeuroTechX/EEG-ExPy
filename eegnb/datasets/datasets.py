@@ -1,11 +1,17 @@
-import os,sys,glob,shutil,numpy as np, pandas as pd
-import requests, zipfile,gdown
+import os
+import glob
+import shutil
+import zipfile
+
+import requests
+import gdown
+
 from datetime import datetime
 from eegnb import DATA_DIR
 
 
 # eegnb example data sites. do not select these when zipping recordings
-eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
+eegnb_sites = ["eegnb_examples", "grifflab_dev", "jadinlab_home"]
 
 
 def fetch_dataset(
@@ -64,7 +70,7 @@ def fetch_dataset(
     }
 
     # If no non-default top-level data path specified, use default
-    if data_dir == None:
+    if data_dir is None:
         data_dir = DATA_DIR
 
     # check parameter entries
@@ -160,9 +166,7 @@ def fetch_dataset(
     return fnames
 
 
-
-def zip_data_folders(experiment: str,
-                     site: str="local"):
+def zip_data_folders(experiment: str, site: str = "local"):
 
     """
     Run data zipping
