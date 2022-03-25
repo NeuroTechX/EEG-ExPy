@@ -45,13 +45,17 @@ def _bootstrap(data, n_boot: int, ci: float):
     return (s1, s2)
 
 
-def _tsplotboot(ax, data, n_boot: int, ci: float, **kw):
+def _tsplotboot(ax, data, time: list, n_boot: int, ci: float, color):
     """From: https://stackoverflow.com/a/47582329/965332"""
-    x = np.arange(data.shape[1])
+    # Time forms the xaxis of the plot
+    if time is None:
+        x = np.arange(data.shape[1])
+    else:
+        x = np.asarray(time)
     est = np.mean(data, axis=0)
     cis = _bootstrap(data, n_boot, ci)
-    ax.fill_between(x, cis[0], cis[1], alpha=0.2, **kw)
-    ax.plot(x, est, **kw)
+    ax.fill_between(x, cis[0], cis[1], alpha=0.2, color=color)
+    ax.plot(x, est, color=color)
     ax.margins(x=0)
 
 
@@ -175,7 +179,9 @@ def load_data(
         site = "*"
 
     data_path = (
-        _get_recording_dir(device_name, experiment, subject_str, session_str, site, data_dir)
+        _get_recording_dir(
+            device_name, experiment, subject_str, session_str, site, data_dir
+        )
         / "*.csv"
     )
     fnames = glob(str(data_path))
@@ -216,7 +222,8 @@ def plot_conditions(
     ylim=(-6, 6),
     diff_waveform=(1, 2),
     channel_count=4,
-    channel_order=None):
+    channel_order=None,
+):
     """Plot ERP conditions.
     Args:
         epochs (mne.epochs): EEG epochs
@@ -242,10 +249,9 @@ def plot_conditions(
     """
 
     if channel_order:
-      channel_order = np.array(channel_order)
+        channel_order = np.array(channel_order)
     else:
-      channel_order = np.array(range(channel_count))
-
+        channel_order = np.array(range(channel_count))
 
     if isinstance(conditions, dict):
         conditions = OrderedDict(conditions)
@@ -255,7 +261,7 @@ def plot_conditions(
 
     X = epochs.get_data() * 1e6
 
-    X = X[:,channel_order]
+    X = X[:, channel_order]
 
     times = epochs.times
     y = pd.Series(epochs.events[:, -1])
@@ -270,16 +276,14 @@ def plot_conditions(
             plot_axes.append(axes[axis_x, axis_y])
     axes = plot_axes
 
-    print("\n\n\n\n\n\n")
-
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
             y_cond = y.isin(cond)
-            # make X[y_cond, ch] one-dimensional
             X_cond = X[y_cond, ch]
             _tsplotboot(
                 ax=axes[ch],
                 data=X_cond,
+                time=times,
                 color=color,
                 n_boot=n_boot,
                 ci=ci,
