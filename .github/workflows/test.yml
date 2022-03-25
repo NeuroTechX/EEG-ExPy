@@ -15,14 +15,11 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
         python_version: [3.8]
-        include:
-          - os: ubuntu-latest
-            python_version: 3.9
-          #- os: macOS-latest
-          #  python_version: 3.9
+        #include:
           # Experimental: Python 3.9
+          # Works fine, commented out because mostly covered (at least installing/building deps) by the typecheck job
           # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/50
-          #- os: ubuntu-18.04
+          #- os: ubuntu-latest
           #  python_version: 3.9
 
     steps:
