@@ -44,7 +44,8 @@ jobs:
         # xvfb is a dependency to create a virtual display
         # libgtk-3-dev is a requirement for wxPython
         # freeglut3-dev is a requirement for a wxPython dependency
-        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev
+        # libportaudio2 might be required to import psychopy on Ubuntu
+        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev libportaudio2
     - name: Install Linux dependencies
       if: "startsWith(runner.os, 'Linux')"
       run: |
