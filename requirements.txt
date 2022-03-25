@@ -1,33 +1,26 @@
 # Main repo requirements
 psychopy==2022.1.1
-psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4
 numpy>=1.19.4
 mne>=0.20.8
-seaborn==0.9.0
+seaborn>=0.11.0
 pyriemann>=0.2.7
 jupyter
 muselsl>=2.0.2
 brainflow>=4.8.2
 gdown
 matplotlib>=3.3.3
-pysocks==1.7.1
-pyserial==3.5
+pysocks>=1.7.1
+pyserial>=3.5
 h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
-
-# This was needed due to https://discourse.psychopy.org/t/missing-sound-libraries-for-psychopy3-standalone-release-3-2-3-for-win32/9162
-pygame
 
 # This might try to build from source on linux (since there are no wheels for Linux on PyPI)
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
 click
-
-# can be removed once minimum version is Python 3.7
-dataclasses; python_version == '3.6'  
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
