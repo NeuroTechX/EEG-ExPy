@@ -101,10 +101,8 @@ jobs:
       run: |
         # update archive links
         sudo apt-get update
-        # xvfb is a dependency to create a virtual display
-        # libgtk-3-dev is a requirement for wxPython
-        # freeglut3-dev is a requirement for a wxPython dependency
-        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev
+        # See comment above (in the test job) for details about these dependencies
+        sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev portaudio19-dev libpulse-dev pulseaudio libsdl2-dev
     - name: Install Linux dependencies
       if: "startsWith(runner.os, 'Linux')"
       run: |
