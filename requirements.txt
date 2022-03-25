@@ -18,6 +18,9 @@ h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
 
+# This was needed due to https://discourse.psychopy.org/t/missing-sound-libraries-for-psychopy3-standalone-release-3-2-3-for-win32/9162
+pygame
+
 # This might try to build from source on linux (since there are no wheels for Linux on PyPI)
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
