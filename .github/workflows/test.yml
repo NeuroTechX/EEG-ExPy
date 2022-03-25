@@ -17,7 +17,9 @@ jobs:
         python_version: [3.7]
         include:
           - os: ubuntu-latest
-            python_version: 3.8
+            python_version: 3.9
+          - os: macOS-latest
+            python_version: 3.9
           # Experimental: Python 3.9
           # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/50
           #- os: ubuntu-18.04
