@@ -1,17 +1,11 @@
-import os
-import glob
-import shutil
-import zipfile
-
-import requests
-import gdown
-
+import os,sys,glob,shutil,numpy as np, pandas as pd
+import requests, zipfile,gdown
 from datetime import datetime
 from eegnb import DATA_DIR
 
 
 # eegnb example data sites. do not select these when zipping recordings
-eegnb_sites = ["eegnb_examples", "grifflab_dev", "jadinlab_home"]
+eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
 
 
 def fetch_dataset(
@@ -70,7 +64,7 @@ def fetch_dataset(
     }
 
     # If no non-default top-level data path specified, use default
-    if data_dir is None:
+    if data_dir == None:
         data_dir = DATA_DIR
 
     # check parameter entries
@@ -91,9 +85,12 @@ def fetch_dataset(
         destination = os.path.join(data_dir, "downloaded_data.zip")
 
         if download_method == "gdown":
+
             URL = "https://drive.google.com/uc?id=" + gdrive_locs[experiment]
             gdown.download(URL, destination, quiet=False)
+
         elif download_method == "requests":
+
             URL = "https://docs.google.com/uc?export=download"
 
             session = requests.Session()
@@ -117,8 +114,6 @@ def fetch_dataset(
                 for chunk in response.iter_content(CHUNK_SIZE):
                     if chunk:
                         f.write(chunk)
-        else:
-            raise ValueError("download_method not supported")
 
         # unzip the file
         with zipfile.ZipFile(destination, "r") as zip_ref:
@@ -165,7 +160,9 @@ def fetch_dataset(
     return fnames
 
 
-def zip_data_folders(experiment: str, site: str = "local"):
+
+def zip_data_folders(experiment: str,
+                     site: str="local"):
 
     """
     Run data zipping

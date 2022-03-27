@@ -1,7 +1,9 @@
-import click
-import os
-
 from eegnb import DATA_DIR
+import click
+from time import sleep
+from os import path
+import os
+import shutil
 from eegnb.datasets.datasets import zip_data_folders
 
 from .introprompt import intro_prompt
@@ -32,7 +34,7 @@ def runexp(
     recdur: float = None,
     outfname: str = None,
     prompt: bool = False,
-    dosigqualcheck=True,
+    dosigqualcheck = True,
 ):
     """
     Run experiment.

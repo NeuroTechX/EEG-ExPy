@@ -2,11 +2,11 @@ import copy
 from copy import deepcopy
 import math
 import logging
-import sys
 from collections import OrderedDict
 from glob import glob
-from typing import Union, List
+from typing import Union, List, Dict
 from time import sleep, time
+from numpy.core.fromnumeric import std
 
 import pandas as pd
 import numpy as np
@@ -16,13 +16,13 @@ from mne.io import RawArray
 from mne.channels import make_standard_montage
 from mne.filter import create_filter
 from matplotlib import pyplot as plt
-from scipy import stats
 from scipy.signal import lfilter, lfilter_zi
 
 from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
+                        
 
 # this should probably not be done here
 sns.set_context("talk")
@@ -30,33 +30,6 @@ sns.set_style("white")
 
 
 logger = logging.getLogger(__name__)
-
-
-def _bootstrap(data, n_boot: int, ci: float):
-    """From: https://stackoverflow.com/a/47582329/965332"""
-    boot_dist = []
-    for i in range(int(n_boot)):
-        resampler = np.random.randint(0, data.shape[0], data.shape[0])
-        sample = data.take(resampler, axis=0)
-        boot_dist.append(np.mean(sample, axis=0))
-    b = np.array(boot_dist)
-    s1 = np.apply_along_axis(stats.scoreatpercentile, 0, b, 50 - ci / 2)
-    s2 = np.apply_along_axis(stats.scoreatpercentile, 0, b, 50 + ci / 2)
-    return (s1, s2)
-
-
-def _tsplotboot(ax, data, time: list, n_boot: int, ci: float, color):
-    """From: https://stackoverflow.com/a/47582329/965332"""
-    # Time forms the xaxis of the plot
-    if time is None:
-        x = np.arange(data.shape[1])
-    else:
-        x = np.asarray(time)
-    est = np.mean(data, axis=0)
-    cis = _bootstrap(data, n_boot, ci)
-    ax.fill_between(x, cis[0], cis[1], alpha=0.2, color=color)
-    ax.plot(x, est, color=color)
-    ax.margins(x=0)
 
 
 def load_csv_as_raw(
@@ -179,9 +152,7 @@ def load_data(
         site = "*"
 
     data_path = (
-        _get_recording_dir(
-            device_name, experiment, subject_str, session_str, site, data_dir
-        )
+        _get_recording_dir(device_name, experiment, subject_str, session_str, site, data_dir)
         / "*.csv"
     )
     fnames = glob(str(data_path))
@@ -222,8 +193,7 @@ def plot_conditions(
     ylim=(-6, 6),
     diff_waveform=(1, 2),
     channel_count=4,
-    channel_order=None,
-):
+    channel_order=None):
     """Plot ERP conditions.
     Args:
         epochs (mne.epochs): EEG epochs
@@ -249,9 +219,10 @@ def plot_conditions(
     """
 
     if channel_order:
-        channel_order = np.array(channel_order)
+      channel_order = np.array(channel_order)
     else:
-        channel_order = np.array(range(channel_count))
+      channel_order = np.array(range(channel_count))
+
 
     if isinstance(conditions, dict):
         conditions = OrderedDict(conditions)
@@ -261,7 +232,7 @@ def plot_conditions(
 
     X = epochs.get_data() * 1e6
 
-    X = X[:, channel_order]
+    X = X[:,channel_order]
 
     times = epochs.times
     y = pd.Series(epochs.events[:, -1])
@@ -278,15 +249,13 @@ def plot_conditions(
 
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
-            y_cond = y.isin(cond)
-            X_cond = X[y_cond, ch]
-            _tsplotboot(
-                ax=axes[ch],
-                data=X_cond,
+            sns.tsplot(
+                X[y.isin(cond), ch],
                 time=times,
                 color=color,
                 n_boot=n_boot,
                 ci=ci,
+                ax=axes[ch],
             )
 
         if diff_waveform:

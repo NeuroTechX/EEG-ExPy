@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -17,14 +17,16 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        make install-deps-apt
         python -m pip install --upgrade pip wheel
 
-        make install-deps-wxpython
+        # Install wxPython wheels since they are distribution-specific and therefore not on PyPI
+        # See: https://wxpython.org/pages/downloads/index.html
+        pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
+
         pip install .
     - name: Build docs
       run: |
-        make docs
+        cd doc && make html
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'
