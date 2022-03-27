@@ -263,7 +263,7 @@ sphinx_gallery_conf = {'filename_pattern': '(?=.*r__)(?=.*.py)',
                        'backreferences_dir': 'generated',   # Where to drop linking files between examples & API
                        'doc_module': ('eeg-notebooks'),
                        'reference_url': {'eeg-notebooks': None},
-                       'remove_conffig_comments': True}
+                       'remove_config_comments': True}
 
 """
 sphinx_gallery_conf = {
@@ -284,7 +284,7 @@ sphinx_gallery_conf = {
     'backreferences_dir': 'generated',   # Where to drop linking files between examples & API
     'doc_module': ('eeg-notebooks',),
     'reference_url': {'eeg-notebooksS': None},
-    'remove_conffig_comments': True,
+    'remove_config_comments': True,
 }
 
 """
