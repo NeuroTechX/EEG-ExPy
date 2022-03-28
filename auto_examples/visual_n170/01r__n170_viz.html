@@ -480,7 +480,7 @@ the example dataset, if you do not already have it.</p>
 <span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span><span class="n">session</span><span class="p">,</span>
-                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-N170&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-N170&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016_bfn&#39;</span><span class="p">,</span>
                 <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -490,39 +490,60 @@ From: https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/33.1M [00:00&lt;?, ?B/s]
- 22%|##2       | 7.34M/33.1M [00:00&lt;00:00, 72.3MB/s]
- 52%|#####2    | 17.3M/33.1M [00:00&lt;00:00, 83.6MB/s]
- 84%|########3 | 27.8M/33.1M [00:00&lt;00:00, 91.1MB/s]
-100%|##########| 33.1M/33.1M [00:00&lt;00:00, 92.3MB/s]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+  6%|6         | 2.10M/33.1M [00:00&lt;00:01, 20.5MB/s]
+ 27%|##6       | 8.91M/33.1M [00:00&lt;00:00, 36.9MB/s]
+ 52%|#####2    | 17.3M/33.1M [00:00&lt;00:00, 51.6MB/s]
+ 71%|#######1  | 23.6M/33.1M [00:00&lt;00:00, 54.4MB/s]
+100%|##########| 33.1M/33.1M [00:00&lt;00:00, 60.7MB/s]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76780
+    Range : 0 ... 76779 =      0.000 ...   299.918 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30720
-    Range : 0 ... 30719 =      0.000 ...   119.996 secs
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76936
+    Range : 0 ... 76935 =      0.000 ...   300.527 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76912
+    Range : 0 ... 76911 =      0.000 ...   300.434 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76816
+    Range : 0 ... 76815 =      0.000 ...   300.059 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=93280
+    Range : 0 ... 93279 =      0.000 ...   364.371 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76816
+    Range : 0 ... 76815 =      0.000 ...   300.059 secs
+Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76816
+    Range : 0 ... 76815 =      0.000 ...   300.059 secs
+Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76744
+    Range : 0 ... 76743 =      0.000 ...   299.777 secs
+Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76768
+    Range : 0 ... 76767 =      0.000 ...   299.871 secs
+Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76768
+    Range : 0 ... 76767 =      0.000 ...   299.871 secs
 Ready.
 </pre></div>
 </div>
@@ -546,7 +567,7 @@ Ready.
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_01r__n170_viz_002.png" srcset="../../_images/sphx_glr_01r__n170_viz_002.png" alt="EEG" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filtering raw data in 6 contiguous segments
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filtering raw data in 10 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
 
 IIR filter parameters
@@ -577,21 +598,21 @@ Effective window size : 8.000 (s)
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>1174 events found
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>3740 events found
 Event IDs: [1 2]
-sample drop %:  8.688245315161836
+sample drop %:  9.919786096256688
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
 <table class="table table-hover table-striped table-sm table-responsive small">
     <tr>
         <th>Number of events</th>
-        <td>1072</td>
+        <td>3369</td>
     </tr>
     <tr>
         <th>Events</th>
 
-        <td>Face: 530<br/>House: 542</td>
+        <td>Face: 1702<br/>House: 1667</td>
 
     </tr>
     <tr>
@@ -622,7 +643,7 @@ sample drop %:  8.688245315161836
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">])</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="AF7, AF8, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.518 seconds)</p>
+<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="Fp1, Fp2, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.945 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-01r-n170-viz-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db7df1055da643ad96640e6377001dbf/01r__n170_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__n170_viz.py</span></code></a></p>
