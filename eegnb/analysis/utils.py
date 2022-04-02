@@ -32,6 +32,22 @@ sns.set_style("white")
 logger = logging.getLogger(__name__)
 
 
+# Empirically determined lower and upper bounds of 
+# acceptable temporal standard deviations 
+# for different EEG devices tested by us
+openbci_devices = ['ganglion', 'ganglion_wifi', 'cyton', 'cyton_wifi', 'cyton_daisy_wifi']
+muse_devices = ['muse' + model + sfx for model in ['2016', '2', 'S'] for sfx in ['', '_bfn', '_bfb']]
+neurosity_devices = ['notion1', 'notion2', 'crown']
+gtec_devices = ['unicorn']
+alltesteddevices = openbci_devices + muse_devices + neurosity_devices + gtec_devices
+thres_stds = {}
+for device in alltesteddevices: 
+    if device in openbci_devices: thres_stds[device] = [1,9]
+    elif device in muse_devices: thres_stds[device] = [1,18]
+    elif device in neurosity_devices: thres_stds[device] = [1,15]
+    elif device in gtec_devices: thres_stds[device] = [1,15]
+
+
 def load_csv_as_raw(
     fnames: List[str],
     sfreq: float,
@@ -435,25 +451,13 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
 
     # If no upper and lower std thresholds set in function call,
     # set thresholds based on the following per-device name defaults
-    if thres_std_high is None:
-        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
-                    "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi"]:
-            thres_std_high = 9
-        elif eeg.device_name in ["notion1", "notion2", "crown"]:
-            thres_std_high = 15
-        elif 'muse' in eeg.device_name:
-            thres_std_high = 18
-
+    edn = eeg.device_name
     if thres_std_low is None:
-
-        if 'muse' in eeg.device_name: 
-            thres_std_low = 1
-
-        elif eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
-                                 "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
-                                 "notion1", "notion2", "crown"]:
-            thres_std_low = 1
-
+        if edn in thres_stds.keys():
+            thres_std_low = thres_stds[edn][0]
+    if thres_std_high is None:
+        if edn in thres_stds.keys():
+            thres_std_high = thres_stds[edn][1]
             
     print("\n\nRunning signal quality check...")
     print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
