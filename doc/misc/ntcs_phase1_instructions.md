@@ -85,7 +85,7 @@ The end-to-end sequence of steps for participating in NTCS are as follows:
 
 `eegnb runexp -ip`
 
-Specify 5 minutes (600 seconds) run duration
+Specify 5 minutes (300 seconds) run duration
 
 4. Repeat step 3 ten times, with (up to) 2 minute breaks in between.
 
