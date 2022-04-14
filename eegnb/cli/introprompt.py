@@ -155,6 +155,11 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
         eeg_device.device_name, exp_selection, subj_id, session_nb 
     )
 
+    print("Finally, optionally enter any relevant notes you would like to save in a metadata file alongside the EEG data for this recording. This could include: additional device details (e.g. electrode type on OpenBCI systems), location and situation (e.g. 'in a quiet room', 'in a noisy cafe', 'in class'), objective of this recording (e.g. 'NTCS P1 experiment recording 5 of 10', 'just testing it out').  \n")
+    metadata_text = int(input("Notes: "))
+
+    # Subject ID specification
+
     return eeg_device, exp_selection, duration, str(save_fn)
 
 

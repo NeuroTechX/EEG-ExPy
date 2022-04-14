@@ -38,11 +38,16 @@ def get_exp_desc(exp: str):
 
 
 def run_experiment(
-    experiment: str, eeg_device: EEG, record_duration: float = None, save_fn=None
-):
+        experiment: str, eeg_device: EEG, record_duration: float = None, save_fn=None, metadata_text: str=None):
     if experiment in experiments:
         module = experiments[experiment]
         module.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)  # type: ignore
+
+        # Optional freeform metadata text for each saved data file
+        if metadata_text:
+            metadata_fn = save_fn.replace('.csv', '_metadata.txt')
+            open(metadata_fn, 'w+').write(metadata_text)
+
     else:
         print("\nError: Unknown experiment '{}'".format(experiment))
         print("\nExperiment can be one of:")

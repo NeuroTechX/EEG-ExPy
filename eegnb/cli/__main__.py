@@ -34,7 +34,8 @@ def runexp(
     recdur: float = None,
     outfname: str = None,
     prompt: bool = False,
-    dosigqualcheck = True,
+    dosigqualcheck: bool = True,
+    dometadatafield: bool = False
 ):
     """
     Run experiment.
@@ -59,11 +60,15 @@ def runexp(
     if prompt:
         eeg, experiment, recdur, outfname = intro_prompt()
     else:
+        """
+        # JG: This should not be necessariy, default macaddress is None, can supply it every time
         if eegdevice == "ganglion":
             # if the ganglion is chosen a MAC address should also be provided
             eeg = EEG(device=eegdevice, mac_addr=macaddr)
         else:
             eeg = EEG(device=eegdevice)
+        """
+        eeg = EEG(device=eegdevice, mac_addr=macaddr)
 
     def askforsigqualcheck():
         do_sigqual = input("\n\nRun signal quality check? (y/n). Recommend y \n")
@@ -76,8 +81,14 @@ def runexp(
     if dosigqualcheck:
         askforsigqualcheck()
 
+    if dometadatafield:
+        # CLI prompt ask
+        metadata_text = "SOME METADATA" 
 
-    run_experiment(experiment, eeg, recdur, outfname)
+
+    run_experiment(experiment, eeg, recdur, outfname, metadata_text=metadata_text)
+
+ 
 
     print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
 
