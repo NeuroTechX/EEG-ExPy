@@ -61,7 +61,7 @@ jobs:
         python -m pip install --upgrade pip wheel
         pip install .
     - name: Run eegnb install test
-      shell: bash  
+      shell: bash
         pip install -U psychtoolbox # JG_ADD
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
