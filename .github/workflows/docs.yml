@@ -2,9 +2,9 @@ name: Docs
 
 on:
   push:
-    branches: [ master, 'dev/*' ]
+    branches: [ master, develop, 'dev/*' ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, develop ]
 
 jobs:
   build:
@@ -29,8 +29,8 @@ jobs:
         cd doc && make html
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html
- 
+
