@@ -7,6 +7,7 @@ from typing import List, Dict
 from abc import ABCMeta, abstractmethod
 
 import numpy as np
+from .utils import EEG_INDICES, EEG_CHANNELS, SAMPLE_FREQS
 
 
 logger = logging.getLogger(__name__)
@@ -86,6 +87,18 @@ class EEGDevice(metaclass=ABCMeta):
     @abstractmethod
     def check(self):
         raise NotImplementedError
+
+    @property
+    def n_channels(self) -> int:
+        return len(EEG_INDICES[self.device_name])
+
+    @property
+    def sfreq(self) -> int:
+        return SAMPLE_FREQS[self.device_name]
+
+    @property
+    def channels(self) -> List[str]:
+        return EEG_CHANNELS[self.device_name]
 
 
 def test_create():

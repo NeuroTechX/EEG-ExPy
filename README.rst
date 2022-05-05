@@ -1,3 +1,9 @@
+=============
+EEG-Notebooks
+=============
+
+*Democratizing the cognitive neuroscience experiment*
+
 |badge_test| |badge_binder|
 
 .. |badge_test| image:: https://github.com/NeuroTechX/eeg-notebooks/workflows/Test/badge.svg
@@ -6,26 +12,22 @@
 .. |badge_binder| image:: https://mybinder.org/badge_logo.svg
    :target: https://mybinder.org/v2/gh/NeuroTechX/eeg-notebooks/master
 
-===================================================================
-EEG-Notebooks - Democratizing the cognitive neuroscience experiment
-===================================================================
-
 .. image:: https://github.com/NeuroTechX/eeg-notebooks/raw/master/doc/img/eeg-notebooks_logo.png
-   :width: 600
    :align: center
 
 EEG-Notebooks is a collection of classic EEG experiments, implemented in Python 3 and Jupyter notebooks. The experimental protocols and analyses are quite generic, but are primarily taylored for low-budget / consumer EEG hardware such as the InteraXon MUSE and OpenBCI Cyton. The goal is to make cognitive neuroscience and neurotechnology more accessible, affordable, and scalable. 
 
-
+- **For an intro talk on the eeg-notebooks project see:** `JG's Brainhack Ontario 2020 presentation <https://www.crowdcast.io/e/brainhack-ontario/7>`_.  
 - **For documentation see:** `documentation site <https://neurotechx.github.io/eeg-notebooks/index.html>`_.
 - **For code see:** `github site <https://github.com/neurotechx/eeg-notebooks>`_.
 - **For instructions on running experiments see:** `running experiments <https://neurotechx.github.io/eeg-notebooks/getting_started/running_experiments.html>`_.
 - **For instructions on initiating an EEG stream see:** `initiating an EEG stream <https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html>`_.
+- **A series of tutorial videos will be coming soon!**  
 
 
 ----
 
-*( Note: eeg-notebooks is now at version 0.2, with some major changes to the API and code base. The version 0.1 code is still available if you need it, in* `this repo <https://github.com/neurotechx/eeg-notebooks_v0.1>`_ )
+**Note:** eeg-notebooks underwent major changes to the API in v0.2. The old v0.1 is still available if you need it, in `this repo <https://github.com/neurotechx/eeg-notebooks_v0.1>`_.
 
 ----
 
@@ -39,10 +41,10 @@ In recent years, however, developments in hardware and software technologies are
 
 The core aim of the EEG-Notebooks project is to provide the critical 'glue' that pulls together the various enabling technologies necessary for running these experiments and analyzing the data. This includes functionality for 
 
-- streaming data from various relatively new wireless consumer-grade EEG devices  
-- visual and auditory stimulus presentation, concurrent with and time-locked to the EEG recordings  
-- a growing library of well-documented, ready-to-use, and ready-to-modify experiments 
-- signal processing, statistical, and machine learning data analysis functionalities
+* streaming data from various relatively new wireless consumer-grade EEG devices  
+* visual and auditory stimulus presentation, concurrent with and time-locked to the EEG recordings  
+* a growing library of well-documented, ready-to-use, and ready-to-modify experiments 
+* signal processing, statistical, and machine learning data analysis functionalities
 
 A real one-stop-shop!
 
@@ -64,11 +66,9 @@ Acknowledgments
 
 EEG-Notebooks was created by the `NeurotechX <https://neurotechx.com/>`_ hacker/developer/neuroscience community. The ininitial idea and majority of the groundwork was due to Alexandre Barachant - including the `muse-lsl <https://github.com/alexandrebarachant/muse-lsl/>`_ library, which is core dependency. Lead developer on the project is now `John Griffiths <www.grifflab.com>`_ . 
 
-Key contributors include: Alexandre Barachant, Hubert Banville, Dano Morrison, Ben Shapiro, John Griffiths, Amanda Easson, Kyle Mathewson, Jadin Tredup. 
+Key contributors include: Alexandre Barachant, Hubert Banville, Dano Morrison, Ben Shapiro, John Griffiths, Amanda Easson, Kyle Mathewson, Jadin Tredup, Erik Bjäreholt. 
 
-Thanks also to Andrey Parfenov for the excellent
-
-`brainflow <https://github.com/brainflow-dev/brainflow/>`_ library, which has allowed us to dramatically expand the range of supporte devices; as well as the developers of `PsychoPy <https://github.com/psychopy/psychopy/>`_ and `MNE <https://github.com/mne-tools/mne-python/>`_, which together make up the central scaffolding of eeg-notebooks. 
+Thanks also to Andrey Parfenov for the excellent `brainflow <https://github.com/brainflow-dev/brainflow/>`_ library, which has allowed us to dramatically expand the range of supporte devices; as well as the developers of `PsychoPy <https://github.com/psychopy/psychopy/>`_ and `MNE <https://github.com/mne-tools/mne-python/>`_, which together make up the central scaffolding of eeg-notebooks. 
 
 
 Contribute
@@ -77,11 +77,17 @@ Contribute
 This project welcomes and encourages contributions from the community!
 
 If you have an idea of something to add to eeg-notebooks, please start by opening an
-`issue <https://github.com/neurotechx/eeg-notebooks/issues>`_.
+`issue <https://github.com/NeuroTechX/eeg-notebooks/issues/new/choose>`_.
 
 
 Contact
 -------------
 
-The best place for general discussion on eeg-notebooks functionality is the  `Issues page <https://github.com/neurotechx/eeg-notebooks/issues>`_. For more general questions and discussions, you can e-mail `john.griffiths@utoronto.ca`, or ping us on the `NeuroTechX slack <https://neurotechx.herokuapp.com>`_.
+The best place for general discussion on eeg-notebooks functionality is the `issues page <https://github.com/NeuroTechX/eeg-notebooks/issues/new/choose>`_. For more general questions and discussions, you can e-mail `john.griffiths@utoronto.ca`, or ping us on the `NeuroTechX Discord <https://discord.gg/zYCBfBf4W4>`_ or `NeuroTechX slack <https://neurotechx.herokuapp.com>`_.
 
+
+
+.. image:: https://github.com/NeuroTechX/eeg-notebooks/raw/master/doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png
+   :align: center
+   :scale: 50
+   

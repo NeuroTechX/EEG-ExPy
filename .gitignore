@@ -16,3 +16,8 @@ examples/visual_cueing/*.csv
 
 # present for people who use pyenv
 .venv
+
+# tests/coverage artifacts
+.coverage
+coverage.xml
+htmlcov

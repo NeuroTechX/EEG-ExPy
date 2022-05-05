@@ -1,10 +1,11 @@
-import glob
-import os
-import requests
-import zipfile
-import gdown
-
+import os,sys,glob,shutil,numpy as np, pandas as pd
+import requests, zipfile,gdown
+from datetime import datetime
 from eegnb import DATA_DIR
+
+
+# eegnb example data sites. do not select these when zipping recordings
+eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
 
 
 def fetch_dataset(
@@ -157,3 +158,46 @@ def fetch_dataset(
                         fnames += fpaths
 
     return fnames
+
+
+
+def zip_data_folders(experiment: str,
+                     site: str="local"):
+
+    """
+    Run data zipping
+
+    Usage
+
+    from eegnb.datasets.datasets import zip_data_folders
+    zip_data_folders(experiment='visual-N170')
+
+
+    See also the command-line program
+    eegnb runzip -ip
+
+    """
+
+    if site in eegnb_sites:
+        print('Invalid Directory')
+        raise ValueError ('{} is one of the eegnb example data sites. Your recordings should not be in that folder.'.format(site))
+
+
+    print('\nRunning Data Zipper')
+    zip_directory=os.path.join(DATA_DIR,experiment,site)
+    print('Looking for {} within {} \n'.format(experiment+'/'+site,DATA_DIR))
+    
+    if not os.path.isdir(zip_directory):
+        print('Invalid Directory')
+        raise ValueError ('{} directory does not exist'.format(zip_directory))
+
+    print('Files Found! Zipping all files in {} '.format(zip_directory))
+
+    date_time=datetime.now()
+    datetime_str=date_time.strftime("%Y-%m-%d-%H-%M")
+    output_filename=os.path.join(os.path.expanduser("~/Desktop"),
+                                 'eegnb_zipdata__' + experiment+'_site-'+site+'_'+datetime_str)
+
+    shutil.make_archive(output_filename,'zip',zip_directory)
+    print('Zip file location is at {}\n '.format(output_filename))
+

@@ -1,27 +1,39 @@
 # Main repo requirements
 psychopy==2020.2.3
-scikit-learn==0.23.2
-pandas==1.1.4
-numpy==1.19.4
+psychtoolbox
+scikit-learn>=0.23.2
+pandas>=1.1.4
+numpy>=1.19.4
 mne>=0.20.8
 seaborn==0.9.0
-pyriemann==0.2.6
-jupyter==1.0.0
+pyriemann>=0.2.7
+jupyter
 muselsl>=2.0.2
-brainflow==3.7.2
-gdown==3.12.2
-matplotlib==3.3.3
-pysocks==1.7.1
-pyserial==3.5
+brainflow>=4.8.2
+gdown
+matplotlib>=3.3.3
+pysocks>=1.7.1
+pyserial>=3.5
 h5py>=3.1.0
+pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
+
+# This might try to build from source on linux (since there are no wheels for Linux on PyPI)
+# You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
 click
+
+# can be removed once minimum version is Python 3.7
+dataclasses; python_version == '3.6'
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
 pywinhook>=1.6.0 ; platform_system == "Windows" and (python_version == "3.7" or python_version == "3.8")
 pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinhook-1.6.2-cp39-cp39-win_amd64.whl ; platform_system == "Windows" and python_version == "3.9"
+
+# pyglet downgrade to prevent threadmode warning on windows
+# See issue: https://github.com/psychopy/psychopy/issues/2876
+pyglet==1.4.10 ; platform_system == "Windows"
 
 # Test requirements
 mypy>=0.790
@@ -32,14 +44,18 @@ pytest-xvfb
 coverage[toml]
 nbval
 
+# Types
+types-requests
+
 # Docs requirements
-sphinx==3.1.1
-sphinx-gallery==0.8.1
-sphinx_rtd_theme==0.5.0
-sphinx-tabs==1.3.0
-sphinx-copybutton==0.3.1
-sphinxcontrib-httpdomain==1.7.0
-numpydoc==1.1.0
-recommonmark==0.6.0
-versioneer==0.19
-rst2pdf==0.98
+sphinx
+sphinx-gallery
+sphinx_rtd_theme
+sphinx-tabs
+sphinx-copybutton
+sphinxcontrib-httpdomain
+numpydoc
+recommonmark
+versioneer
+rst2pdf
+docutils

@@ -1,9 +1,20 @@
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov-report=term --cov-report=xml --cov-report=html --cov=eegnb --profile --nbval-lax --current-env"
+addopts = """
+    --cov=eegnb
+    --cov-report=term
+    --cov-report=xml
+    --cov-report=html
+    --nbval-lax
+    --current-env
+    --ignore-glob 'examples/**.py'
+    --ignore-glob '**/baseline_task.py'
+    --profile
+"""
 testpaths = [
-    "eegnb/devices",
-    "eegnb/cli",
+    "eegnb",
+    "tests",
+    #"examples",
 ]
 python_files = ["*.py", "*.ipynb"]
 

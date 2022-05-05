@@ -8,6 +8,7 @@
    getting_started/installation
    getting_started/streaming
    getting_started/running_experiments
+   getting_started/data_zipper
    getting_started/analysis
    getting_started/available_notebooks
 
@@ -30,6 +31,7 @@
    misc/using_an_extra_electrod_with_the_muse
    misc/muse_info
    misc/about_the_docs
+   misc/ntcs_phase1_instructions  
 
    
    

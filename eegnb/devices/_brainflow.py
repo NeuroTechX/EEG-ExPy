@@ -28,6 +28,13 @@ class BrainflowDevice(EEGDevice):
         "brainbit",
         "notion1",
         "notion2",
+        "crown",
+        "museS_bfn",  # bfn = brainflow with native bluetooth
+        "museS_bfb",  # bfb = brainflow with BLED dongle bluetooth
+        "muse2_bfn",
+        "muse2_bfb",
+        "muse2016_bfn",
+        "muse2016_bfb",
     ]
 
     def __init__(
@@ -107,6 +114,13 @@ class BrainflowDevice(EEGDevice):
             "callibri_eeg": BoardIds.CALLIBRI_EEG_BOARD.value,
             "notion1": BoardIds.NOTION_1_BOARD.value,
             "notion2": BoardIds.NOTION_2_BOARD.value,
+            "crown": BoardIds.CROWN_BOARD.value,
+            "museS_bfn": BoardIds.MUSE_S_BOARD.value,
+            "museS_bfb": BoardIds.MUSE_S_BLED_BOARD.value,
+            "muse2_bfn": BoardIds.MUSE_2_BOARD.value,
+            "muse2_bfb": BoardIds.MUSE_2_BLED_BOARD.value,
+            "muse2016_bfn": BoardIds.MUSE_2016_BOARD.value,
+            "muse2016_bfb": BoardIds.MUSE_2016_BLED_BOARD.value,
             "synthetic": BoardIds.SYNTHETIC_BOARD.value,
         }
 

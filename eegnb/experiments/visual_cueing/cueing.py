@@ -9,7 +9,8 @@ import os
 import sys
 
 
-def present(duration, subject, session):
+# TODO: These default values are bad
+def present(duration, subject=0, session=0, **kwargs):
     # create
     info = StreamInfo("Markers", "Markers", 1, 0, "int32", "myuidw43536")
 

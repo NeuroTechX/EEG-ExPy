@@ -1,5 +1,17 @@
 import click
 import logging
+import os
+import shutil
+from os import path
+from time import sleep
+
+from eegnb import DATA_DIR
+from eegnb.datasets.datasets import zip_data_folders
+
+from .introprompt import intro_prompt
+from .utils import run_experiment
+from eegnb.devices.eeg import EEG
+from eegnb.analysis.utils import check_report
 
 logger = logging.getLogger(__name__)
 
@@ -11,12 +23,7 @@ def main():
 
 
 @main.command()
-@click.option(
-    "-ex",
-    "--experiment",
-    help="Experiment to run",
-    prompt="Experiment to run",
-)
+@click.option("-ex", "--experiment", help="Experiment to run")
 @click.option("-ed", "--eegdevice", help="EEG device to use")
 @click.option("-ma", "--macaddr", help="MAC address of device to use (if applicable)")
 @click.option("-rd", "--recdur", help="Recording duration", type=float)
@@ -31,6 +38,7 @@ def runexp(
     recdur: float = None,
     outfname: str = None,
     prompt: bool = False,
+    dosigqualcheck=True,
 ):
     """
     Run experiment.
@@ -42,7 +50,7 @@ def runexp(
     This is the quickest way to run eeg-notebooks experiments,
     but requires knowledge of formatting for available options
 
-    $ eegnb runexp -ed museS -ex visual-N170 -rd 10 -of test.csv
+    $ eegnb runexp -ex visual-N170 -ed museS -rd 10 -of test.csv
 
 
     Launch the interactive command line experiment setup+run tool
@@ -51,11 +59,9 @@ def runexp(
 
     $ eegnb runexp -ip
     """
-    if prompt:
-        print("run command line prompt script")
-        from .introprompt import main as run_introprompt
 
-        run_introprompt()
+    if prompt:
+        eeg, experiment, recdur, outfname = intro_prompt()
     else:
         from .utils import run_experiment
         from eegnb.devices import EEGDevice
@@ -69,26 +75,127 @@ def runexp(
             else:
                 print("No EEG device provided, using a synthetic one.")
 
-        run_experiment(experiment, eeg, recdur, outfname)
+    def askforsigqualcheck():
+        do_sigqual = input("\n\nRun signal quality check? (y/n). Recommend y \n")
+        if do_sigqual == "y":
+            check_report(eeg)
+        elif do_sigqual != "n":
+            "Sorry, didn't recognize answer. "
+            askforsigqualcheck()
+
+    if dosigqualcheck:
+        askforsigqualcheck()
+
+    run_experiment(experiment, eeg, recdur, outfname)
+
+    print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
 
 
 @main.command()
-@click.option("-ed", "--eegdevice", help="EEG device to use")
-@click.option("-vr", "--version", help="Viewer version (for muselsl)")
-def view():
+@click.option("-ed", "--eegdevice", help="EEG device to use", required=True)
+def checksigqual(eegdevice: str):
     """
-    View live EEG stream.
+    Run signal quality check.
 
-    Examples: TODO
+    Usage:
+        eegnb checksigqual --eegdevice museS
     """
-    print("add viewer functionality here")
 
-    # args = parser.parse_args(sys.argv[2:])
-    # from . import view
-    # view(args.window, args.scale, args.refresh,
-    #     args.figure, args.version, args.backend)
+    from eegnb.devices.eeg import EEG
+    from eegnb.analysis.utils import check_report
 
-    raise NotImplementedError
+    eeg = EEG(device=eegdevice)
+
+    check_report(eeg)
+
+    # TODO: implement command line options for non-default check_report params
+    #       ( n_times, pause_time, thres_var, etc. )
+    #       [ tried to do this but keeps defaulting to None rather than default
+    #         valuess in the function definition ]
+
+
+@main.command()
+@click.option("-ex", "--experiment", help="Experiment to zip", required=False)
+@click.option(
+    "-s", "--site", help="Specific Directory", default="local_ntcs", required=False
+)
+@click.option(
+    "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
+)
+def runzip(experiment: str, site: str, prompt: bool = False):
+
+    """eeg
+    Run data zipping
+
+    Usage
+
+    $ eegnb runzip -ex visual-N170
+    $ eegnb runzip -ex visual-N170 -s local-ntcs-2
+
+    Launch the interactive command line to select experiment
+
+    $ eegnb runzip -ip
+
+    """
+
+    if prompt:
+        from .introprompt import intro_prompt_zip
+
+        experiment, site = intro_prompt_zip()
+
+    zip_data_folders(experiment, site)
+
+
+@main.command()
+def localdata_report():
+    """
+    Run local data summary
+
+    Usage
+
+    $eegnb localdata-report
+    """
+
+    print("\n EEG-Notebooks Local Data Report")
+    print("\n ===============================\n")
+    print(
+        " Here is a short report of eeg-notebooks-related EEG data that was found on this machine:\n"
+    )
+
+    directory_contents = os.listdir(DATA_DIR)
+    # print(directory_contents)
+
+    example_datasets = []
+    recorded_datasets = []
+    for dir in directory_contents:
+
+        dir_contents = os.path.join(DATA_DIR, dir)
+        subdir_contents = os.listdir(dir_contents)
+        for subdir in subdir_contents:
+            subdir_path = os.path.join(DATA_DIR, dir, subdir)
+            print(subdir_path)
+            if os.path.isdir(subdir_path):
+                if len(os.listdir(subdir_path)) == 0:
+                    subdir_path = subdir_path + " [EMPTY]"
+                if "eegnb_examples" in subdir:
+                    example_datasets.append(subdir_path)
+                else:
+                    recorded_datasets.append(subdir_path)
+
+    print("\n 1. Default Data \n")
+    print(" ------------------\n")
+    print(" The default eeg-notebooks data location on this machine is\n")
+    print(" {}".format(DATA_DIR))
+    print("\n (note that `.eegnb` is a hidden folder)\n")
+    print("\n Folders where you have downloaded the eeg-notebooks example datasets:\n")
+    for items in example_datasets:
+        print(" {}".format(items))
+
+    print("\n\n 2. Your recorded data\n")
+    print(" ------------------\n")
+    print("\n Folders where you have recorded your own data:\n")
+    for items in recorded_datasets:
+        print(" {}".format(items))
 
 
 def test_cli():

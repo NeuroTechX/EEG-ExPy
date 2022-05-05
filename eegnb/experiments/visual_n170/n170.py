@@ -1,24 +1,29 @@
+from psychopy import prefs
+#change the pref libraty to PTB and set the latency mode to high precision
+prefs.hardware['audioLib'] = 'PTB'
+prefs.hardware['audioLatencyMode'] = 3
+
 import os
 from time import time
 from glob import glob
 from random import choice
 from optparse import OptionParser
+import random
 
 import numpy as np
 from pandas import DataFrame
 from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
+from eegnb.devices.eeg import EEG
 from eegnb.stimuli import FACE_HOUSE
 
 __title__ = "Visual N170"
 
 
-def present(duration=120, eeg=None, save_fn=None):
-    n_trials = 2010
-    iti = 0.4
-    soa = 0.3
-    jitter = 0.2
+def present(duration=120, eeg: EEG=None, save_fn=None,
+            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2):
+    
     record_duration = np.float32(duration)
     markernames = [1, 2]
 
@@ -43,7 +48,8 @@ def present(duration=120, eeg=None, save_fn=None):
 
     if eeg:
         if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
-            save_fn = generate_save_fn(eeg.device_name, "visual_n170", "unnamed")
+            random_id = random.randint(1000,10000)
+            save_fn = generate_save_fn(eeg.device_name, "visual_n170", random_id, random_id, "unnamed")
             print(
                 f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
             )

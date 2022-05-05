@@ -6,8 +6,17 @@ import serial
 from brainflow import BoardShim, BoardIds
 
 
-# Default channel names for the various brainflow devices.
+# Default channel names for the various EEG devices.
 EEG_CHANNELS = {
+    "muse2016": ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "muse2":    ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "museS":    ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "muse2016_bfn": BoardShim.get_eeg_names(BoardIds.MUSE_2016_BOARD.value),
+    "muse2016_bfb": BoardShim.get_eeg_names(BoardIds.MUSE_2016_BLED_BOARD.value),
+    "muse2_bfn": BoardShim.get_eeg_names(BoardIds.MUSE_2_BOARD.value),
+    "muse2_bfb": BoardShim.get_eeg_names(BoardIds.MUSE_2_BLED_BOARD.value),
+    "museS_bfn": BoardShim.get_eeg_names(BoardIds.MUSE_S_BOARD.value),
+    "museS_bfb": BoardShim.get_eeg_names(BoardIds.MUSE_S_BLED_BOARD.value),
     "ganglion": ["fp1", "fp2", "tp7", "tp8"],
     "cyton": BoardShim.get_eeg_names(BoardIds.CYTON_BOARD.value),
     "cyton_daisy": BoardShim.get_eeg_names(BoardIds.CYTON_DAISY_BOARD.value),
@@ -16,6 +25,7 @@ EEG_CHANNELS = {
     "synthetic": BoardShim.get_eeg_names(BoardIds.SYNTHETIC_BOARD.value),
     "notion1": BoardShim.get_eeg_names(BoardIds.NOTION_1_BOARD.value),
     "notion2": BoardShim.get_eeg_names(BoardIds.NOTION_2_BOARD.value),
+    "crown": BoardShim.get_eeg_names(BoardIds.CROWN_BOARD.value),
     "freeeeg32": [f'eeg_{i}' for i in range(0,32)],
 }
 
@@ -30,6 +40,12 @@ EEG_INDICES = {
     "muse2016": [1, 2, 3, 4],
     "muse2": [1, 2, 3, 4],
     "museS": [1, 2, 3, 4],
+    "muse2016_bfn": BoardShim.get_eeg_channels(BoardIds.MUSE_2016_BOARD.value),
+    "muse2016_bfb": BoardShim.get_eeg_channels(BoardIds.MUSE_2016_BLED_BOARD.value),
+    "muse2_bfn": BoardShim.get_eeg_channels(BoardIds.MUSE_2_BOARD.value),
+    "muse2_bfb": BoardShim.get_eeg_channels(BoardIds.MUSE_2_BLED_BOARD.value),
+    "museS_bfn": BoardShim.get_eeg_channels(BoardIds.MUSE_S_BOARD.value),
+    "museS_bfb": BoardShim.get_eeg_channels(BoardIds.MUSE_S_BLED_BOARD.value),
     "ganglion": BoardShim.get_eeg_channels(BoardIds.GANGLION_BOARD.value),
     "cyton": BoardShim.get_eeg_channels(BoardIds.CYTON_BOARD.value),
     "cyton_daisy": BoardShim.get_eeg_channels(BoardIds.CYTON_DAISY_BOARD.value),
@@ -38,6 +54,7 @@ EEG_INDICES = {
     "synthetic": BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value),
     "notion1": BoardShim.get_eeg_channels(BoardIds.NOTION_1_BOARD.value),
     "notion2": BoardShim.get_eeg_channels(BoardIds.NOTION_2_BOARD.value),
+    "crown": BoardShim.get_eeg_channels(BoardIds.CROWN_BOARD.value),
     "freeeeg32": BoardShim.get_eeg_channels(BoardIds.FREEEEG32_BOARD.value),
 }
 
@@ -45,6 +62,12 @@ SAMPLE_FREQS = {
     "muse2016": 256,
     "muse2": 256,
     "museS": 256,
+    "muse2016_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_2016_BOARD.value), 
+    "muse2016_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_2016_BLED_BOARD.value),
+    "muse2_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_2_BOARD.value), 
+    "muse2_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_2_BLED_BOARD.value),
+    "museS_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_S_BOARD.value),
+    "museS_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_S_BLED_BOARD.value),
     "ganglion": BoardShim.get_sampling_rate(BoardIds.GANGLION_BOARD.value),
     "cyton": BoardShim.get_sampling_rate(BoardIds.CYTON_BOARD.value),
     "cyton_daisy": BoardShim.get_sampling_rate(BoardIds.CYTON_DAISY_BOARD.value),
@@ -53,6 +76,7 @@ SAMPLE_FREQS = {
     "synthetic": BoardShim.get_sampling_rate(BoardIds.SYNTHETIC_BOARD.value),
     "notion1": BoardShim.get_sampling_rate(BoardIds.NOTION_1_BOARD.value),
     "notion2": BoardShim.get_sampling_rate(BoardIds.NOTION_2_BOARD.value),
+    "crown": BoardShim.get_sampling_rate(BoardIds.CROWN_BOARD.value),
     "freeeeg32": BoardShim.get_sampling_rate(BoardIds.FREEEEG32_BOARD.value),
 }
 
@@ -64,6 +88,7 @@ def create_stim_array(timestamps, markers):
         timestamps (array of floats): Timestamps from the EEG data.
         markers (array of ints): Markers and their associated timestamps.
     """
+    marker_max = np.max(markers)
     num_samples = len(timestamps)
     stim_array = np.zeros((num_samples, 1))
     for marker in markers:
