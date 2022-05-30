@@ -1,5 +1,20 @@
 
 
+"""
+Right now the quesitons are simple 
+
+1. Do we want to have as much code as possible in the master class, somewhat like a main function that works with generic types
+being passed in? EG. Experiment class has all the code, specific functions, variables, events and stimuli are passed in that are 
+called according to the stage of the cycle
+
+2. Do we want to just have a common set of shared data members in the form of a data class as per Issue 76?
+
+3. Do we want to split the main piece of code into a lot of functions like settng up trials, graphics, etc?
+
+4. How different are the next experiments that are going to be incorporated be? Will they be able to stick to such a protocol?
+
+"""
+
 
 class Experiment:
 
