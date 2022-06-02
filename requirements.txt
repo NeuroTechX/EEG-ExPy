@@ -18,7 +18,7 @@ h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
 
-# This might try to build from source on linux (since there are no wheels for Linux on PyPI)
+# This might try to build from source on linux (since there are no wheels for Linux on PyPI) .
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
 click
