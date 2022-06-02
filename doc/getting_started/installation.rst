@@ -51,7 +51,7 @@ Use the following commands to download the repo, create and activate a conda or 
            git clone https://github.com/NeuroTechX/eeg-notebooks
 
            cd eeg-notebooks
-           
+
            pip install -e .
 
 
@@ -124,6 +124,9 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
    session = 999
    subject = 999 # a 'very British number'
    record_duration=120
+
+   # Initiate EEG device
+   eeg_device = EEGDevice.create(device=board_name)
 
    # Initiate EEG device
    eeg_device = EEG(device=board_name)

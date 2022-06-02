@@ -1,11 +1,10 @@
+from eegnb.devices import EEGDevice
 
-#change the pref libraty to PTB and set the latency mode to high precision
+# change the pref libraty to PTB and set the latency mode to high precision
 from psychopy import prefs
-prefs.hardware['audioLib'] = 'PTB'
-prefs.hardware['audioLatencyMode'] = 3
 
-
-from eegnb.devices.eeg import EEG
+prefs.hardware["audioLib"] = "PTB"
+prefs.hardware["audioLatencyMode"] = 3
 
 from eegnb.experiments.visual_n170 import n170
 from eegnb.experiments.visual_p300 import p300
@@ -38,7 +37,7 @@ def get_exp_desc(exp: str):
 
 
 def run_experiment(
-    experiment: str, eeg_device: EEG, record_duration: float = None, save_fn=None
+    experiment: str, eeg_device: EEGDevice, record_duration: float = None, save_fn=None
 ):
     if experiment in experiments:
         module = experiments[experiment]

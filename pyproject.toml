@@ -9,6 +9,7 @@ addopts = """
     --current-env
     --ignore-glob 'examples/**.py'
     --ignore-glob '**/baseline_task.py'
+    --profile
 """
 testpaths = [
     "eegnb",
@@ -16,3 +17,12 @@ testpaths = [
     #"examples",
 ]
 python_files = ["*.py", "*.ipynb"]
+
+[tool.coverage.report]
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+    # Don't complain if tests don't hit defensive assertion code
+    "raise NotImplementedError"
+]
+omit = ["eegnb/experiments/*"]

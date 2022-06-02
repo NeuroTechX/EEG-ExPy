@@ -24,7 +24,7 @@ wxPython>=4.0 ; platform_system == "Linux"
 click
 
 # can be removed once minimum version is Python 3.7
-dataclasses; python_version == '3.6'  
+dataclasses; python_version == '3.6'
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
@@ -36,9 +36,12 @@ pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinho
 pyglet==1.4.10 ; platform_system == "Windows"
 
 # Test requirements
-mypy
+mypy>=0.790
 pytest
 pytest-cov
+pytest-profiling
+pytest-xvfb
+coverage[toml]
 nbval
 
 # Types

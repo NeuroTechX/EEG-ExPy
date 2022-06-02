@@ -1,9 +1,11 @@
-from eegnb import DATA_DIR
 import click
-from time import sleep
-from os import path
+import logging
 import os
 import shutil
+from os import path
+from time import sleep
+
+from eegnb import DATA_DIR
 from eegnb.datasets.datasets import zip_data_folders
 
 from .introprompt import intro_prompt
@@ -11,11 +13,13 @@ from .utils import run_experiment
 from eegnb.devices.eeg import EEG
 from eegnb.analysis.utils import check_report
 
+logger = logging.getLogger(__name__)
+
 
 @click.group(name="eegnb")
 def main():
     """eeg-notebooks command line interface"""
-    pass
+    logging.basicConfig(level=logging.INFO)
 
 
 @main.command()
@@ -34,7 +38,7 @@ def runexp(
     recdur: float = None,
     outfname: str = None,
     prompt: bool = False,
-    dosigqualcheck = True,
+    dosigqualcheck=True,
 ):
     """
     Run experiment.
@@ -59,29 +63,32 @@ def runexp(
     if prompt:
         eeg, experiment, recdur, outfname = intro_prompt()
     else:
+        from .utils import run_experiment
+        from eegnb.devices import EEGDevice
+
         if eegdevice == "ganglion":
-            # if the ganglion is chosen a MAC address should also be provided
-            eeg = EEG(device=eegdevice, mac_addr=macaddr)
+            # if the ganglion is chosen a MAC address should also be proviced
+            eeg = EEGDevice.create(device_name=eegdevice, mac_addr=macaddr)
         else:
-            eeg = EEG(device=eegdevice)
+            if eegdevice:
+                eeg = EEGDevice.create(device_name=eegdevice)
+            else:
+                print("No EEG device provided, using a synthetic one.")
 
     def askforsigqualcheck():
         do_sigqual = input("\n\nRun signal quality check? (y/n). Recommend y \n")
-        if do_sigqual == 'y':
+        if do_sigqual == "y":
             check_report(eeg)
-        elif do_sigqual != 'n':
+        elif do_sigqual != "n":
             "Sorry, didn't recognize answer. "
             askforsigqualcheck()
-    
+
     if dosigqualcheck:
         askforsigqualcheck()
-
 
     run_experiment(experiment, eeg, recdur, outfname)
 
     print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
-
-
 
 
 @main.command()
@@ -124,7 +131,7 @@ def runzip(experiment: str, site: str, prompt: bool = False):
 
     $ eegnb runzip -ex visual-N170
     $ eegnb runzip -ex visual-N170 -s local-ntcs-2
-    
+
     Launch the interactive command line to select experiment
 
     $ eegnb runzip -ip
@@ -189,6 +196,18 @@ def localdata_report():
     print("\n Folders where you have recorded your own data:\n")
     for items in recorded_datasets:
         print(" {}".format(items))
+
+
+def test_cli():
+    from click.testing import CliRunner
+
+    runner = CliRunner()
+    result = runner.invoke(main, ["--help"])
+    assert result.exit_code == 0
+
+    runner = CliRunner()
+    result = runner.invoke(runexp, ["--help"])
+    assert result.exit_code == 0
 
 
 if __name__ == "__main__":

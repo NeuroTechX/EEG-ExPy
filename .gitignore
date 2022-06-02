@@ -1,7 +1,11 @@
 __pycache__
-.venv
-
 *.egg-info/
+
+# Created by tests
+.coverage
+coverage.xml
+htmlcov
+prof
 
 # Built as part of docs
 doc/auto_examples
@@ -9,6 +13,9 @@ doc/_build
 
 # Built by auto_examples
 examples/visual_cueing/*.csv
+
+# present for people who use pyenv
+.venv
 
 # tests/coverage artifacts
 .coverage
