@@ -12,6 +12,29 @@ from eegnb.stimuli import CAT_DOG
 
 __title__ = "Visual P300"
 
+instruction_text = """
+    Welcome to the P300 experiment! 
+ 
+    Stay still, focus on the centre of the screen, and try not to blink. 
+
+    This block will run for %s seconds.
+
+    Press spacebar to continue. 
+    
+    """
+    
+def load_stimulus():
+    pass
+
+def present_stimulus():
+    pass
+
+
+if __name__ == "__main__":
+
+    test = Experiment()
+
+
 
 def present(duration=120, eeg=None, save_fn=None):
     n_trials = 2010
