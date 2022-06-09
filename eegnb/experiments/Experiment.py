@@ -1,39 +1,43 @@
+""" 
+Initial run of the Experiment Class Refactor base class
 
-
-"""
-Right now the quesitons are simple 
-
-1. Do we want to have as much code as possible in the master class, somewhat like a main function that works with generic types
-being passed in? EG. Experiment class has all the code, specific functions, variables, events and stimuli are passed in that are 
-called according to the stage of the cycle
-
-2. Do we want to just have a common set of shared data members in the form of a data class as per Issue 76?
-
-3. Do we want to split the main piece of code into a lot of functions like settng up trials, graphics, etc?
-
-4. How different are the next experiments that are going to be incorporated be? Will they be able to stick to such a protocol?
+Derived classes have to set a few things in major:
+1. load_stimulus function : returns an array of stimuli
+2. present_stimulus function : presents the stimuli and pushes eeg data back and forth as needed
+Additional parameters can be set from the derived class as per the initializer
 
 """
-
 
 class Experiment:
 
-    def __init_(self):
+    def __init_(self, exp_name):
+        """ Anything that must be passed as a minimum for the experiment should be initialized here """
         
-        # Should have overwriting property for different experiments
+        """ Dk if this overwrites the class variable or is worth doing 
+        if we just assume they will overwrite """
+        
+        self.exp_name= exp_name
         self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
         Press spacebar to continue. \n""".format(exp_name) 
-  
+        self.duration=120 
+        self.eeg:EEG=None 
+        self.save_fn=None 
+        self.n_trials=2010
+        self.iti = 0.4
+        self.soa = 0.3
+        self.jitter = 0.2
     
     def setup(self):
 
+        self.record_duration = np.float32(self.duration)
+        self.markernames = [1, 2]
+        
         # Setup Trial list -> Common in most (csv in Unicorn)
         self.parameter = np.random.binomial(1, 0.5, n_trials)
         self.trials = DataFrame(dict(parameter=parameter, timestamp=np.zeros(n_trials)))
 
         # Setup Graphics 
         mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True) 
-        """ Does specific thing within Experiment Type to load stimulus data """
         
         # Needs to be overwritten by specific experiment
         self.stim = self.load_stimulus()
@@ -49,58 +53,45 @@ class Experiment:
                 f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
             )
                 
-
-    
-    def present(self, duration=120, eeg: EEG=None, save_fn=None, n_trials=2010, exp_name=""):
+    def present(self):
         """ Do the present operation for a bunch of experiments """
-      
     
         # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
         if eeg:
-            eeg.start(save_fn, duration=record_duration + 5)
+            eeg.start(self.save_fn, duration=self.record_duration + 5)
 
         start = time()
         
         # Iterate through the events
-        for ii, trial in trials.iterrows():
+        for ii, trial in self.trials.iterrows():
           
             # Intertrial interval
-            core.wait(iti + np.random.rand() * jitter)
+            core.wait(self.iti + np.random.rand() * self.jitter)
 
             # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
-
-            # Push sample
-            if eeg:
-                timestamp = time()
-                if eeg.backend == "muselsl":
-                    marker = [markernames[label]]
-                else:
-                    marker = markernames[label]
-                eeg.push_sample(marker=marker, timestamp=timestamp)
+            self.present_stimulus(self.trials, ii, self.eeg, self.markernames)
 
             # Offset
             mywin.flip()
-            if len(event.getKeys()) > 0 or (time() - start) > record_duration:
+            if len(event.getKeys()) > 0 or (time() - start) > self.record_duration:
                 break
             event.clearEvents()
-
 
         # Close the EEG stream 
         if eeg:
             eeg.stop()
 
     
-    def show_instructions(instruction_text):
+    def show_instructions(self):
     
         self.instruction_text = self.instruction_text % duration
 
         # graphics
         mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
-
         mywin.mouseVisible = False
 
         # Instructions
-        text = visual.TextStim(win=mywin, text=instruction_text, color=[-1, -1, -1])
+        text = visual.TextStim(win=mywin, text=self.instruction_text, color=[-1, -1, -1])
         text.draw()
         mywin.flip()
         event.waitKeys(keyList="space")
