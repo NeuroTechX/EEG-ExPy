@@ -18,7 +18,38 @@ from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.stimuli import FACE_HOUSE
 
+
+
+
 __title__ = "Visual N170"
+
+
+def load_stimulus():
+    def load_image(fn):
+        return visual.ImageStim(win=mywin, image=fn)
+    faces = list(map(load_image, glob(os.path.join(FACE_HOUSE, "faces", "*_3.jpg"))))
+    houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, "houses", "*.3.jpg"))))
+    stim = [houses, faces]
+    return stim
+
+instruction_text = """
+    Welcome to the N170 experiment! 
+ 
+    Stay still, focus on the centre of the screen, and try not to blink. 
+
+    This block will run for %s seconds.
+
+    Press spacebar to continue. 
+    
+    """
+
+
+if __name__ == "__main__":
+     
+    test = Experiment()
+    test.instruction_text = instruction_text
+    test.load_stimulus = load_stimulus
+    test.run()
 
 
 def present(duration=120, eeg: EEG=None, save_fn=None,
@@ -39,9 +70,6 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
     # Setup graphics
     mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
 
-    faces = list(map(load_image, glob(os.path.join(FACE_HOUSE, "faces", "*_3.jpg"))))
-    houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, "houses", "*.3.jpg"))))
-    stim = [houses, faces]
 
     # Show the instructions screen
     show_instructions(duration)
@@ -63,6 +91,7 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
         # Inter trial interval
         core.wait(iti + np.random.rand() * jitter)
 
+        
         # Select and display image
         label = trials["image_type"].iloc[ii]
         image = choice(faces if label == 1 else houses)
@@ -97,7 +126,7 @@ def present(duration=120, eeg: EEG=None, save_fn=None,
 def show_instructions(duration):
 
     instruction_text = """
-    Welcome to the N170 experiment! 
+    Welcome to the {} experiment! 
  
     Stay still, focus on the centre of the screen, and try not to blink. 
 
@@ -105,7 +134,8 @@ def show_instructions(duration):
 
     Press spacebar to continue. 
     
-    """
+    """.format(self.experiment_id)
+
     instruction_text = instruction_text % duration
 
     # graphics
