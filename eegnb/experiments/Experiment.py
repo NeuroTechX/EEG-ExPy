@@ -1,32 +1,29 @@
 """ 
 Initial run of the Experiment Class Refactor base class
 
-Derived classes have to set a few things in major:
-1. load_stimulus function : returns an array of stimuli
-2. present_stimulus function : presents the stimuli and pushes eeg data back and forth as needed
-Additional parameters can be set from the derived class as per the initializer
-
+Specific experiments are implemented as sub classes that inherit a load_stimulus and present_stimulus method
 """
 
 class Experiment:
 
-    def __init_(self, exp_name):
+    def __init_(self, exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter):
         """ Anything that must be passed as a minimum for the experiment should be initialized here """
-        
-        """ Dk if this overwrites the class variable or is worth doing 
-        if we just assume they will overwrite """
-        
-        self.exp_name= exp_name
+
+        self.exp_name = exp_name
         self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
-        Press spacebar to continue. \n""".format(exp_name) 
-        self.duration=120 
-        self.eeg:EEG=None 
-        self.save_fn=None 
-        self.n_trials=2010
-        self.iti = 0.4
-        self.soa = 0.3
-        self.jitter = 0.2
+        Press spacebar to continue. \n""".format(self.exp_name)
+        self.duration = duration
+        self.eeg = eeg
+        self.save_fn = save_fn
+        self.n_trials = n_trials
+        self.iti = iti
+        self.soa = soa
+        self.jitter = jitter
     
+    def load_stimulus(self):
+        """ Needs to be overwritten by specific experiment """
+        pass
+
     def setup(self):
 
         self.record_duration = np.float32(self.duration)
@@ -43,7 +40,7 @@ class Experiment:
         self.stim = self.load_stimulus()
         
         # Show Instruction Screen
-        self.show_instructions(duration=duration)
+        self.show_instructions()
 
         # Establish save function
         if self.save_fn is None:  # If no save_fn passed, generate a new unnamed save file
@@ -52,7 +49,11 @@ class Experiment:
             print(
                 f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
             )
-                
+
+    def present_stimulus(self):
+        """ Needs to be overwritten by specific experiment """
+        pass
+
     def present(self):
         """ Do the present operation for a bunch of experiments """
     
@@ -69,7 +70,7 @@ class Experiment:
             core.wait(self.iti + np.random.rand() * self.jitter)
 
             # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
-            self.present_stimulus(self.trials, ii, self.eeg, self.markernames)
+            self.present_stimulus()
 
             # Offset
             mywin.flip()
@@ -84,7 +85,7 @@ class Experiment:
     
     def show_instructions(self):
     
-        self.instruction_text = self.instruction_text % duration
+        self.instruction_text = self.instruction_text % self.duration
 
         # graphics
         mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)

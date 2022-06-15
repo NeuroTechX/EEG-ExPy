@@ -20,37 +20,35 @@ from eegnb.stimuli import FACE_HOUSE
 from Experiment import Experiment
 
 
-def load_stimulus():
+class VisualN170(Experiment):
+
+    def __init__(self, duration=120, eeg: EEG=None, save_fn=None,
+            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2):
+        
+        exp_name = "Visual N170"
+        super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
+
+    def load_stimulus(self):
+        
+        load_image = lambda fn: visual.ImageStim(win=mywin, image=fn)
+        
+        faces = list(map(load_image, glob(os.path.join(FACE_HOUSE, "faces", "*_3.jpg"))))
+        houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, "houses", "*.3.jpg"))))
+
+        return [houses, faces]
+        
+    def present_stimulus(self):
     
-    load_image = lambda fn: visual.ImageStim(win=mywin, image=fn)
+        label = self.trials["image_type"].iloc[ii]
+        image = choice(faces if label == 1 else houses)
+        image.draw()
+
+        # Push sample
+        if self.eeg:
+            timestamp = time()
+            if self.eeg.backend == "muselsl":
+                marker = [self.markernames[label]]
+            else:
+                marker = self.markernames[label]
+            self.eeg.push_sample(marker=marker, timestamp=timestamp)
     
-    faces = list(map(load_image, glob(os.path.join(FACE_HOUSE, "faces", "*_3.jpg"))))
-    houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, "houses", "*.3.jpg"))))
-
-    return [houses, faces]
-    
-def present_stimulus(trials, ii, eeg, markernames):
-   
-    label = trials["image_type"].iloc[ii]
-    image = choice(faces if label == 1 else houses)
-    image.draw()
-
-    # Push sample
-    if eeg:
-        timestamp = time()
-        if eeg.backend == "muselsl":
-            marker = [markernames[label]]
-        else:
-            marker = markernames[label]
-        eeg.push_sample(marker=marker, timestamp=timestamp)
-   
-
-if __name__ == "__main__":
-     
-    test = Experiment("Visual N170")
-    test.instruction_text = instruction_text
-    test.load_stimulus = load_stimulus
-    test.present_stimulus = present_stimulus
-    test.setup()
-    test.present()
-
