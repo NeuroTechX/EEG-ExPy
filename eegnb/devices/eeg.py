@@ -14,11 +14,17 @@ from multiprocessing import Process
 import numpy as np
 import pandas as pd
 
-from brainflow import BoardShim, BoardIds, BrainFlowInputParams
+from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
-from eegnb.devices.utils import get_openbci_usb, create_stim_array,SAMPLE_FREQS,EEG_INDICES,EEG_CHANNELS
+from eegnb.devices.utils import (
+    get_openbci_usb,
+    create_stim_array,
+    SAMPLE_FREQS,
+    EEG_INDICES,
+    EEG_CHANNELS,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -39,18 +45,19 @@ brainflow_devices = [
     "notion2",
     "freeeeg32",
     "crown",
-    "museS_bfn", # bfn = brainflow with native bluetooth;
-    "museS_bfb", # bfb = brainflow with BLED dongle bluetooth
+    "museS_bfn",  # bfn = brainflow with native bluetooth;
+    "museS_bfb",  # bfb = brainflow with BLED dongle bluetooth
     "muse2_bfn",
     "muse2_bfb",
     "muse2016_bfn",
-    "muse2016_bfb"
+    "muse2016_bfb",
 ]
 
 
 class EEG:
     device_name: str
     stream_started: bool = False
+
     def __init__(
         self,
         device=None,
@@ -85,8 +92,8 @@ class EEG:
             self.timestamp_channel = BoardShim.get_timestamp_channel(self.brainflow_id)
         elif self.backend == "muselsl":
             self._init_muselsl()
-            self._muse_get_recent() # run this at initialization to get some 
-                                    # stream metadata into the eeg class
+            self._muse_get_recent()  # run this at initialization to get some
+            # stream metadata into the eeg class
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
@@ -126,7 +133,7 @@ class EEG:
             print("will save to file: %s" % self.save_fn)
         self.recording = Process(target=record, args=(duration, self.save_fn))
         self.recording.start()
-        
+
         time.sleep(5)
         self.stream_started = True
         self.push_sample([99], timestamp=time.time())
@@ -137,7 +144,7 @@ class EEG:
     def _muse_push_sample(self, marker, timestamp):
         self.muse_StreamOutlet.push_sample(marker, timestamp)
 
-    def _muse_get_recent(self, n_samples: int=256, restart_inlet: bool=False):
+    def _muse_get_recent(self, n_samples: int = 256, restart_inlet: bool = False):
         if self._muse_recent_inlet and not restart_inlet:
             inlet = self._muse_recent_inlet
         else:
@@ -157,9 +164,8 @@ class EEG:
         self.info = info
         self.n_chans = n_chans
 
-        timeout = (n_samples/sfreq)+0.5
-        samples, timestamps = inlet.pull_chunk(timeout=timeout,
-                                               max_samples=n_samples)
+        timeout = (n_samples / sfreq) + 0.5
+        samples, timestamps = inlet.pull_chunk(timeout=timeout, max_samples=n_samples)
 
         samples = np.array(samples)
         timestamps = np.array(timestamps)
@@ -260,13 +266,13 @@ class EEG:
 
         elif self.device_name == "muse2_bfn":
             self.brainflow_id = BoardIds.MUSE_2_BOARD.value
-    
+
         elif self.device_name == "muse2_bfb":
             self.brainflow_id = BoardIds.MUSE_2_BLED_BOARD.value
 
         elif self.device_name == "muse2016_bfn":
             self.brainflow_id = BoardIds.MUSE_2016_BOARD.value
-    
+
         elif self.device_name == "muse2016_bfb":
             self.brainflow_id = BoardIds.MUSE_2016_BLED_BOARD.value
 
@@ -291,11 +297,13 @@ class EEG:
         # only start stream if non exists
         if not self.stream_started:
             self.board.start_stream()
-        
+
         self.stream_started = True
 
         # wait for signal to settle
-        if (self.device_name.find("cyton") != -1) or (self.device_name.find("ganglion") != -1):
+        if (self.device_name.find("cyton") != -1) or (
+            self.device_name.find("ganglion") != -1
+        ):
             # wait longer for openbci cyton / ganglion
             sleep(10)
         else:
@@ -314,20 +322,18 @@ class EEG:
 
         # Create a column for the stimuli to append to the EEG data
         stim_array = create_stim_array(timestamps, self.markers)
-        timestamps = timestamps[ ..., None ]  
-        
+        timestamps = timestamps[..., None]
+
         # Add an additional dimension so that shapes match
         total_data = np.append(timestamps, eeg_data, 1)
 
         # Append the stim array to data.
-        total_data = np.append(total_data, stim_array, 1)  
-        
+        total_data = np.append(total_data, stim_array, 1)
+
         # Subtract five seconds of settling time from beginning
         total_data = total_data[5 * self.sfreq :]
         data_df = pd.DataFrame(total_data, columns=["timestamps"] + ch_names + ["stim"])
         data_df.to_csv(self.save_fn, index=False)
-
-
 
     def _brainflow_extract(self, data):
         """
@@ -357,13 +363,11 @@ class EEG:
         eeg_data = data[:, BoardShim.get_eeg_channels(self.brainflow_id)]
         timestamps = data[:, BoardShim.get_timestamp_channel(self.brainflow_id)]
 
-        return ch_names,eeg_data,timestamps
-
+        return ch_names, eeg_data, timestamps
 
     def _brainflow_push_sample(self, marker):
         last_timestamp = self.board.get_current_board_data(1)[self.timestamp_channel][0]
         self.markers.append([marker, last_timestamp])
-
 
     def _brainflow_get_recent(self, n_samples=256):
 
@@ -405,7 +409,6 @@ class EEG:
         elif self.backend == "muselsl":
             self._start_muse(duration)
 
-
     def push_sample(self, marker, timestamp):
         """
         Universal method for pushing a marker and its timestamp to store alongside the EEG data.
@@ -445,6 +448,4 @@ class EEG:
         sorted_cols = sorted(df.columns)
         df = df[sorted_cols]
 
-
         return df
-
