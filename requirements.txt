@@ -9,6 +9,7 @@ seaborn==0.9.0
 pyriemann>=0.2.7
 jupyter
 muselsl>=2.0.2
+pylsl==1.10.5  # due to https://github.com/NeuroTechX/eeg-notebooks/issues/187
 brainflow>=4.8.2
 gdown
 matplotlib>=3.3.3
@@ -24,7 +25,7 @@ wxPython>=4.0 ; platform_system == "Linux"
 click
 
 # can be removed once minimum version is Python 3.7
-dataclasses; python_version == '3.6'  
+dataclasses; python_version == '3.6'
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
