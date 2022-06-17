@@ -8,24 +8,10 @@ from pandas import DataFrame
 from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
+from Experiment import Experiment
 
-__title__ = "Visual SSVEP"
-
-
-def present(duration=120, eeg=None, save_fn=None):
-    n_trials = 2010
-    iti = 0.5
-    soa = 3.0
-    jitter = 0.2
-    record_duration = np.float32(duration)
-    markernames = [1, 2]
-
-    # Setup trial list
-    stim_freq = np.random.binomial(1, 0.5, n_trials)
-    trials = DataFrame(dict(stim_freq=stim_freq, timestamp=np.zeros(n_trials)))
-
-    # Set up graphics
-    mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
+def load_stimulus():
+    
     grating = visual.GratingStim(win=mywin, mask="circle", size=80, sf=0.2)
     grating_neg = visual.GratingStim(
         win=mywin, mask="circle", size=80, sf=0.2, phase=0.5
@@ -36,28 +22,7 @@ def present(duration=120, eeg=None, save_fn=None):
 
     # Generate the possible ssvep frequencies based on monitor refresh rate
     def get_possible_ssvep_freqs(frame_rate, stim_type="single"):
-        """Get possible SSVEP stimulation frequencies.
-        Utility function that returns the possible SSVEP stimulation
-        frequencies and on/off pattern based on screen refresh rate.
-        Args:
-            frame_rate (float): screen frame rate, in Hz
-        Keyword Args:
-            stim_type (str): type of stimulation
-                'single'-> single graphic stimulus (the displayed object
-                    appears and disappears in the background.)
-                'reversal' -> pattern reversal stimulus (the displayed object
-                    appears and is replaced by its opposite.)
-        Returns:
-            (dict): keys are stimulation frequencies (in Hz), and values are
-                lists of tuples, where each tuple is the number of (on, off)
-                periods of one stimulation cycle
-        For more info on stimulation patterns, see Section 2 of:
-            Danhua Zhu, Jordi Bieger, Gary Garcia Molina, and Ronald M. Aarts,
-            "A Survey of Stimulation Methods Used in SSVEP-Based BCIs,"
-            Computational Intelligence and Neuroscience, vol. 2010, 12 pages,
-            2010.
-        """
-
+        if stim_type == "single":
         max_period_nb = int(frame_rate / 6)
         periods = np.arange(max_period_nb) + 1
 
@@ -76,25 +41,7 @@ def present(duration=120, eeg=None, save_fn=None):
         return freqs
 
     def init_flicker_stim(frame_rate, cycle, soa):
-        """Initialize flickering stimulus.
-        Get parameters for a flickering stimulus, based on the screen refresh
-        rate and the desired stimulation cycle.
-        Args:
-            frame_rate (float): screen frame rate, in Hz
-            cycle (tuple or int): if tuple (on, off), represents the number of
-                'on' periods and 'off' periods in one flickering cycle. This
-                supposes a "single graphic" stimulus, where the displayed object
-                appears and disappears in the background.
-                If int, represents the number of total periods in one cycle.
-                This supposes a "pattern reversal" stimulus, where the
-                displayed object appears and is replaced by its opposite.
-            soa (float): stimulus duration, in s
-        Returns:
-            (dict): dictionary with keys
-                'cycle' -> tuple of (on, off) periods in a cycle
-                'freq' -> stimulus frequency
-                'n_cycles' -> number of cycles in one stimulus trial
-        """
+        
         if isinstance(cycle, tuple):
             stim_freq = frame_rate / sum(cycle)
             n_cycles = int(soa * stim_freq)
@@ -108,10 +55,6 @@ def present(duration=120, eeg=None, save_fn=None):
     # Set up stimuli
     frame_rate = np.round(mywin.getActualFrameRate())  # Frame rate, in Hz
     freqs = get_possible_ssvep_freqs(frame_rate, stim_type="reversal")
-    stim_patterns = [
-        init_flicker_stim(frame_rate, 2, soa),
-        init_flicker_stim(frame_rate, 3, soa),
-    ]
 
     print(
         (
@@ -121,24 +64,35 @@ def present(duration=120, eeg=None, save_fn=None):
         )
     )
 
-    # Show the instructions screen
-    show_instructions(duration)
+    return [
+        init_flicker_stim(frame_rate, 2, soa),
+        init_flicker_stim(frame_rate, 3, soa),
+    ]
 
-    # start the EEG stream, will delay 5 seconds to let signal settle
-    if eeg:
-        if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
-            save_fn = generate_save_fn(eeg.device_name, "visual_ssvep", "unnamed")
-            print(
-                f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
-            )
-        eeg.start(save_fn, duration=record_duration)
+def present_stimulus(trials, ii, eeg, markernames):
+    pass
 
-    # Iterate through trials
-    start = time()
+
+if __name__ == "__main__":
+
+    test = Experiment("Visual SSVEP")
+    test.instruction_text = instruction_text
+    test.load_stimulus = load_stimulus
+    test.present_stimulus = present_stimulus
+    test.iti = 0.5
+    test.soa = 3.0
+    test.setup()
+    test.present()
+
+
+def present(duration=120, eeg=None, save_fn=None):
+    
+    
     for ii, trial in trials.iterrows():
         # Intertrial interval
         core.wait(iti + np.random.rand() * jitter)
 
+        """ Unique """
         # Select stimulus frequency
         ind = trials["stim_freq"].iloc[ii]
 
@@ -161,6 +115,8 @@ def present(duration=120, eeg=None, save_fn=None):
             for _ in range(stim_patterns[ind]["cycle"][1]):
                 mywin.flip()
             grating_neg.setAutoDraw(False)
+
+        """ Unique ends """
 
         # offset
         mywin.flip()
