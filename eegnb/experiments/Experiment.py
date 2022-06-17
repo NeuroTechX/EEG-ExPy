@@ -4,6 +4,8 @@ Initial run of the Experiment Class Refactor base class
 Specific experiments are implemented as sub classes that inherit a load_stimulus and present_stimulus method
 """
 
+from abc import ABC, abstractmethod
+
 class Experiment:
 
     def __init_(self, exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter):
@@ -20,9 +22,14 @@ class Experiment:
         self.soa = soa
         self.jitter = jitter
     
+    @abstractmethod
     def load_stimulus(self):
         """ Needs to be overwritten by specific experiment """
-        pass
+        raise NotImplementedError
+
+    @abstractmethod
+    def present_stimulus(self):
+        raise NotImplementedError
 
     def setup(self):
 
@@ -49,11 +56,7 @@ class Experiment:
             print(
                 f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
             )
-
-    def present_stimulus(self):
-        """ Needs to be overwritten by specific experiment """
-        pass
-
+    
     def present(self):
         """ Do the present operation for a bunch of experiments """
     
