@@ -4,7 +4,7 @@ from psychopy import visual, core, event
 from time import time, strftime, gmtime
 from optparse import OptionParser
 from pylsl import StreamInfo, StreamOutlet
-
+from Experiment import Experiment
 
 def present(duration=120):
 
