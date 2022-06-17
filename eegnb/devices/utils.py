@@ -3,14 +3,14 @@ import socket
 import platform
 import serial
 
-from brainflow import BoardShim, BoardIds
+from brainflow.board_shim import BoardShim, BoardIds
 
 
 # Default channel names for the various EEG devices.
 EEG_CHANNELS = {
-    "muse2016": ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
-    "muse2":    ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
-    "museS":    ['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'],
+    "muse2016": ["TP9", "AF7", "AF8", "TP10", "Right AUX"],
+    "muse2": ["TP9", "AF7", "AF8", "TP10", "Right AUX"],
+    "museS": ["TP9", "AF7", "AF8", "TP10", "Right AUX"],
     "muse2016_bfn": BoardShim.get_eeg_names(BoardIds.MUSE_2016_BOARD.value),
     "muse2016_bfb": BoardShim.get_eeg_names(BoardIds.MUSE_2016_BLED_BOARD.value),
     "muse2_bfn": BoardShim.get_eeg_names(BoardIds.MUSE_2_BOARD.value),
@@ -26,7 +26,7 @@ EEG_CHANNELS = {
     "notion1": BoardShim.get_eeg_names(BoardIds.NOTION_1_BOARD.value),
     "notion2": BoardShim.get_eeg_names(BoardIds.NOTION_2_BOARD.value),
     "crown": BoardShim.get_eeg_names(BoardIds.CROWN_BOARD.value),
-    "freeeeg32": [f'eeg_{i}' for i in range(0,32)],
+    "freeeeg32": [f"eeg_{i}" for i in range(0, 32)],
 }
 
 BRAINFLOW_CHANNELS = {
@@ -62,9 +62,9 @@ SAMPLE_FREQS = {
     "muse2016": 256,
     "muse2": 256,
     "museS": 256,
-    "muse2016_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_2016_BOARD.value), 
+    "muse2016_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_2016_BOARD.value),
     "muse2016_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_2016_BLED_BOARD.value),
-    "muse2_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_2_BOARD.value), 
+    "muse2_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_2_BOARD.value),
     "muse2_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_2_BLED_BOARD.value),
     "museS_bfn": BoardShim.get_sampling_rate(BoardIds.MUSE_S_BOARD.value),
     "museS_bfb": BoardShim.get_sampling_rate(BoardIds.MUSE_S_BLED_BOARD.value),
