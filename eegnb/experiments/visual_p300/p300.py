@@ -9,7 +9,7 @@ from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
 from eegnb.stimuli import CAT_DOG
-
+from eegnb.experiments.Experiment import Experiment
 
 class VisualP300(Experiment):
     

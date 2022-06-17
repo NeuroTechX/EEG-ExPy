@@ -8,7 +8,7 @@ from pandas import DataFrame
 from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
-from Experiment import Experiment
+from eegnb.experiments.Experiment import Experiment
 
 
 class VisualSSVEP(Experiment):

@@ -4,7 +4,23 @@ from psychopy import visual, core, event
 from time import time, strftime, gmtime
 from optparse import OptionParser
 from pylsl import StreamInfo, StreamOutlet
-from Experiment import Experiment
+from eegnb.experiments.Experiment import Experiment
+
+
+class VisualVEP(Experiment):
+
+    def __init__(self, duration=120, eeg: EEG=None, save_fn=None,
+            n_trials = 2000, iti = 0.2, soa = 0.2, jitter = 0.1):
+        
+        exp_name = "Visual VEP"
+        super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
+
+    def load_stimulus():
+        pass
+    
+    def present_stimulus():
+        pass
+
 
 def present(duration=120):
 

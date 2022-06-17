@@ -17,7 +17,7 @@ from psychopy import visual, core, event
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.stimuli import FACE_HOUSE
-from Experiment import Experiment
+from eegnb.experiments.Experiment import Experiment
 
 
 class VisualN170(Experiment):
