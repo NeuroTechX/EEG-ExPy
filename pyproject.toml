@@ -3,7 +3,7 @@ name = "eeg-notebooks"
 version = "0.2"
 description = "python library for eeg cognitive neuroscience experiments"
 readme = "README.rst"
-authors = ["John David Griffiths <j.davidgriffiths@gmail.com>"]
+authors = ["John David Griffiths <j.davidgriffiths@gmail.com>", "Jadin Tredup", "Erik Bjäreholt <erik@bjareho.lt>"]
 keywords = ["eeg", "cognitive neuroscience", "experiments", "evoked response", "auditory"]  # max 5
 homepage = "https://github.com/NeuroTechX/eeg-notebooks"
 license = "BSD-3-Clause"  # Both MIT and BSD-3 were specified in setup.py, since LICENSE is BSD-3 I assume that's the case.
@@ -18,29 +18,39 @@ packages = [
 eegnb = "eegnb.cli.__main__:main"
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
-psychopy = "2020.2.3"  # pulls in a *lot* of dependencies
-scikit-learn = "^0.23.2"
-pandas = "^1.1.1"
-mne = ">=0.20.8"
-seaborn = "^0.9.0"
-jupyter = "^1.0.0"
+# NOTE: Updating dependency locks can take a *very* long time (>20min, mostly due to psychopy)
+python = "^3.7.1,<3.11"
+psychopy = "2022.1.4"  # pulls in a *lot* of dependencies
+scikit-learn = "^1.0"
+pandas = "1.3.5"  # 1.3.5 is last version to ship with binaries for Python 3.7
+numpy = "1.21.4"  # locking to see if it helps resolve times...
+mne = "^1.0"
+seaborn = "^0.11.0"
+jupyter = "^1.0"
 matplotlib = "^3.3.1"
-pyriemann = "0.2.6"
-muselsl = "2.0.2"
-brainflow = "3.4.3"
-gdown = "3.12.2"
+pyriemann = "^0.2.6"
+muselsl = "^2.0.2"
+brainflow = "^5.0.1"
+gdown = "^3.12.2"
 pysocks = "^1.7.1"
 
 
-[tool.poetry.dev-dependencies]
-mypy = "^0.780"
-pytest = "^6.0.0"
+# Dependency groups will be supported in Poetry v1.2+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+mypy = "*"
+pytest = "^6.0"
 #black = "^19.10b0"
 #pylint = "^2.5.3"
 #flake8 = "^3.8.2"
 
-Sphinx = "^3.3.0"
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^3.3"
 sphinx-gallery = "^0.8.1"
 sphinx-rtd-theme = "^0.5.0"
 sphinx-tabs = "^1.3.0"
@@ -48,7 +58,7 @@ sphinx-copybutton = "^0.3.1"
 sphinxcontrib-httpdomain = "^1.7.0"
 numpydoc = "^1.1.0"
 recommonmark = "^0.6.0"
-versioneer = "^0.18"
+versioneer = "^0.22"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -75,6 +85,14 @@ python_files = ["*.py", "*.ipynb"]
 #line-length = 88
 #target-version = ['py37']
 #include = '\.pyi?$'
+
+[tool.mypy]
+# FIXME: ./examples isn't recursively traversed (see the fix in: https://github.com/python/mypy/pull/9614)
+#        Once mypy releases a new version we can use, this should work again.
+files = ["eegnb", "examples"]
+ignore_missing_imports = true
+# FIXME: Once we have type annotations under control, this should be reenabled.
+#check_untyped_defs = true
 
 [build-system]
 requires = ["poetry>=0.12"]
