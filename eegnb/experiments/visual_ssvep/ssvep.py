@@ -20,7 +20,7 @@ class VisualSSVEP(Experiment):
 
     def load_stimulus(self):
         
-        grating = visual.GratingStim(win=mywin, mask="circle", size=80, sf=0.2)
+        grating = visual.GratingStim(win=self.mywin, mask="circle", size=80, sf=0.2)
         grating_neg = visual.GratingStim(
             win=mywin, mask="circle", size=80, sf=0.2, phase=0.5
         )
@@ -31,8 +31,8 @@ class VisualSSVEP(Experiment):
         # Generate the possible ssvep frequencies based on monitor refresh rate
         def get_possible_ssvep_freqs(frame_rate, stim_type="single"):
             if stim_type == "single":
-            max_period_nb = int(frame_rate / 6)
-            periods = np.arange(max_period_nb) + 1
+                max_period_nb = int(frame_rate / 6)
+                periods = np.arange(max_period_nb) + 1
 
             if stim_type == "single":
                 freqs = dict()
@@ -77,10 +77,10 @@ class VisualSSVEP(Experiment):
             init_flicker_stim(frame_rate, 3, soa),
         ]
 
-    def present_stimulus(self):
+    def present_stimulus(self, ii):
         
         # Select stimulus frequency
-        ind = self.trials["stim_freq"].iloc[ii]
+        ind = self.trials["parameter"].iloc[ii]
 
         # Push sample
         if eeg:
@@ -102,3 +102,5 @@ class VisualSSVEP(Experiment):
                 mywin.flip()
             grating_neg.setAutoDraw(False)
         pass
+
+        self.mywin.flip()

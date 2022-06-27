@@ -9,6 +9,7 @@ from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
 from eegnb.stimuli import CAT_DOG
+from eegnb.devices.eeg import EEG
 from eegnb.experiments.Experiment import Experiment as Experiment
 
 class VisualP300(Experiment):
@@ -20,18 +21,18 @@ class VisualP300(Experiment):
         super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
         
     def load_stimulus(self):
-        load_image = lambda fn: visual.ImageStim(win=mywin, image=fn)
-        # Setup graphics
-        mywin = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
-        targets = list(map(load_image, glob(os.path.join(CAT_DOG, "target-*.jpg"))))
-        nontargets = list(map(load_image, glob(os.path.join(CAT_DOG, "nontarget-*.jpg"))))
         
-        return [nontargets, targets]
+        load_image = lambda fn: visual.ImageStim(win=self.mywin, image=fn)
+        # Setup graphics
+        self.targets = list(map(load_image, glob(os.path.join(CAT_DOG, "target-*.jpg"))))
+        self.nontargets = list(map(load_image, glob(os.path.join(CAT_DOG, "nontarget-*.jpg"))))
+        
+        return [self.nontargets, self.targets]
 
-    def present_stimulus(self):
+    def present_stimulus(self, ii):
 
-        label = self.trials["image_type"].iloc[ii]
-        image = choice(targets if label == 1 else nontargets)
+        label = self.trials["parameter"].iloc[ii]
+        image = choice(self.targets if label == 1 else self.nontargets)
         image.draw()
 
         # Push sample
@@ -42,3 +43,5 @@ class VisualP300(Experiment):
             else:
                 marker = self.markernames[label]
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
+
+        self.mywin.flip()

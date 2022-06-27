@@ -26,21 +26,21 @@ class VisualN170(Experiment):
             n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2):
         
         exp_name = "Visual N170"
-        super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
+        super(VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
 
     def load_stimulus(self):
         
-        load_image = lambda fn: visual.ImageStim(win=mywin, image=fn)
+        load_image = lambda fn: visual.ImageStim(win=self.mywin, image=fn)
         
-        faces = list(map(load_image, glob(os.path.join(FACE_HOUSE, "faces", "*_3.jpg"))))
-        houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, "houses", "*.3.jpg"))))
+        self.faces = list(map(load_image, glob(os.path.join(FACE_HOUSE, "faces", "*_3.jpg"))))
+        self.houses = list(map(load_image, glob(os.path.join(FACE_HOUSE, "houses", "*.3.jpg"))))
 
-        return [houses, faces]
+        return [self.houses, self.faces]
         
-    def present_stimulus(self):
+    def present_stimulus(self, ii):
     
-        label = self.trials["image_type"].iloc[ii]
-        image = choice(faces if label == 1 else houses)
+        label = self.trials["parameter"].iloc[ii]
+        image = choice(self.faces if label == 1 else self.houses)
         image.draw()
 
         # Push sample
@@ -51,4 +51,5 @@ class VisualN170(Experiment):
             else:
                 marker = self.markernames[label]
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
-    
+
+        self.mywin.flip()
