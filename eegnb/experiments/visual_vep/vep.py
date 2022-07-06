@@ -1,8 +1,4 @@
-import numpy as np
-from pandas import DataFrame
-from psychopy import visual, core, event
 from time import time, strftime, gmtime
-from optparse import OptionParser
 from pylsl import StreamInfo, StreamOutlet
 from eegnb.experiments.Experiment import Experiment
 

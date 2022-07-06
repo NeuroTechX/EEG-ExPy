@@ -1,17 +1,8 @@
-import os
-from time import time
-from glob import glob
-from random import choice
 
-import numpy as np
-from pandas import DataFrame
-from psychopy import visual, core, event
-
-from eegnb import generate_save_fn
-from eegnb.experiments.Experiment import Experiment
+from eegnb.experiments import Experiment
 
 
-class VisualSSVEP(Experiment):
+class VisualSSVEP(Experiment.BaseExperiment):
 
     def __init__(self, duration=120, eeg: EEG=None, save_fn=None, n_trials = 2010, iti = 0.5, soa = 3.0, jitter = 0.2):
         
@@ -20,21 +11,18 @@ class VisualSSVEP(Experiment):
 
     def load_stimulus(self):
         
-        grating = visual.GratingStim(win=self.mywin, mask="circle", size=80, sf=0.2)
-        grating_neg = visual.GratingStim(
-            win=mywin, mask="circle", size=80, sf=0.2, phase=0.5
-        )
-        fixation = visual.GratingStim(
-            win=mywin, size=0.2, pos=[0, 0], sf=0.2, color=[1, 0, 0], autoDraw=True
-        )
+        grating = visual.GratingStim(win=self.window, mask="circle", size=80, sf=0.2)
+
+        grating_neg = visual.GratingStim(win=mywin, mask="circle", size=80, sf=0.2, phase=0.5)
+
+        fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0.2, color=[1, 0, 0], autoDraw=True)
 
         # Generate the possible ssvep frequencies based on monitor refresh rate
         def get_possible_ssvep_freqs(frame_rate, stim_type="single"):
+
             if stim_type == "single":
                 max_period_nb = int(frame_rate / 6)
                 periods = np.arange(max_period_nb) + 1
-
-            if stim_type == "single":
                 freqs = dict()
                 for p1 in periods:
                     for p2 in periods:
@@ -43,6 +31,7 @@ class VisualSSVEP(Experiment):
                             freqs[f].append((p1, p2))
                         except:
                             freqs[f] = [(p1, p2)]
+
             elif stim_type == "reversal":
                 freqs = {frame_rate / p: [(p, p)] for p in periods[::-1]}
 
@@ -53,6 +42,7 @@ class VisualSSVEP(Experiment):
             if isinstance(cycle, tuple):
                 stim_freq = frame_rate / sum(cycle)
                 n_cycles = int(soa * stim_freq)
+            
             else:
                 stim_freq = frame_rate / cycle
                 cycle = (cycle, cycle)
@@ -103,4 +93,4 @@ class VisualSSVEP(Experiment):
             grating_neg.setAutoDraw(False)
         pass
 
-        self.mywin.flip()
+        self.window.flip()
