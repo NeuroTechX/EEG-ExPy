@@ -27,7 +27,7 @@ class VisualP300(Experiment.BaseExperiment):
     def load_stimulus(self):
         
         load_image = lambda fn: visual.ImageStim(win=self.window, image=fn)
-        # Setup graphics
+        
         self.targets = list(map(load_image, glob(os.path.join(CAT_DOG, "target-*.jpg"))))
         self.nontargets = list(map(load_image, glob(os.path.join(CAT_DOG, "nontarget-*.jpg"))))
         
