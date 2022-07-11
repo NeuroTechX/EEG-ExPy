@@ -3,10 +3,9 @@ Initial run of the Experiment Class Refactor base class
 
 Specific experiments are implemented as sub classes that overload a load_stimulus and present_stimulus method
 
-
 Running each experiment:
-obj = VisualP300({parametrs})
-obj.present()
+obj = VisualP300({parameters})
+obj.run()
 """
 
 from abc import ABC, abstractmethod
