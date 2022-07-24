@@ -22,12 +22,9 @@ from eegnb.datasets import fetch_dataset
 
 
 
-
-
 """
 
 # Usage:
-
 
 from pipelines import compute_erp,make_erp_plot
 import glob
@@ -52,16 +49,12 @@ plot_kwargs = dict(conditions = epoch_kwargs['event_id'],
 
 make_erp_plot(epochs,plot_kwargs)
 
-
-
 """
 
 
 # Manually adjust the ylims
 def compute_erp(fnames,epoch_kwargs,plot_kwargs=None,do_plot=False,verbose=True,sfreq=256,
                 ch_ind=[1,2,3,4]):
-
-
 
 
     # Load data
@@ -90,7 +83,6 @@ def compute_erp(fnames,epoch_kwargs,plot_kwargs=None,do_plot=False,verbose=True,
 
 
 def make_erp_plot(epochs,plot_kwargs):
-
 
     fig, ax = plot_conditions(epochs, **plot_kwargs)
 
