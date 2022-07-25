@@ -88,7 +88,7 @@ class BaseExperiment:
         # Checking for EEG to setup the EEG stream
         if self.eeg:
              # If no save_fn passed, generate a new unnamed save file
-            if save_fn is None:  
+            if self.save_fn is None:  
                 # Generating a random int for the filename
                 random_id = random.randint(1000,10000)
                 # Generating save function
