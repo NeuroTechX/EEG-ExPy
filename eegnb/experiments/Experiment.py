@@ -126,10 +126,14 @@ class BaseExperiment:
 
         # Setup the experiment, alternatively could get rid of this line, something to think about
         self.setup(instructions)
-    
+
+        print("Wait for the EEG-stream to start...")
+
         # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
         if self.eeg:
             self.eeg.start(self.save_fn, duration=self.record_duration + 5)
+
+        print("EEG Stream started")
 
         start = time()
         
@@ -140,7 +144,7 @@ class BaseExperiment:
             core.wait(self.iti + np.random.rand() * self.jitter)
 
             # Stimulus presentation overwritten by specific experiment
-            self.present_stimulus(ii)
+            self.present_stimulus(ii, trial)
 
             # Offset
             core.wait(self.soa)

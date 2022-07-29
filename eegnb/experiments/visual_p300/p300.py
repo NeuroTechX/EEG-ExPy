@@ -33,7 +33,7 @@ class VisualP300(Experiment.BaseExperiment):
         
         return [self.nontargets, self.targets]
 
-    def present_stimulus(self, idx:int):
+    def present_stimulus(self, idx:int, trial):
 
         label = self.trials["parameter"].iloc[idx]
         image = choice(self.targets if label == 1 else self.nontargets)

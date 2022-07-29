@@ -84,7 +84,7 @@ class VisualSSVEP(Experiment.BaseExperiment):
             init_flicker_stim(frame_rate, 3, self.soa),
         ]
 
-    def present_stimulus(self, idx):
+    def present_stimulus(self, idx, trial):
         
         # Select stimulus frequency
         ind = self.trials["parameter"].iloc[idx]
