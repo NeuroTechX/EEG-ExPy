@@ -7,24 +7,26 @@ prefs.hardware['audioLatencyMode'] = 3
 
 from eegnb.devices.eeg import EEG
 
-from eegnb.experiments.visual_n170 import n170
-from eegnb.experiments.visual_p300 import p300
-from eegnb.experiments.visual_ssvep import ssvep
+from eegnb.experiments import VisualN170
+from eegnb.experiments import VisualP300
+from eegnb.experiments import VisualSSVEP
+from eegnb.experiments import AuditoryOddball
 from eegnb.experiments.visual_cueing import cueing
 from eegnb.experiments.visual_codeprose import codeprose
-from eegnb.experiments.auditory_oddball import aob, diaconescu
+from eegnb.experiments.auditory_oddball import diaconescu
 from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
 
 
+# New Experiment Class structure has a different initilization, to be noted
 experiments = {
-    "visual-N170": n170,
-    "visual-P300": p300,
-    "visual-SSVEP": ssvep,
+    "visual-N170": VisualN170(),
+    "visual-P300": VisualP300(),
+    "visual-SSVEP": VisualSSVEP(),
     "visual-cue": cueing,
     "visual-codeprose": codeprose,
     "auditory-SSAEP orig": ssaep,
     "auditory-SSAEP onefreq": ssaep_onefreq,
-    "auditory-oddball orig": aob,
+    "auditory-oddball orig": AuditoryOddball(),
     "auditory-oddball diaconescu": diaconescu,
 }
 
@@ -42,7 +44,15 @@ def run_experiment(
 ):
     if experiment in experiments:
         module = experiments[experiment]
-        module.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)  # type: ignore
+
+        # Condition added for different run types of old and new experiment class structure
+        if experiment == "visual-N170" or experiment == "visual-P300" or experiment == "visual-SSVEP" or experiment == "auditory-oddball orig":
+            module.duration = record_duration
+            module.eeg = eeg_device
+            module.save_fn = save_fn
+            module.run()
+        else:
+            module.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)  # type: ignore
     else:
         print("\nError: Unknown experiment '{}'".format(experiment))
         print("\nExperiment can be one of:")
