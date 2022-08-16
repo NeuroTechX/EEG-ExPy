@@ -523,7 +523,6 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
                 print("\nStopping signal quality checks!")
                 break
         
-        sleep(pause_time)
 
 
 
