@@ -7,6 +7,7 @@ from glob import glob
 from typing import Union, List, Dict
 from time import sleep, time
 from numpy.core.fromnumeric import std
+import keyboard
 
 import pandas as pd
 import numpy as np
@@ -462,6 +463,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     # If no upper and lower std thresholds set in function call,
     # set thresholds based on the following per-device name defaults
     edn = eeg.device_name
+    flag = False
     if thres_std_low is None:
         if edn in thres_stds.keys():
             thres_std_low = thres_stds[edn][0]
@@ -497,7 +499,6 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         print("\nSignal quality:")
         print(indicators)
 
-        
         bad_channels = [k for k, v in std_series.iteritems() if v < thres_std_low or v > thres_std_high ]
         if bad_channels:
             print(f"Bad channels: {', '.join(bad_channels)}")
@@ -514,18 +515,21 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         if (loop_index+1) % n_inarow == 0:
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
-            prompt_start = time()
-            continue_sigqual = input("\nChecks will resume in %s seconds...Press 'c' (and ENTER key) if you want to stop adjusting for better quality.\n" %pause_time)
-            while time() < prompt_start + 5:
-                if continue_sigqual == 'c':
-                    break
-            if continue_sigqual == 'c':
-                print("\nStopping signal quality checks!")
-                break
-        
+            prompt_time = time()
+            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")    
+            while time() < prompt_time + 5:  
+                if keyboard.is_pressed('c'): 
+                    print("\nStopping signal quality checks!")
+                    flag = True
+                    break  
+        if flag: 
+            break
 
-
-
+def create_analysis_report(data_path=None):
+    if not data_path: 
+        print("Could not find file!")
+    
+    
 def fix_musemissinglines(orig_f,new_f=''):
 
     if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')

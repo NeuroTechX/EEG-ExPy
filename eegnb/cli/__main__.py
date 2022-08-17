@@ -9,7 +9,7 @@ from eegnb.datasets.datasets import zip_data_folders
 from .introprompt import intro_prompt
 from .utils import run_experiment
 from eegnb.devices.eeg import EEG
-from eegnb.analysis.utils import check_report
+from eegnb.analysis.utils import check_report, create_analysis_report
 
 
 @click.group(name="eegnb")
@@ -35,6 +35,7 @@ def runexp(
     outfname: str = None,
     prompt: bool = False,
     dosigqualcheck = True,
+    generatereport = True
 ):
     """
     Run experiment.
@@ -80,6 +81,9 @@ def runexp(
     run_experiment(experiment, eeg, recdur, outfname)
 
     print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
+
+    if generatereport:
+        create_analysis_report(outfname)
 
 
 
