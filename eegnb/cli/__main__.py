@@ -8,8 +8,10 @@ from eegnb.datasets.datasets import zip_data_folders
 
 from .introprompt import intro_prompt
 from .utils import run_experiment
+from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from eegnb.analysis.utils import check_report, create_analysis_report
+from eegnb.analysis.utils import check_report
+from eegnb.analysis.pipelines import create_analysis_report
 
 
 @click.group(name="eegnb")
@@ -60,6 +62,8 @@ def runexp(
     if prompt:
         eeg, experiment, recdur, outfname = intro_prompt()
     else:
+        # Random values for outfile for now
+        outfname = generate_save_fn(eegdevice, experiment,7, 7)
         if eegdevice == "ganglion":
             # if the ganglion is chosen a MAC address should also be provided
             eeg = EEG(device=eegdevice, mac_addr=macaddr)
@@ -74,16 +78,23 @@ def runexp(
             "Sorry, didn't recognize answer. "
             askforsigqualcheck()
     
+    def askforreportcheck():
+        do_sigqual = input("\n\nGenerate Report? (y/n). Recommend y \n")
+        if do_sigqual != 'y':
+            generatereport= False
+
     if dosigqualcheck:
         askforsigqualcheck()
-
+    
+    if generatereport:
+        askforreportcheck()
 
     run_experiment(experiment, eeg, recdur, outfname)
 
     print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
 
     if generatereport:
-        create_analysis_report(outfname)
+        create_analysis_report(experiment, eegdevice, outfname)
 
 
 

@@ -47,16 +47,18 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings('ignore')
 
 # MNE functions
-from mne import Epochs,find_events
+from mne import Epochs,find_events, create_info
+from mne.io import RawArray
 
 # EEG-Notebooks functions
-from eegnb.analysis.utils import load_data,plot_conditions
+from eegnb.analysis.utils import load_data,plot_conditions, load_csv_as_raw, fix_musemissinglines
 from eegnb.datasets import fetch_dataset
+from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 
 def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None, 
-                    reject={'eeg': 5e-5}, preload=True, verbose=False,
-                        picks=[0,1,2,3], event_id = OrderedDict(House=1,Face=2)):
+                    reject={'eeg': 5e-5}, preload=True, verbose=1,
+                        picks=[0,1,2,3], event_id = OrderedDict(House=1,Face=2), fnames=None, example=True):
     """
     Loads EEG data from the specified experiment, subject, session, and device.
     Returns the raw and epochs objects.
@@ -81,24 +83,44 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     verbose : If True, print out messages.
     picks : Channels to include in the analysis.
     event_id : Dictionary of event_id's for the epochs
+    fnames : File names of the experiment data, if not passed, example files are used
     """
-    
-    # Loading Data
-    eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
-    n170_data_path = os.path.join(eegnb_data_path, experiment, 'eegnb_examples')
 
-    # If dataset hasn't been downloaded yet, download it
-    if not os.path.isdir(n170_data_path):
-        fetch_dataset(data_dir=eegnb_data_path, experiment=experiment, site='eegnb_examples')
+    # If not using the example dataset, load the data from the specified experiment using load_csv_as_raw
+    if not example:
+        sfreq = SAMPLE_FREQS[device_name]
+        ch_ind = EEG_INDICES[device_name]
 
-    raw = load_data(subject,session,
-                    experiment=experiment, site='eegnb_examples', device_name=device_name,
-                    data_dir = eegnb_data_path)
+        # Generate file names if not passed
+        if fnames is None:
+            raw = load_data(subject_id=subject, session_nb=session, experiment=experiment, device_name=device_name, site="local", data_dir=os.path.join(os.path.expanduser('~/'),'.eegnb', 'data'))
+        
+        else:
+            # Replace Ch names has arbitarily been set to None
+            if device_name in ["muse2016", "muse2", "museS"]:   
+                raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, aux_ind=[5], replace_ch_names=None, verbose=verbose)
+            else:
+                raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, replace_ch_names=None, verbose=verbose)
+
+    # If using the example dataset, load the data from the example dataset
+    else:
+        # Loading Data
+        eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
+        experiment_data_path = os.path.join(eegnb_data_path, experiment, 'eegnb_examples')
+
+        # If dataset hasn't been downloaded yet, download it
+        if not os.path.isdir(experiment_data_path):
+            fetch_dataset(data_dir=eegnb_data_path, experiment=experiment, site='eegnb_examples')
+
+        raw = load_data(subject,session,
+                        experiment=experiment, site='eegnb_examples', device_name=device_name,
+                        data_dir = eegnb_data_path)
+
 
     # Visualising the power spectrum 
     raw.plot_psd()
     plt.show()
-
+    
     raw.filter(1,30, method='iir')
     raw.plot_psd(fmin=1, fmax=30)
     plt.show()
@@ -142,7 +164,26 @@ def make_erp_plot(epochs, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n
                             channel_order=[1,0,2,3]) # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
 
     # Manually adjust the ylims
-    for i in [0,2]: ax[i].set_ylim([-0.5,0.5])
-    for i in [1,3]: ax[i].set_ylim([-1.5,2.5])
 
+    # Convert to automatic by searching the max and min values of the ERP
+    
+    #for i in [0,2]: ax[i].set_ylim([-0.5,0.5])
+    #for i in [1,3]: ax[i].set_ylim([-1.5,2.5])
+    plt.autoscale()
     plt.show()
+
+def create_analysis_report(experiment, eegdevice, data_path=None):
+    
+    if not data_path: 
+        print("Could not find file!")
+        return
+
+    if eegdevice == 'muse2':
+        fix_musemissinglines(data_path)
+    
+    raw, epochs = load_eeg_data(experiment=experiment, device_name=eegdevice, fnames=data_path, example=False)
+    fig = make_erp_plot(epochs)
+
+    # Store analysis report in a separate folder
+    plt.savefig("{}/_analysis_report.png".format(os.path.dirname(data_path)))
+    print("Image saved at {}/_analysis_report.png".format(os.path.dirname(data_path)))

@@ -5,12 +5,15 @@ import logging
 from collections import OrderedDict
 from glob import glob
 from typing import Union, List, Dict
+from collections import Iterable
 from time import sleep, time
 from numpy.core.fromnumeric import std
 import keyboard
+import os
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import seaborn as sns
 from mne import create_info, concatenate_raws
 from mne.io import RawArray
@@ -22,8 +25,6 @@ from scipy.signal import lfilter, lfilter_zi
 from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
-
-                        
 
 # this should probably not be done here
 sns.set_context("talk")
@@ -85,6 +86,7 @@ def load_csv_as_raw(
         n_aux = 0
 
     raw = []
+
     for fn in fnames:
         # Read the file
         data = pd.read_csv(fn)
@@ -108,7 +110,7 @@ def load_csv_as_raw(
         # create MNE object
         info = create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq, verbose=1)
         raw.append(RawArray(data=data, info=info, verbose=verbose))
-
+    
     raws = concatenate_raws(raw, verbose=verbose)
     montage = make_standard_montage("standard_1005")
     raws.set_montage(montage)
@@ -523,20 +525,18 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
                     flag = True
                     break  
         if flag: 
-            break
-
-def create_analysis_report(data_path=None):
-    if not data_path: 
-        print("Could not find file!")
-    
-    
+            break  
+            
 def fix_musemissinglines(orig_f,new_f=''):
 
-    if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
+    #if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
+
+    # Overwriting 
+    new_f = orig_f
 
     print('writing fixed file to %s' %new_f)
 
-    # Read oriignal file
+    # Read original file
 
     F = open(orig_f, 'r')
     Ls = F.readlines()
