@@ -20,11 +20,12 @@ class PDF(FPDF):
     def header(self):
         
         # Arial bold 15
-        self.set_font('Arial', 'B', 15)
+        self.set_font('Arial', 'B', 25)
+        self.set_text_color(183, 208, 332)
         # Move to the right
-        self.cell(80)
+        #self.cell(80)
         # Title
-        self.cell(50, 10, 'Analysis Report', 1, 0, 'C')
+        self.cell(0, 10, 'Analysis Report')
         # Line break
         self.ln(20)
 
@@ -37,13 +38,18 @@ class PDF(FPDF):
         # Page number
         self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
 
-    def add_figure(self, fig_path, x, y, w, h):
+    def add_figure(self, fig_path, x, y, w, h, title):
+
+        #self.cell(w=100,h=10, txt=title, ln=0, align='C')
+        self.set_font('Times', 'B', 20)
         
         # Add figure to document
+        self.cell(0, 10, txt=title, ln=2, align='C')
         self.image(fig_path, x=x, y=y, w=w, h=h)
-        
+        self.ln(h+10)
         # Delete figure from memory
         os.remove(fig_path)
+
     def add_matplotlib_figure(self, fig_path):
 
         # Add figure to document
