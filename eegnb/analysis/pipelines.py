@@ -43,6 +43,7 @@ import os
 from collections import OrderedDict
 import warnings
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 warnings.filterwarnings('ignore')
 
@@ -51,10 +52,15 @@ from mne import Epochs,find_events, create_info
 from mne.io import RawArray
 
 # EEG-Notebooks functions
+from eegnb import generate_save_fn
 from eegnb.analysis.utils import load_data,plot_conditions, load_csv_as_raw, fix_musemissinglines
 from eegnb.datasets import fetch_dataset
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
+from eegnb.analysis.analysis_report import PDF
+from pathlib import Path
 
+DATA_DIR = os.path.join(os.path.expanduser("~/"), ".eegnb", "data")
+eegdevice, experiment_name, subject_id, session_nb = None, None, None, None
 
 def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None, 
                     reject={'eeg': 5e-5}, preload=True, verbose=1,
@@ -86,6 +92,9 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     fnames : File names of the experiment data, if not passed, example files are used
     """
 
+    global eegdevice, experiment_name, subject_id, session_nb
+    eegdevice, experiment_name = device_name, experiment
+
     # If not using the example dataset, load the data from the specified experiment using load_csv_as_raw
     if not example:
         sfreq = SAMPLE_FREQS[device_name]
@@ -94,7 +103,8 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
         # Generate file names if not passed
         if fnames is None:
             raw = load_data(subject_id=subject, session_nb=session, experiment=experiment, device_name=device_name, site="local", data_dir=os.path.join(os.path.expanduser('~/'),'.eegnb', 'data'))
-        
+            subject_id, session_nb = subject, session
+
         else:
             # Replace Ch names has arbitarily been set to None
             if device_name in ["muse2016", "muse2", "museS"]:   
@@ -102,8 +112,12 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
             else:
                 raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, replace_ch_names=None, verbose=verbose)
 
+            # Getting the subject and session
+            subject_id, session_nb = fnames.split('_')[1], fnames.split('_')[2]
+
     # If using the example dataset, load the data from the example dataset
     else:
+        subject_id, session_nb = subject, session
         # Loading Data
         eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
         experiment_data_path = os.path.join(eegnb_data_path, experiment, 'eegnb_examples')
@@ -116,13 +130,13 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
                         experiment=experiment, site='eegnb_examples', device_name=device_name,
                         data_dir = eegnb_data_path)
 
-
     # Visualising the power spectrum 
-    raw.plot_psd()
-    plt.show()
+    raw.plot_psd(show=False)
+    #plt.show()
     
     raw.filter(1,30, method='iir')
-    raw.plot_psd(fmin=1, fmax=30)
+    fig2=raw.plot_psd(fmin=1, fmax=30, show=False)
+    fig2.savefig("power_spectrum.png")
     plt.show()
 
     # Epoching
@@ -170,7 +184,24 @@ def make_erp_plot(epochs, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n
     #for i in [0,2]: ax[i].set_ylim([-0.5,0.5])
     #for i in [1,3]: ax[i].set_ylim([-1.5,2.5])
     plt.autoscale()
+    plt.savefig("erp_plot.png")
     plt.show()
+    
+
+    create_pdf()
+
+def create_pdf():
+    """
+    Creates a pdf of the figure.
+    """
+    pdf = PDF()
+    pdf.alias_nb_pages()
+    pdf.add_page()
+    pdf.add_figure(os.getcwd()+'\\power_spectrum.png', 50, 50, 100, 100)
+    pdf.add_figure(os.getcwd()+'\\erp_plot.png', 50, 180, 100, 100)
+    save_dir = get_analysis_save_directory(experiment=experiment_name, eegdevice=eegdevice, subject=subject_id, session=session_nb)
+    pdf.output(os.path.join(save_dir, 'analysis_report_{}.pdf'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S"))), 'F')
+    #pdf.output('{}\\analysis_report_{}.pdf'.format(save_dir, datetime.now().strftime("%d/%m/%Y_%H-%M-%S")), 'F')
 
 def create_analysis_report(experiment, eegdevice, data_path=None):
     
@@ -187,3 +218,13 @@ def create_analysis_report(experiment, eegdevice, data_path=None):
     # Store analysis report in a separate folder
     plt.savefig("{}/_analysis_report.png".format(os.path.dirname(data_path)))
     print("Image saved at {}/_analysis_report.png".format(os.path.dirname(data_path)))
+
+
+def get_analysis_save_directory(experiment, eegdevice, subject, session, site="local"):
+    
+    analysis_path = os.path.join(os.path.expanduser("~/"),'.eegnb', 'analysis')
+    report_path = os.path.join(analysis_path, experiment, site, eegdevice, "subject{}".format(subject), "session{}".format(session))
+    if not os.path.isdir(report_path):
+        os.makedirs(report_path)
+    return report_path
+    #return os.path.join(report_path, "analysis_report_{}".format(datetime.now().strftime("%d/%m/%Y_%H-%M-%S")))
