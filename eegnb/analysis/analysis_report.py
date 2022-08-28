@@ -9,6 +9,12 @@ pdf.alias_nb_pages()
 pdf.add_page()
 # Do whatever you want to add to the pdf
 pdf.save_as_report()
+
+
+# Work that needs to be done
+1. Add boilerplate text
+2. Figure stretching for raw plot
+3. Add subject and session info
 """
 
 from fpdf import FPDF
@@ -28,7 +34,7 @@ class PDF(FPDF):
         self.cell(0, 10, 'Analysis Report')
         # Line break
         self.ln(20)
-
+    
     # Page footer
     def footer(self):
         # Position at 1.5 cm from bottom
@@ -50,33 +56,3 @@ class PDF(FPDF):
         # Delete figure from memory
         os.remove(fig_path)
 
-    def add_matplotlib_figure(self, fig_path):
-
-        # Add figure to document
-        self.image(fig_path, x=60, y=200, w=100, h=100)
-        
-        # Delete figure from memory
-        #os.remove(fig_path)
-
-
-if __name__ == "__main__":
-
-    # Instantiation of inherited class
-    pdf = PDF()
-    pdf.alias_nb_pages()
-    pdf.add_page()
-    pdf.imagex()
-    # Create random figure with matplotlib
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.plot(np.random.rand(100), '-')
-    ax.set_title('Random Plot')
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
-    ax.grid(True)
-
-    # Convert figure to pdf page
-    plt.savefig('books_read.png')
-            
-    pdf.add_matplotlib_figure('books_read.png')
-    pdf.output('tuto2.pdf', 'F')

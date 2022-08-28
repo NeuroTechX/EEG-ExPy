@@ -3,11 +3,11 @@
 CLI Pipeline for Analysis of EEGNB Recorded Data
 
 To do: 
-1. Package parameters into a dictionary
-2. Adapt for other experiments/create an easy user manual
-3. Add additional analysis methods
+1. Beautify analysis pdf
+2. Handle cli automated errors for report creation
+3. Implement interface to erp plot function for cli
 
-Usage (for downloaded datasets): 
+Usage (for downloaded datasets) -> automatically creates analysis report : 
 
 Visual N170:
 raw, epochs = load_eeg_data('visual-n170', device_name='muse2016_bfn')
@@ -24,18 +24,6 @@ Loading Recorded Data :
 raw, epochs = load_eeg_data(experiment, subject, session, device_name, tmin, tmax, reject)
 make_erp_plot(epochs, title)
 
-Changable parameters to adjust plot  
-
-tmin, tmax - Start and end time of the epochs in seconds, relative to the time-locked event. 
-The closest or matching samples corresponding to the start and end time are included.
-
-reject - Reject epochs based on maximum peak-to-peak signal amplitude (PTP),
-i.e. the absolute difference between the lowest and the highest signal value.
-
-ci - confidence interval
-
-n_boot - number of bootstrap samples
-
 """
 
 # Some standard pythonic imports
@@ -44,6 +32,7 @@ from collections import OrderedDict
 import warnings
 import matplotlib.pyplot as plt
 from datetime import datetime
+import numpy as np
 
 warnings.filterwarnings('ignore')
 
@@ -189,13 +178,8 @@ def make_erp_plot(epochs, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n
                             diff_waveform=None, #(1, 2))
                             channel_order=[1,0,2,3]) # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
 
-    # Convert to automatic by searching the max and min values of the ERP
-    """
-    Axis scaling needs to be sorted out
-    """
-    #for i in [0,2]: ax[i].set_ylim([-0.5,0.5])
-    #for i in [1,3]: ax[i].set_ylim([-1.5,2.5])
-    plt.autoscale()
+    # Autoscaling the y axis to a tight fit to the ERP
+    for i in [0,1,2,3]: ax[i].autoscale(tight=True)
 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
     plt.savefig("erp_plot.png")
@@ -239,24 +223,8 @@ def create_pdf():
     # Saving report
     pdf.output(os.path.join(save_dir, 'analysis_report_{}.pdf'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S"))), 'F')
 
-def create_analysis_report(experiment, eegdevice, data_path=None, bluemuse_file_fix=False):
-    
-    # Fault check if the data path is not specified, alternatively could make it a necessary parameter
-    if not data_path: 
-        print("Could not find file!")
-        return
-
-    # Fixing the muse2 recording issue if it was recorded using bluemuse
-    if bluemuse_file_fix:
-        fix_musemissinglines(data_path)
-    
-    # Loading the data
-    raw, epochs = load_eeg_data(experiment=experiment, device_name=eegdevice, fnames=data_path, example=False)
-    make_erp_plot(epochs)
-
-    # Creating the analysis report, called automatically when erp plot is made
-    #create_pdf()
-
+    # Informing the user that the report has been saved
+    print('Analysis report saved to {}'.format(save_dir))
 
 def get_analysis_save_directory(experiment, eegdevice, subject, session, site="local"):
     """ Returns save directory as a String for the analysis report """
@@ -270,3 +238,9 @@ def get_analysis_save_directory(experiment, eegdevice, subject, session, site="l
         os.makedirs(report_path)
     
     return report_path
+
+def create_analysis_report(experiment, eegdevice, data_path=None, bluemuse_file_fix=False):
+    """ Interface with the erp plot function, basically cli type instructions """
+
+    # Prompt user to enter options and then take inputs and do the necessary
+    pass
