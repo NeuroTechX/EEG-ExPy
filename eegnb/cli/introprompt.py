@@ -167,17 +167,17 @@ def analysis_intro_prompt():
     file_idx = int(input("Enter selection: "))
     if file_idx == 1:
         print("Please enter the filepath to the .csv file you would like to analyze. \n")
-        file_path = input("Enter filepath: ")
+        filepath = input("Enter filepath: ")
         subject, session = None, None
     else:  
         subject = input("Enter subject ID#: ")
         session = input("Enter session #: ")
-        file_path = None
+        filepath = None
     
     eegdevice = input("Enter EEG device: ")
-    exp_selection = exp_prompt()
+    experiment = exp_prompt()
     
-    return eegdevice, exp_selection, subject, session, file_path
+    return experiment, eegdevice, subject, session, filepath
 
 
 
