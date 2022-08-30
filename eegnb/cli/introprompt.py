@@ -157,6 +157,29 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
 
     return eeg_device, exp_selection, duration, str(save_fn)
 
+def analysis_intro_prompt():
+
+    # check if user has filepath
+    print("Welcome to NeurotechX EEG Notebooks\n")
+    print("Do you have a filepath to a .csv file you would like to analyze? \n")
+    print("[1] Yes \n")
+    print("[0] No \n")
+    file_idx = int(input("Enter selection: "))
+    if file_idx == 1:
+        print("Please enter the filepath to the .csv file you would like to analyze. \n")
+        file_path = input("Enter filepath: ")
+        subject, session = None, None
+    else:  
+        subject = input("Enter subject ID#: ")
+        session = input("Enter session #: ")
+        file_path = None
+    
+    eegdevice = input("Enter EEG device: ")
+    exp_selection = exp_prompt()
+    
+    return eegdevice, exp_selection, subject, session, file_path
+
+
 
 def intro_prompt_zip() -> Tuple[str,str]:
     """This function handles the user prompts for inputting information for zipping their function."""

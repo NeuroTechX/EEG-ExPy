@@ -6,12 +6,12 @@ import os
 import shutil
 from eegnb.datasets.datasets import zip_data_folders
 
-from .introprompt import intro_prompt
+from .introprompt import intro_prompt, analysis_intro_prompt
 from .utils import run_experiment
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.analysis.utils import check_report
-from eegnb.analysis.pipelines import create_analysis_report
+from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, create_analysis_report
 
 
 @click.group(name="eegnb")
@@ -97,7 +97,29 @@ def runexp(
         create_analysis_report(experiment, eegdevice, outfname)
 
 
-
+@main.command()
+@click.option("-ex", "--experiment", help="Experiment to run")
+@click.option("-ed", "--eegdevice", help="EEG device to use")
+@click.option("-sub", "--subject", help="Subject ID")
+@click.option("-sess", "--session", help="Session number")
+@click.option(
+    "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
+)
+def create_analysis_report(
+    experiment: str,
+    eegdevice: str = None,
+    subject: str = None, 
+    session: str = None,
+    prompt: bool = False,
+    filepath:str = None
+):
+    """
+    Create analysis report of recorded data
+    """
+    if prompt:
+        eegdevice, experiment, subject, session, filepath = analysis_intro_prompt()
+    create_analysis_report(experiment, eegdevice, subject, session, filepath)
+    return
 
 @main.command()
 @click.option("-ed", "--eegdevice", help="EEG device to use", required=True)
@@ -120,6 +142,8 @@ def checksigqual(eegdevice: str):
     #       ( n_times, pause_time, thres_var, etc. )
     #       [ tried to do this but keeps defaulting to None rather than default
     #         valuess in the function definition ]
+
+
 
 
 @main.command()

@@ -239,8 +239,9 @@ def get_analysis_save_directory(experiment, eegdevice, subject, session, site="l
     
     return report_path
 
-def create_analysis_report(experiment, eegdevice, data_path=None, bluemuse_file_fix=False):
+def create_analysis_report(experiment, eegdevice, subject=None, session=None, data_path=None, bluemuse_file_fix=False):
     """ Interface with the erp plot function, basically cli type instructions """
 
     # Prompt user to enter options and then take inputs and do the necessary
-    pass
+    raw, epochs = load_eeg_data(experiment=experiment, subject=subject, session=session, device_name=eegdevice, example=False, fnames=data_path)
+    make_erp_plot(epochs)
