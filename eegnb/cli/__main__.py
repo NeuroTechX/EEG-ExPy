@@ -79,9 +79,7 @@ def runexp(
             askforsigqualcheck()
     
     def askforreportcheck():
-        do_sigqual = input("\n\nGenerate Report? (y/n). Recommend y \n")
-        if do_sigqual != 'y':
-            generatereport= False
+        generatereport = input("\n\nGenerate Report? (Y/n): ").lower() != "n"
 
     if dosigqualcheck:
         askforsigqualcheck()
