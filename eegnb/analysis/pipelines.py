@@ -7,22 +7,17 @@ To do:
 2. Handle cli automated errors for report creation
 3. Implement interface to erp plot function for cli
 
-Usage (for downloaded datasets) -> automatically creates analysis report : 
+Usage:
 
-Visual N170:
-raw, epochs = load_eeg_data('visual-n170', device_name='muse2016_bfn')
-make_erp_plot(epochs)
+For Recorded Data:
 
-Visual P300:
-raw, epochs = load_eeg_data('visual-P300', device_name='muse2016', event_id={'Non-Target': 1, 'Target': 2})
-make_erp_plot(epochs, conditions=OrderedDict(NonTarget=[1],Target=[2]))
+from eegnb.analysis.pipelines import create_analysis_report()
+create_analysis_report(experiment, eegdevice, subject, session, filepath)s
 
-Other Experiments to be added later eg. Visual SSVEP
+For Example Datasets:
 
-Loading Recorded Data : 
-
-raw, epochs = load_eeg_data(experiment, subject, session, device_name, tmin, tmax, reject)
-make_erp_plot(epochs, title)
+from eegnb.analysis.pipelines import example_analysis_report()
+example_analysis_report()
 
 """
 
@@ -53,7 +48,7 @@ eegdevice, experiment_name, subject_id, session_nb = None, None, None, None
 
 def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None, 
                     reject={'eeg': 5e-5}, preload=True, verbose=1,
-                        picks=[0,1,2,3], event_id = OrderedDict(House=1,Face=2), fnames=None, example=True):
+                        picks=[0,1,2,3], event_id = OrderedDict(House=1,Face=2), fnames=None, example=False):
     """
     Loads EEG data from the specified experiment, subject, session, and device.
     Returns the raw and epochs objects.
@@ -112,7 +107,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
 
     # If using the example dataset, load the data from the example dataset
     else:
-        subject_id, session_nb = subject, session
+        subject_id, session_nb = 1, 1
         
         # Loading Data
         eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
@@ -122,7 +117,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
         if not os.path.isdir(experiment_data_path):
             fetch_dataset(data_dir=eegnb_data_path, experiment=experiment, site='eegnb_examples')
 
-        raw = load_data(subject,session,
+        raw = load_data(1,1,
                         experiment=experiment, site='eegnb_examples', device_name=device_name,
                         data_dir = eegnb_data_path)
 
@@ -245,3 +240,15 @@ def create_analysis_report(experiment, eegdevice, subject=None, session=None, da
     # Prompt user to enter options and then take inputs and do the necessary
     raw, epochs = load_eeg_data(experiment=experiment, subject=subject, session=session, device_name=eegdevice, example=False, fnames=data_path)
     make_erp_plot(epochs)
+
+def example_analysis_report():
+    """ Example of how to use the analysis report function """
+    experiment = ["visual-N170", "visual-P300"]
+    experiment_choice = experiment[int(input("Choose an experiment: {} 0 or 1".format(experiment)))]
+
+    if experiment_choice == "visual-N170":
+        raw, epochs = load_eeg_data(experiment_choice, example=True)
+        make_erp_plot(epochs)
+    else:
+        raw, epochs = load_eeg_data('visual-P300', device_name='muse2016', event_id={'Non-Target': 1, 'Target': 2}, example=True)
+        make_erp_plot(epochs, conditions=OrderedDict(NonTarget=[1],Target=[2]))
