@@ -215,11 +215,14 @@ def create_pdf():
     # Getting the directory where the report should be saved
     save_dir = get_analysis_save_directory(experiment=experiment_name, eegdevice=eegdevice, subject=subject_id, session=session_nb)
     
+    #get whole filepath
+    filepath = os.path.join(save_dir, 'analysis_report_{}.pdf'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S")))
+    
     # Saving report
-    pdf.output(os.path.join(save_dir, 'analysis_report_{}.pdf'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S"))), 'F')
+    pdf.output(filepath, 'F')
 
     # Informing the user that the report has been saved
-    print('Analysis report saved to {}'.format(save_dir))
+    print('Analysis report saved to {}'.format(filepath))
 
 def get_analysis_save_directory(experiment, eegdevice, subject, session, site="local"):
     """ Returns save directory as a String for the analysis report """
