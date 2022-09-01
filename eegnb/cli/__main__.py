@@ -100,6 +100,7 @@ def runexp(
 @click.option("-ed", "--eegdevice", help="EEG device to use")
 @click.option("-sub", "--subject", help="Subject ID")
 @click.option("-sess", "--session", help="Session number")
+@click.option("-fp", "--filepath", help="Filepath to save data")
 @click.option(
     "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
 )
@@ -108,14 +109,14 @@ def create_analysis_report(
     eegdevice: str = None,
     subject: str = None, 
     session: str = None,
+    filepath:str = None,
     prompt: bool = False,
-    filepath:str = None
 ):
     """
     Create analysis report of recorded data
     """
     if prompt:
-        eegdevice, experiment, subject, session, filepath = analysis_intro_prompt()
+       experiment, eegdevice, subject, session, filepath = analysis_intro_prompt()
     create_analysis_report(experiment, eegdevice, subject, session, filepath)
     return
 
