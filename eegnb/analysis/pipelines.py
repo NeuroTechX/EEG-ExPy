@@ -44,7 +44,7 @@ from eegnb.analysis.analysis_report import PDF
 from pathlib import Path
 
 DATA_DIR = os.path.join(os.path.expanduser("~/"), ".eegnb", "data")
-eegdevice, experiment_name, subject_id, session_nb = None, None, None, None
+eegdevice, experiment_name, subject_id, session_nb, example_flag = None, None, None, None, False
 
 def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None, 
                     reject={'eeg': 5e-5}, preload=True, verbose=1,
@@ -77,7 +77,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     """
 
     # Parameters that are used in creating the save directory for the analysis report and hence global variables
-    global eegdevice, experiment_name, subject_id, session_nb
+    global eegdevice, experiment_name, subject_id, session_nb, example_flag
     
     # Set the global variables based on the parameter values
     eegdevice, experiment_name = device_name, experiment
@@ -108,6 +108,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     # If using the example dataset, load the data from the example dataset
     else:
         subject_id, session_nb = 1, 1
+        example_flag = True
         
         # Loading Data
         eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
@@ -213,7 +214,7 @@ def create_pdf():
     pdf.add_figure(os.getcwd()+'\\erp_plot.png', x=10, y=160, w=200, h=120, title="ERP Plot")
     
     # Getting the directory where the report should be saved
-    save_dir = get_analysis_save_directory(experiment=experiment_name, eegdevice=eegdevice, subject=subject_id, session=session_nb)
+    save_dir = get_analysis_save_directory(experiment=experiment_name, eegdevice=eegdevice, subject=subject_id, session=session_nb, example=example_flag)
     
     #get whole filepath
     filepath = os.path.join(save_dir, 'analysis_report_{}.pdf'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S")))
@@ -224,9 +225,14 @@ def create_pdf():
     # Informing the user that the report has been saved
     print('Analysis report saved to {}'.format(filepath))
 
-def get_analysis_save_directory(experiment, eegdevice, subject, session, site="local"):
+def get_analysis_save_directory(experiment, eegdevice, subject, session, example):
     """ Returns save directory as a String for the analysis report """
     
+    if not example:
+        site='local'
+    else:
+        site='eegnb_examples'
+
     # Getting the directory where the analysis report should be saved
     analysis_path = os.path.join(os.path.expanduser("~/"),'.eegnb', 'analysis')
     report_path = os.path.join(analysis_path, experiment, site, eegdevice, "subject{}".format(subject), "session{}".format(session))
@@ -237,7 +243,7 @@ def get_analysis_save_directory(experiment, eegdevice, subject, session, site="l
     
     return report_path
 
-def create_analysis_report(experiment, eegdevice, subject=None, session=None, data_path=None, bluemuse_file_fix=False):
+def create_analysis_report_(experiment, eegdevice, subject=None, session=None, data_path=None, bluemuse_file_fix=False):
     """ Interface with the erp plot function, basically cli type instructions """
 
     # Prompt user to enter options and then take inputs and do the necessary

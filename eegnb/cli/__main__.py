@@ -11,7 +11,7 @@ from .utils import run_experiment
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.analysis.utils import check_report
-from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, create_analysis_report
+from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, create_analysis_report_, example_analysis_report
 
 
 @click.group(name="eegnb")
@@ -115,10 +115,16 @@ def create_analysis_report(
     """
     Create analysis report of recorded data
     """
+    
     if prompt:
-       experiment, eegdevice, subject, session, filepath = analysis_intro_prompt()
-    create_analysis_report(experiment, eegdevice, subject, session, filepath)
-    return
+        example = input("Do you want to load an example experiment? (y/n)")
+        if example == 'y':
+            example_analysis_report()
+            return
+        else:
+            experiment, eegdevice, subject, session, filepath = analysis_intro_prompt()
+    create_analysis_report_(experiment, eegdevice, subject, session, filepath)
+
 
 @main.command()
 @click.option("-ed", "--eegdevice", help="EEG device to use", required=True)

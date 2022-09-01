@@ -170,8 +170,8 @@ def analysis_intro_prompt():
         filepath = input("Enter filepath: ")
         subject, session = None, None
     else:  
-        subject = input("Enter subject ID#: ")
-        session = input("Enter session #: ")
+        subject = int(input("Enter subject ID#: "))
+        session = int(input("Enter session #: "))
         filepath = None
     
     eegdevice = input("Enter EEG device: ")
