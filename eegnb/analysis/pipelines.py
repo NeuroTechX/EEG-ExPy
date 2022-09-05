@@ -177,6 +177,8 @@ def make_erp_plot(epochs, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n
     # Autoscaling the y axis to a tight fit to the ERP
     for i in [0,1,2,3]: ax[i].autoscale(tight=True)
 
+    # for a in ax.ravel (): a.autoscale(tight=True) 
+
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
     plt.savefig("erp_plot.png")
     plt.show()
