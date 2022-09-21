@@ -126,7 +126,9 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
     fig.savefig("power_spectrum.png")
 
-    plt.show()
+    plt.show(block=False)
+    plt.pause(10)
+    plt.close()
 
     # Epoching
     # Create an array containing the timestamps and type of each stimulus (i.e. face or house)
@@ -175,7 +177,9 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
     plt.savefig("erp_plot.png")
-    plt.show()
+    plt.show(block=False)
+    plt.pause(10)
+    plt.close()
 
     # Creating the pdf, needs to be discussed whether we want to call it here or seperately.
     create_pdf(experimental_parameters)
@@ -222,8 +226,8 @@ def create_pdf(experimental_parameters:Dict):
     pdf.output(filepath, 'F')
 
     # Informing the user that the report has been saved
-    print('Analysis report saved to {}'.format(filepath))
-    print("Open as pdf by clicking the following link: file://{}".format(filepath))
+    print('Analysis report saved to {}\n'.format(filepath))
+    print("Open as pdf by clicking the following link: {}{}".format("file:///", filepath))
 
 def get_analysis_save_directory(experiment, eegdevice, subject, session, example):
     """ Returns save directory as a String for the analysis report """
