@@ -157,6 +157,40 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
 
     return eeg_device, exp_selection, duration, str(save_fn)
 
+def analysis_device_prompt():
+   
+    boards = {
+        "none": "None",
+        "muse2016": "Muse (2016)",
+        "muse2": "Muse 2",
+        "museS": "Muse S",
+        "muse2016_bfn": "Muse 2016 - brainflow, native bluetooth",
+        "muse2016_bfb": "Muse 2016 - brainflow, BLED bluetooth dongle",        
+        "muse2_bfn": "Muse 2 - brainflow, native bluetooth",
+        "muse2_bfb": "Muse 2 - brainflow, BLED bluetooth dongle",
+        "museS_bfn": "Muse S - brainflow, native bluetooth",
+        "museS_bfb": "Muse S - brainflow, BLED bluetooth dongle",
+        "ganglion": "OpenBCI Ganglion",
+        "cyton": "OpenBCI Cyton",
+        "cyton_daisy": "OpenBCI Cyton + Daisy",
+        "unicorn": "G.Tec Unicorn",
+        "brainbit": "BrainBit",
+        "notion1": "Notion 1",
+        "notion2": "Notion 2",
+        "crown": "Crown",
+        "synthetic": "Synthetic",
+        "freeeeg32": "FreeEEG32",
+    }
+
+    print("Please enter the integer value corresponding to your EEG device: \n")
+    print("\n".join(f"[{i:2}] {board}" for i, board in enumerate(boards.values())))
+
+    board_idx = int(input("\nEnter Board Selection: "))
+
+    # Board_codes are the actual names to be passed to the EEG class
+    board_code = list(boards.keys())[board_idx]
+    return board_code
+
 def analysis_intro_prompt():
 
     # check if user has filepath
@@ -174,7 +208,7 @@ def analysis_intro_prompt():
         session = int(input("Enter session #: "))
         filepath = None
     
-    eegdevice = input("Enter EEG device: ")
+    eegdevice = analysis_device_prompt()
     experiment = exp_prompt()
     
     return experiment, eegdevice, subject, session, filepath

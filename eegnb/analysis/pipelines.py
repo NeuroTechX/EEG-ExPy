@@ -28,6 +28,7 @@ import warnings
 import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
+from typing import Dict
 
 warnings.filterwarnings('ignore')
 
@@ -76,12 +77,6 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     fnames : File names of the experiment data, if not passed, example files are used
     """
 
-    # Parameters that are used in creating the save directory for the analysis report and hence global variables
-    global eegdevice, experiment_name, subject_id, session_nb, example_flag
-    
-    # Set the global variables based on the parameter values
-    eegdevice, experiment_name = device_name, experiment
-
     # If not using the example dataset, load the data from the specified experiment using load_csv_as_raw
     if not example:
 
@@ -92,8 +87,6 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
         # Generate file names if not passed
         if fnames is None:
             raw = load_data(subject_id=subject, session_nb=session, experiment=experiment, device_name=device_name, site="local", data_dir=os.path.join(os.path.expanduser('~/'),'.eegnb', 'data'))
-            # Setting the session id and session number for the analysis report
-            subject_id, session_nb = subject, session
 
         else:
             # Replace Ch names has arbitarily been set to None
@@ -103,13 +96,12 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
                 raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, replace_ch_names=None, verbose=verbose)
 
             # Getting the subject and session
-            subject_id, session_nb = fnames.split('_')[1], fnames.split('_')[2]
+            subject, session = fnames.split('_')[1], fnames.split('_')[2]
 
     # If using the example dataset, load the data from the example dataset
     else:
-        subject_id, session_nb = 1, 1
-        example_flag = True
-        
+        subject, session = 1, 1
+
         # Loading Data
         eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
         experiment_data_path = os.path.join(eegnb_data_path, experiment, 'eegnb_examples')
@@ -149,10 +141,12 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
     print(epochs)
 
-    return raw, epochs
+    experimental_parameters = {"eeg_device": device_name, "experiment_name": experiment, "subject_id": subject, "session_nb": session, "example_flag": example}
+
+    return epochs, experimental_parameters
 
 
-def make_erp_plot(epochs, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n_boot=1000, title='',
+def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n_boot=1000, title='',
                    diff_waveform=None, #(1, 2))
                    channel_order=[1,0,2,3]):
     """
@@ -184,10 +178,13 @@ def make_erp_plot(epochs, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n
     plt.show()
 
     # Creating the pdf, needs to be discussed whether we want to call it here or seperately.
-    create_pdf()
+    create_pdf(experimental_parameters)
 
-def create_pdf():
+def create_pdf(experimental_parameters:Dict):
     """Creates analysis report using the power spectrum and ERP plots that are saved in the directory"""
+
+    # Unpack the experimental parameters
+    eegdevice, experiment, subject, session, example = experimental_parameters.values()
 
     # Initialzing the pdf
     pdf = PDF()
@@ -216,7 +213,7 @@ def create_pdf():
     pdf.add_figure(os.getcwd()+'\\erp_plot.png', x=10, y=160, w=200, h=120, title="ERP Plot")
     
     # Getting the directory where the report should be saved
-    save_dir = get_analysis_save_directory(experiment=experiment_name, eegdevice=eegdevice, subject=subject_id, session=session_nb, example=example_flag)
+    save_dir = get_analysis_save_directory(experiment=experiment, eegdevice=eegdevice, subject=subject, session=session, example=example)
     
     #get whole filepath
     filepath = os.path.join(save_dir, 'analysis_report_{}.pdf'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S")))
@@ -226,6 +223,7 @@ def create_pdf():
 
     # Informing the user that the report has been saved
     print('Analysis report saved to {}'.format(filepath))
+    print("Open as pdf by clicking the following link: file://{}".format(filepath))
 
 def get_analysis_save_directory(experiment, eegdevice, subject, session, example):
     """ Returns save directory as a String for the analysis report """
@@ -249,8 +247,8 @@ def create_analysis_report_(experiment, eegdevice, subject=None, session=None, d
     """ Interface with the erp plot function, basically cli type instructions """
 
     # Prompt user to enter options and then take inputs and do the necessary
-    raw, epochs = load_eeg_data(experiment=experiment, subject=subject, session=session, device_name=eegdevice, example=False, fnames=data_path)
-    make_erp_plot(epochs)
+    epochs, experimental_parameters = load_eeg_data(experiment=experiment, subject=subject, session=session, device_name=eegdevice, example=False, fnames=data_path)
+    make_erp_plot(epochs, experimental_parameters)
 
 def example_analysis_report():
     """ Example of how to use the analysis report function """
@@ -258,8 +256,8 @@ def example_analysis_report():
     experiment_choice = experiment[int(input("Choose an experiment: {} 0 or 1".format(experiment)))]
 
     if experiment_choice == "visual-N170":
-        raw, epochs = load_eeg_data(experiment_choice, example=True)
-        make_erp_plot(epochs)
+        epochs, experimental_parameters = load_eeg_data(experiment_choice, example=True)
+        make_erp_plot(epochs, experimental_parameters)
     else:
-        raw, epochs = load_eeg_data('visual-P300', device_name='muse2016', event_id={'Non-Target': 1, 'Target': 2}, example=True)
-        make_erp_plot(epochs, conditions=OrderedDict(NonTarget=[1],Target=[2]))
+        epochs, experimental_parameters = load_eeg_data('visual-P300', device_name='muse2016', event_id={'Non-Target': 1, 'Target': 2}, example=True)
+        make_erp_plot(epochs, experimental_parameters, conditions=OrderedDict(NonTarget=[1],Target=[2]))

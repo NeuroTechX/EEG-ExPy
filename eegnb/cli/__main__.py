@@ -118,6 +118,7 @@ def create_analysis_report(
     
     if prompt:
         example = input("Do you want to load an example experiment? (y/n)")
+        print()
         if example == 'y':
             example_analysis_report()
             return
