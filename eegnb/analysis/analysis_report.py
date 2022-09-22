@@ -1,58 +1,68 @@
-"""
-File that has the functions to generate the analysis report pdf from the images
-
-Usage Instructions typically ::
-
-from eegnb.analysis.analysis_report import PDF
-pdf = PDF()
-pdf.alias_nb_pages()
-pdf.add_page()
-# Do whatever you want to add to the pdf
-pdf.save_as_report()
 
 
-# Work that needs to be done
-1. Add boilerplate text
-2. Figure stretching for raw plot
-3. Add subject and session info
-"""
+# Generating html using Python
 
-from fpdf import FPDF
-import matplotlib.pyplot as plt
-import numpy as np
+from airium import Airium
+from typing import Dict
 import os
+a = Airium()
 
-class PDF(FPDF):
-    def header(self):
-        
-        # Arial bold 15
-        self.set_font('Arial', 'B', 25)
-        self.set_text_color(183, 208, 332)
-        # Move to the right
-        #self.cell(80)
-        # Title
-        self.cell(0, 10, 'Analysis Report')
-        # Line break
-        self.ln(20)
-    
-    # Page footer
-    def footer(self):
-        # Position at 1.5 cm from bottom
-        self.set_y(-15)
-        # Arial italic 8
-        self.set_font('Arial', 'I', 8)
-        # Page number
-        self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
 
-    def add_figure(self, fig_path, x, y, w, h, title):
+def get_html(experimental_parameters: Dict):
 
-        #self.cell(w=100,h=10, txt=title, ln=0, align='C')
-        self.set_font('Times', 'B', 20)
-        
-        # Add figure to document
-        self.cell(0, 10, txt=title, ln=2, align='C')
-        self.image(fig_path, x=x, y=y, w=w, h=h)
-        self.ln(h+10)
-        # Delete figure from memory
-        os.remove(fig_path)
+    eeg_device, experiment, subject, session, example, drop_percentage = experimental_parameters.values()
+    #experiment_text = ""
+    #with open('experiment_descriptions/{}.txt'.format(experiment), 'r') as f:
+     #   experiment_text = f.readlines()
 
+    a('<!DOCTYPE html>')
+    with a.html():
+        with a.head():
+            a.link(href=os.getcwd()+"\\styling.css", rel='stylesheet', type="text/css")
+            a.title(_t="Analysis Report")
+
+        with a.body():
+
+            # Navigation bar
+            with a.div(klass="topnav"):
+                a.a(_t="Description", href="#Description")
+                a.a(_t="Raw Epoch", href="#Raw Epoch")
+                a.a(_t="Stimulus Response", href="#Stimulus Response")
+                a.a(_t="About", href="#about")
+            
+            # Description
+            with a.div(id="Description"):
+                a.h1(_t="Analysis Report")
+                with a.p():
+                    a("Experiment Name: {} <br>".format(experiment))
+                    
+                    if example:
+                        a("Example File <br>")
+                    else:
+                        a("Subject Id: {} <br>".format(subject))
+                        a("Session Id: {} <br>".format(session))
+                    
+                    a("EEG Device: {} <br>".format(eeg_device))
+                    a("Drop Percentage: {} %<br> <br>".format(round(drop_percentage,2)))
+                    a('This is an analysis report for the experiment. <br> For more information about the experiment, please visit the <a href="https://neurotechx.github.io/eeg-notebooks/">documentation</a>')
+                    #a(experiment_text)
+            
+            # Raw Epoch
+            with a.div(id="Raw Epoch"):
+                a.h2(_t="Raw Epoch")
+                with a.p():
+                    a("The raw epoch is shown below. The raw epoch is the data that is recorded from the EEG headset. The raw epoch is then processed to remove noise and artifacts.")
+                a.img(src="power_spectrum.png", alt="Raw Epoch")
+            
+            # Stimulus Response
+            with a.div(id="Stimulus Response"):
+                a.h2(_t="Stimulus Response")
+                with a.p():
+                    a("The stimulus response is shown below. The stimulus response is the data that is recorded from the EEG headset after removing noise and artifacts.")
+                a.img(src="erp_plot.png", alt="Stimulus Response")
+
+    # Delete saved pictures
+    os.remove("power_spectrum.png")
+    os.remove("erp_plot.png")
+
+    return str(a)
