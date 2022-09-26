@@ -92,7 +92,8 @@ def runexp(
     print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
 
     if generatereport:
-        create_analysis_report(experiment, eegdevice, outfname)
+        # Error of filenames being multiple etc, needs to be handled
+        create_analysis_report(experiment=experiment, device_name=eegdevice, fnames=outfname)
 
 
 @main.command()
