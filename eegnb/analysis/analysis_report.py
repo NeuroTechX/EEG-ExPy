@@ -4,10 +4,12 @@
 from airium import Airium
 from typing import Dict
 import os
+import eegnb
 a = Airium()
 
 def get_html(experimental_parameters: Dict):
-    print(os.getcwd())
+
+    css_path = os.path.join(os.path.dirname(eegnb.__file__), "analysis", "styling.css")
     eeg_device, experiment, subject, session, example, drop_percentage, image_save_path = experimental_parameters.values()
     #experiment_text = ""
     #with open('experiment_descriptions/{}.txt'.format(experiment), 'r') as f:
@@ -16,7 +18,7 @@ def get_html(experimental_parameters: Dict):
     a('<!DOCTYPE html>')
     with a.html():
         with a.head():
-            a.link(href="styling.css", rel='stylesheet', type="text/css")
+            a.link(href=css_path, rel='stylesheet', type="text/css")
             a.title(_t="Analysis Report")
 
         with a.body():
