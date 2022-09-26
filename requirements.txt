@@ -19,6 +19,7 @@ h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
 keyboard==0.13.5
+airium>=0.1.0
 
 
 # This might try to build from source on linux (since there are no wheels for Linux on PyPI) .

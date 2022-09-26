@@ -1,5 +1,4 @@
 
-
 # Generating html using Python
 
 from airium import Airium
@@ -7,10 +6,9 @@ from typing import Dict
 import os
 a = Airium()
 
-
 def get_html(experimental_parameters: Dict):
-
-    eeg_device, experiment, subject, session, example, drop_percentage = experimental_parameters.values()
+    print(os.getcwd())
+    eeg_device, experiment, subject, session, example, drop_percentage, image_save_path = experimental_parameters.values()
     #experiment_text = ""
     #with open('experiment_descriptions/{}.txt'.format(experiment), 'r') as f:
      #   experiment_text = f.readlines()
@@ -18,7 +16,7 @@ def get_html(experimental_parameters: Dict):
     a('<!DOCTYPE html>')
     with a.html():
         with a.head():
-            a.link(href=os.getcwd()+"\\styling.css", rel='stylesheet', type="text/css")
+            a.link(href="styling.css", rel='stylesheet', type="text/css")
             a.title(_t="Analysis Report")
 
         with a.body():
@@ -28,7 +26,6 @@ def get_html(experimental_parameters: Dict):
                 a.a(_t="Description", href="#Description")
                 a.a(_t="Raw Epoch", href="#Raw Epoch")
                 a.a(_t="Stimulus Response", href="#Stimulus Response")
-                a.a(_t="About", href="#about")
             
             # Description
             with a.div(id="Description"):
@@ -52,17 +49,13 @@ def get_html(experimental_parameters: Dict):
                 a.h2(_t="Raw Epoch")
                 with a.p():
                     a("The raw epoch is shown below. The raw epoch is the data that is recorded from the EEG headset. The raw epoch is then processed to remove noise and artifacts.")
-                a.img(src="power_spectrum.png", alt="Raw Epoch")
+                a.img(src="{}\\power_spectrum.png".format(image_save_path), alt="Raw Epoch")
             
             # Stimulus Response
             with a.div(id="Stimulus Response"):
                 a.h2(_t="Stimulus Response")
                 with a.p():
                     a("The stimulus response is shown below. The stimulus response is the data that is recorded from the EEG headset after removing noise and artifacts.")
-                a.img(src="erp_plot.png", alt="Stimulus Response")
-
-    # Delete saved pictures
-    os.remove("power_spectrum.png")
-    os.remove("erp_plot.png")
+                a.img(src="{}\\erp_plot.png".format(image_save_path), alt="Stimulus Response")
 
     return str(a)

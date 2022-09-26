@@ -39,9 +39,9 @@ from mne.io import RawArray
 # EEG-Notebooks functions
 from eegnb import generate_save_fn
 from eegnb.analysis.utils import load_data,plot_conditions, load_csv_as_raw, fix_musemissinglines
+from eegnb.analysis.analysis_report import get_html
 from eegnb.datasets import fetch_dataset
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
-from eegnb.analysis.analysis_report import PDF
 from pathlib import Path
 
 DATA_DIR = os.path.join(os.path.expanduser("~/"), ".eegnb", "data")
@@ -120,12 +120,15 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     # Filtering the data under a certain frequency range
     raw.filter(1,30, method='iir')
     
+    # Configuring the image save path
+    image_save_path = get_save_directory(experiment=experiment, eegdevice=device_name, subject=subject, session=session, example=example, label='images')
+
     # Visualising the power spectrum
     fig = raw.plot_psd(fmin=1, fmax=30, show=False)
 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
-    fig.savefig("power_spectrum.png")
-
+    plt.tight_layout()
+    plt.savefig("{}\\power_spectrum.png".format(image_save_path))
     plt.show(block=False)
     plt.pause(10)
     plt.close()
@@ -143,7 +146,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
     print(epochs)
 
-    experimental_parameters = {"eeg_device": device_name, "experiment_name": experiment, "subject_id": subject, "session_nb": session, "example_flag": example}
+    experimental_parameters = {"eeg_device": device_name, "experiment_name": experiment, "subject_id": subject, "session_nb": session, "example_flag": example, "drop_percent": (1 - len(epochs.events)/len(events)) * 100, "image_save_path":image_save_path}
 
     return epochs, experimental_parameters
 
@@ -176,7 +179,10 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
     # for a in ax.ravel (): a.autoscale(tight=True) 
 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
-    plt.savefig("erp_plot.png")
+    
+    # Makes sure that the axis labels are not cut out
+    plt.tight_layout()
+    plt.savefig("{}\\erp_plot.png".format(experimental_parameters["image_save_path"]))
     plt.show(block=False)
     plt.pause(10)
     plt.close()
@@ -188,48 +194,26 @@ def create_pdf(experimental_parameters:Dict):
     """Creates analysis report using the power spectrum and ERP plots that are saved in the directory"""
 
     # Unpack the experimental parameters
-    eegdevice, experiment, subject, session, example = experimental_parameters.values()
+    eegdevice, experiment, subject, session, example, drop_percentage, image_save_path = experimental_parameters.values()
 
-    # Initialzing the pdf
-    pdf = PDF()
-    pdf.alias_nb_pages()
-    pdf.add_page()
-
-    """ 
-    Note that added images to the pdf are deleted form their directory, as of now, these
-    images are temporarily created when plotted so they can be integrated into the pdf.
-    """
-
-    # Including experiment name, subject id and session number in the pdf
-    """
-    pdf.set_font('Arial', 'B', 10)
-    pdf.cell(0, 10, 'Experiment - {}'.format(experiment_name))
-    pdf.cell(0, 10, 'Subject - {}'.format(subject_id))
-    pdf.cell(0, 10, 'Session - {}'.format(session_nb))
-    """
-
-    #pdf.cell(0, 10, 'Power Spectrum', ln=1)
-    # Adding the Power Spectrum plot to the file
-    pdf.add_figure(os.getcwd()+'\\power_spectrum.png', x=10, y=40, w=180, h=100, title="Power Spectrum")
-    
-    #pdf.cell(0, 10, 'ERP', ln=1)
-    # Adding the ERP plot to the file
-    pdf.add_figure(os.getcwd()+'\\erp_plot.png', x=10, y=160, w=200, h=120, title="ERP Plot")
-    
     # Getting the directory where the report should be saved
-    save_dir = get_analysis_save_directory(experiment=experiment, eegdevice=eegdevice, subject=subject, session=session, example=example)
+    save_dir = get_save_directory(experiment=experiment, eegdevice=eegdevice, subject=subject, session=session, example=example, label="analysis")
     
     #get whole filepath
-    filepath = os.path.join(save_dir, 'analysis_report_{}.pdf'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S")))
+    filepath = os.path.join(save_dir, 'analysis_report_{}.html'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S")))
     
-    # Saving report
-    pdf.output(filepath, 'F')
+    # Get the report 
+    report_html = get_html(experimental_parameters)
 
+    # Save html file
+    with open(filepath, 'w') as f:
+        f.write(report_html)
+    
     # Informing the user that the report has been saved
     print('Analysis report saved to {}\n'.format(filepath))
     print("Open as pdf by clicking the following link: {}{}".format("file:///", filepath))
 
-def get_analysis_save_directory(experiment, eegdevice, subject, session, example):
+def get_save_directory(experiment, eegdevice, subject, session, example, label):
     """ Returns save directory as a String for the analysis report """
     
     if not example:
@@ -238,14 +222,14 @@ def get_analysis_save_directory(experiment, eegdevice, subject, session, example
         site='eegnb_examples'
 
     # Getting the directory where the analysis report should be saved
-    analysis_path = os.path.join(os.path.expanduser("~/"),'.eegnb', 'analysis')
-    report_path = os.path.join(analysis_path, experiment, site, eegdevice, "subject{}".format(subject), "session{}".format(session))
-    
+    save_path = os.path.join(os.path.expanduser("~/"),'.eegnb', label)
+    save_path = os.path.join(save_path, experiment, site, eegdevice, "subject{}".format(subject), "session{}".format(session))
+
     # Creating the directory if it doesn't exist
-    if not os.path.isdir(report_path):
-        os.makedirs(report_path)
+    if not os.path.isdir(save_path):
+        os.makedirs(save_path)
     
-    return report_path
+    return save_path
 
 def create_analysis_report_(experiment, eegdevice, subject=None, session=None, data_path=None, bluemuse_file_fix=False):
     """ Interface with the erp plot function, basically cli type instructions """
