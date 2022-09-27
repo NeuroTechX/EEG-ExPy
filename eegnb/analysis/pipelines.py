@@ -5,7 +5,6 @@ CLI Pipeline for Analysis of EEGNB Recorded Data
 To do: 
 1. Beautify analysis pdf
 2. Handle cli automated errors for report creation
-3. Implement interface to erp plot function for cli
 
 Usage:
 
@@ -173,10 +172,7 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
     # Autoscaling the y axis to a tight fit to the ERP
     for i in [0,1,2,3]: ax[i].autoscale(tight=True)
 
-    # for a in ax.ravel (): a.autoscale(tight=True) 
-
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
-    
     # Makes sure that the axis labels are not cut out
     plt.tight_layout()
     plt.savefig("erp_plot.png")
@@ -237,6 +233,7 @@ def create_analysis_report_(experiment, eegdevice, subject=None, session=None, d
 
 def example_analysis_report():
     """ Example of how to use the analysis report function """
+    
     experiment = ["visual-N170", "visual-P300"]
     experiment_choice = experiment[int(input("Choose an experiment: {} 0 or 1".format(experiment)))]
 
