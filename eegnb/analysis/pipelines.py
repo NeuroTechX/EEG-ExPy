@@ -119,16 +119,13 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     
     # Filtering the data under a certain frequency range
     raw.filter(1,30, method='iir')
-    
-    # Configuring the image save path
-    image_save_path = get_save_directory(experiment=experiment, eegdevice=device_name, subject=subject, session=session, example=example, label='images')
 
     # Visualising the power spectrum
     fig = raw.plot_psd(fmin=1, fmax=30, show=False)
 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
     plt.tight_layout()
-    plt.savefig("{}\\power_spectrum.png".format(image_save_path))
+    plt.savefig("power_spectrum.png")
     plt.show(block=False)
     plt.pause(10)
     plt.close()
@@ -146,7 +143,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
     print(epochs)
 
-    experimental_parameters = {"eeg_device": device_name, "experiment_name": experiment, "subject_id": subject, "session_nb": session, "example_flag": example, "drop_percent": (1 - len(epochs.events)/len(events)) * 100, "image_save_path":image_save_path}
+    experimental_parameters = {"eeg_device": device_name, "experiment_name": experiment, "subject_id": subject, "session_nb": session, "example_flag": example, "drop_percent": (1 - len(epochs.events)/len(events)) * 100}
 
     return epochs, experimental_parameters
 
@@ -182,7 +179,7 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
     
     # Makes sure that the axis labels are not cut out
     plt.tight_layout()
-    plt.savefig("{}\\erp_plot.png".format(experimental_parameters["image_save_path"]))
+    plt.savefig("erp_plot.png")
     plt.show(block=False)
     plt.pause(10)
     plt.close()
@@ -194,7 +191,7 @@ def create_pdf(experimental_parameters:Dict):
     """Creates analysis report using the power spectrum and ERP plots that are saved in the directory"""
 
     # Unpack the experimental parameters
-    eegdevice, experiment, subject, session, example, drop_percentage, image_save_path = experimental_parameters.values()
+    eegdevice, experiment, subject, session, example, drop_percentage = experimental_parameters.values()
 
     # Getting the directory where the report should be saved
     save_dir = get_save_directory(experiment=experiment, eegdevice=eegdevice, subject=subject, session=session, example=example, label="analysis")
