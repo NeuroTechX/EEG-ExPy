@@ -16,12 +16,14 @@ def get_img_string(image_save_path):
 
 def get_html(experimental_parameters: Dict):
 
-    css_path = os.path.join(os.path.dirname(eegnb.__file__), "analysis", "styling.css")
+    # add variable to store the link
+    analysis_save_path = os.path.join(os.path.dirname(eegnb.__file__), "analysis")
+    css_path = os.path.join(analysis_save_path, "styling.css")
     eeg_device, experiment, subject, session, example, drop_percentage = experimental_parameters.values()
-    
-    image_save_path = os.path.join(os.path.dirname(eegnb.__file__), "analysis")
-    erp_image_path = image_save_path + "\\erp_plot.png"
-    pos_image_path = image_save_path + "\\power_spectrum.png"   
+
+    erp_image_path = os.path.join(os.getcwd(), "erp_plot.png")
+    pos_image_path = os.path.join(os.getcwd(), "power_spectrum.png")
+      
     
     """ Possibility of unique experiment text - decision to be made """
     #experiment_text = ""
