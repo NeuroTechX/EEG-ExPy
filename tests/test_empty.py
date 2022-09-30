@@ -1,2 +1,3 @@
 def test_empty():
-    assert True
+    # Empty test that only imports eegnb, to make `pytest` pass
+    import eegnb
