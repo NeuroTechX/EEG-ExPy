@@ -34,7 +34,6 @@ brainflow = "^5.0.1"
 gdown = "^3.12.2"
 pysocks = "^1.7.1"
 
-
 # Dependency groups will be supported in Poetry v1.2+
 [tool.poetry.group.dev]
 optional = true
