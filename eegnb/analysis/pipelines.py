@@ -112,10 +112,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
         raw = load_data(1,1,
                         experiment=experiment, site='eegnb_examples', device_name=device_name,
                         data_dir = eegnb_data_path)
-
-    # Visualising the power spectrum 
-    raw.plot_psd(show=False)
-    
+ 
     # Filtering the data under a certain frequency range
     raw.filter(1,30, method='iir')
 
