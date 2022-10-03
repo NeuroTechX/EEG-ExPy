@@ -25,7 +25,7 @@ def device_prompt() -> EEG:
         "ganglion": "OpenBCI Ganglion",
         "cyton": "OpenBCI Cyton",
         "cyton_daisy": "OpenBCI Cyton + Daisy",
-        "unicord": "G.Tec Unicorn",
+        "unicorn": "G.Tec Unicorn",
         "brainbit": "BrainBit",
         "notion1": "Notion 1",
         "notion2": "Notion 2",
