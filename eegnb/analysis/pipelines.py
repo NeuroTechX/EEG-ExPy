@@ -140,9 +140,10 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
                     verbose=verbose, picks=picks)
 
     print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
+    print(len(epochs.events), 'events found')
     print(epochs)
 
-    experimental_parameters = {"eeg_device": device_name, "experiment_name": experiment, "subject_id": subject, "session_nb": session, "example_flag": example, "drop_percent": (1 - len(epochs.events)/len(events)) * 100}
+    experimental_parameters = {"eeg_device": device_name, "experiment_name": experiment, "subject_id": subject, "session_nb": session, "example_flag": example, "drop_percent": (1 - len(epochs.events)/len(events)) * 100, "epochs_chosen": len(epochs.events)}
 
     return epochs, experimental_parameters
 
@@ -157,7 +158,7 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
     ----------
     epochs : MNE Epochs object
     conditions : OrderedDict holding the conditions to plot
-    ci: confidence interval
+    ci: confidence interval 
     n_boot: number of bootstrap samples
     title: title of the plot
     diff_waveform: tuple of two integers indicating the channels to compare
@@ -187,7 +188,7 @@ def create_pdf(experimental_parameters:Dict):
     """Creates analysis report using the power spectrum and ERP plots that are saved in the directory"""
 
     # Unpack the experimental parameters
-    eegdevice, experiment, subject, session, example, drop_percentage = experimental_parameters.values()
+    eegdevice, experiment, subject, session, example, drop_percentage, epochs_chosen = experimental_parameters.values()
 
     # Getting the directory where the report should be saved
     save_dir = get_save_directory(experiment=experiment, eegdevice=eegdevice, subject=subject, session=session, example=example, label="analysis")
@@ -204,7 +205,7 @@ def create_pdf(experimental_parameters:Dict):
     
     # Informing the user that the report has been saved
     print('Analysis report saved to {}\n'.format(filepath))
-    print("Open as pdf by clicking the following link: {}{}".format("file:///", filepath))
+    print("Open the report by clicking the following link: {}{}".format("file:///", filepath))
 
 def get_save_directory(experiment, eegdevice, subject, session, example, label):
     """ Returns save directory as a String for the analysis report """
@@ -235,7 +236,7 @@ def example_analysis_report():
     """ Example of how to use the analysis report function """
     
     experiment = ["visual-N170", "visual-P300"]
-    experiment_choice = experiment[int(input("Choose an experiment: {} 0 or 1".format(experiment)))]
+    experiment_choice = experiment[int(input("Choose an experiment: {} 0 or 1\n".format(experiment)))]
 
     if experiment_choice == "visual-N170":
         epochs, experimental_parameters = load_eeg_data(experiment_choice, example=True)

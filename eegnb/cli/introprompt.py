@@ -96,7 +96,7 @@ def exp_prompt(runorzip:str='run') -> str:
         )
     )
 
-    exp_idx = int(input("\nEnter Experiment Selection: "))
+    exp_idx = int(input("\nEnter Experiment Selection: \n"))
     exp_selection = list(experiments.keys())[exp_idx]
     print(f"Selected experiment: {exp_selection} \n")
 
@@ -185,7 +185,7 @@ def analysis_device_prompt():
     print("Please enter the integer value corresponding to your EEG device: \n")
     print("\n".join(f"[{i:2}] {board}" for i, board in enumerate(boards.values())))
 
-    board_idx = int(input("\nEnter Board Selection: "))
+    board_idx = int(input("\nEnter Board Selection: \n"))
 
     # Board_codes are the actual names to be passed to the EEG class
     board_code = list(boards.keys())[board_idx]
@@ -198,14 +198,14 @@ def analysis_intro_prompt():
     print("Do you have a filepath to a .csv file you would like to analyze? \n")
     print("[1] Yes \n")
     print("[0] No \n")
-    file_idx = int(input("Enter selection: "))
+    file_idx = int(input("Enter selection: \n"))
     if file_idx == 1:
         print("Please enter the filepath to the .csv file you would like to analyze. \n")
-        filepath = input("Enter filepath: ")
+        filepath = input("Enter filepath: \n")
         subject, session = None, None
     else:  
-        subject = int(input("Enter subject ID#: "))
-        session = int(input("Enter session #: "))
+        subject = int(input("Enter subject ID#: \n"))
+        session = int(input("Enter session #: \n"))
         filepath = None
     
     eegdevice = analysis_device_prompt()

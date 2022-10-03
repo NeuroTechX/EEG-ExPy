@@ -79,7 +79,7 @@ def runexp(
             askforsigqualcheck()
     
     def askforreportcheck():
-        generatereport = input("\n\nGenerate Report? (Y/n): ").lower() != "n"
+        generatereport = input("\n\nGenerate Report? (Y/n): \n").lower() != "n"
 
     if dosigqualcheck:
         askforsigqualcheck()
@@ -118,7 +118,7 @@ def create_analysis_report(
     """
     
     if prompt:
-        example = input("Do you want to load an example experiment? (y/n)")
+        example = input("Do you want to load an example experiment? (y/n)\n")
         print()
         if example == 'y':
             example_analysis_report()
