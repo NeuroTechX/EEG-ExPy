@@ -66,12 +66,17 @@ class EEG:
         mac_addr=None,
         other=None,
         ip_addr=None,
+        replace_ch_names=None
     ):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
         Parameters:
             device (str): name of eeg device used for reading data.
+        
+        Keyword Args:
+            replace_ch_names (dict or None): dictionary containing a mapping to
+            rename channels. Useful when e.g., an external electrode was used.
         """
         # determine if board uses brainflow or muselsl backend
         self.device_name = device
@@ -85,6 +90,7 @@ class EEG:
         self.n_channels = len(EEG_INDICES[self.device_name])
         self.sfreq = SAMPLE_FREQS[self.device_name]
         self.channels = EEG_CHANNELS[self.device_name]
+        self.replace_ch_names = replace_ch_names
 
     def initialize_backend(self):
         if self.backend == "brainflow":
@@ -335,6 +341,13 @@ class EEG:
         data_df = pd.DataFrame(total_data, columns=["timestamps"] + ch_names + ["stim"])
         data_df.to_csv(self.save_fn, index=False)
 
+    def _rename_channels(self, ch_names):
+        if self.replace_ch_names is not None:
+            return [
+                c if c not in self.replace_ch_names.keys() else self.replace_ch_names[c]
+                for c in ch_names
+            ]
+
     def _brainflow_extract(self, data):
         """
         Formats the data returned from brainflow to get
@@ -358,6 +371,9 @@ class EEG:
         else:
             # otherwise select eeg channel names via brainflow API
             ch_names = BoardShim.get_eeg_names(self.brainflow_id)
+        
+        # rename/override default channel names
+        ch_names = self._rename_channels(ch_names)
 
         # pull EEG channel data via brainflow API
         eeg_data = data[:, BoardShim.get_eeg_channels(self.brainflow_id)]
