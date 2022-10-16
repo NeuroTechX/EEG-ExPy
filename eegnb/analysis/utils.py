@@ -77,6 +77,13 @@ def load_csv_as_raw(
         (mne.io.RawArray): concatenation of the specified filenames into a
             single Raw object.
     """
+
+
+    print('\n\nLoading these files: \n')
+    for f in fnames: print(f + '\n')
+    print('\n\n')
+
+
     ch_ind = copy.deepcopy(ch_ind)
     n_eeg = len(ch_ind)
     if aux_ind is not None:
@@ -119,8 +126,8 @@ def load_csv_as_raw(
 
 
 def load_data(
-    subject_id: Union[str, int],
-    session_nb: Union[str, int],
+    subject: Union[str, int],
+    session: Union[str, int],
     device_name: str,
     experiment: str,
     replace_ch_names=None,
@@ -142,9 +149,9 @@ def load_data(
     given at the time of recording.
 
     Args:
-        subject_id (int or str): subject number. If 'all', load all
+        subject (int or str): subject number. If 'all', load all
             subjects.
-        session_nb (int or str): session number. If 'all', load all
+        session (int or str): session number. If 'all', load all
             sessions.
         device_name (str): name of device. For a list of supported devices, see
             eegnb.analysis.utils.SAMPLE_FREQS.
@@ -165,16 +172,19 @@ def load_data(
         (mne.io.RawArray): loaded EEG
     """
 
-    subject_str = "*" if subject_id == "all" else f"subject{subject_id:04}"
-    session_str = "*" if session_nb == "all" else f"session{session_nb:03}"
+    subject_str = "*" if subject == "all" else f"subject{subject:04}"
+    session_str = "*" if session == "all" else f"session{session:03}"
     if site == "all":
         site = "*"
 
-    data_path = (
-        _get_recording_dir(device_name, experiment, subject_str, session_str, site, data_dir)
-        / "*.csv"
-    )
+    recdir = _get_recording_dir(device_name, experiment, subject_str, session_str, site)#, data_dir)
+    data_path = os.path.join(data_dir, recdir, "*.csv")
+
     fnames = glob(str(data_path))
+
+    if len(fnames) == 0:
+        raise Exception("No filenames found in folder: %s" %data_path)
+
 
     sfreq = SAMPLE_FREQS[device_name]
 
