@@ -160,6 +160,7 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
 
     return eeg_device, exp_selection, duration, str(save_fn)
 
+
 def analysis_device_prompt():
    
     boards = {
@@ -194,6 +195,7 @@ def analysis_device_prompt():
     board_code = list(boards.keys())[board_idx]
     return board_code
 
+
 def analysis_intro_prompt():
 
     # check if user has filepath
@@ -205,16 +207,17 @@ def analysis_intro_prompt():
     if file_idx == 1:
         print("Please enter the filepath to the .csv file you would like to analyze. \n")
         filepath = input("Enter filepath: \n")
-        subject, session = None, None
+        subject, session, site = None, None, None
     else:  
         subject = int(input("Enter subject ID#: \n"))
         session = int(input("Enter session #: \n"))
+        site = str(input("Enter site name: \n"))
         filepath = None
     
     eegdevice = analysis_device_prompt()
     experiment = exp_prompt()
     
-    return experiment, eegdevice, subject, session, filepath
+    return experiment, eegdevice, subject, session, site, filepath
 
 
 

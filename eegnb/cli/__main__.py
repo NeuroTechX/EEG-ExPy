@@ -134,14 +134,14 @@ def create_analysis_report(
 @click.option("-sub", "--subject", help="Subject ID")
 @click.option("-sess", "--session", help="Session number")
 @click.option("-fp", "--filepath", help="Filepath to save data")
-@click.option(
-    "-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
+@click.option("-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
 )
 def create_analysis_report(
     experiment: str,
     eegdevice: str = None,
     subject: str = None, 
     session: str = None,
+    site: str = None,
     filepath:str = None,
     prompt: bool = False,
 ):
@@ -156,8 +156,8 @@ def create_analysis_report(
             example_analysis_report()
             return
         else:
-            experiment, eegdevice, subject, session, filepath = analysis_intro_prompt()
-    create_analysis_report_(experiment, eegdevice, subject, session, filepath)
+            experiment, eegdevice, subject, session, site, filepath = analysis_intro_prompt()
+    analysis_report(experiment, eegdevice, subject, session, site, filepath)
 
 
 @main.command()
