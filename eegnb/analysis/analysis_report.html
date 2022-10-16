@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="styling.css" rel="stylesheet" />
+    <title>Analysis Report</title>
+  </head>
+  <body>
+    <div class="topnav">
+      <a href="#Description">Description</a>
+      <a href="#Raw Epoch">Raw Epoch</a>
+      <a href="#Stimulus Response">Stimulus Response</a>
+    </div>
+    <div id="Description">
+      <h1>Analysis Report</h1>
+      <p>
+        <b></b>Experiment Name: {} <br>
+        Subject Id: {} <br>
+        Session Id: {} <br>
+        EEG Device: {} <br>
+        Drop Percentage: {} <br> <br>
+        This is an analysis report for the experiment. <br> For more information about the experiment, please visit the <a href="https://neurotechx.github.io/eeg-notebooks/">documentation</a>
+      </p>
+    </div>
+    <div id="Raw Epoch">
+      <h2>Raw Epoch</h2>
+      <p>
+        The raw epoch is shown below. The raw epoch is the data that is recorded from the EEG headset. The raw epoch is then processed to remove noise and artifacts.
+      </p>
+      <img src="power_spectrum.png" alt="Raw Epoch" />
+    </div>
+    <div id="Stimulus Response">
+      <h2>Stimulus Response</h2>
+      <p>
+        The stimulus response is shown below. The stimulus response is the data that is recorded from the EEG headset after removing noise and artifacts.
+      </p>
+      <img src="erp_plot.png" alt="Stimulus Response" />
+    </div>
+  </body>
+</html>

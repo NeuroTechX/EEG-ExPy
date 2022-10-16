@@ -5,11 +5,15 @@ import logging
 from collections import OrderedDict
 from glob import glob
 from typing import Union, List, Dict
+from collections import Iterable
 from time import sleep, time
 from numpy.core.fromnumeric import std
+import keyboard
+import os
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import seaborn as sns
 from mne import create_info, concatenate_raws
 from mne.io import RawArray
@@ -22,14 +26,28 @@ from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
-                        
-
 # this should probably not be done here
 sns.set_context("talk")
 sns.set_style("white")
 
 
 logger = logging.getLogger(__name__)
+
+
+# Empirically determined lower and upper bounds of 
+# acceptable temporal standard deviations 
+# for different EEG devices tested by us
+openbci_devices = ['ganglion', 'ganglion_wifi', 'cyton', 'cyton_wifi', 'cyton_daisy_wifi']
+muse_devices = ['muse' + model + sfx for model in ['2016', '2', 'S'] for sfx in ['', '_bfn', '_bfb']]
+neurosity_devices = ['notion1', 'notion2', 'crown']
+gtec_devices = ['unicorn']
+alltesteddevices = openbci_devices + muse_devices + neurosity_devices + gtec_devices
+thres_stds = {}
+for device in alltesteddevices: 
+    if device in openbci_devices: thres_stds[device] = [1,9]
+    elif device in muse_devices: thres_stds[device] = [1,18]
+    elif device in neurosity_devices: thres_stds[device] = [1,15]
+    elif device in gtec_devices: thres_stds[device] = [1,15]
 
 
 def load_csv_as_raw(
@@ -68,6 +86,7 @@ def load_csv_as_raw(
         n_aux = 0
 
     raw = []
+
     for fn in fnames:
         # Read the file
         data = pd.read_csv(fn)
@@ -91,7 +110,7 @@ def load_csv_as_raw(
         # create MNE object
         info = create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq, verbose=1)
         raw.append(RawArray(data=data, info=info, verbose=verbose))
-
+    
     raws = concatenate_raws(raw, verbose=verbose)
     montage = make_standard_montage("standard_1005")
     raws.set_montage(montage)
@@ -445,25 +464,14 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
 
     # If no upper and lower std thresholds set in function call,
     # set thresholds based on the following per-device name defaults
-    if thres_std_high is None:
-        if eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
-                    "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi"]:
-            thres_std_high = 9
-        elif eeg.device_name in ["notion1", "notion2", "crown"]:
-            thres_std_high = 15
-        elif 'muse' in eeg.device_name:
-            thres_std_high = 18
-
+    edn = eeg.device_name
+    flag = False
     if thres_std_low is None:
-
-        if 'muse' in eeg.device_name: 
-            thres_std_low = 1
-
-        elif eeg.device_name in ["ganglion", "ganglion_wifi", "cyton",
-                                 "cyton_wifi", "cyton_daisy", "cyton_daisy_wifi",
-                                 "notion1", "notion2", "crown"]:
-            thres_std_low = 1
-
+        if edn in thres_stds.keys():
+            thres_std_low = thres_stds[edn][0]
+    if thres_std_high is None:
+        if edn in thres_stds.keys():
+            thres_std_high = thres_stds[edn][1]
             
     print("\n\nRunning signal quality check...")
     print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
@@ -493,7 +501,6 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         print("\nSignal quality:")
         print(indicators)
 
-        
         bad_channels = [k for k, v in std_series.iteritems() if v < thres_std_low or v > thres_std_high ]
         if bad_channels:
             print(f"Bad channels: {', '.join(bad_channels)}")
@@ -510,26 +517,26 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         if (loop_index+1) % n_inarow == 0:
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
-            prompt_start = time()
-            continue_sigqual = input("\nChecks will resume in %s seconds...Press 'c' (and ENTER key) if you want to stop adjusting for better quality.\n" %pause_time)
-            while time() < prompt_start + 5:
-                if continue_sigqual == 'c':
-                    break
-            if continue_sigqual == 'c':
-                print("\nStopping signal quality checks!")
-                break
-        
-        sleep(pause_time)
-
-
-
+            prompt_time = time()
+            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")    
+            while time() < prompt_time + 5:  
+                if keyboard.is_pressed('c'): 
+                    print("\nStopping signal quality checks!")
+                    flag = True
+                    break  
+        if flag: 
+            break  
+            
 def fix_musemissinglines(orig_f,new_f=''):
 
-    if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
+    #if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
+
+    # Overwriting 
+    new_f = orig_f
 
     print('writing fixed file to %s' %new_f)
 
-    # Read oriignal file
+    # Read original file
 
     F = open(orig_f, 'r')
     Ls = F.readlines()

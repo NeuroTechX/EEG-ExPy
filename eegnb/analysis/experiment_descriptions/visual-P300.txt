@@ -1,0 +1,2 @@
+The P300 is a positive event-related potential (ERP) that occurs around 300ms after perceiving a novel or unexpected stimulus. It is most commonly elicited through ‘oddball’ experimental paradigms, where a certain subtype of stimulus is presented rarely amidst a background of another more common type of stimulus. 
+In the experiment, we aimed to elicit P300 response using a visual oddball stimulation.
