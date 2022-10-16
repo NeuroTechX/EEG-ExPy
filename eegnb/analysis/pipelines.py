@@ -46,8 +46,9 @@ from pathlib import Path
 DATA_DIR = os.path.join(os.path.expanduser("~/"), ".eegnb", "data")
 eegdevice, experiment_name, subject_id, session_nb, example_flag = None, None, None, None, False
 
+
 def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None, 
-                    reject={'eeg': 5e-5}, preload=True, verbose=1,
+                    reject={'eeg': 5e-5}, preload=True, verbose=1, site='local',
                         picks=[0,1,2,3], event_id = OrderedDict(House=1,Face=2), fnames=None, example=False):
     """
     Loads EEG data from the specified experiment, subject, session, and device.
@@ -85,9 +86,9 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
 
         # Generate file names if not passed
         if fnames is None:
-            raw = load_data(subject_id=subject, session_nb=session, experiment=experiment, device_name=device_name, site="local", data_dir=os.path.join(os.path.expanduser('~/'),'.eegnb', 'data'))
-
+            raw = load_data(subject=subject, session=session, experiment=experiment, device_name=device_name, site=site, data_dir=DATA_DIR)
         else:
+ 
             # Replace Ch names has arbitarily been set to None
             if device_name in ["muse2016", "muse2", "museS"]:   
                 raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, aux_ind=[5], replace_ch_names=None, verbose=verbose)
@@ -99,19 +100,17 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
 
     # If using the example dataset, load the data from the example dataset
     else:
-        subject, session = 1, 1
 
         # Loading Data
-        eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
-        experiment_data_path = os.path.join(eegnb_data_path, experiment, 'eegnb_examples')
+        experiment_data_path = os.path.join(DATA_DIR, experiment, 'eegnb_examples')
 
         # If dataset hasn't been downloaded yet, download it
         if not os.path.isdir(experiment_data_path):
-            fetch_dataset(data_dir=eegnb_data_path, experiment=experiment, site='eegnb_examples')
+            fetch_dataset(data_dir=DATA_DIR,experiment=experiment, site='eegnb_examples')
 
-        raw = load_data(1,1,
+        raw = load_data(subject = subject, session = session,
                         experiment=experiment, site='eegnb_examples', device_name=device_name,
-                        data_dir = eegnb_data_path)
+                        data_dir = DATA_DIR)
  
     # Filtering the data under a certain frequency range
     raw.filter(1,30, method='iir')
@@ -181,6 +180,7 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
     # Creating the pdf, needs to be discussed whether we want to call it here or seperately.
     create_pdf(experimental_parameters)
 
+
 def create_pdf(experimental_parameters:Dict):
     """Creates analysis report using the power spectrum and ERP plots that are saved in the directory"""
 
@@ -204,6 +204,7 @@ def create_pdf(experimental_parameters:Dict):
     print('Analysis report saved to {}\n'.format(filepath))
     print("Open the report by clicking the following link: {}{}".format("file:///", filepath))
 
+
 def get_save_directory(experiment, eegdevice, subject, session, example, label):
     """ Returns save directory as a String for the analysis report """
     
@@ -222,12 +223,14 @@ def get_save_directory(experiment, eegdevice, subject, session, example, label):
     
     return save_path
 
-def create_analysis_report_(experiment, eegdevice, subject=None, session=None, data_path=None, bluemuse_file_fix=False):
+
+def analysis_report(experiment, eegdevice, subject=None, session=None, site='local', data_path=None, bluemuse_file_fix=False):
     """ Interface with the erp plot function, basically cli type instructions """
 
     # Prompt user to enter options and then take inputs and do the necessary
-    epochs, experimental_parameters = load_eeg_data(experiment=experiment, subject=subject, session=session, device_name=eegdevice, example=False, fnames=data_path)
+    epochs, experimental_parameters = load_eeg_data(experiment=experiment, subject=subject, session=session, site=site, device_name=eegdevice, example=False, fnames=data_path)
     make_erp_plot(epochs, experimental_parameters)
+
 
 def example_analysis_report():
     """ Example of how to use the analysis report function """

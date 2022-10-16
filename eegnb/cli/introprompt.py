@@ -8,6 +8,7 @@ from .utils import run_experiment, get_exp_desc, experiments
 
 eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
 
+
 def device_prompt() -> EEG: 
     # define the names of the available boards
     # boards is a mapping from board code to board description
@@ -102,6 +103,7 @@ def exp_prompt(runorzip:str='run') -> str:
 
     return exp_selection
 
+
 def site_prompt(experiment:str) -> str:
     experiment_dir=os.path.join(DATA_DIR,experiment)
         
@@ -123,6 +125,7 @@ def site_prompt(experiment:str) -> str:
 
     print("Selected Folder : {} \n".format(site))
     return site
+
 
 def intro_prompt() -> Tuple[EEG, str, int, str]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
@@ -156,6 +159,7 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
     )
 
     return eeg_device, exp_selection, duration, str(save_fn)
+
 
 def analysis_device_prompt():
    
@@ -191,6 +195,7 @@ def analysis_device_prompt():
     board_code = list(boards.keys())[board_idx]
     return board_code
 
+
 def analysis_intro_prompt():
 
     # check if user has filepath
@@ -202,16 +207,17 @@ def analysis_intro_prompt():
     if file_idx == 1:
         print("Please enter the filepath to the .csv file you would like to analyze. \n")
         filepath = input("Enter filepath: \n")
-        subject, session = None, None
+        subject, session, site = None, None, None
     else:  
         subject = int(input("Enter subject ID#: \n"))
         session = int(input("Enter session #: \n"))
+        site = str(input("Enter site name: \n"))
         filepath = None
     
     eegdevice = analysis_device_prompt()
     experiment = exp_prompt()
     
-    return experiment, eegdevice, subject, session, filepath
+    return experiment, eegdevice, subject, session, site, filepath
 
 
 
