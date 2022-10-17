@@ -49,7 +49,7 @@ eegdevice, experiment_name, subject_id, session_nb, example_flag = None, None, N
 
 def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None, 
                     reject={'eeg': 5e-5}, preload=True, verbose=1, site='local',
-                        picks=[0,1,2,3], event_id = OrderedDict(House=1,Face=2), fnames=None, example=False):
+                        picks=None, event_id = OrderedDict(House=1,Face=2), fnames=None, example=False):
     """
     Loads EEG data from the specified experiment, subject, session, and device.
     Returns the raw and epochs objects.
@@ -90,10 +90,13 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
         else:
  
             # Replace Ch names has arbitarily been set to None
-            if device_name in ["muse2016", "muse2", "museS"]:   
-                raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, aux_ind=[5], replace_ch_names=None, verbose=verbose)
+            if device_name in ["muse2016", "muse2", "museS"]: 
+                aux_ind=[5]
             else:
-                raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, replace_ch_names=None, verbose=verbose)
+                aux_ind=None
+
+            raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, aux_ind=aux_ind, 
+                                  replace_ch_names=None, verbose=verbose)
 
             # Getting the subject and session
             subject, session = fnames.split('_')[1], fnames.split('_')[2]
@@ -130,6 +133,9 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     events = find_events(raw)
 
     # Create an MNE Epochs object representing all the epochs around stimulus presentation
+    if picks is None:
+        picks = range(len(ch_ind))
+
     epochs = Epochs(raw, events=events, event_id=event_id,
                     tmin=tmin, tmax=tmax, baseline=baseline,
                     reject=reject, preload=preload,
@@ -144,9 +150,7 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
     return epochs, experimental_parameters
 
 
-def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n_boot=1000, title='',
-                   diff_waveform=None, #(1, 2))
-                   channel_order=[1,0,2,3]):
+def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(House=[1],Face=[2]), ci=97.5, n_boot=1000, title='',diff_waveform=None,channel_order=None):
     """
     Plots the ERP for the specified conditions.
 
@@ -160,14 +164,19 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
     diff_waveform: tuple of two integers indicating the channels to compare
     channel_order: list of integers indicating the order of the channels to plot
     """
+    
+    if 'muse' in experimental_parameters['eeg_device']: channel_order = [1,0,2,3] # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
+    nchan = len(epochs.ch_names)
+    if channel_order is None: channel_order = range(0,nchan)
 
     fig, ax = plot_conditions(epochs, conditions=conditions,
                             ci=97.5, n_boot=1000, title='',
                             diff_waveform=None, #(1, 2))
-                            channel_order=[1,0,2,3]) # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
+                            channel_order=channel_order,
+                            channel_count=nchan) 
 
     # Autoscaling the y axis to a tight fit to the ERP
-    for i in [0,1,2,3]: ax[i].autoscale(tight=True)
+    for i in range(nchan): ax[i].autoscale(tight=True) # [0,1,2,3,4]
 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
     # Makes sure that the axis labels are not cut out
@@ -224,11 +233,11 @@ def get_save_directory(experiment, eegdevice, subject, session, example, label):
     return save_path
 
 
-def analysis_report(experiment, eegdevice, subject=None, session=None, site='local', data_path=None, bluemuse_file_fix=False):
+def analysis_report(experiment, eegdevice, subject=None, session=None, site='local', data_path=None, bluemuse_file_fix=False,reject={'eeg': 5e-05}):
     """ Interface with the erp plot function, basically cli type instructions """
 
     # Prompt user to enter options and then take inputs and do the necessary
-    epochs, experimental_parameters = load_eeg_data(experiment=experiment, subject=subject, session=session, site=site, device_name=eegdevice, example=False, fnames=data_path)
+    epochs, experimental_parameters = load_eeg_data(experiment=experiment, subject=subject, session=session, site=site, device_name=eegdevice, example=False, fnames=data_path, reject=reject)
     make_erp_plot(epochs, experimental_parameters)
 
 

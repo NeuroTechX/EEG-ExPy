@@ -57,6 +57,7 @@ def load_csv_as_raw(
     aux_ind=None,
     replace_ch_names=None,
     verbose=1,
+    resp_on_missing='warn'
 ) -> RawArray:
     """Load CSV files into an MNE Raw object.
 
@@ -120,7 +121,7 @@ def load_csv_as_raw(
     
     raws = concatenate_raws(raw, verbose=verbose)
     montage = make_standard_montage("standard_1005")
-    raws.set_montage(montage)
+    raws.set_montage(montage,on_missing=resp_on_missing)
 
     return raws
 
@@ -134,8 +135,8 @@ def load_data(
     verbose=1,
     site="local",
     data_dir=None,
-    inc_chans=None,
-) -> RawArray:
+    inc_chans=None
+    ) -> RawArray:
     """Load CSV files from the /data directory into a Raw object.
 
     This is a utility function that simplifies access to eeg-notebooks
@@ -195,22 +196,19 @@ def load_data(
         ch_ind = inc_chans
 
     if device_name in ["muse2016", "muse2", "museS"]:
-        return load_csv_as_raw(
-            fnames,
-            sfreq=sfreq,
-            ch_ind=ch_ind,
-            aux_ind=[5],
-            replace_ch_names=replace_ch_names,
-            verbose=verbose,
-        )
+        aux_ind = [5]
     else:
-        return load_csv_as_raw(
+        aux_ind = None
+
+    res = load_csv_as_raw(
             fnames,
             sfreq=sfreq,
             ch_ind=ch_ind,
+            aux_ind=aux_ind,
             replace_ch_names=replace_ch_names,
-            verbose=verbose,
-        )
+            verbose=verbose)
+
+    return res
 
 
 def plot_conditions(
