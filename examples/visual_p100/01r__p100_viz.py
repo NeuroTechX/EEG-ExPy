@@ -77,7 +77,7 @@ raw.plot_psd()
 # ----------------------------
 
 raw.filter(1,30, method='iir')
-raw.plot_psd(fmin=1, fmax=30);
+raw.plot_psd(fmin=1, fmax=30)
 
 
 ###################################################################################################
@@ -92,7 +92,7 @@ event_id = {'First checkerboard': 1, 'Second checkerboard': 2}
 epochs = Epochs(raw, events=events, event_id=event_id, 
                 tmin=-0.1, tmax=0.4, baseline=None,
                 reject={'eeg': 100e-6}, preload=True, 
-                verbose=False, picks=[3,4,5,6,7])
+                verbose=False, picks=[2,3,4,5,6,7])
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 epochs
 

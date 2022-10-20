@@ -18,8 +18,9 @@ from eegnb.experiments.visual_p100 import p100
 
 # Define some variables
 board_name = "cyton"
-#Move the last five channels to positions close to the occipital lobe.
-rename_channels = {'C4':'PO1', 'P7':'PO2', 'P8':'O1', 'O1':'O2', 'O2':'Iz'}
+# Move the last six channels to positions close to the occipital lobe,
+# whilst leaving space for the quest 2 strap.
+rename_channels = {'C3': 'PO1', 'C4': 'PO2', 'P7': 'PO5', 'P8': 'PO6', 'O1': 'I1', 'O2': 'I2'}
 experiment = "visual_p100_both_eyes"
 subject_id = 0
 session_nb = 0
