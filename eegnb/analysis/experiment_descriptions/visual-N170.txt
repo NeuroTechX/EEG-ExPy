@@ -1,0 +1,2 @@
+The N170 is a large negative event-related potential (ERP) component that occurs after the detection of faces, but not objects, scrambled faces, or other body parts such as hands. 
+In the experiment we aim to detect the N170 using faces and houses as our stimuli. 
