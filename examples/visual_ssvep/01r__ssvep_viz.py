@@ -101,8 +101,9 @@ psd2_std = psd2.mean(0)
 axs[0].plot(freq1, psd1_mean[[0, 3], :].mean(0), color='b', label='30 Hz')
 axs[0].plot(freq2, psd2_mean[[0, 3], :].mean(0), color='r', label='20 Hz')
 
-axs[1].plot(freq1, psd1_mean[4, :], color='b', label='30 Hz')
-axs[1].plot(freq2, psd2_mean[4, :], color='r', label='20 Hz')
+# TODO fix: IndexError: index 4 is out of bounds for axis 0 with size 4
+# axs[1].plot(freq1, psd1_mean[4, :], color='b', label='30 Hz')
+# axs[1].plot(freq2, psd2_mean[4, :], color='r', label='20 Hz')
 
 axs[0].set_title('TP9 and TP10')
 axs[1].set_title('POz')
