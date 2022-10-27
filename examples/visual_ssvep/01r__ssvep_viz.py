@@ -59,6 +59,7 @@ raw = load_data(subject, session,
                 experiment='visual-SSVEP', site='eegnb_examples', device_name='muse2016',
                 data_dir = eegnb_data_path,
                 replace_ch_names={'Right AUX': 'POz'})
+raw.set_channel_types({'POz': 'eeg'})
 
 ###################################################################################################
 # Visualize the power spectrum
