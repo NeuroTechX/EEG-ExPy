@@ -11,7 +11,7 @@ jupyter
 muselsl>=2.0.2
 pylsl==1.10.5  # due to https://github.com/NeuroTechX/eeg-notebooks/issues/187
 brainflow>=4.8.2
-gdown
+gdown>=4.5.1
 matplotlib>=3.3.3
 pysocks>=1.7.1
 pyserial>=3.5
