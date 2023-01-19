@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styling.css">
+        <title>
+            Analysis Report
+        </title>
+    </head>
+
+    <body>
+        <div class="topnav">
+            <a class="active" href="#Description">Description</a>
+            <a href="#Raw Epoch">Raw Epoch</a>
+            <a href="#Stimulus Response">Stimulus Response</a>
+            <a href="#about">About</a>
+        </div>
+        <!-- Block to explain the experiment and link to the further information-->
+        <div id="Description">
+            <h1>
+                Analysis Report
+            </h1>
+            <p>
+                Experiment Name: <br>
+                Subject Id: <br>
+                Session Number: <br>
+                EEG Headset: <br>
+                Drop Percentage: <br>
+            </p>
+
+            <p>
+                This is an analysis report for the experiment. <br>
+                For more information about the experiment, please visit the <a href="https://neurotechx.github.io/eeg-notebooks/">documentation</a>.
+            </p>
+        </div>
+
+        <!-- First Section - raw epoch image-->
+        <div id="Raw Epoch">
+            <h2>
+                Raw Epoch
+            </h2>
+            <p>
+                The raw epoch is shown below. The raw epoch is the data that is recorded from the EEG headset. The raw epoch is then processed to remove noise and artifacts.
+            </p>
+            <img src="raw_epoch.png" alt="Raw Epoch" id="raw_epoch">
+        </div>
+
+        <!-- Second Section - stimulus response image-->
+        <div id="Stimulus Response">
+            <h2>
+                Stimulus Response
+            </h2>
+            <p>
+                The stimulus response is shown below. The stimulus response is the data that is recorded from the EEG headset after the raw epoch has been processed. The stimulus response is then used to calculate the power spectrum.
+            </p>
+            <img src="stimulus_response.png" alt="Stimulus Response">
+        </div>
+    </body>
+</html>
+

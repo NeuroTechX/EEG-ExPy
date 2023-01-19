@@ -14,3 +14,6 @@ examples/visual_cueing/*.csv
 .coverage
 coverage.xml
 htmlcov
+
+# PyCharm
+.idea/

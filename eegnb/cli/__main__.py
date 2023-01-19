@@ -6,10 +6,12 @@ import os
 import shutil
 from eegnb.datasets.datasets import zip_data_folders
 
-from .introprompt import intro_prompt
+from .introprompt import intro_prompt, analysis_intro_prompt
 from .utils import run_experiment
+from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.analysis.utils import check_report
+from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, analysis_report, example_analysis_report
 
 
 @click.group(name="eegnb")
@@ -35,6 +37,7 @@ def runexp(
     outfname: str = None,
     prompt: bool = False,
     dosigqualcheck = True,
+    generatereport = True
 ):
     """
     Run experiment.
@@ -59,6 +62,8 @@ def runexp(
     if prompt:
         eeg, experiment, recdur, outfname = intro_prompt()
     else:
+        # Random values for outfile for now
+        outfname = generate_save_fn(eegdevice, experiment,7, 7)
         if eegdevice == "ganglion":
             # if the ganglion is chosen a MAC address should also be provided
             eeg = EEG(device=eegdevice, mac_addr=macaddr)
@@ -73,15 +78,55 @@ def runexp(
             "Sorry, didn't recognize answer. "
             askforsigqualcheck()
     
+    def askforreportcheck():
+        generatereport = input("\n\nGenerate Report? (Y/n): \n").lower() != "n"
+
     if dosigqualcheck:
         askforsigqualcheck()
-
+    
+    if generatereport:
+        askforreportcheck()
 
     run_experiment(experiment, eeg, recdur, outfname)
 
     print(f"\n\n\nExperiment complete! Recorded data is saved @ {outfname}")
 
+    #if generatereport:
+    #    # Error of filenames being multiple etc, needs to be handled
+    #    create_analysis_report(experiment=experiment, device_name=eegdevice, fnames=outfname)
 
+
+@main.command()
+@click.option("-ex", "--experiment", help="Experiment to run")
+@click.option("-ed", "--eegdevice", help="EEG device to use")
+@click.option("-sub", "--subject", help="Subject ID")
+@click.option("-sess", "--session", help="Session number")
+@click.option("-site", "--site", help="Site/Study Name")
+@click.option("-fp", "--filepath", help="Filepath to save data")
+@click.option("-ip", "--prompt", help="Use interactive prompt to ask for parameters", is_flag=True
+)
+def create_analysis_report(
+    experiment: str,
+    eegdevice: str = None,
+    subject: str = None, 
+    session: str = None,
+    site: str = None,
+    filepath:str = None,
+    prompt: bool = False,
+):
+    """
+    Create analysis report of recorded data
+    """
+    
+    if prompt:
+        example = input("Do you want to load an example experiment? (y/n)\n")
+        print()
+        if example == 'y':
+            example_analysis_report()
+            return
+        else:
+            experiment, eegdevice, subject, session, site, filepath = analysis_intro_prompt()
+    analysis_report(experiment, eegdevice, subject, session, site, filepath)
 
 
 @main.command()
@@ -105,6 +150,8 @@ def checksigqual(eegdevice: str):
     #       ( n_times, pause_time, thres_var, etc. )
     #       [ tried to do this but keeps defaulting to None rather than default
     #         valuess in the function definition ]
+
+
 
 
 @main.command()

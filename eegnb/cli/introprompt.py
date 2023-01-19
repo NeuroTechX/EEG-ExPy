@@ -8,6 +8,7 @@ from .utils import run_experiment, get_exp_desc, experiments
 
 eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
 
+
 def device_prompt() -> EEG: 
     # define the names of the available boards
     # boards is a mapping from board code to board description
@@ -96,11 +97,12 @@ def exp_prompt(runorzip:str='run') -> str:
         )
     )
 
-    exp_idx = int(input("\nEnter Experiment Selection: "))
+    exp_idx = int(input("\nEnter Experiment Selection: \n"))
     exp_selection = list(experiments.keys())[exp_idx]
     print(f"Selected experiment: {exp_selection} \n")
 
     return exp_selection
+
 
 def site_prompt(experiment:str) -> str:
     experiment_dir=os.path.join(DATA_DIR,experiment)
@@ -123,6 +125,7 @@ def site_prompt(experiment:str) -> str:
 
     print("Selected Folder : {} \n".format(site))
     return site
+
 
 def intro_prompt() -> Tuple[EEG, str, int, str]:
     """This function handles the user prompts for inputting information about the session they wish to record."""
@@ -156,6 +159,66 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
     )
 
     return eeg_device, exp_selection, duration, str(save_fn)
+
+
+def analysis_device_prompt():
+   
+    boards = {
+        "none": "None",
+        "muse2016": "Muse (2016)",
+        "muse2": "Muse 2",
+        "museS": "Muse S",
+        "muse2016_bfn": "Muse 2016 - brainflow, native bluetooth",
+        "muse2016_bfb": "Muse 2016 - brainflow, BLED bluetooth dongle",        
+        "muse2_bfn": "Muse 2 - brainflow, native bluetooth",
+        "muse2_bfb": "Muse 2 - brainflow, BLED bluetooth dongle",
+        "museS_bfn": "Muse S - brainflow, native bluetooth",
+        "museS_bfb": "Muse S - brainflow, BLED bluetooth dongle",
+        "ganglion": "OpenBCI Ganglion",
+        "cyton": "OpenBCI Cyton",
+        "cyton_daisy": "OpenBCI Cyton + Daisy",
+        "unicorn": "G.Tec Unicorn",
+        "brainbit": "BrainBit",
+        "notion1": "Notion 1",
+        "notion2": "Notion 2",
+        "crown": "Crown",
+        "synthetic": "Synthetic",
+        "freeeeg32": "FreeEEG32",
+    }
+
+    print("Please enter the integer value corresponding to your EEG device: \n")
+    print("\n".join(f"[{i:2}] {board}" for i, board in enumerate(boards.values())))
+
+    board_idx = int(input("\nEnter Board Selection: \n"))
+
+    # Board_codes are the actual names to be passed to the EEG class
+    board_code = list(boards.keys())[board_idx]
+    return board_code
+
+
+def analysis_intro_prompt():
+
+    # check if user has filepath
+    print("Welcome to NeurotechX EEG Notebooks\n")
+    print("Do you have a filepath to a .csv file you would like to analyze? \n")
+    print("[1] Yes \n")
+    print("[0] No \n")
+    file_idx = int(input("Enter selection: \n"))
+    if file_idx == 1:
+        print("Please enter the filepath to the .csv file you would like to analyze. \n")
+        filepath = input("Enter filepath: \n")
+        subject, session, site = None, None, None
+    else:  
+        subject = int(input("Enter subject ID#: \n"))
+        session = int(input("Enter session #: \n"))
+        site = str(input("Enter site name: \n"))
+        filepath = None
+    
+    eegdevice = analysis_device_prompt()
+    experiment = exp_prompt()
+    
+    return experiment, eegdevice, subject, session, site, filepath
+
 
 
 def intro_prompt_zip() -> Tuple[str,str]:

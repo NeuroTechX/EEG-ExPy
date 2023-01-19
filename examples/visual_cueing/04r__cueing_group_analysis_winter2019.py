@@ -136,14 +136,14 @@ for sub in subs:
     # Left Cue
     tfr, itc = tfr_morlet(epochs['LeftCue'], freqs=frequencies, 
                           n_cycles=wave_cycles, return_itc=True)
-    tfr = tfr.apply_baseline([-1,-.5],mode='mean')
+    tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     power_Ipsi_TP9 = tfr.data[0,:,:]
     power_Contra_TP10 = tfr.data[1,:,:]
 
     # Right Cue
     tfr, itc = tfr_morlet(epochs['RightCue'], freqs=frequencies, 
                           n_cycles=wave_cycles, return_itc=True)
-    tfr = tfr.apply_baseline([-1,-.5],mode='mean')
+    tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     power_Contra_TP9 = tfr.data[0,:,:]
     power_Ipsi_TP10 = tfr.data[1,:,:]
 

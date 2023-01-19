@@ -9,6 +9,7 @@ seaborn==0.9.0
 pyriemann>=0.2.7
 jupyter
 muselsl>=2.0.2
+pylsl==1.10.5  # due to https://github.com/NeuroTechX/eeg-notebooks/issues/187
 brainflow>=4.8.2
 gdown>=4.5.1
 matplotlib>=3.3.3
@@ -17,14 +18,18 @@ pyserial>=3.5
 h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
+keyboard==0.13.5
+airium>=0.1.0
+attrdict>=2.0.1
+attrdict3
 
-# This might try to build from source on linux (since there are no wheels for Linux on PyPI)
+# This might try to build from source on linux (since there are no wheels for Linux on PyPI) .
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
 click
 
 # can be removed once minimum version is Python 3.7
-dataclasses; python_version == '3.6'  
+dataclasses; python_version == '3.6'
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
