@@ -15,10 +15,10 @@ an experiment.
 import os
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from eegnb.experiments.visual_ssvep import ssvep
+from eegnb.experiments import VisualSSVEP
 
 # Define some variables
-board_name = "muse"
+board_name = "muse2"
 experiment = "visual_ssvep"
 subject_id = 0
 session_nb = 0
@@ -39,4 +39,5 @@ print(save_fn)
 # Run experiment
 # ---------------------  
 #  
-ssvep.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+ssvep = VisualSSVEP(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+ssvep.run()
