@@ -277,12 +277,11 @@ def plot_conditions(
 
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
-            sns.tsplot(
-                X[y.isin(cond), ch],
-                time=times,
+            sns.lineplot(
+                x=times,
+                y=X[y.isin(cond), ch],
                 color=color,
                 n_boot=n_boot,
-                ci=ci,
                 ax=axes[ch],
             )
 
