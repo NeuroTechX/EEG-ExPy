@@ -84,8 +84,8 @@ raw.compute_psd().plot();
 # Most ERP components are composed of lower frequency fluctuations in the EEG signal. Thus, we can filter out all frequencies between 1 and 30 hz in order to increase our ability to detect them.
 #
 
-raw.filter(1,30, method='iir')
-raw.plot_psd(fmin=1, fmax=30);
+raw.filter(1,30, method='iir');
+raw.compute_psd(fmin=1, fmax=30).plot();
 
 ###################################################################################################
 # Epoching
