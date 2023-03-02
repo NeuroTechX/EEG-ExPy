@@ -14,7 +14,7 @@ Cueing Single Subject Analysis
 #
 
 # Some standard pythonic imports
-import os,sys,glob,numpy as np,pandas as pd
+import os,numpy as np#,sys,glob,pandas as pd
 from collections import OrderedDict
 import warnings
 warnings.filterwarnings('ignore')
@@ -22,7 +22,7 @@ from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 
 # MNE functions
-from mne import Epochs,find_events, concatenate_raws
+from mne import Epochs,find_events#, concatenate_raws
 from mne.time_frequency import tfr_morlet
 
 # EEG-Notebooks functions
