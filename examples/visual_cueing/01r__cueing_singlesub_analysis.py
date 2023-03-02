@@ -73,7 +73,7 @@ raw.plot();
 # One way to analyze the SSVEP is to plot the power spectral density, or PSD. SSVEPs should appear as peaks in power for certain frequencies. We expect clear peaks in the spectral domain at the stimulation frequencies of 30 and 20 Hz.
 #
 
-raw.plot_psd();
+raw.compute_psd().plot();
 
 # Should see the electrical noise at 60 Hz, and maybe a peak at the red and blue channels between 7-14 Hz (Alpha)
 
