@@ -1,11 +1,11 @@
 # Main repo requirements
-psychopy==2020.2.3
+psychopy==2023.1.0
 psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4
 numpy>=1.19.4
 mne>=0.20.8
-seaborn==0.9.0
+seaborn>=0.9.0
 pyriemann>=0.2.7
 jupyter
 muselsl>=2.0.2
