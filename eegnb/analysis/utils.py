@@ -4,10 +4,10 @@ import math
 import logging
 from collections import OrderedDict
 from glob import glob
-from typing import Union, List, Dict
-from collections import Iterable
+from typing import Union, List#, Dict
+# from collections import Iterable   # 
 from time import sleep, time
-from numpy.core.fromnumeric import std
+# from numpy.core.fromnumeric import std
 import keyboard
 import os
 
@@ -278,11 +278,13 @@ def plot_conditions(
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
             sns.lineplot(
-                x=times,
-                y=X[y.isin(cond), ch],
+                data=pd.DataFrame(X[y.isin(cond), ch].T, index=times).reset_index(),
+                x='index',
+                y=ch,
                 color=color,
                 n_boot=n_boot,
                 ax=axes[ch],
+                errorbar=('ci',ci)
             )
 
         if diff_waveform:
