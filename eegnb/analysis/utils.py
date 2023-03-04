@@ -5,7 +5,7 @@ import logging
 from collections import OrderedDict
 from glob import glob
 from typing import Union, List#, Dict
-# from collections import Iterable   # 
+# from collections import Iterable
 from time import sleep, time
 # from numpy.core.fromnumeric import std
 import keyboard
