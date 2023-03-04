@@ -278,14 +278,15 @@ def plot_conditions(
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
             sns.lineplot(
-                data=pd.DataFrame(X[y.isin(cond), ch].T, index=times).reset_index(),
-                x='index',
+                data=pd.DataFrame(X[y.isin(cond), ch].T, index=times),
+                x=times,
                 y=ch,
                 color=color,
                 n_boot=n_boot,
                 ax=axes[ch],
                 errorbar=('ci',ci)
             )
+        axes[ch].set(xlabel='Time (s)', ylabel='Amplitude (uV)', title=epochs.ch_names[channel_order[ch]])
 
         if diff_waveform:
             diff = np.nanmean(X[y == diff_waveform[1], ch], axis=0) - np.nanmean(
@@ -298,11 +299,6 @@ def plot_conditions(
         axes[ch].axvline(
             x=0, ymin=ylim[0], ymax=ylim[1], color="k", lw=1, label="_nolegend_"
         )
-
-    axes[0].set_xlabel("Time (s)")
-    axes[0].set_ylabel("Amplitude (uV)")
-    axes[-1].set_xlabel("Time (s)")
-    axes[1].set_ylabel("Amplitude (uV)")
 
     if diff_waveform:
         legend = ["{} - {}".format(diff_waveform[1], diff_waveform[0])] + list(
