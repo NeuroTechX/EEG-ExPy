@@ -12,32 +12,31 @@ an experiment.
 # ---------------------  
 #  
 # Imports
-import os
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.experiments import VisualN170
 
 # Define some variables
-board_name = "muse2"
-experiment = "visual_n170"
-subject_id = 0
-session_nb = 0
-record_duration = 120
+board_name = "muse2" # board name
+experiment_name = "visual_n170" # experiment name
+subject_id = 0 # test subject id
+session_nb = 0 # session number
+record_duration = 120 # recording duration
 
-###################################################################################################
-# Initiate EEG device
-# ---------------------
-#
-# Start EEG device
+# generate save path
+save_fn = generate_save_fn(board_name, experiment_name, subject_id, subject_nb)
+
+# create device object
 eeg_device = EEG(device=board_name)
 
-# Create save file name
-save_fn = generate_save_fn(board_name, experiment, subject_id, session_nb)
-print(save_fn)
+# Experiment type
+experiment = VisualN170(duration=record_duration, save_fn=save_fn)
 
 ###################################################################################################  
 # Run experiment
 # ---------------------  
-#  
-visual_n170 = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
-visual_n170.run()
+#
+experiment.run()
+
+# Saved csv location
+print("Recording saved in", experiment.save_fn)
