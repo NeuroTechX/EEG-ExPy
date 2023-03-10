@@ -25,6 +25,12 @@ install-deps-apt:
 	# libpulse-dev required to build pocketsphinx (speech recognition dependency of psychopy)
 	# libsdl2-dev required by psychopy
 	sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev portaudio19-dev libpulse-dev pulseaudio libsdl2-dev
+	
+	# configure dynamic links
+	sudo ldconfig
+	
+	UPDATED_LIBPATH=(sudo find / -name libnotify.so)
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$UPDATED_LIBPATH
 
 install-deps-wxpython:
 	# Install wxPython wheels since they are distribution-specific and therefore not on PyPI
