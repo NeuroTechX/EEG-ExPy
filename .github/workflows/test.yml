@@ -2,9 +2,9 @@ name: Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, develop ]
 
 jobs:
   test:
@@ -50,7 +50,7 @@ jobs:
       run: |
         make build
     - name: Run eegnb install test
-      shell: bash  
+      shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &

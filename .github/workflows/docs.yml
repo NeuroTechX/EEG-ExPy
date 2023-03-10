@@ -2,33 +2,36 @@ name: Docs
 
 on:
   push:
-    branches: [ master, 'dev/*' ]
+    branches: [ master, develop, 'dev/*' ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, develop ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
     - name: Install dependencies
       run: |
         make install-deps-apt
         python -m pip install --upgrade pip wheel
+        python -m pip install attrdict
 
         make install-deps-wxpython
-        pip install .
+    - name: Build project
+      run: |
+        make build
     - name: Build docs
       run: |
         make docs
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html
- 
+
