@@ -30,7 +30,7 @@ save_fn = generate_save_fn(board_name, experiment_name, subject_id, subject_nb)
 eeg_device = EEG(device=board_name)
 
 # Experiment type
-experiment = VisualN170(duration=record_duration, save_fn=save_fn)
+experiment = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
 
 ###################################################################################################  
 # Run experiment
