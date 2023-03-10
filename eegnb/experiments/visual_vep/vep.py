@@ -1,6 +1,6 @@
 from time import time, strftime, gmtime
 from pylsl import StreamInfo, StreamOutlet
-from eegnb.experiments.Experiment import Experiment
+from eegnb.experiments import Experiment
 
 
 class VisualVEP(Experiment):
