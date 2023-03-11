@@ -15,6 +15,7 @@ from eegnb.experiments.visual_cueing import cueing
 from eegnb.experiments.visual_codeprose import codeprose
 from eegnb.experiments.auditory_oddball import diaconescu
 from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
+from typing import Optional
 
 
 # New Experiment Class structure has a different initilization, to be noted
@@ -40,7 +41,7 @@ def get_exp_desc(exp: str):
 
 
 def run_experiment(
-    experiment: str, eeg_device: EEG, record_duration: float = None, save_fn=None
+    experiment: str, eeg_device: EEG, record_duration: Optional[float] = None, save_fn=None
 ):
     if experiment in experiments:
         module = experiments[experiment]

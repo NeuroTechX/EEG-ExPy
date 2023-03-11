@@ -9,7 +9,7 @@ An experiment to see if one can distinguish between reading code vs prose using 
 
 # TODO: Switch to using time_ns when Python 3.7 is the minimum version for eegnb
 from time import time, strftime, gmtime
-from typing import List
+from typing import Optional, List
 from pathlib import Path
 from dataclasses import dataclass, field
 from ...devices.eeg import EEG
@@ -167,7 +167,7 @@ def run(window: visual.Window) -> pd.DataFrame:
     return pd.DataFrame(responses)
 
 
-def fixate(window: visual.Window, text: str = None):
+def fixate(window: visual.Window, text: Optional[str] = None):
     visual.TextStim(
         win=window,
         text=text,
