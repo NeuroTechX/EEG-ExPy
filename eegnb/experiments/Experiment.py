@@ -8,30 +8,33 @@ obj = VisualP300({parameters})
 obj.run()
 """
 
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from psychopy import prefs
 #change the pref libraty to PTB and set the latency mode to high precision
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
-import os
 from time import time
-from glob import glob
-from random import choice
-from optparse import OptionParser
 import random
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event
+from psychopy import visual, event
 
 from eegnb import generate_save_fn
-from eegnb.devices.eeg import EEG
 
 class BaseExperiment:
 
-    def __init__(self, exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter):
-        """ Initializer for the Base Experiment Class """
+    def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float, use_vr: bool):
+        """ Initializer for the Base Experiment Class
+
+        Args:
+            n_trials (int): Number of trials/stimulus
+            iti (float): Inter-trial interval
+            soa (float): Stimulus on arrival
+            jitter (float): Random delay between stimulus
+            use_vr (bool): Use VR for displaying stimulus
+        """
 
         self.exp_name = exp_name
         self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
@@ -43,6 +46,7 @@ class BaseExperiment:
         self.iti = iti
         self.soa = soa
         self.jitter = jitter
+        self.use_vr = use_vr
         
     @abstractmethod
     def load_stimulus(self):
@@ -54,14 +58,14 @@ class BaseExperiment:
         raise NotImplementedError
 
     @abstractmethod
-    def present_stimulus(self, idx : int):
+    def present_stimulus(self, current_trial: int):
         """
         Method that presents the stimulus for the specific experiment, overwritten by the specific experiment
         Displays the stimulus on the screen
         Pushes EEG Sample if EEG is enabled
         Throws error if not overwritten in the specific experiment
 
-        idx : Trial index for the current trial
+        idx: Trial index for the current trial
         """
         raise NotImplementedError
 
@@ -76,7 +80,7 @@ class BaseExperiment:
         self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
         # Setting up Graphics 
-        self.window = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True) 
+        self.window = visual.Rift(monoscopic=True, headLocked=False) if self.use_vr else visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=False)
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
@@ -111,16 +115,24 @@ class BaseExperiment:
         # Disabling the cursor during display of instructions
         self.window.mouseVisible = False
 
-        # Displaying the instructions on the screen
-        text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-        text.draw()
-        self.window.flip()
-        
         # Waiting for the user to press the spacebar to start the experiment
-        event.waitKeys(keyList="space")
+        while len(event.getKeys(keyList="space")) == 0:
+            if self.use_vr:
+                self.prepare_vr_render()
 
-        # Enabling the cursor again
-        self.window.mouseVisible = True
+            # Displaying the instructions on the screen
+            text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
+            text.draw()
+            self.window.flip()
+
+            # Enabling the cursor again
+            self.window.mouseVisible = True
+
+    def prepare_vr_render(self):
+        """ Set the current eye position and projection """
+        tracking_state = self.window.getTrackingState()
+        self.window.calcEyePoses(tracking_state.headPose.thePose)
+        self.window.setDefaultView()
        
     def run(self, instructions=True):
         """ Do the present operation for a bunch of experiments """
@@ -137,28 +149,40 @@ class BaseExperiment:
         print("EEG Stream started")
 
         start = time()
-        
-        # Iterate through the events
-        for ii, trial in self.trials.iterrows():
-          
-            # Intertrial interval
-            core.wait(self.iti + np.random.rand() * self.jitter)
 
-            # Stimulus presentation overwritten by specific experiment
-            self.present_stimulus(ii, trial)
+        # Run trial until a key is pressed or experiment duration has expired.
+        while len(event.getKeys()) == 0 and (time() - start) < self.record_duration:
+            current_experiment_seconds = time() - start
 
-            # Offset
-            core.wait(self.soa)
+            if self.use_vr:
+                self.prepare_vr_render()
+
+            current_trial = int((current_experiment_seconds-self.iti) / (self.soa + self.iti))
+
+            print("current trial:{}".format(current_trial))
+            print("seconds:{}".format(current_experiment_seconds))
+
+            current_trial_begin = self.iti * (current_trial + 1) + (self.soa * current_trial)
+            print("current trial begin:{:0.2f}".format(current_trial_begin))
+
+            current_trial_end = (self.soa + self.iti) * (current_trial + 1)
+            print("current_trial_end:{:0.2f}".format(current_trial_end))
+
+            # Intertrial interval (wait time before/between showing an image).
+            if current_trial_begin < current_experiment_seconds < current_trial_end:
+                print("current trial:{}".format(current_trial))
+                print("seconds:{:0.2f}".format(current_experiment_seconds))
+
+                # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
+                # Stimulus presentation overwritten by specific experiment
+                self.present_stimulus(current_trial)
+
             self.window.flip()
 
-            # Exiting the loop condition, looks ugly and needs to be fixed
-            if len(event.getKeys()) > 0 or (time() - start) > self.record_duration:
-                break
+        # Clearing the screen for the next trial
+        event.clearEvents()
 
-            # Clearing the screen for the next trial    
-            event.clearEvents()
-        
-        # Closing the EEG stream 
+        # Closing the EEG stream
         if self.eeg:
             self.eeg.stop()
 
