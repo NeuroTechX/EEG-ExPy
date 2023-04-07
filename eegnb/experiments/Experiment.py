@@ -65,7 +65,7 @@ class BaseExperiment:
         Pushes EEG Sample if EEG is enabled
         Throws error if not overwritten in the specific experiment
 
-        idx: Trial index for the current trial
+        current_trial: Trial index for the current experiment
         """
         raise NotImplementedError
 
@@ -148,27 +148,23 @@ class BaseExperiment:
 
         print("EEG Stream started")
 
-        start = time()
-
         # Run trial until a key is pressed or experiment duration has expired.
+        start = time()
+        current_trial = 0
+        current_experiment_seconds = time() - start
+        current_trial_begin = self.current_trial_begin(current_experiment_seconds)
+        current_trial_end = current_trial_begin + self.soa
         while len(event.getKeys()) == 0 and (time() - start) < self.record_duration:
-            current_experiment_seconds = time() - start
-
             if self.use_vr:
                 self.prepare_vr_render()
 
-            current_trial = int((current_experiment_seconds-self.iti) / (self.soa + self.iti))
-
             print("current trial:{}".format(current_trial))
             print("seconds:{}".format(current_experiment_seconds))
-
-            current_trial_begin = self.iti * (current_trial + 1) + (self.soa * current_trial)
             print("current trial begin:{:0.2f}".format(current_trial_begin))
-
-            current_trial_end = (self.soa + self.iti) * (current_trial + 1)
             print("current_trial_end:{:0.2f}".format(current_trial_end))
 
-            # Intertrial interval (wait time before/between showing an image).
+            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
+            # Do not present stimulus after trial has ended(stimulus on arrival interval).
             if current_trial_begin < current_experiment_seconds < current_trial_end:
                 print("current trial:{}".format(current_trial))
                 print("seconds:{:0.2f}".format(current_experiment_seconds))
@@ -176,8 +172,13 @@ class BaseExperiment:
                 # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
                 # Stimulus presentation overwritten by specific experiment
                 self.present_stimulus(current_trial)
+            elif current_trial_end < current_experiment_seconds:
+                current_trial += 1
+                current_trial_begin = self.current_trial_begin(current_experiment_seconds)
+                current_trial_end = current_trial_begin + self.soa
 
             self.window.flip()
+            current_experiment_seconds = time() - start
 
         # Clearing the screen for the next trial
         event.clearEvents()
@@ -188,6 +189,10 @@ class BaseExperiment:
 
         # Closing the window
         self.window.close()
+
+    def current_trial_begin(self, current_experiment_seconds):
+        iti_with_jitter = self.iti + np.random.rand() * self.jitter
+        return iti_with_jitter + current_experiment_seconds
 
     @property
     def name(self) -> str:
