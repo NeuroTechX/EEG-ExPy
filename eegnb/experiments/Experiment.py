@@ -80,7 +80,7 @@ class BaseExperiment:
         self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
         # Setting up Graphics 
-        self.window = visual.Rift(monoscopic=True, headLocked=False) if self.use_vr else visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=False)
+        self.window = visual.Rift(monoscopic=True, headLocked=False) if self.use_vr else visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
