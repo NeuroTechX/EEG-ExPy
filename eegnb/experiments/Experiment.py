@@ -121,6 +121,7 @@ class BaseExperiment:
                 self.prepare_vr_render()
 
             # Displaying the instructions on the screen
+            # TODO: Reduce size when use_vr is True
             text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
             text.draw()
             self.window.flip()
@@ -150,35 +151,35 @@ class BaseExperiment:
 
         # Run trial until a key is pressed or experiment duration has expired.
         start = time()
-        current_trial = 0
-        current_experiment_seconds = time() - start
-        current_trial_begin = self.current_trial_begin(current_experiment_seconds)
-        current_trial_end = current_trial_begin + self.soa
+        current_trial = -1
+        current_trial_begin = None
+        current_trial_end = -1
         while len(event.getKeys()) == 0 and (time() - start) < self.record_duration:
             if self.use_vr:
                 self.prepare_vr_render()
 
-            print("current trial:{}".format(current_trial))
-            print("seconds:{}".format(current_experiment_seconds))
-            print("current trial begin:{:0.2f}".format(current_trial_begin))
-            print("current_trial_end:{:0.2f}".format(current_trial_end))
-
-            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
-            # Do not present stimulus after trial has ended(stimulus on arrival interval).
-            if current_trial_begin < current_experiment_seconds < current_trial_end:
-                print("current trial:{}".format(current_trial))
-                print("seconds:{:0.2f}".format(current_experiment_seconds))
-
-                # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
-                # Stimulus presentation overwritten by specific experiment
-                self.present_stimulus(current_trial)
-            elif current_trial_end < current_experiment_seconds:
+            current_experiment_seconds = time() - start
+            if current_trial_end < current_experiment_seconds:
                 current_trial += 1
                 current_trial_begin = self.current_trial_begin(current_experiment_seconds)
                 current_trial_end = current_trial_begin + self.soa
 
+            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
+            # Do not present stimulus after trial has ended(stimulus on arrival interval).
+            elif current_trial_begin < current_experiment_seconds:
+                # print("current trial:{}".format(current_trial))
+                # print("seconds:{:0.2f}".format(current_experiment_seconds))
+
+                # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
+                # Stimulus presentation overwritten by specific experiment
+                self.present_stimulus(current_trial)
+
+            # print("current trial:{}".format(current_trial))
+            # print("seconds:{}".format(current_experiment_seconds))
+            # print("current trial begin:{:0.2f}".format(current_trial_begin))
+            # print("current_trial_end:{:0.2f}".format(current_trial_end))
+
             self.window.flip()
-            current_experiment_seconds = time() - start
 
         # Clearing the screen for the next trial
         event.clearEvents()

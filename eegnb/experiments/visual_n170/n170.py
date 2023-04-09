@@ -47,10 +47,10 @@ class VisualN170(Experiment.BaseExperiment):
 
         # Get the label of the trial
         label = self.trials["parameter"].iloc[current_trial]
-        # Get the image to be presented
 
         # if current trial number changed get new choice of image.
         if self.rendering_trial < current_trial:
+            # Get the image to be presented
             self.image = choice(self.faces if label == 1 else self.houses)
             self.rendering_trial = current_trial
             # Pushing the sample to the EEG, and storing a timestamp of stimulus being displayed
