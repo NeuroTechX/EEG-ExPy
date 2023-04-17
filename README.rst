@@ -2,6 +2,19 @@
 EEG-Notebooks
 =============
 
+
+"""
+conda create -y -n eeg_experiments python=3.7 wxpython
+conda activate eeg_experiments
+"""
+
+go to the updated package folder
+
+"""
+pip install -e .
+"""
+
+
 *Democratizing the cognitive neuroscience experiment*
 
 |badge_test| |badge_binder|

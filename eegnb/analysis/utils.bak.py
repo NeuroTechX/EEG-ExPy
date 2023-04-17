@@ -8,9 +8,7 @@ from typing import Union, List, Dict
 from collections import Iterable
 from time import sleep, time
 from numpy.core.fromnumeric import std
-#import keyboard
-from getkey import getkey
-
+import keyboard
 import os
 
 import pandas as pd
@@ -530,10 +528,8 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
 
             prompt_time = time()
             print(f"Starting next cycle in 5 seconds, press C and enter to cancel")    
-            while time() < prompt_time + 5:
-                key = getkey()
-                #if keyboard.is_pressed('c'): 
-                if key == 'c': 
+            while time() < prompt_time + 5:  
+                if keyboard.is_pressed('c'): 
                     print("\nStopping signal quality checks!")
                     flag = True
                     break  
