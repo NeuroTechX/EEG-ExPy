@@ -60,7 +60,7 @@ def runexp(
     """
 
     if prompt:
-        eeg, experiment, recdur, outfname = intro_prompt()
+        eeg, experiment, recdur, outfname, img_path = intro_prompt()
     else:
         # Random values for outfile for now
         outfname = generate_save_fn(eegdevice, experiment,7, 7)

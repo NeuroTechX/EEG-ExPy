@@ -149,6 +149,11 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
     print("\nNext, enter the session number you are recording for. \n")
     session_nb = int(input("Enter session #: "))
 
+    # New image folder
+    print("\nNext, select the image path. \n")
+    img_path = str(input("Enter session #: "))
+
+
     # ask if they are ready to begin
     #print("\nEEG device successfully connected!")
     #input("Press [ENTER] when ready to begin...")
@@ -158,7 +163,7 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
         eeg_device.device_name, exp_selection, subj_id, session_nb 
     )
 
-    return eeg_device, exp_selection, duration, str(save_fn)
+    return eeg_device, exp_selection, duration, str(save_fn), img_path
 
 
 def analysis_device_prompt():

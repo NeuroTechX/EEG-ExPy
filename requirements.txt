@@ -22,6 +22,9 @@ keyboard==0.13.5
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
+pyglet==1.4.11
+getkey
+
 
 # This might try to build from source on linux (since there are no wheels for Linux on PyPI) .
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
