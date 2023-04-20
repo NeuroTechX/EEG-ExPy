@@ -117,12 +117,11 @@ class BaseExperiment:
 
         # Waiting for the user to press the spacebar to start the experiment
         while len(event.getKeys(keyList="space")) == 0:
+            # Displaying the instructions on the screen
+            text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
             if self.use_vr:
                 self.prepare_vr_render()
-
-            # Displaying the instructions on the screen
-            # TODO: Reduce size when use_vr is True
-            text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
+                text.height = 0.05
             text.draw()
             self.window.flip()
 
