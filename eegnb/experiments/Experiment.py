@@ -9,6 +9,7 @@ obj.run()
 """
 
 from abc import abstractmethod
+from typing import Callable
 from psychopy import prefs
 #change the pref libraty to PTB and set the latency mode to high precision
 prefs.hardware['audioLib'] = 'PTB'
@@ -119,20 +120,23 @@ class BaseExperiment:
         while len(event.getKeys(keyList="space")) == 0:
             # Displaying the instructions on the screen
             text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-            if self.use_vr:
-                self.prepare_vr_render()
-                text.height = 0.05
-            text.draw()
-            self.window.flip()
+            self.draw(lambda: text.draw())
 
             # Enabling the cursor again
             self.window.mouseVisible = True
 
-    def prepare_vr_render(self):
-        """ Set the current eye position and projection """
-        tracking_state = self.window.getTrackingState()
-        self.window.calcEyePoses(tracking_state.headPose.thePose)
-        self.window.setDefaultView()
+    def draw(self, present_stimulus: Callable = None):
+        """
+        Set the current eye position and projection for all given stimulus,
+        then draw all stimulus and flip the window/buffer
+         """
+        if self.use_vr:
+            tracking_state = self.window.getTrackingState()
+            self.window.calcEyePoses(tracking_state.headPose.thePose)
+            self.window.setDefaultView()
+        if present_stimulus:
+            present_stimulus()
+        self.window.flip()
        
     def run(self, instructions=True):
         """ Do the present operation for a bunch of experiments """
@@ -150,35 +154,24 @@ class BaseExperiment:
 
         # Run trial until a key is pressed or experiment duration has expired.
         start = time()
-        current_trial = -1
+        current_trial = current_trial_end = -1
         current_trial_begin = None
-        current_trial_end = -1
         while len(event.getKeys()) == 0 and (time() - start) < self.record_duration:
-            if self.use_vr:
-                self.prepare_vr_render()
 
             current_experiment_seconds = time() - start
+            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
             if current_trial_end < current_experiment_seconds:
                 current_trial += 1
                 current_trial_begin = self.current_trial_begin(current_experiment_seconds)
                 current_trial_end = current_trial_begin + self.soa
 
-            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
             elif current_trial_begin < current_experiment_seconds:
-                # print("current trial:{}".format(current_trial))
-                # print("seconds:{:0.2f}".format(current_experiment_seconds))
-
                 # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
                 # Stimulus presentation overwritten by specific experiment
-                self.present_stimulus(current_trial)
-
-            # print("current trial:{}".format(current_trial))
-            # print("seconds:{}".format(current_experiment_seconds))
-            # print("current trial begin:{:0.2f}".format(current_trial_begin))
-            # print("current_trial_end:{:0.2f}".format(current_trial_end))
-
-            self.window.flip()
+                self.draw(lambda: self.present_stimulus(current_trial))
+            else:
+                self.draw()
 
         # Clearing the screen for the next trial
         event.clearEvents()
