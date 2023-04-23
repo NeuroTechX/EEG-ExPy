@@ -20,11 +20,20 @@ from eegnb.devices.eeg import EEG
 from eegnb.stimuli import SUMMER_SCHOOL # FACE_HOUSE
 from eegnb.experiments import Experiment
 
+ITI=0.4
+SOA=0.3
+FOLDER1='houses'
+PHOTOEXT1='*.jpg'
+FOLDER2='mountains'
+PHOTOEXT2='*.png'
+
+JITTER=0.2
+NTRIALS=2010
 
 class VisualN170_modified(Experiment.BaseExperiment):
 
     def __init__(self, duration=120, eeg: EEG=None, save_fn=None,
-            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2):
+            n_trials = NTRIALS, iti = ITI, soa = SOA, jitter = JITTER):
 
         # Set experiment name        
         exp_name = "Visual N170 modified"
@@ -37,9 +46,9 @@ class VisualN170_modified(Experiment.BaseExperiment):
         load_image = lambda fn: visual.ImageStim(win=self.window, image=fn)
 
         # Setting up images for the stimulus
-        self.scene1 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, "houses", "*.3.jpg")))) # face
+        self.scene1 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, FOLDER1, PHOTOEXT1)))) # face
         
-        self.scene2 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, "mountains", "*_3.png")))) # house
+        self.scene2 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, FOLDER2, PHOTOEXT2)))) # house
 
         # Return the list of images as a stimulus object
         return [self.scene1, self.scene2]
