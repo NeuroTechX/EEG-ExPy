@@ -22,7 +22,7 @@ keyboard==0.13.5
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
-pyglet==1.4.11
+pyglet==1.5.11
 getkey
 
 
