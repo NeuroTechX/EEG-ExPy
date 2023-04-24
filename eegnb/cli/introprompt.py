@@ -150,8 +150,9 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
     session_nb = int(input("Enter session #: "))
 
     # New image folder
-    print("\nNext, select the image path. \n")
-    img_path = str(input("Enter session #: "))
+    # print("\nNext, select the image path. \n")
+    #img_path = str(input("Enter session #: "))
+    img_path = 'debug'
 
 
     # ask if they are ready to begin
