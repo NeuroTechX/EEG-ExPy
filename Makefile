@@ -29,7 +29,7 @@ install-deps-apt:
 	# configure dynamic links
 	sudo ldconfig
 	
-	UPDATED_LIBPATH=(sudo find / -name libnotify.so)
+	UPDATED_LIBPATH=$(sudo find / -name libnotify.so)
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$UPDATED_LIBPATH
 
 install-deps-wxpython:
