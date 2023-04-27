@@ -24,7 +24,7 @@ session_nb = 0 # session number
 record_duration = 120 # recording duration
 
 # generate save path
-save_fn = generate_save_fn(board_name, experiment_name, subject_id, subject_nb)
+save_fn = generate_save_fn(board_name, experiment_name, subject_id, session_nb)
 
 # create device object
 eeg_device = EEG(device=board_name)

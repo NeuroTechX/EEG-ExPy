@@ -10,6 +10,7 @@ from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.analysis.utils import check_report
 from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, analysis_report, example_analysis_report
+from typing import Optional
 
 
 @click.group(name="eegnb")
@@ -29,10 +30,10 @@ def main():
 )
 def runexp(
     experiment: str,
-    eegdevice: str = None,
-    macaddr: str = None,
-    recdur: float = None,
-    outfname: str = None,
+    eegdevice: Optional[str] = None,
+    macaddr: Optional[str] = None,
+    recdur: Optional[float] = None,
+    outfname: Optional[str] = None,
     prompt: bool = False,
     dosigqualcheck = True,
     generatereport = True
@@ -105,11 +106,11 @@ def runexp(
 )
 def create_analysis_report(
     experiment: str,
-    eegdevice: str = None,
-    subject: str = None, 
-    session: str = None,
-    site: str = None,
-    filepath:str = None,
+    eegdevice: Optional[str] = None,
+    subject: Optional[str] = None, 
+    session: Optional[str] = None,
+    site: Optional[str] = None,
+    filepath: Optional[str] = None,
     prompt: bool = False,
 ):
     """

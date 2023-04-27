@@ -1,9 +1,9 @@
 # Main repo requirements
-psychopy==2022.2.4
+psychopy==2023.1.0
 psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4
-numpy>=1.19.4
+numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
 mne>=0.20.8
 seaborn>=0.11.0
 pyriemann>=0.2.7
@@ -35,7 +35,7 @@ pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinho
 
 # pyglet downgrade to prevent threadmode warning on windows
 # See issue: https://github.com/psychopy/psychopy/issues/2876
-pyglet==1.4.10 ; platform_system == "Windows"
+pyglet==1.4.11 ; platform_system == "Windows"
 
 # Test requirements
 mypy

@@ -15,10 +15,11 @@ from psychopy import visual, core, event
 from eegnb.stimuli import CAT_DOG
 from eegnb.experiments import Experiment
 from eegnb.devices.eeg import EEG
+from typing import Optional
 
 class VisualP300(Experiment.BaseExperiment):
     
-    def __init__(self, duration=120, eeg: EEG=None, save_fn=None,
+    def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None,
             n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2):
         
         exp_name = "Visual P300"
