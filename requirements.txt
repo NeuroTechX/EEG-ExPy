@@ -38,7 +38,7 @@ pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinho
 
 # pyglet downgrade to prevent threadmode warning on windows
 # See issue: https://github.com/psychopy/psychopy/issues/2876
-pyglet==1.4.10 ; platform_system == "Windows"
+pyglet==1.4.11 ; platform_system == "Windows"
 
 # Test requirements
 mypy
