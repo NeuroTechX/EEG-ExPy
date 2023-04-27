@@ -1,10 +1,11 @@
 from time import time, strftime, gmtime
 from pylsl import StreamInfo, StreamOutlet
-from eegnb.experiments.Experiment import Experiment
 from typing import Optional
+from eegnb.experiments import Experiment
+from eegnb.devices.eeg import EEG
 
 
-class VisualVEP(Experiment):
+class VisualVEP(Experiment.BaseExperiment):
 
     def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None,
             n_trials = 2000, iti = 0.2, soa = 0.2, jitter = 0.1):

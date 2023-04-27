@@ -2,6 +2,7 @@ import copy
 from copy import deepcopy
 import math
 import logging
+import sys
 from collections import OrderedDict
 from glob import glob
 from typing import Union, List#, Dict
@@ -20,6 +21,7 @@ from mne.io import RawArray
 from mne.channels import make_standard_montage
 from mne.filter import create_filter
 from matplotlib import pyplot as plt
+from scipy import stats
 from scipy.signal import lfilter, lfilter_zi
 
 from eegnb import _get_recording_dir
@@ -221,7 +223,8 @@ def plot_conditions(
     ylim=(-6, 6),
     diff_waveform=(1, 2),
     channel_count=4,
-    channel_order=None):
+    channel_order=None,
+):
     """Plot ERP conditions.
     Args:
         epochs (mne.epochs): EEG epochs
@@ -247,10 +250,9 @@ def plot_conditions(
     """
 
     if channel_order:
-      channel_order = np.array(channel_order)
+        channel_order = np.array(channel_order)
     else:
-      channel_order = np.array(range(channel_count))
-
+        channel_order = np.array(range(channel_count))
 
     if isinstance(conditions, dict):
         conditions = OrderedDict(conditions)
@@ -260,7 +262,7 @@ def plot_conditions(
 
     X = epochs.get_data() * 1e6
 
-    X = X[:,channel_order]
+    X = X[:, channel_order]
 
     times = epochs.times
     y = pd.Series(epochs.events[:, -1])
