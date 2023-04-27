@@ -1,5 +1,6 @@
 from time import time, strftime, gmtime
 from pylsl import StreamInfo, StreamOutlet
+from typing import Optional
 from eegnb.experiments import Experiment
 from eegnb.devices.eeg import EEG
 
