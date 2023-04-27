@@ -24,7 +24,8 @@ install-deps-apt:
 	# pulseaudio *might* be required to actually run the tests (on PsychoPy import)
 	# libpulse-dev required to build pocketsphinx (speech recognition dependency of psychopy)
 	# libsdl2-dev required by psychopy
-	sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev portaudio19-dev libpulse-dev pulseaudio libsdl2-dev
+	# libnotify4 is so we can have the libnotify.so module used in wxPython working
+	sudo apt-get -y install xvfb libgtk-3-dev freeglut3-dev portaudio19-dev libpulse-dev pulseaudio libsdl2-dev libnotify4
 	
 	# configure dynamic links
 	sudo ldconfig
