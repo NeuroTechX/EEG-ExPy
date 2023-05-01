@@ -18,10 +18,10 @@ from psychopy import visual, core, event
 
 from eegnb.devices.eeg import EEG
 from eegnb.stimuli import SUMMER_SCHOOL # FACE_HOUSE
-from eegnb.experiments import Experiment
+from eegnb.experiments import Experiment_modified as Experiment
 
 ITI=0.4
-SOA=0.3
+IMG_DUR=2 # 0.3 image show time
 FOLDER1='houses'
 PHOTOEXT1='*.jpg'
 FOLDER2='mountains'
@@ -33,12 +33,12 @@ NTRIALS=2010
 class VisualN170_modified(Experiment.BaseExperiment):
 
     def __init__(self, duration=120, eeg: EEG=None, save_fn=None,
-            n_trials = NTRIALS, iti = ITI, soa = SOA, jitter = JITTER):
+            n_trials = NTRIALS, iti = ITI, img_dur = IMG_DUR, jitter = JITTER):
 
         # Set experiment name        
         exp_name = "Visual N170 modified"
         # Calling the super class constructor to initialize the experiment variables
-        super(VisualN170_modified, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
+        super(VisualN170_modified, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, img_dur, jitter)
 
     def load_stimulus(self):
         
