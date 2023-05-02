@@ -499,8 +499,10 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
 
     sleep(5)
 
-    for loop_index in range(n_times):
-        print(f'\n\n\n{loop_index+1}/{n_times}')
+    loop_index = 0
+    #for loop_index in range(n_times):
+    while True:
+        #print(f'\n\n\n{loop_index+1}/{n_times}')
         std_series = check(eeg, n_samples=n_samples)
 
         indicators = "\n".join(
@@ -529,14 +531,16 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
             prompt_time = time()
-            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")    
-            while time() < prompt_time + 5:
+            print(f"Press <space> to continue, press <C> to cancel")
+            while time() < prompt_time + 1:
                 key = getkey()
                 #if keyboard.is_pressed('c'): 
                 if key == 'c': 
                     print("\nStopping signal quality checks!")
                     flag = True
-                    break  
+                    break
+                #print(f"Press <space> to continue")
+        loop_index += 1
         if flag: 
             break  
             
