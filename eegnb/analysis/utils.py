@@ -531,7 +531,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
             prompt_time = time()
-            print(f"Press <space> to continue, press <C> to cancel")
+            print(f"Press <C> to cancel, any other key to continue:")
             while time() < prompt_time + 1:
                 key = getkey()
                 #if keyboard.is_pressed('c'): 
