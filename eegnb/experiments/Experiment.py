@@ -48,7 +48,7 @@ class BaseExperiment:
         self.soa = soa
         self.jitter = jitter
         self.use_vr = use_vr
-        
+
     @abstractmethod
     def load_stimulus(self):
         """ 
@@ -66,7 +66,7 @@ class BaseExperiment:
         Pushes EEG Sample if EEG is enabled
         Throws error if not overwritten in the specific experiment
 
-        current_trial: Trial index for the current experiment
+        current_trial: Trial index for the current trial
         """
         raise NotImplementedError
 
@@ -120,12 +120,12 @@ class BaseExperiment:
         while len(event.getKeys(keyList="space")) == 0:
             # Displaying the instructions on the screen
             text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-            self.draw(lambda: text.draw())
+            self.__draw(lambda: text.draw())
 
             # Enabling the cursor again
             self.window.mouseVisible = True
 
-    def draw(self, present_stimulus: Callable = None):
+    def __draw(self, present_stimulus: Callable):
         """
         Set the current eye position and projection for all given stimulus,
         then draw all stimulus and flip the window/buffer
@@ -140,6 +140,9 @@ class BaseExperiment:
        
     def run(self, instructions=True):
         """ Do the present operation for a bunch of experiments """
+
+        def iti_with_jitter():
+            return self.iti + np.random.rand() * self.jitter
 
         # Setup the experiment, alternatively could get rid of this line, something to think about
         self.setup(instructions)
@@ -162,16 +165,16 @@ class BaseExperiment:
             # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
             if current_trial_end < current_experiment_seconds:
                 current_trial += 1
-                current_trial_begin = self.current_trial_begin(current_experiment_seconds)
+                current_trial_begin = current_experiment_seconds + iti_with_jitter()
                 current_trial_end = current_trial_begin + self.soa
 
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
             elif current_trial_begin < current_experiment_seconds:
                 # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
                 # Stimulus presentation overwritten by specific experiment
-                self.draw(lambda: self.present_stimulus(current_trial))
+                self.__draw(lambda: self.present_stimulus(current_trial))
             else:
-                self.draw()
+                self.__draw(lambda: None)
 
         # Clearing the screen for the next trial
         event.clearEvents()
@@ -182,10 +185,6 @@ class BaseExperiment:
 
         # Closing the window
         self.window.close()
-
-    def current_trial_begin(self, current_experiment_seconds):
-        iti_with_jitter = self.iti + np.random.rand() * self.jitter
-        return iti_with_jitter + current_experiment_seconds
 
     @property
     def name(self) -> str:
