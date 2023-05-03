@@ -5,7 +5,7 @@ scikit-learn>=0.23.2
 pandas>=1.1.4
 numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
 mne>=0.20.8
-seaborn>=0.9.0
+seaborn>=0.11.0
 pyriemann>=0.2.7
 jupyter
 muselsl>=2.0.2
@@ -27,9 +27,6 @@ attrdict3
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
 click
-
-# can be removed once minimum version is Python 3.7
-dataclasses; python_version == '3.6'
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
