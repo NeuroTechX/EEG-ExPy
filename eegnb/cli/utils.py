@@ -8,8 +8,10 @@ prefs.hardware['audioLatencyMode'] = 3
 from eegnb.devices.eeg import EEG
 
 from eegnb.experiments import VisualN170
-from eegnb.experiments import VisualN170_modified
-from eegnb.experiments import VisualP300
+#from eegnb.experiments import VisualN170_modified
+from eegnb.summerschool import VisualN170_modified
+#from eegnb.experiments import VisualP300
+from eegnb.summerschool import VisualP300
 from eegnb.experiments import VisualSSVEP
 from eegnb.experiments import AuditoryOddball
 from eegnb.experiments.visual_cueing import cueing
