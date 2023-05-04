@@ -1,5 +1,6 @@
 
-from eegnb.experiments import Experiment
+#from eegnb.experiments import Experiment
+from eegnb.summerschool import Experiment_modified as Experiment
 import os
 from time import time
 from glob import glob
@@ -14,9 +15,15 @@ from eegnb.devices.eeg import EEG
 from eegnb import generate_save_fn
 
 
-class VisualSSVEP(Experiment.BaseExperiment):
+ITI=0.4
+SOA=0.3 # 0.3 image show time
+JITTER=0.2
+NTRIALS=2010
 
-    def __init__(self, duration=120, eeg: EEG=None, save_fn=None, n_trials = 2010, iti = 0.5, soa = 3.0, jitter = 0.2):
+
+class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
+
+    def __init__(self, duration=120, eeg: EEG=None, save_fn=None, n_trials = NTRIALS, iti = ITI, soa = SOA, jitter = JITTER):
         
         exp_name = "Visual SSVEP"
         super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)

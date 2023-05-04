@@ -30,7 +30,7 @@ from eegnb.devices.eeg import EEG
 
 class BaseExperiment:
 
-    def __init__(self, exp_name, duration, eeg, save_fn, n_trials, iti, img_dur, jitter):
+    def __init__(self, exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter):
         """ Initializer for the Base Experiment Class """
 
         self.exp_name = exp_name
@@ -41,7 +41,7 @@ class BaseExperiment:
         self.save_fn = save_fn
         self.n_trials = n_trials
         self.iti = iti
-        self.img_dur = img_dur
+        self.soa = soa
         self.jitter = jitter
         
     @abstractmethod
@@ -147,7 +147,7 @@ class BaseExperiment:
             self.present_stimulus(ii, trial)
 
             # Offset
-            core.wait(self.img_dur)
+            core.wait(self.soa)
             self.window.flip()
 
             # Exiting the loop condition, looks ugly and needs to be fixed

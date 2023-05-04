@@ -13,13 +13,23 @@ from pandas import DataFrame
 from psychopy import visual, core, event
 
 from eegnb.stimuli import CAT_DOG
-from eegnb.experiments import Experiment
+#from eegnb.experiments import Experiment
+from eegnb.summerschool import Experiment_modified as Experiment
 from eegnb.devices.eeg import EEG
 
-class VisualP300(Experiment.BaseExperiment):
+ITI=0.4
+SOA=0.3 # 0.3 image show time
+JITTER=0.2
+NTRIALS=2010
+
+IMG_FOLDER=CAT_DOG
+TARGET_FILE="target-*.jpg"
+NONTARGET_FILE="nontarget-*.jpg"
+
+class Summer_School_VisualP300(Experiment.BaseExperiment):
     
     def __init__(self, duration=120, eeg: EEG=None, save_fn=None,
-            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2):
+            n_trials = NTRIALS, iti = ITI, soa = SOA, jitter = JITTER):
         
         exp_name = "Visual P300"
         super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
@@ -28,8 +38,8 @@ class VisualP300(Experiment.BaseExperiment):
         
         load_image = lambda fn: visual.ImageStim(win=self.window, image=fn)
         
-        self.targets = list(map(load_image, glob(os.path.join(CAT_DOG, "target-*.jpg"))))
-        self.nontargets = list(map(load_image, glob(os.path.join(CAT_DOG, "nontarget-*.jpg"))))
+        self.targets = list(map(load_image, glob(os.path.join(IMG_FOLDER, TARGET_FILE))))
+        self.nontargets = list(map(load_image, glob(os.path.join(IMG_FOLDER, NONTARGET_FILE))))
         
         return [self.nontargets, self.targets]
 
