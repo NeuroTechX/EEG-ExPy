@@ -20,6 +20,10 @@ from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
 from eegnb.summerschool import Summer_School_VisualN170
 from eegnb.summerschool import Summer_School_VisualP300
 from eegnb.summerschool import Summer_School_VisualSSVEP
+from eegnb.summerschool.visual_cueing import cueing as Summer_School_cueing
+from eegnb.summerschool.visual_codeprose import codeprose as Summer_School_codeprose
+#from eegnb.summerschool.auditory_oddball import diaconescu as Summer_School_diaconescu
+from eegnb.summerschool.visual_gonogo import go_nogo as Summer_School_go_nogo
 
 NEW_EXP = "Summer School"
 # New Experiment Class structure has a different initilization, to be noted
@@ -29,13 +33,16 @@ experiments = {
     "visual-SSVEP": VisualSSVEP(),
     "visual-cue": cueing,
     "visual-codeprose": codeprose,
-    "auditory-SSAEP orig": ssaep,
-    "auditory-SSAEP onefreq": ssaep_onefreq,
-    "auditory-oddball orig": AuditoryOddball(),
-    "auditory-oddball diaconescu": diaconescu,
+    #"auditory-SSAEP orig": ssaep,
+    #"auditory-SSAEP onefreq": ssaep_onefreq,
+    #"auditory-oddball orig": AuditoryOddball(),
+    #"auditory-oddball diaconescu": diaconescu,
     "Summer School N170": Summer_School_VisualN170(),
     "Summer School P300": Summer_School_VisualP300(),
     "Summer School SSVEP": Summer_School_VisualSSVEP(),
+    "Summer School visual-cue": Summer_School_cueing,
+    "Summer School codeprose": Summer_School_codeprose,
+    "Summer School GoNoGo": Summer_School_go_nogo,
 }
 
 

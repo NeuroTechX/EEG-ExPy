@@ -8,6 +8,11 @@ import scipy.io
 import os
 import sys
 
+ITI = 1
+ITI_JITTER = 0.2
+CUE_TARGET = 1.5
+CUE_TARGET_JITTER = 0.5
+TARGET_LENGTH = 0.05
 
 # TODO: These default values are bad
 def present(duration, subject=0, session=0, **kwargs):
@@ -29,11 +34,11 @@ def present(duration, subject=0, session=0, **kwargs):
     practicing = 1
 
     # seconds
-    iti = 1
-    iti_jitter = 0.2
-    cue_target = 1.5
-    cue_target_jitter = 0.5
-    target_length = 0.05
+    iti = ITI
+    iti_jitter = ITI_JITTER
+    cue_target = CUE_TARGET
+    cue_target_jitter = CUE_TARGET_JITTER
+    target_length = TARGET_LENGTH
 
     cue_validity = 0.80
     record_duration = np.float32(duration)
