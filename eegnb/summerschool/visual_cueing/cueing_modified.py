@@ -13,7 +13,7 @@ ITI_JITTER = 0.2
 CUE_TARGET = 1.5
 CUE_TARGET_JITTER = 0.5
 TARGET_LENGTH = 0.05
-
+NTRIALS = 10 # 2010
 # TODO: These default values are bad
 def present(duration, subject=0, session=0, **kwargs):
     # create
@@ -29,7 +29,7 @@ def present(duration, subject=0, session=0, **kwargs):
     # 31 - incorrect, 32 - Correct
     resp_markernames = [31, 32]
 
-    n_trials = 2010
+    n_trials = NTRIALS
     instruct = 1
     practicing = 1
 

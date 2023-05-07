@@ -22,7 +22,7 @@ from eegnb.stimuli import SUMMER_SCHOOL # FACE_HOUSE
 from eegnb.summerschool import Experiment_modified as Experiment
 
 ITI=0.4
-SOA=2 # 0.3 image show time
+SOA=0.2 # 0.3 image show time
 FOLDER1='houses'
 PHOTOEXT1='*.jpg'
 FOLDER2='mountains'
@@ -31,7 +31,7 @@ PHOTOEXT2='*.png'
 JITTER=0.2
 NTRIALS=2010
 
-class VisualN170_modified(Experiment.BaseExperiment):
+class Summer_School_VisualN170(Experiment.BaseExperiment):
 
     def __init__(self, duration=120, eeg: EEG=None, save_fn=None,
             n_trials = NTRIALS, iti = ITI, soa = SOA, jitter = JITTER):
@@ -39,7 +39,7 @@ class VisualN170_modified(Experiment.BaseExperiment):
         # Set experiment name        
         exp_name = "Visual N170 modified"
         # Calling the super class constructor to initialize the experiment variables
-        super(VisualN170_modified, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
+        super(Summer_School_VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
 
     def load_stimulus(self):
         
@@ -75,5 +75,5 @@ class VisualN170_modified(Experiment.BaseExperiment):
         self.window.flip()
 
 if __name__ == "__main__":
-    module = VisualN170_modified()
+    module = Summer_School_VisualN170()
     module.__init__()
