@@ -58,7 +58,7 @@ def run_experiment(
     experiment: str, eeg_device: EEG, record_duration: float = None, save_fn=None, my_img=None
 ):
     my_list = ["visual-N170", "visual-P300", "visual-SSVEP", "auditory-oddball orig",
-            "Summer School N170", "Summer School P300","Summer School SSVEP"]
+            "Summer_School_N170", "Summer_School_P300","Summer_School_SSVEP"]
     if experiment in experiments:
         module = experiments[experiment]
 
