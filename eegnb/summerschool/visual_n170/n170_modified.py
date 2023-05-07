@@ -22,7 +22,7 @@ from eegnb.stimuli import SUMMER_SCHOOL # FACE_HOUSE
 from eegnb.summerschool import Experiment_modified as Experiment
 
 ITI=0.4
-SOA=0.2 # 0.3 image show time
+SOA=0.3 # 0.3 image show time
 FOLDER1='houses'
 PHOTOEXT1='*.jpg'
 FOLDER2='mountains'
