@@ -21,10 +21,10 @@ from eegnb.summerschool import Summer_School_VisualN170
 from eegnb.summerschool import Summer_School_VisualP300
 from eegnb.summerschool import Summer_School_VisualSSVEP
 from eegnb.summerschool import Summer_School_AuditoryOddball
-from eegnb.summerschool.visual_cueing import cueing_modified as Summer_School_cueing
-from eegnb.summerschool.visual_codeprose import codeprose_modified as Summer_School_codeprose
+from eegnb.summerschool.visual_cueing import summer_school_cueing as Summer_School_cueing
+from eegnb.summerschool.visual_codeprose import summer_school_codeprose as Summer_School_codeprose
 #from eegnb.summerschool.auditory_oddball import diaconescu as Summer_School_diaconescu
-from eegnb.summerschool.visual_gonogo import go_nogo_modified as Summer_School_go_nogo
+from eegnb.summerschool.visual_gonogo import summer_school_go_nogo as Summer_School_go_nogo
 
 NEW_EXP = "Summer School"
 # New Experiment Class structure has a different initilization, to be noted
