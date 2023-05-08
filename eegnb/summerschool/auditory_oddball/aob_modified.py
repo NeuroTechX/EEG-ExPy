@@ -6,10 +6,14 @@ from time import time
 from eegnb.devices.eeg import EEG
 from eegnb.experiments import Experiment
 
+ITI=0.3
+SOA=0.2 # 0.3 image show time
+JITTER=0.2
+NTRIALS=2010
 
-class AuditoryOddball(Experiment.BaseExperiment):
+class Summer_School_AuditoryOddball(Experiment.BaseExperiment):
     
-    def __init__(self, duration=120, eeg: EEG=None, save_fn=None, n_trials = 2010, iti = 0.3, soa = 0.2, jitter = 0.2, secs=0.2, volume=0.8, random_state=42, s1_freq="C", s2_freq="D", s1_octave=5, s2_octave=6):
+    def __init__(self, duration=120, eeg: EEG=None, save_fn=None, n_trials = NTRIALS, iti = ITI, soa = SOA, jitter = JITTER, secs=0.2, volume=0.8, random_state=42, s1_freq="C", s2_freq="D", s1_octave=5, s2_octave=6):
         """
 
         Auditory Oddball Experiment
