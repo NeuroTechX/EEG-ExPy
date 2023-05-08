@@ -74,9 +74,10 @@ raw.filter(1,30, method='iir')
 
 # Create an array containing the timestamps and type of each stimulus (i.e. face or house)
 events = find_events(raw)
-event_id = {'House': 1, 'Face': 2}
+event_id = {'Class 1': 1, 'Class 2': 2}
 
 # Create an MNE Epochs object representing all the epochs around stimulus presentation
+# 
 epochs = Epochs(raw, events=events, event_id=event_id, 
                 tmin=-0.1, tmax=0.8, baseline=None,
                 reject={'eeg': 75e-6}, preload=True,
