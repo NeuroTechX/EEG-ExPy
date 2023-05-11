@@ -118,7 +118,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
    from eegnb.analysis.utils import load_data
 
    # Define some variables
-   board_name = 'synthetic' #this can be change to other board name
+   board_name = 'synthetic' #this can be changed to other board names
    # board_name = 'cyton'
    experiment = 'visual_n170'
    session = 999
@@ -142,7 +142,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
 
    # Saved csv location
    print("Recording saved in", experiment.save_fn)
-   
+
    # Load recorded data
    raw = load_data(subject, session, board_names, experiment)
 
