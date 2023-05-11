@@ -17,7 +17,8 @@ from eegnb.devices.eeg import EEG
 from eegnb.experiments import VisualN170
 
 # Define some variables
-board_name = "muse2" # board name
+# board_name = "muse2" # board name
+board_name = "synthetic" # board name
 experiment_name = "visual_n170" # experiment name
 subject_id = 0 # test subject id
 session_nb = 0 # session number
