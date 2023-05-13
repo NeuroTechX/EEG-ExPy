@@ -181,9 +181,12 @@ def load_data(
     subject_str = "*" if subject == "all" else f"subject{subject_int:04}"
     session_str = "*" if session == "all" else f"session{session_int:03}"
 
-    recdir = _get_recording_dir(device_name, experiment, subject_str, session_str, site)#, data_dir)
+    if data_dir:
+        recdir = _get_recording_dir(device_name, experiment, subject_str, session_str, site, data_dir)
+    else:
+        recdir = _get_recording_dir(device_name, experiment, subject_str, session_str, site)#, data_dir)
     data_path = os.path.join(data_dir, recdir, "*.csv")
-
+    print(data_dir)
     fnames = glob(str(data_path))
 
     if len(fnames) == 0:

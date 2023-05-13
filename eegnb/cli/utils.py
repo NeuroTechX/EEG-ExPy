@@ -18,7 +18,6 @@ from eegnb.experiments.auditory_oddball import diaconescu
 from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
 
 from eegnb.summerschool import Summer_School_VisualN170
-from eegnb.summerschool import Summer_School_VisualP300
 from eegnb.summerschool import Summer_School_VisualSSVEP
 from eegnb.summerschool import Summer_School_AuditoryOddball
 from eegnb.summerschool.visual_cueing import summer_school_cueing as Summer_School_cueing
@@ -39,7 +38,6 @@ experiments = {
     "auditory-oddball orig": AuditoryOddball(),
     #"auditory-oddball diaconescu": diaconescu,
     "Summer_School_N170": Summer_School_VisualN170(),
-    "Summer_School_P300": Summer_School_VisualP300(),
     "Summer_School_SSVEP": Summer_School_VisualSSVEP(),
     "Summer_School_visual-cue": Summer_School_cueing,
     "Summer_School_codeprose": Summer_School_codeprose,

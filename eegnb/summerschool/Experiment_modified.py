@@ -151,7 +151,10 @@ class BaseExperiment:
             self.window.flip()
 
             # Exiting the loop condition, looks ugly and needs to be fixed
-            if len(event.getKeys()) > 0 or (time() - start) > self.record_duration:
+            #if len(event.getKeys()) > 0 or (time() - start) > self.record_duration:
+            #    break
+            
+            if event.getKeys('c') or (time() - start) > self.record_duration:
                 break
 
             # Clearing the screen for the next trial    

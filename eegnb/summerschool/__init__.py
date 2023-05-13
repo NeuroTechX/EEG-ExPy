@@ -1,5 +1,4 @@
 #from .visual_n170.n170 import VisualN170
 from .visual_n170.summer_school_n170 import Summer_School_VisualN170
-from .visual_p300.summer_school_p300 import Summer_School_VisualP300
 from .visual_ssvep.summer_school_ssvep import Summer_School_VisualSSVEP
 from .auditory_oddball.summer_school_aob import Summer_School_AuditoryOddball
