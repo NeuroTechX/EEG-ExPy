@@ -42,7 +42,7 @@ from pyriemann.tangentspace import TangentSpace
 from pyriemann.classification import MDM
 
 
-MAIN_PATH = '/home/peng/work/tx/test/'
+MAIN_PATH = '~/work/tx/test/'
 DEVICE_NAME = 'unicorn'
 FIG_PATH = MAIN_PATH
 ###################################################################################################

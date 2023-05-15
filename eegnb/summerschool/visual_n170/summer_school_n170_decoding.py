@@ -47,7 +47,7 @@ from pyriemann.classification import MDM
 # ( See the n170 `load_and_visualize` example for further description of this)
 #
 
-MAIN_PATH = '/home/peng/work/tx/test/'
+MAIN_PATH = '~/work/tx/test/'
 FIG_PATH = MAIN_PATH
 DEVICE_NAME = 'unicorn'
 
