@@ -42,8 +42,9 @@ from pyriemann.tangentspace import TangentSpace
 from pyriemann.classification import MDM
 
 
-main_path = '/home/peng/work/tx/test/'
+MAIN_PATH = '/home/peng/work/tx/test/'
 DEVICE_NAME = 'unicorn'
+FIG_PATH = MAIN_PATH
 ###################################################################################################
 # Load Data
 # ---------------------
@@ -52,7 +53,7 @@ DEVICE_NAME = 'unicorn'
 #
 
 #eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')    
-eegnb_data_path = os.path.join(main_path,'.eegnb', 'data') 
+eegnb_data_path = os.path.join(MAIN_PATH,'eegnb', 'data') 
 #ssvep_data_path = os.path.join(eegnb_data_path, 'visual-SSVEP', 'eegnb_examples')
 
 # If dataset hasn't been downloaded yet, download it 
@@ -159,3 +160,5 @@ fig = plt.figure(figsize=[8,4])
 sns.barplot(data=results, x='AUC', y='Method')
 plt.xlim(0.4, 1)
 sns.despine()
+
+plt.savefig(os.path.join(FIG_PATH, 'ssvep.png'))

@@ -29,6 +29,8 @@ from eegnb.analysis.utils import load_data
 ###################################################################################################
 # Download the data
 # -----------------------------
+main_path = '/home/peng/work/tx/test/'
+DEVICE_NAME = 'unicorn'
 
 eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
 cueing_data_path = os.path.join(eegnb_data_path, 'visual-cueing', 'kylemathlab_dev')
