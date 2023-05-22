@@ -35,7 +35,7 @@ class BaseExperiment:
 
         self.exp_name = exp_name
         self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
-        Press spacebar to continue. \n""".format(self.exp_name)
+        Press spacebar to continue and c to terminate. \n""".format(self.exp_name)
         self.duration = duration
         self.eeg = eeg
         self.save_fn = save_fn

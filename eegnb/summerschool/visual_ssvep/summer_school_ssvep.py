@@ -19,8 +19,8 @@ ITI=0.4
 SOA=0.1333*10 # must be multiples of 1/Hz
 JITTER=0.2
 NTRIALS=2010
-Introduction_msg = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
-        Press spacebar to continue. \n""".format(self.exp_name)
+Introduction_msg = """\nWelcome to the SSVEP experiment!\nStay still, focus on the stimuli, and try not to blink. \nThis block will run for %s seconds.\n
+        Press spacebar to continue and c to terminate. \n"""
 
 class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
 
