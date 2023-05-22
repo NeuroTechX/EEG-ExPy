@@ -42,9 +42,10 @@ from pyriemann.tangentspace import TangentSpace
 from pyriemann.classification import MDM
 
 
-MAIN_PATH = '~/work/tx/test/'
+MAIN_PATH = os.path.join(os.path.expanduser('~/'), 'work/tx/test/')
 DEVICE_NAME = 'unicorn'
 FIG_PATH = MAIN_PATH
+CHANNEL_NAME = 'Oz'
 ###################################################################################################
 # Load Data
 # ---------------------
@@ -93,7 +94,7 @@ print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 #    - Apply common classification pipelines
 
 # Bandpass filter the raw data
-muse_raw = raw.drop_channels(['POz'])
+muse_raw = raw.drop_channels([CHANNEL_NAME])
 raw_filt_30Hz = muse_raw.copy().filter(25, 35, method='iir')
 raw_filt_20Hz = muse_raw.copy().filter(15, 25, method='iir')
 raw_filt_30Hz.rename_channels(lambda x: x + '_30Hz')
@@ -156,9 +157,10 @@ for m in clfs:
 results = pd.DataFrame(data=auc, columns=['AUC'])
 results['Method'] = methods
 
-fig = plt.figure(figsize=[8,4])
+fig = plt.figure() # figsize=[8,4]
 sns.barplot(data=results, x='AUC', y='Method')
 plt.xlim(0.4, 1)
 sns.despine()
+fig.tight_layout()
 
-plt.savefig(os.path.join(FIG_PATH, 'ssvep.png'))
+plt.savefig(os.path.join(FIG_PATH, 'ssvep_' + CHANNEL_NAME + '.png'))
