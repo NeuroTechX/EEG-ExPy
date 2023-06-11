@@ -74,6 +74,8 @@ class Summer_School_VisualN170(Experiment.BaseExperiment):
         
         self.window.flip()
 
+        return []
+
 if __name__ == "__main__":
     module = Summer_School_VisualN170()
     module.__init__()

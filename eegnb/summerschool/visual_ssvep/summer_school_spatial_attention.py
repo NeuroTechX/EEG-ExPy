@@ -154,9 +154,9 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         # left \u2190 # right \u2192
         arr_choice = choice([0,1])
         if arr_choice == 0: # left
-            grating_arrow = self.arrow_left
+            stim_arrow = self.arrow_left
         else: # right
-            grating_arrow = self.arrow_right
+            stim_arrow = self.arrow_right
 
         # select the position of 7.5 Hz flickr
         flk_pos = choice([0,1])
@@ -188,7 +188,7 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
 
         grating_choice.setAutoDraw(False)
         for _ in range(int(T_ARROW * self.frame_rate) ):
-            grating_arrow.draw()
+            stim_arrow.draw()
             self.window.flip()
 
         for _ in range(int(SOA * self.frame_rate) ): #range(int(self.stim_patterns[ind]["cycle"][0])):
@@ -199,13 +199,12 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
                 #self.window.flip()
                 grating_choice_opposite.draw()
             
-            #grating_arrow.draw()
-
             self.window.flip()
             current_frame += 1  # increment by 1.
         #grating_choice.setAutoDraw(False)
         self.random_record = [arr_choice, flk_pos, flk_sti]
 
+        return self.random_record
     
 
         
