@@ -27,7 +27,7 @@ FOLDER1='houses'
 PHOTOEXT1='*.jpg'
 FOLDER2='mountains'
 PHOTOEXT2='*.png'
-
+BACKGROUND_COLOR=[-1,-1,-1]
 JITTER=0.2
 NTRIALS=2010
 
@@ -39,7 +39,7 @@ class Summer_School_VisualN170(Experiment.BaseExperiment):
         # Set experiment name        
         exp_name = "Visual N170 modified"
         # Calling the super class constructor to initialize the experiment variables
-        super(Summer_School_VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
+        super(Summer_School_VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, default_color=BACKGROUND_COLOR)
 
     def load_stimulus(self):
         

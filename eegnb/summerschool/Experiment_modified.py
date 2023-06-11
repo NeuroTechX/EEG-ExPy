@@ -30,7 +30,7 @@ from eegnb.devices.eeg import EEG
 
 class BaseExperiment:
 
-    def __init__(self, exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter):
+    def __init__(self, exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, default_color=[0,0,0]):
         """ Initializer for the Base Experiment Class """
 
         self.exp_name = exp_name
@@ -43,6 +43,7 @@ class BaseExperiment:
         self.iti = iti
         self.soa = soa
         self.jitter = jitter
+        self.default_color=default_color
         
     @abstractmethod
     def load_stimulus(self):
@@ -76,7 +77,7 @@ class BaseExperiment:
         self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
         # Setting up Graphics 
-        self.window = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True) 
+        self.window = visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True, color=self.default_color) 
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
