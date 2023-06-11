@@ -19,7 +19,7 @@ from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
 
 from eegnb.summerschool import Summer_School_VisualN170
 from eegnb.summerschool import Summer_School_VisualSSVEP
-from eegnb.summerschool import Summer_School_VisualSSVEP_dual as Summer_School_VisualSSVEP_spatial
+from eegnb.summerschool import Summer_School_Spatial_Attention as Summer_School_Spatial_Attention
 from eegnb.summerschool import Summer_School_AuditoryOddball
 from eegnb.summerschool.visual_cueing import summer_school_cueing as Summer_School_cueing
 from eegnb.summerschool.visual_codeprose import summer_school_codeprose as Summer_School_codeprose
@@ -40,7 +40,7 @@ experiments = {
     "auditory-oddball orig": AuditoryOddball(),
     #"auditory-oddball diaconescu": diaconescu,
     "Summer_School_N170": Summer_School_VisualN170(),
-    "Summer_School_Spatial_Attention": Summer_School_VisualSSVEP_spatial(),
+    "Summer_School_Spatial_Attention": Summer_School_Spatial_Attention(),
     "Summer_School_SSVEP": Summer_School_VisualSSVEP(),
     "Summer_School_visual-cue": Summer_School_cueing,
     "Summer_School_codeprose": Summer_School_codeprose,

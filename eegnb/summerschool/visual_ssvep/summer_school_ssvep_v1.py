@@ -42,7 +42,7 @@ T_ARROW=1
 Introduction_msg = """\nWelcome to the SSVEP experiment!\nStay still, focus on the stimuli, and try not to blink. \nThis block will run for %s seconds.\n
         Press spacebar to continue and c to terminate. \n"""
 
-class Summer_School_VisualSSVEP_dual(Experiment.BaseExperiment):
+class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
 
     def __init__(self, duration=120, eeg: EEG=None, save_fn=None, n_trials = NTRIALS, iti = ITI, soa = 0, jitter = JITTER):
         
@@ -181,7 +181,7 @@ class Summer_School_VisualSSVEP_dual(Experiment.BaseExperiment):
             self.window.flip()
             current_frame += 1  # increment by 1.
         #grating_choice.setAutoDraw(False)
-        self.random_record = [arr_choice, flk_pos, flk_sti]
+        self.random_record = [flk_pos, flk_sti]
 
     def present_stimulus_1flickr(self, idx, trial): # 1 flickr
         
