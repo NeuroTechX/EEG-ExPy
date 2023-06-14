@@ -27,7 +27,6 @@ from psychopy import visual, core, event
 
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-import json
 
 class BaseExperiment:
 
@@ -139,9 +138,9 @@ class BaseExperiment:
 
         start = time()
         
-        self.res_output = {}
         # Iterate through the events
         for ii, trial in self.trials.iterrows():
+          
             # Intertrial interval
             core.wait(self.iti + np.random.rand() * self.jitter)
 
@@ -162,10 +161,6 @@ class BaseExperiment:
             # Clearing the screen for the next trial    
             event.clearEvents()
         
-        # save json
-        with open(self.save_fn + '.json', 'w') as fp:
-            json.dump(self.res_output, fp)
-
         # Closing the EEG stream 
         if self.eeg:
             self.eeg.stop()

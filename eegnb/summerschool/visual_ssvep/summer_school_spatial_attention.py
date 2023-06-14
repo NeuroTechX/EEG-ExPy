@@ -31,6 +31,11 @@ FIXATION_COLOR=[1, 0, 0]
 [1.0,-1,-1] is red
 [1.0,0.6,0.6] is pink
 """
+image_path = ['houses', 'mountains']
+update_freq = [7.5, 10]
+x_offset = [-10, 10]
+y_offset = [0]
+
 STI_CHOICE=1 # 0 for the original gratings, 1 for the pictures specified below
 IMG_DISPLAY_SIZE=[10,10] #  width, height
 FOLDER1='houses'
@@ -48,6 +53,10 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         
         exp_name = "Spatial Attention"
         self.grating_size = [40, 10]
+        self.FOLDER1 = image_path[0]
+        self.FOLDER2 = image_path[1]
+        self.STI_LOC_WIDTH = x_offset
+        self.STI_LOC_HEIGHT = y_offset
         
         super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, default_color=BACKGROUND_COLOR)
 
@@ -57,9 +66,9 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         load_image = lambda fn: visual.ImageStim(win=self.window, image=fn, size=IMG_DISPLAY_SIZE)
 
         # Setting up images for the stimulus
-        self.scene1 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, FOLDER1, PHOTOEXT1)))) # face
+        self.scene1 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, self.FOLDER1, PHOTOEXT1)))) # face
         
-        self.scene2 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, FOLDER2, PHOTOEXT2)))) # house
+        self.scene2 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, self.FOLDER2, PHOTOEXT2)))) # house
 
         # Return the list of images as a stimulus object
         return [self.scene1, self.scene2]
@@ -138,9 +147,11 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
 
     def present_stimulus(self, idx, trial): # 2 flickr
         #self.window.color = BACKGROUND_COLOR
+
+        """
         # Select stimulus frequency
         ind = self.trials["parameter"].iloc[idx]
-
+        
         # Push sample
         if self.eeg:
             timestamp = time()
@@ -149,6 +160,7 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
             else:
                 marker = self.markernames[ind]
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
+        """
 
         # https://discourse.psychopy.org/t/i-need-advice-about-one-stimuli/29756/3
         # left \u2190 # right \u2192
@@ -161,7 +173,7 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         # select the position of 7.5 Hz flickr
         flk_pos = choice([0,1])
         flk_sti = choice([0,1])
-
+        flk_frq = choice([0,1])
         
         mylist = [STI_LOC_WIDTH,-STI_LOC_WIDTH]
         if STI_CHOICE == 0:
@@ -180,11 +192,30 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         grating_choice_opposite = gratinglist[flk_sti-1]
         grating_choice_opposite.pos = (mylist[flk_pos-1], STI_LOC_HEIGHT)
 
-        
+        freq_list = [7.5, 12]
+        flicker_frequency = freq_list[flk_frq]
+        flicker_frequency_opposite = freq_list[flk_frq-1]
 
-        # [7.5, 12]
-        flicker_frequency = 7.5
-        flicker_frequency_opposite = 12
+        # Push sample for marker
+        #marker_content = 'flicker{}_freq{}_arrow{}'.format(flk_sti, flicker_frequency, arr_choice)
+        marker_content = flk_frq + 1
+        stim_list = [0,1]
+        print('idx: {}'.format(idx))
+
+        # prepare json
+        self.res_output[idx] = {
+            'categories': [stim_list[flk_sti], stim_list[flk_sti-1]],
+            'frequency': [flicker_frequency, flicker_frequency_opposite],
+            'attention': [0, 1] if arr_choice == 0 else [1,0]
+        }
+        
+        if self.eeg:
+            timestamp = time()
+            if self.eeg.backend == "muselsl":
+                marker = [marker_content]
+            else:
+                marker = marker_content
+            self.eeg.push_sample(marker=marker, timestamp=timestamp)
 
         grating_choice.setAutoDraw(False)
         for _ in range(int(T_ARROW * self.frame_rate) ):
