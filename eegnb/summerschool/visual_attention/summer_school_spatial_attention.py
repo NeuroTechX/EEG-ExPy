@@ -13,7 +13,7 @@ from psychopy import visual, core, event
 
 from eegnb.devices.eeg import EEG
 from eegnb import generate_save_fn
-from eegnb.stimuli import SUMMER_SCHOOL
+from eegnb.stimuli import SUMMER_SCHOOL, FACE_HOUSE
 
 ITI=0.4
 SOA=1
@@ -31,17 +31,18 @@ FIXATION_COLOR=[1, 0, 0]
 [1.0,-1,-1] is red
 [1.0,0.6,0.6] is pink
 """
-image_path = ['houses', 'mountains']
-update_freq = [7.5, 10]
+image_path = ['houses', 'faces']
+update_freq = [7.5, 12]
 x_offset = [-10, 10]
 y_offset = [0]
 
 STI_CHOICE=1 # 0 for the original gratings, 1 for the pictures specified below
 IMG_DISPLAY_SIZE=[10,10] #  width, height
-FOLDER1='houses'
+""" FOLDER1='houses'
+FOLDER2='faces'
+ """
 PHOTOEXT1='*.jpg'
-FOLDER2='mountains'
-PHOTOEXT2='*.png'
+PHOTOEXT2='*.jpg'
 
 T_ARROW=1
 Introduction_msg = """\nWelcome to the SSVEP experiment!\nStay still, focus on the stimuli, and try not to blink. \nThis block will run for %s seconds.\n
@@ -53,8 +54,6 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         
         exp_name = "Spatial Attention"
         self.grating_size = [40, 10]
-        self.FOLDER1 = image_path[0]
-        self.FOLDER2 = image_path[1]
         self.STI_LOC_WIDTH = x_offset
         self.STI_LOC_HEIGHT = y_offset
         
@@ -66,9 +65,9 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         load_image = lambda fn: visual.ImageStim(win=self.window, image=fn, size=IMG_DISPLAY_SIZE)
 
         # Setting up images for the stimulus
-        self.scene1 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, self.FOLDER1, PHOTOEXT1)))) # face
+        self.scene1 = list(map(load_image, glob(os.path.join(FACE_HOUSE, image_path[0], PHOTOEXT1)))) # face
         
-        self.scene2 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, self.FOLDER2, PHOTOEXT2)))) # house
+        self.scene2 = list(map(load_image, glob(os.path.join(FACE_HOUSE, image_path[1], PHOTOEXT2)))) # house
 
         # Return the list of images as a stimulus object
         return [self.scene1, self.scene2]
@@ -173,7 +172,7 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         # select the position of 7.5 Hz flickr
         flk_pos = choice([0,1])
         flk_sti = choice([0,1])
-        flk_frq = choice([0,1])
+        flk_frq = flk_sti # choice([0,1])
         
         mylist = [STI_LOC_WIDTH,-STI_LOC_WIDTH]
         if STI_CHOICE == 0:
@@ -192,14 +191,14 @@ class Summer_School_Spatial_Attention(Experiment.BaseExperiment):
         grating_choice_opposite = gratinglist[flk_sti-1]
         grating_choice_opposite.pos = (mylist[flk_pos-1], STI_LOC_HEIGHT)
 
-        freq_list = [7.5, 12]
+        freq_list = update_freq
         flicker_frequency = freq_list[flk_frq]
         flicker_frequency_opposite = freq_list[flk_frq-1]
 
         # Push sample for marker
         #marker_content = 'flicker{}_freq{}_arrow{}'.format(flk_sti, flicker_frequency, arr_choice)
         marker_content = flk_frq + 1
-        stim_list = [0,1]
+        stim_list = [1,2]
         print('idx: {}'.format(idx))
 
         # prepare json
