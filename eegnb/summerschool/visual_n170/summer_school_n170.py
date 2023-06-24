@@ -17,17 +17,17 @@ from pandas import DataFrame
 from psychopy import visual, core, event
 
 from eegnb.devices.eeg import EEG
-from eegnb.stimuli import SUMMER_SCHOOL # FACE_HOUSE
+from eegnb.stimuli import SUMMER_SCHOOL, FACE_HOUSE
 #from eegnb.experiments import Experiment_modified as Experiment
 from eegnb.summerschool import Experiment_modified as Experiment
 
 ITI=0.4
 SOA=0.3 # 0.3 image show time
-FOLDER1='houses'
-PHOTOEXT1='*.jpg'
-FOLDER2='mountains'
-PHOTOEXT2='*.png'
-BACKGROUND_COLOR=[-1,-1,-1]
+FOLDER1='faces'
+PHOTOEXT1='*_3.jpg'
+FOLDER2='houses'
+PHOTOEXT2='*.3.jpg'
+BACKGROUND_COLOR=[1,0.6,0.6]
 JITTER=0.2
 NTRIALS=2010
 
@@ -47,9 +47,9 @@ class Summer_School_VisualN170(Experiment.BaseExperiment):
         load_image = lambda fn: visual.ImageStim(win=self.window, image=fn)
 
         # Setting up images for the stimulus
-        self.scene1 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, FOLDER1, PHOTOEXT1)))) # face
+        self.scene1 = list(map(load_image, glob(os.path.join(FACE_HOUSE, FOLDER1, PHOTOEXT1)))) # face
         
-        self.scene2 = list(map(load_image, glob(os.path.join(SUMMER_SCHOOL, FOLDER2, PHOTOEXT2)))) # house
+        self.scene2 = list(map(load_image, glob(os.path.join(FACE_HOUSE, FOLDER2, PHOTOEXT2)))) # house
 
         # Return the list of images as a stimulus object
         return [self.scene1, self.scene2]
