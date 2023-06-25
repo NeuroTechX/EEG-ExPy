@@ -32,13 +32,13 @@ FIXATION_COLOR=[1, 0, 0]
 [1.0,0.6,0.6] is pink
 """
 image_path = ['faces', 'faces']#['houses', 'faces']
-update_freq = [12, 12]#[7.5, 12]
+update_freq = 20 #[7.5, 12]
 x_offset = [0, 0]#[-10, 10]
 y_offset = [0]
 
 
 STI_CHOICE=1 # 0 for the original gratings, 1 for the pictures specified below
-IMG_DISPLAY_SIZE=[10,10] #  width, height
+IMG_DISPLAY_SIZE=[20,20] #[10,10] #  width, height
 FOLDER1='houses'
 PHOTOEXT1='*.jpg'
 FOLDER2='mountains'
@@ -165,7 +165,6 @@ class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
         
         # Present flickering stim
         # https://stackoverflow.com/questions/37469796/where-can-i-find-flickering-functions-for-stimuli-on-psychopy-and-how-do-i-use
-        #for _ in range(int(self.stim_patterns[ind]["n_cycles"])):
         current_frame = 0
         if STI_CHOICE == 0:
             grating_choice = self.gratinglist[flk_sti]
@@ -173,12 +172,10 @@ class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
             grating_choice = choice(self.gratinglist[flk_sti])
         grating_choice.pos = (mylist[flk_pos], STI_LOC_HEIGHT)
 
-        # [7.5, 12]
-        flk_frq = choice([0,1])
-        flicker_frequency = update_freq[flk_frq] #7.5
+        # flicker frequency
+        flicker_frequency = update_freq
         
         # Push sample for marker
-        #marker_content = 'flicker{}_freq{}_arrow{}'.format(flk_sti, flicker_frequency, arr_choice)
         marker_content = 1 #flk_frq + 1
         stim_list = [1,2]
         print('idx: {}'.format(idx))
@@ -204,8 +201,8 @@ class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
                 grating_choice.draw()
             
             self.window.flip()
-            current_frame += 1  # increment by 1.
-        #grating_choice.setAutoDraw(False)
+            current_frame += 1
+        
         self.random_record = [flk_pos, flk_sti]
 
         return self.random_record
