@@ -1,6 +1,3 @@
-
-#from eegnb.experiments import Experiment
-from eegnb.summerschool import Experiment_modified as Experiment
 import os
 from time import time
 from glob import glob
@@ -10,10 +7,10 @@ import numpy as np
 from pandas import DataFrame
 from psychopy import visual, core, event
 
-
 from eegnb.devices.eeg import EEG
 from eegnb import generate_save_fn
 from eegnb.stimuli import SUMMER_SCHOOL, FACE_HOUSE
+from eegnb.summerschool import Experiment_modified as Experiment
 
 ITI=0.4
 SOA=2
@@ -37,8 +34,8 @@ x_offset = [0, 0]#[-10, 10]
 y_offset = [0]
 
 
-STI_CHOICE=1 # 0 for the original gratings, 1 for the pictures specified below
-IMG_DISPLAY_SIZE=[20,20] #[10,10] #  width, height
+STI_CHOICE=0 # 0 for the original gratings, 1 for the pictures specified below
+IMG_DISPLAY_SIZE=[20,10] #[10,10] #  width, height
 FOLDER1='houses'
 PHOTOEXT1='*.jpg'
 FOLDER2='mountains'
@@ -53,7 +50,7 @@ class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
     def __init__(self, duration=120, eeg: EEG=None, save_fn=None, n_trials = NTRIALS, iti = ITI, soa = 0, jitter = JITTER):
         
         exp_name = "Visual SSVEP"
-        self.grating_size = [40, 10]
+        self.grating_size = IMG_DISPLAY_SIZE
         
         super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, default_color=BACKGROUND_COLOR)
 
@@ -142,7 +139,6 @@ class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
 
 
     def present_stimulus(self, idx, trial): # 2 flickr
-        #self.window.color = BACKGROUND_COLOR
         # Select stimulus frequency
         ind = self.trials["parameter"].iloc[idx]
 
@@ -235,13 +231,8 @@ class Summer_School_VisualSSVEP(Experiment.BaseExperiment):
         grating_choice.setAutoDraw(False)
         for _ in range(int(SOA * self.frame_rate) ): #range(int(self.stim_patterns[ind]["cycle"][0])):
             if current_frame % (2*flicker_frequency) < flicker_frequency:
-                #self.window.flip()
                 grating_choice.draw()
+
             self.window.flip()
             current_frame += 1  # increment by 1.
-        #grating_choice.setAutoDraw(False)
-
         
-    
-    
-    
