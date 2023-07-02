@@ -5,7 +5,7 @@ cd eeg-notebook
 git pull
 ```
 
-## Installation
+## Installation on personal computers
 
 ```
 conda create -y -n eeg_experiments python=3.7 wxpython
