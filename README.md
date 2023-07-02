@@ -1,4 +1,9 @@
 # Welcome to the modified eeg-notebooks
+## Run from University Computers
+```
+cd eeg-notebook
+git pull
+```
 
 ## Installation
 
@@ -17,3 +22,4 @@ Then, turn on your device and run the modified N170 (house vs. landscape):
 ```
 eegnb runexp -ip
 ```
+
