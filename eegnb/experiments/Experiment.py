@@ -26,7 +26,7 @@ from eegnb import generate_save_fn
 
 class BaseExperiment:
 
-    def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float, use_vr: bool):
+    def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float, use_vr=False):
         """ Initializer for the Base Experiment Class
 
         Args:
