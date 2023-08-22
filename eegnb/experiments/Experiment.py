@@ -24,9 +24,11 @@ from psychopy import visual, event
 
 from eegnb import generate_save_fn
 
+
 class BaseExperiment:
 
-    def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float, use_vr=False):
+    def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
+                 use_vr=False):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -59,14 +61,14 @@ class BaseExperiment:
         raise NotImplementedError
 
     @abstractmethod
-    def present_stimulus(self, current_trial: int):
+    def present_stimulus(self, idx : int):
         """
         Method that presents the stimulus for the specific experiment, overwritten by the specific experiment
         Displays the stimulus on the screen
         Pushes EEG Sample if EEG is enabled
         Throws error if not overwritten in the specific experiment
 
-        current_trial: Trial index for the current trial
+        idx : Trial index for the current trial
         """
         raise NotImplementedError
 
@@ -81,7 +83,9 @@ class BaseExperiment:
         self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
         # Setting up Graphics 
-        self.window = visual.Rift(monoscopic=True, headLocked=True) if self.use_vr else visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True)
+        self.window = (
+            visual.Rift(monoscopic=True, headLocked=True) if self.use_vr
+            else visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True))
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
@@ -120,10 +124,14 @@ class BaseExperiment:
         while len(event.getKeys(keyList="space")) == 0:
             # Displaying the instructions on the screen
             text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-            self.__draw(lambda: text.draw())
+            self.__draw(lambda: self.__draw_instructions(text))
 
             # Enabling the cursor again
             self.window.mouseVisible = True
+
+    def __draw_instructions(self, text):
+        text.draw()
+        self.window.flip()
 
     def __draw(self, present_stimulus: Callable):
         """
@@ -134,10 +142,8 @@ class BaseExperiment:
             tracking_state = self.window.getTrackingState()
             self.window.calcEyePoses(tracking_state.headPose.thePose)
             self.window.setDefaultView()
-        if present_stimulus:
-            present_stimulus()
-        self.window.flip()
-       
+        present_stimulus()
+
     def run(self, instructions=True):
         """ Do the present operation for a bunch of experiments """
 
@@ -159,6 +165,9 @@ class BaseExperiment:
         start = time()
         current_trial = current_trial_end = -1
         current_trial_begin = None
+
+        # Current trial being rendered
+        rendering_trial = -1
         while len(event.getKeys()) == 0 and (time() - start) < self.record_duration:
 
             current_experiment_seconds = time() - start
@@ -170,11 +179,15 @@ class BaseExperiment:
 
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
             elif current_trial_begin < current_experiment_seconds:
-                # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
-                # Stimulus presentation overwritten by specific experiment
-                self.__draw(lambda: self.present_stimulus(current_trial))
+
+                # if current trial number changed get new choice of image.
+                if rendering_trial < current_trial:
+                    # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
+                    # Stimulus presentation overwritten by specific experiment
+                    self.__draw(lambda: self.present_stimulus(current_trial, current_trial))
+                    rendering_trial = current_trial
             else:
-                self.__draw(lambda: None)
+                self.__draw(lambda: self.window.flip())
 
         # Clearing the screen for the next trial
         event.clearEvents()
