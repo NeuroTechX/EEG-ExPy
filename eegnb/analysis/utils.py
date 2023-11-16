@@ -5,10 +5,8 @@ import logging
 import sys
 from collections import OrderedDict
 from glob import glob
-from typing import Union, List#, Dict
-# from collections import Iterable
+from typing import Union, List
 from time import sleep, time
-# from numpy.core.fromnumeric import std
 import keyboard
 import os
 

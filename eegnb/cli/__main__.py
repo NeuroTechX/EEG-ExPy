@@ -13,6 +13,7 @@ from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, analysis_repo
 from typing import Optional
 
 
+
 @click.group(name="eegnb")
 def main():
     """eeg-notebooks command line interface"""

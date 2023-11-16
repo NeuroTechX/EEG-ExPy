@@ -94,6 +94,7 @@ class BaseExperiment:
                 # Generating save function
                 experiment_directory = self.name.replace(' ', '_')
                 self.save_fn = generate_save_fn(self.eeg.device_name, experiment_directory, random_id, random_id, "unnamed")
+
                 print(
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"
                 )
@@ -169,3 +170,4 @@ class BaseExperiment:
     def name(self) -> str:
         """ This experiment's name """
         return self.exp_name
+
