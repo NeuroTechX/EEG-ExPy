@@ -6,6 +6,7 @@ mne>=0.20.8
 seaborn>=0.11.0
 pyriemann>=0.2.7
 jupyter
+brainflow>=4.8.2 # [ needed for channel names in analyses, not streaming ] 
 gdown>=4.5.1
 matplotlib>=3.3.3
 pysocks>=1.7.1

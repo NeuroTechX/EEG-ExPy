@@ -22,7 +22,7 @@ from mne import Epochs, find_events, concatenate_raws
 from mne.time_frequency import tfr_morlet
 
 # EEG-Noteooks functions
-from eegnb.analysis.utils import load_data,plot_conditions
+from eegnb.analysis.analysis_utils import load_data,plot_conditions
 from eegnb.datasets import fetch_dataset
 
 # sphinx_gallery_thumbnail_number = 1
