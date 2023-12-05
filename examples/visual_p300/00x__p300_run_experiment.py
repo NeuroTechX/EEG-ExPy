@@ -2,7 +2,7 @@
 P300 run experiment
 ===============================
 
-This example demonstrates the initiation of an EEG stream with eeg-notebooks, and how to run 
+This example demonstrates the initiation of an EEG stream with eeg-expy, and how to run 
 an experiment. 
 
 """
