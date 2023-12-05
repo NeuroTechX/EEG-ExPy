@@ -9,7 +9,7 @@ with open('requirements.txt', 'r') as fp:
     install_requires = fp.read().splitlines()
 
 setup(
-    name="eeg-notebooks", 
+    name="eeg-expy", 
     version="0.2",
     author="John David Griffiths",
     author_email="j.davidgriffiths@gmail.com",
@@ -18,7 +18,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires = install_requires,
-    url='https://github.com/NeuroTechX/eeg-notebooks',
+    url='https://github.com/NeuroTechX/eeg-expy',
     license="BSD (3-clause)",
     entry_points={"console_scripts": ["eegnb=eegnb.cli.__main__:main"]},
     packages=find_packages(),

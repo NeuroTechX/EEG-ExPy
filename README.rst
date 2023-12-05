@@ -17,7 +17,7 @@ EEG-ExPy
 
 EEG-ExPy is a collection of classic EEG experiments, implemented in Python. The experimental protocols and analyses are quite generic, but are primarily taylored for low-budget / consumer EEG hardware such as the InteraXon MUSE and OpenBCI Cyton. The goal is to make cognitive neuroscience and neurotechnology more accessible, affordable, and scalable. 
 
-- **For an intro talk on the EEG-ExPy (eeg-notebooks) project see:** `JG's Brainhack Ontario presentation <https://www.crowdcast.io/e/brainhack-ontario/7>`_.  
+- **For an intro talk on the ***EEG-ExPy*** (formerly ***eeg-notebooks***) project see:** `JG's Brainhack Ontario presentation <https://www.crowdcast.io/e/brainhack-ontario/7>`_.  
 - **For documentation see:** `documentation site <https://neurotechx.github.io/eeg-expy/index.html>`_.
 - **For code see:** `github site <https://github.com/neurotechx/eeg-expy>`_.
 - **For instructions on running experiments see:** `running experiments <https://neurotechx.github.io/eeg-expy/getting_started/running_experiments.html>`_.
@@ -27,7 +27,7 @@ EEG-ExPy is a collection of classic EEG experiments, implemented in Python. The 
 
 ----
 
-**Note:** eeg-expy was previously known as eeg-notebooks. Before the renaming, eeg-notebooks also underwent major changes to the API in v0.2. The old v0.1 is still available if you need it, in `this repo <https://github.com/neurotechx/eeg-notebooks_v0.1>`_.
+**Note:** eeg-expy was previously known as eeg-notebooks. Before the renaming, eeg-notebooks also underwent major changes to the API in v0.2. The old v0.2 version, before the name change, is still available if you need it, in `this repo <https://github.com/neurotechx/eeg-notebooks_v0.2>`_. The even older v0.1 is also still available if needed `here <https://github.com/neurotechx/eeg-notebooks_v0.1>`_.
 
 ----
 
