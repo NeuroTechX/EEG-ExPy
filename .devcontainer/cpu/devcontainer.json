@@ -1,6 +1,6 @@
 {
     "name": "EEG-ExPy-CPU",
-    "image": "mcr.microsoft.com/devcontainers/python:3.7",
+    "image": "mcr.microsoft.com/devcontainers/python:3.8",
       
     "customizations": {
       "vscode": {
