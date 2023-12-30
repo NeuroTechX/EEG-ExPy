@@ -139,3 +139,38 @@ eeg_device = EEG(device=board_name)
 # Run stimulus presentation
 n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
 ```
+
+
+## Using virtual reality
+
+For example, should be able to run the N170 stimulus on the headset and collect valid eeg data, then be able to analyze and visualize it afterwards.
+
+Prerequisites:
+* Oculus Rift compatible VR headset, e.g. Oculus Rift or Meta Quest series.
+* Native Windows installation with meta link compatible video card.
+* EEG device, e.g. OpenBCI Cyton or Muse
+
+Example of steps used:
+1. Modify experiment present argument to use vr eg:
+
+```python
+# Run stimulus presentation
+n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn, use_vr=True)
+```
+
+2. Turn on and place the VR headset onto the head.
+3. If it is your own head, enable passthrough to help with wearing the eeg device.
+4. Place the EEG device on top of the head.
+5. Ensure the electrodes are touching the scalp ok and not being blocked by the headset strap.
+6. Connect the VR headset to the windows install, via air link or link cable.
+7. Once the Oculus menu has finished loading on the VR headset, open the built-in Oculus desktop app by using the touch controllers or gamepad.
+8. Try opening an eeg device raw data viwer and verify that the electrodes are receiving a good signal without too much noise, eg 'OpenBCI GUI'.
+9. Run the EEG-ExPy experiment from the command line or IDE, it should load and take control from the Oculus desktop app.
+10. Follow the experiment instructions, and press a key if necessary to begin the experiment and collect valid data.
+
+### Other experiments can have VR added too.
+
+1. Load/prepare stimulus in the same function as previously (def load_stimulus(self))
+2. Present stimulus in the same function as previously(def present_stimulus(self, current_trial: int))
+3. VR can be enabled for the experiment as part of the initializer to the base Experiment class, by default it is not enabled(use_vr=False) and will function the same as previously before VR functionality was added.
+
