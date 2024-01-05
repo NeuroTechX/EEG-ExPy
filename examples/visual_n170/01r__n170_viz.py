@@ -98,10 +98,11 @@ epochs
 conditions = OrderedDict()
 conditions['House'] = [1]
 conditions['Face'] = [2]
+diffwav = ('Face', 'House')
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                           ci=97.5, n_boot=1000, title='',
-                          diff_waveform=None, #(1, 2))
+                          diff_waveform=diffwav,
                           channel_order=[1,0,2,3]) # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
 
 # Manually adjust the ylims
