@@ -306,10 +306,10 @@ def plot_conditions(
 
     legs = []
     for cond,cond_name,color in zip(conditions.values(),conditions.keys(), palette):
-        lh = mlines.Line2D([], [], color=color, marker='-', ls='', label=cond_name)
+        lh = mlines.Line2D([], [], color=color, marker='', ls='-', label=cond_name)
         legs.append(lh)
     if diff_waveform:
-        lh = mlines.Line2D([], [], color="k", marker='', ls='', 
+        lh = mlines.Line2D([], [], color="k", marker='', ls='-', 
                           label = "{} - {}".format(diff_waveform[1], diff_waveform[0]))
         legs.append(lh)
 
