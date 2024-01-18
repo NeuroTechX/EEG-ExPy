@@ -278,7 +278,7 @@ def plot_conditions(
 
     for ch,ch_name in enumerate(channel_names):
         for cond,cond_name, color in zip(conditions.values(),conditions.keys(), palette):
-            dfXc = dfX[dfX.condition==cond_name]
+            dfXc = dfX[dfX.condition.isin(conditions[cond_name])]
             sns.lineplot(
                 data=dfXc,
                 x="time",
@@ -291,8 +291,8 @@ def plot_conditions(
         axes[ch].set(xlabel='Time (s)', ylabel='Amplitude (uV)', title=epochs.ch_names[channel_order[ch]])
 
         if diff_waveform:
-            dfXc1 = dfX[dfX.condition==diff_waveform[1]]
-            dfXc2 = dfX[dfX.condition==diff_waveform[0]] 
+            dfXc1 = dfX[dfX.condition.isin(conditions[diff_waveform[1]])]
+            dfXc2 = dfX[dfX.condition.isin(conditions[diff_waveform[0]])]
             dfXc1_mn = dfXc1.set_index(['time', 'epoch'])[ch_name].unstack('epoch').mean(axis=1)
             dfXc2_mn = dfXc2.set_index(['time', 'epoch'])[ch_name].unstack('epoch').mean(axis=1)
             diff = (dfXc1_mn - dfXc2_mn).values
