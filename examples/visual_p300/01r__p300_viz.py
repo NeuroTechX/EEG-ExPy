@@ -21,6 +21,7 @@ The final figure plotted at the end shows the P300 response ERP waveform.
 
 # Some standard pythonic imports
 import os
+from matplotlib import pyplot as plt
 from collections import OrderedDict
 import warnings
 warnings.filterwarnings('ignore')

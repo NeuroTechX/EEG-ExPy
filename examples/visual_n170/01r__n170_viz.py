@@ -97,8 +97,10 @@ epochs
 # ----------------------------
 
 conditions = OrderedDict()
-conditions['House'] = [1]
-conditions['Face'] = [2]
+#conditions['House'] = [1]
+#conditions['Face'] = [2]
+conditions['House'] = ['House']
+conditions['Face'] = ['Face']
 diffwav = ('Face', 'House')
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
