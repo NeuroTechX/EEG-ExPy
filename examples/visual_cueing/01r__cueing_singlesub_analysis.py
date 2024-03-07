@@ -109,12 +109,15 @@ epochs = Epochs(raw, events=events, event_id=event_id,
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 
 conditions = OrderedDict()
-conditions['LeftCue'] = [1]
-conditions['RightCue'] = [2]
+#conditions['LeftCue'] = [1]
+#conditions['RightCue'] = [2]
+conditions['LeftCue'] = ['LeftCue']
+conditions['RightCue'] = ['RightCue']
+diffwave = ('LeftCue', 'RightCue')
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                                 ci=97.5, n_boot=1000, title='',
-                                diff_waveform=(1, 2), ylim=(-20,20))
+                                diff_waveform=diffwave, ylim=(-20,20))
 
 ###################################################################################################
 # Spectrogram
@@ -242,10 +245,11 @@ epochs = Epochs(raw, events=events, event_id=event_id,
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 
 conditions = OrderedDict()
-conditions['ValidTarget'] = [21,22]
-conditions['InvalidTarget'] = [11,12]
+conditions['ValidTarget'] = ['ValidTarget_Left', 'ValidTarget_Right']
+conditions['InvalidTarget'] = ['InvalidTarget_Left', 'InvalidTarget_Right']
+diffwave = ('ValidTarget', 'InvalidTarget')
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                                 ci=97.5, n_boot=1000, title='',
-                                diff_waveform=(1, 2), ylim=(-20,20))
+                                diff_waveform=diffwave, ylim=(-20,20))
 
