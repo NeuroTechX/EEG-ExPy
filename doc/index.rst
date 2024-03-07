@@ -10,7 +10,7 @@
    getting_started/running_experiments
    getting_started/data_zipper
    getting_started/analysis
-   getting_started/available_notebooks
+   getting_started/available_experiments
 
 .. toctree::
    :caption: Experiments

@@ -35,7 +35,7 @@ from eegnb.datasets import fetch_dataset
 # Load Data
 # ---------------------
 #
-# We will use the eeg-notebooks visual cueing example dataset
+# We will use the eeg-expy visual cueing example dataset
 #
 
 eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')    
