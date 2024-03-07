@@ -26,7 +26,7 @@ from matplotlib import pyplot as plt
 
 # MNE functions
 from mne import Epochs,find_events
-from mne.time_frequency import psd_welch,tfr_morlet
+from mne.time_frequency import tfr_morlet
 
 # EEG-Notebooks functions
 from eegnb.analysis.utils import load_data,plot_conditions
@@ -88,8 +88,14 @@ print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 # Next, we can compare the PSD of epochs specifically during 20hz and 30hz stimulus presentation
 
 f, axs = plt.subplots(2, 1, figsize=(10, 10))
-psd1, freq1 = psd_welch(epochs['30 Hz'], n_fft=1028, n_per_seg=256 * 3, picks='all')
-psd2, freq2 = psd_welch(epochs['20 Hz'], n_fft=1028, n_per_seg=256 * 3, picks='all')
+
+welch_params=dict(method='welch',
+                  n_fft=1028,
+                  n_per_seg=256 * 3,
+                  picks='all')
+
+psd1, freq1 = epochs['30 Hz'].compute_psd(**welch_params).get_data(return_freqs=True)
+psd2, freq2 = epochs['20 Hz'].compute_psd(**welch_params).get_data(return_freqs=True)
 psd1 = 10 * np.log10(psd1)
 psd2 = 10 * np.log10(psd2)
 
@@ -140,6 +146,8 @@ tfr, itc = tfr_morlet(epochs['20 Hz'], freqs=frequencies,picks='all',
 tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio', 
                  title='POz - 20 Hz stim');
 
+# Set Layout engine to tight to fix error with using colorbar layout error
+plt.figure().set_layout_engine('tight');
 plt.tight_layout()
 
 # Once again we can see clear SSVEPs at 30hz and 20hz

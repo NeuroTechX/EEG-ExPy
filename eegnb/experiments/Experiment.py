@@ -92,7 +92,9 @@ class BaseExperiment:
                 # Generating a random int for the filename
                 random_id = random.randint(1000,10000)
                 # Generating save function
-                self.save_fn = generate_save_fn(self.eeg.device_name, "visual_n170", random_id, random_id, "unnamed")
+                experiment_directory = self.name.replace(' ', '_')
+                self.save_fn = generate_save_fn(self.eeg.device_name, experiment_directory, random_id, random_id, "unnamed")
+
                 print(
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"
                 )
@@ -164,5 +166,8 @@ class BaseExperiment:
         # Closing the window
         self.window.close()
 
-    
-    
+    @property
+    def name(self) -> str:
+        """ This experiment's name """
+        return self.exp_name
+

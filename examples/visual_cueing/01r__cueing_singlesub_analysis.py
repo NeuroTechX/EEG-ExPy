@@ -14,7 +14,7 @@ Cueing Single Subject Analysis
 #
 
 # Some standard pythonic imports
-import os,sys,glob,numpy as np,pandas as pd
+import os,numpy as np#,sys,glob,pandas as pd
 from collections import OrderedDict
 import warnings
 warnings.filterwarnings('ignore')
@@ -22,7 +22,7 @@ from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 
 # MNE functions
-from mne import Epochs,find_events, concatenate_raws
+from mne import Epochs,find_events#, concatenate_raws
 from mne.time_frequency import tfr_morlet
 
 # EEG-Notebooks functions
@@ -73,7 +73,7 @@ raw.plot();
 # One way to analyze the SSVEP is to plot the power spectral density, or PSD. SSVEPs should appear as peaks in power for certain frequencies. We expect clear peaks in the spectral domain at the stimulation frequencies of 30 and 20 Hz.
 #
 
-raw.plot_psd();
+raw.compute_psd().plot();
 
 # Should see the electrical noise at 60 Hz, and maybe a peak at the red and blue channels between 7-14 Hz (Alpha)
 
@@ -84,8 +84,8 @@ raw.plot_psd();
 # Most ERP components are composed of lower frequency fluctuations in the EEG signal. Thus, we can filter out all frequencies between 1 and 30 hz in order to increase our ability to detect them.
 #
 
-raw.filter(1,30, method='iir')
-raw.plot_psd(fmin=1, fmax=30);
+raw.filter(1,30, method='iir');
+raw.compute_psd(fmin=1, fmax=30).plot();
 
 ###################################################################################################
 # Epoching
@@ -109,12 +109,15 @@ epochs = Epochs(raw, events=events, event_id=event_id,
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 
 conditions = OrderedDict()
-conditions['LeftCue'] = [1]
-conditions['RightCue'] = [2]
+#conditions['LeftCue'] = [1]
+#conditions['RightCue'] = [2]
+conditions['LeftCue'] = ['LeftCue']
+conditions['RightCue'] = ['RightCue']
+diffwave = ('LeftCue', 'RightCue')
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                                 ci=97.5, n_boot=1000, title='',
-                                diff_waveform=(1, 2), ylim=(-20,20))
+                                diff_waveform=diffwave, ylim=(-20,20))
 
 ###################################################################################################
 # Spectrogram
@@ -242,10 +245,11 @@ epochs = Epochs(raw, events=events, event_id=event_id,
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 
 conditions = OrderedDict()
-conditions['ValidTarget'] = [21,22]
-conditions['InvalidTarget'] = [11,12]
+conditions['ValidTarget'] = ['ValidTarget_Left', 'ValidTarget_Right']
+conditions['InvalidTarget'] = ['InvalidTarget_Left', 'InvalidTarget_Right']
+diffwave = ('ValidTarget', 'InvalidTarget')
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                                 ci=97.5, n_boot=1000, title='',
-                                diff_waveform=(1, 2), ylim=(-20,20))
+                                diff_waveform=diffwave, ylim=(-20,20))
 

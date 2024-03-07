@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
@@ -17,17 +17,18 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
+        make install-deps-apt
         python -m pip install --upgrade pip wheel
         python -m pip install attrdict
 
-        # Install wxPython wheels since they are distribution-specific and therefore not on PyPI
-        # See: https://wxpython.org/pages/downloads/index.html
-        pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04 wxPython
+        make install-deps-wxpython
+    - name: Build project
+      run: |
+        make build
 
-        pip install .
     - name: Build docs
       run: |
-        cd doc && make html
+        make docs
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?

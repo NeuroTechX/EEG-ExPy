@@ -9,10 +9,11 @@ from pandas import DataFrame
 from psychopy import visual, core, event, sound
 
 from eegnb import generate_save_fn
+from typing import Optional
 
 
 def present(
-    save_fn: str = None,
+    save_fn: Optional[str] = None,
     duration=120,
     stim_types=None,
     itis=None,

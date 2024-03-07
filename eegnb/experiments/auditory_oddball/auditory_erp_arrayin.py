@@ -16,10 +16,12 @@ from pylsl import StreamInfo, StreamOutlet
 
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
+from typing import Optional
+
 #from eegnb.stimuli import FACE_HOUSE
 
 
-def present(eeg: EEG=None, save_fn=None,
+def present(eeg: Optional[EEG]=None, save_fn=None,
             stim_types=None, itis=None, additional_labels={},
             secs=0.07, volume=0.8,tone1_hz =440, tone2_hz = 528,
             do_fixation=True):
