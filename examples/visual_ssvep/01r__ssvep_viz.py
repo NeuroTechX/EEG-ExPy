@@ -146,6 +146,8 @@ tfr, itc = tfr_morlet(epochs['20 Hz'], freqs=frequencies,picks='all',
 tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio', 
                  title='POz - 20 Hz stim');
 
+# Set Layout engine to tight to fix error with using colorbar layout error
+plt.figure().set_layout_engine('tight');
 plt.tight_layout()
 
 # Once again we can see clear SSVEPs at 30hz and 20hz
