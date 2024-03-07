@@ -222,7 +222,7 @@ html_theme_options = {
         ("Examples", "auto_examples/index"),
         ("User guide", "user_guide/index"),
         ("FAQ", "faq"),
-        ("GitHub", "https://github.com/neurotechx/eeg-notebooks", True),
+        ("GitHub", "https://github.com/neurotechx/eeg-expy", True),
     ],
 
     # Set the page width to not be restricted to hardset value
@@ -261,8 +261,8 @@ sphinx_gallery_conf = {'filename_pattern': '(?=.*r__)(?=.*.py)',
                        'within_subsection_order': FileNameSortKey,
                        'default_thumb_file': 'img/eeg-notebooks_logo.png',
                        'backreferences_dir': 'generated',   # Where to drop linking files between examples & API
-                       'doc_module': ('eeg-notebooks'),
-                       'reference_url': {'eeg-notebooks': None},
+                       'doc_module': ('eeg-expy'),
+                       'reference_url': {'eeg-expy': None},
                        'remove_config_comments': True}
 
 """
@@ -282,8 +282,8 @@ sphinx_gallery_conf = {
     'within_subsection_order': FileNameSortKey,
     'default_thumb_file': 'img/eeg-notebooks_logo.png',
     'backreferences_dir': 'generated',   # Where to drop linking files between examples & API
-    'doc_module': ('eeg-notebooks',),
-    'reference_url': {'eeg-notebooksS': None},
+    'doc_module': ('eeg-expy',),
+    'reference_url': {'eeg-expy': None},
     'remove_config_comments': True,
 }
 
