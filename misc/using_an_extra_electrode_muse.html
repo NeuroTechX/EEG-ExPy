@@ -1,30 +1,33 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using an extra electrode with Muse &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_override.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script src="../_static/debug.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=464912d9"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=a56c686a"></script>
+        <script src="../_static/debug.js?v=63710f7d"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -35,14 +38,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: white" >
-            <a href="../index.html" class="icon icon-home"> EEG Notebooks
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            EEG Notebooks
           </a>
               <div class="version">
                 0.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -132,7 +139,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#setup">Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#run-experiment">Run experiment</a></li>
 </ul>
 </li>
@@ -286,7 +292,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#setup">Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/visual_n170/00x__n170_run_experiment.html#run-experiment">Run experiment</a></li>
 </ul>
 </li>
@@ -420,8 +425,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Using an extra electrode with Muse</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using an extra electrode with Muse</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -431,21 +436,21 @@
            <div itemprop="articleBody">
              
   <section id="using-an-extra-electrode-with-muse">
-<h1>Using an extra electrode with Muse<a class="headerlink" href="#using-an-extra-electrode-with-muse" title="Permalink to this headline"></a></h1>
+<h1>Using an extra electrode with Muse<a class="headerlink" href="#using-an-extra-electrode-with-muse" title="Permalink to this heading"></a></h1>
 <p>Although the Muse is wonderful for ease-of-use and affordability, it suffers from a small number of electrode locations and inflexibility of electrode positioning. Fortunately, in order to partially overcome this limitation, the Muse hardware team has allowed an extra electrode to be added to the Muse 2016.</p>
 <section id="the-electrode">
-<h2>The electrode<a class="headerlink" href="#the-electrode" title="Permalink to this headline"></a></h2>
+<h2>The electrode<a class="headerlink" href="#the-electrode" title="Permalink to this heading"></a></h2>
 <p>These electrodes are not for sale anywhere; they must be made by hand. Fortunately, their construction appears pretty simple, attach an EEG electrode (any kind) to a male microUSB port with a wire.</p>
 <p>We’ll update this section with more info as it comes in from the Muse hardware team.</p>
 <p><img alt="fig" src="../_images/extra_electrode.png" /></p>
 </section>
 <section id="attaching-the-extra-electrode">
-<h2>Attaching the extra electrode<a class="headerlink" href="#attaching-the-extra-electrode" title="Permalink to this headline"></a></h2>
+<h2>Attaching the extra electrode<a class="headerlink" href="#attaching-the-extra-electrode" title="Permalink to this heading"></a></h2>
 <p>The extra electrode can be applied anywhere on the head (provide the wire is long enough). Just inset the electrode’s microUSB connector into the charging port of the Muse. In order to make sure the electrode stays in place, we recommend using a hat or scarf as pictured.</p>
 <p><img alt="fig" src="../_images/attaching_electrode.png" /></p>
 </section>
 <section id="getting-data-from-the-electrode">
-<h2>Getting data from the electrode<a class="headerlink" href="#getting-data-from-the-electrode" title="Permalink to this headline"></a></h2>
+<h2>Getting data from the electrode<a class="headerlink" href="#getting-data-from-the-electrode" title="Permalink to this heading"></a></h2>
 <p>With the extra electrode connected to the Muse, its data is available as the <code class="docutils literal notranslate"><span class="pre">Right</span> <span class="pre">AUX</span></code> channel in the <code class="docutils literal notranslate"><span class="pre">muse-lsl</span></code> data stream. It will automatically appear in <code class="docutils literal notranslate"><span class="pre">muse-lsl</span></code>’s viewer. An example of how to access this data and include it in your analysis is shown in the <a class="reference external" href="https://github.com/NeuroTechX/eeg-notebooks/blob/master/notebooks/P300%20with%20Extra%20Electrode.ipynb">P300 with Extra Electrode</a> notebook</p>
 </section>
 </section>

@@ -24,6 +24,7 @@ The final figure plotted at the end shows the N170 response ERP waveform.
 
 # Some standard pythonic imports
 import os
+from matplotlib import pyplot as plt 
 from collections import OrderedDict
 import warnings
 warnings.filterwarnings('ignore')
@@ -96,16 +97,20 @@ epochs
 # ----------------------------
 
 conditions = OrderedDict()
-conditions['House'] = [1]
-conditions['Face'] = [2]
+#conditions['House'] = [1]
+#conditions['Face'] = [2]
+conditions['House'] = ['House']
+conditions['Face'] = ['Face']
+diffwav = ('Face', 'House')
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                           ci=97.5, n_boot=1000, title='',
-                          diff_waveform=None, #(1, 2))
-                          channel_order=[1,0,2,3]) # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
+                          diff_waveform=diffwav,
+                          channel_order=[1,0,2,3]) 
+# reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
 
 # Manually adjust the ylims
-for i in [0,2]: ax[i].set_ylim([-0.5,0.5])
-for i in [1,3]: ax[i].set_ylim([-1.5,2.5])
-
+for i in [0,2]: ax[i].set_ylim([-0.5e6,0.5e6])
+for i in [1,3]: ax[i].set_ylim([-1.5e6,2.5e6])
+plt.tight_layout()
 

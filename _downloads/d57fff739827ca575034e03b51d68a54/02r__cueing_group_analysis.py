@@ -123,7 +123,7 @@ for sub in subs:
     # Left Cue
     tfr, itc = tfr_morlet(epochs['LeftCue'], freqs=frequencies, 
                           n_cycles=wave_cycles, return_itc=True)
-    tfr = tfr.apply_baseline([-1,-.5],mode='mean')
+    tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     #tfr.plot(picks=[0], mode='logratio', 
     #         title='TP9 - Ipsi');
     #tfr.plot(picks=[3], mode='logratio', 
@@ -134,7 +134,7 @@ for sub in subs:
     # Right Cue
     tfr, itc = tfr_morlet(epochs['RightCue'], freqs=frequencies, 
                           n_cycles=wave_cycles, return_itc=True)
-    tfr = tfr.apply_baseline([-1,-.5],mode='mean')
+    tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     #tfr.plot(picks=[0], mode='logratio', 
     #         title='TP9 - Contra');
     #tfr.plot(picks=[3], mode='logratio', 

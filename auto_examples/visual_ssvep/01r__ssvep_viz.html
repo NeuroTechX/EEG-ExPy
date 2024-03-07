@@ -1,30 +1,33 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SSVEP Visualization &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/theme_override.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/debug.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=464912d9"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=a56c686a"></script>
+        <script src="../../_static/debug.js?v=63710f7d"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -37,14 +40,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: white" >
-            <a href="../../index.html" class="icon icon-home"> EEG Notebooks
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            EEG Notebooks
           </a>
               <div class="version">
                 0.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -134,7 +141,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#setup">Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#run-experiment">Run experiment</a></li>
 </ul>
 </li>
@@ -288,7 +294,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#setup">Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#run-experiment">Run experiment</a></li>
 </ul>
 </li>
@@ -422,9 +427,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../experiments/vssvep.html">Visual SSVEP</a> &raquo;</li>
-      <li>SSVEP Visualization</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../experiments/vssvep.html">Visual SSVEP</a></li>
+      <li class="breadcrumb-item active">SSVEP Visualization</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -435,18 +440,18 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="ssvep-visualization">
-<span id="sphx-glr-auto-examples-visual-ssvep-01r-ssvep-viz-py"></span><h1>SSVEP Visualization<a class="headerlink" href="#ssvep-visualization" title="Permalink to this headline"></a></h1>
+<span id="sphx-glr-auto-examples-visual-ssvep-01r-ssvep-viz-py"></span><h1>SSVEP Visualization<a class="headerlink" href="#ssvep-visualization" title="Permalink to this heading"></a></h1>
 <p>This example demonstrates loading, organizing, and visualizing data from the steady-state visual evoked potentials (SSVEP) experiment.</p>
 <p>The data used is the first subject and first session of the one of the eeg-notebooks ssvep example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.</p>
 <p>We first use the <cite>fetch_datasets</cite> to obtain a list of filenames. If these files are not already present
 in the specified data directory, they will be quickly downloaded from the cloud.</p>
 <p>After loading the data, we place it in an MNE <cite>Epochs</cite> object, and obtain the trial-averaged response.</p>
 <p>The final figures show the visual frequencies appearing in the measured power spectrum.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -455,7 +460,7 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 
 <span class="c1"># MNE functions</span>
 <span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
-<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">psd_welch</span><span class="p">,</span><span class="n">tfr_morlet</span>
+<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">tfr_morlet</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
 <span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
@@ -469,7 +474,7 @@ the example dataset, if you do not already have it.</p>
 </dd>
 </dl>
 <hr class="docutils" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 <span class="n">ssvep_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">&#39;visual-SSVEP&#39;</span><span class="p">,</span> <span class="s1">&#39;eegnb_examples&#39;</span><span class="p">)</span>
 
 <span class="c1"># If dataset hasn&#39;t been downloaded yet, download it</span>
@@ -483,15 +488,44 @@ the example dataset, if you do not already have it.</p>
                 <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-SSVEP&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
                 <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">,</span>
                 <span class="n">replace_ch_names</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Right AUX&#39;</span><span class="p">:</span> <span class="s1">&#39;POz&#39;</span><span class="p">})</span>
+<span class="n">raw</span><span class="o">.</span><span class="n">set_channel_types</span><span class="p">({</span><span class="s1">&#39;POz&#39;</span><span class="p">:</span> <span class="s1">&#39;eeg&#39;</span><span class="p">})</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From: https://drive.google.com/uc?id=1zj9Wx-YEMJo7GugUUu7Sshcybfsr-Fze
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/5.14M [00:00&lt;?, ?B/s]
-100%|##########| 5.14M/5.14M [00:00&lt;00:00, 68.0MB/s]
+100%|██████████| 5.14M/5.14M [00:00&lt;00:00, 53.2MB/s]
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.20.04.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
@@ -499,46 +533,120 @@ Creating RawArray with float64 data, n_channels=6, n_times=30720
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
 </pre></div>
 </div>
-<section id="visualize-the-power-spectrum">
-<h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Permalink to this headline"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">()</span>
+<div class="output_subarea output_html rendered_html output_result">
+<details open>
+    <summary><strong>General</strong></summary>
+    <table class="table table-hover table-striped table-sm table-responsive small">
+        <tr>
+            <th>Measurement date</th>
+
+            <td>Unknown</td>
+
+        </tr>
+        <tr>
+            <th>Experimenter</th>
+
+            <td>Unknown</td>
+
+        </tr>
+        <tr>
+            <th>Participant</th>
+
+            <td>Unknown</td>
+
+        </tr>
+    </table>
+    </details>
+    <details open>
+        <summary><strong>Channels</strong></summary>
+        <table class="table table-hover table-striped table-sm table-responsive small">
+            <tr>
+                <th>Digitized points</th>
+
+                <td>7 points</td>
+
+            </tr>
+            <tr>
+                <th>Good channels</th>
+                <td>5 EEG, 1 Stimulus</td>
+            </tr>
+            <tr>
+                <th>Bad channels</th>
+                <td>None</td>
+            </tr>
+            <tr>
+                <th>EOG channels</th>
+                <td>Not available</td>
+            </tr>
+            <tr>
+                <th>ECG channels</th>
+                <td>Not available</td>
+            </tr>
+        </table>
+        </details>
+        <details open>
+            <summary><strong>Data</strong></summary>
+            <table class="table table-hover table-striped table-sm table-responsive small">
+
+                <tr>
+                    <th>Sampling frequency</th>
+                    <td>256.00 Hz</td>
+                </tr>
+
+
+                <tr>
+                    <th>Highpass</th>
+                    <td>0.00 Hz</td>
+                </tr>
+
+
+                <tr>
+                    <th>Lowpass</th>
+                    <td>128.00 Hz</td>
+                </tr>
+
+
+
+
+                <tr>
+                    <th>Duration</th>
+                    <td>00:12:01 (HH:MM:SS)</td>
+                </tr>
+
+            </table>
+            </details>
+</div>
+<br />
+<br /><section id="visualize-the-power-spectrum">
+<h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_01r__ssvep_viz_001.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_001.png" alt="EEG" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Effective window size : 8.000 (s)
+<img src="../../_images/sphx_glr_01r__ssvep_viz_001.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_001.png" alt="EEG" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: plot_psd() is a legacy function. New code should use .compute_psd().plot().
+Effective window size : 8.000 (s)
 
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
 </section>
 <section id="epoching">
-<h2>Epoching<a class="headerlink" href="#epoching" title="Permalink to this headline"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next, we will chunk (epoch) the data into segments representing the data 100ms before to 800ms after each stimulus.</span>
+<h2>Epoching<a class="headerlink" href="#epoching" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next, we will chunk (epoch) the data into segments representing the data 100ms before to 800ms after each stimulus.</span>
 <span class="c1"># Note: we will not reject epochs here because the amplitude of the SSVEP at POz is so large it is difficult to separate from eye blinks</span>
 
 <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
@@ -549,20 +657,25 @@ Ready.
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sample drop %: &#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>197 events found
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>197 events found on stim channel stim
 Event IDs: [1 2]
 sample drop %:  2.538071065989844
 </pre></div>
 </div>
 </section>
 <section id="stimuli-specific-psd">
-<h2>Stimuli-Specific PSD<a class="headerlink" href="#stimuli-specific-psd" title="Permalink to this headline"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next, we can compare the PSD of epochs specifically during 20hz and 30hz stimulus presentation</span>
+<h2>Stimuli-Specific PSD<a class="headerlink" href="#stimuli-specific-psd" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next, we can compare the PSD of epochs specifically during 20hz and 30hz stimulus presentation</span>
 
 <span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">psd1</span><span class="p">,</span> <span class="n">freq1</span> <span class="o">=</span> <span class="n">psd_welch</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">],</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span> <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-<span class="n">psd2</span><span class="p">,</span> <span class="n">freq2</span> <span class="o">=</span> <span class="n">psd_welch</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">],</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span> <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+<span class="n">welch_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;welch&#39;</span><span class="p">,</span>
+                  <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span>
+                  <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
+                  <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+<span class="n">psd1</span><span class="p">,</span> <span class="n">freq1</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_psd</span><span class="p">(</span><span class="o">**</span><span class="n">welch_params</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">return_freqs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">psd2</span><span class="p">,</span> <span class="n">freq2</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_psd</span><span class="p">(</span><span class="o">**</span><span class="n">welch_params</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">return_freqs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">psd1</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psd1</span><span class="p">)</span>
 <span class="n">psd2</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psd2</span><span class="p">)</span>
 
@@ -597,15 +710,14 @@ sample drop %:  2.538071065989844
 <span class="c1"># With this visualization we can clearly see distinct peaks at 30hz and 20hz in the PSD, corresponding to the frequency of the visual stimulation. The peaks are much larger at the POz electrode, but still visible at TP9 and TP10</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_01r__ssvep_viz_002.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_002.png" alt="TP9 and TP10, POz" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Effective window size : 4.016 (s)
+<img src="../../_images/sphx_glr_01r__ssvep_viz_002.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_002.png" alt="TP9 and TP10, POz" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Effective window size : 4.016 (s)
 Effective window size : 4.016 (s)
 </pre></div>
 </div>
 </section>
 <section id="spectrogram">
-<h2>Spectrogram<a class="headerlink" href="#spectrogram" title="Permalink to this headline"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also look for SSVEPs in the spectrogram, which uses color to represent the power of frequencies in the EEG signal over time</span>
+<h2>Spectrogram<a class="headerlink" href="#spectrogram" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also look for SSVEPs in the spectrogram, which uses color to represent the power of frequencies in the EEG signal over time</span>
 
 <span class="n">frequencies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
 <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span><span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
@@ -618,6 +730,8 @@ Effective window size : 4.016 (s)
 <span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
                  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;POz - 20 Hz stim&#39;</span><span class="p">);</span>
 
+<span class="c1"># Set Layout engine to tight to fix error with using colorbar layout error</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">set_layout_engine</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">);</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <span class="c1"># Once again we can see clear SSVEPs at 30hz and 20hz</span>
@@ -626,19 +740,19 @@ Effective window size : 4.016 (s)
 <ul class="sphx-glr-horizontal">
 <li><img src="../../_images/sphx_glr_01r__ssvep_viz_003.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_003.png" alt="POz - 30 Hz stim" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_01r__ssvep_viz_004.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_004.png" alt="POz - 20 Hz stim" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_01r__ssvep_viz_005.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_005.png" alt="01r  ssvep viz" class = "sphx-glr-multi-img"/></li>
 </ul>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Applying baseline correction (mode: logratio)
 Applying baseline correction (mode: logratio)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.370 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/89f5ff349033ec3c3d48bcfb2c3c3de2/01r__ssvep_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__ssvep_viz.py</span></code></a></p>
-</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.272 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/482813616f7e52f19737a9e9e4714600/01r__ssvep_viz.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01r__ssvep_viz.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/89f5ff349033ec3c3d48bcfb2c3c3de2/01r__ssvep_viz.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__ssvep_viz.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>

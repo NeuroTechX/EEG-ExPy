@@ -22,7 +22,7 @@ from mne import Epochs, find_events, concatenate_raws
 from mne.time_frequency import tfr_morlet
 
 # EEG-Noteooks functions
-from eegnb.analysis.utils import load_data,plot_conditions
+from eegnb.analysis.utils import load_data
 from eegnb.datasets import fetch_dataset
 
 # sphinx_gallery_thumbnail_number = 1
@@ -136,14 +136,14 @@ for sub in subs:
     # Left Cue
     tfr, itc = tfr_morlet(epochs['LeftCue'], freqs=frequencies, 
                           n_cycles=wave_cycles, return_itc=True)
-    tfr = tfr.apply_baseline([-1,-.5],mode='mean')
+    tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     power_Ipsi_TP9 = tfr.data[0,:,:]
     power_Contra_TP10 = tfr.data[1,:,:]
 
     # Right Cue
     tfr, itc = tfr_morlet(epochs['RightCue'], freqs=frequencies, 
                           n_cycles=wave_cycles, return_itc=True)
-    tfr = tfr.apply_baseline([-1,-.5],mode='mean')
+    tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     power_Contra_TP9 = tfr.data[0,:,:]
     power_Ipsi_TP10 = tfr.data[1,:,:]
 

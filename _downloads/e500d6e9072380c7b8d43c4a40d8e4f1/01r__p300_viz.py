@@ -21,6 +21,7 @@ The final figure plotted at the end shows the P300 response ERP waveform.
 
 # Some standard pythonic imports
 import os
+from matplotlib import pyplot as plt
 from collections import OrderedDict
 import warnings
 warnings.filterwarnings('ignore')
@@ -80,26 +81,30 @@ raw.plot_psd(fmin=1, fmax=30);
 
 # Create an array containing the timestamps and type of each stimulus (i.e. face or house)
 events = find_events(raw)
-event_id = {'Non-Target': 1, 'Target': 2}
+event_id = {'non-target': 1, 'target': 2}
 epochs = Epochs(raw, events=events, event_id=event_id,
-                tmin=-0.1, tmax=0.8, baseline=None,                                                                                  
-                reject={'eeg': 100e-6}, preload=True,                                                                                  
+                tmin=-0.1, tmax=0.8, baseline=None,                                                                           reject={'eeg': 100e-6}, preload=True,                                                       
                 verbose=False, picks=[0,1,2,3])
 
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
-
-epochs
-
 
 ###################################################################################################
 # Epoch average
 # ----------------------------
 
 conditions = OrderedDict()
-conditions['Non-target'] = [1]
-conditions['Target'] = [2]
+conditions['non-target'] = ['non-target']
+conditions['target'] = ['target']
+diffwav = ["non-target", "target"]
 
 fig, ax = plot_conditions(epochs, conditions=conditions, 
                           ci=97.5, n_boot=1000, title='',
-                          diff_waveform=(1, 2))
+                          channel_order=[1,0,2,3],ylim=[-2E6,2.5E6],
+                          diff_waveform = diffwav)
+
+# Manually adjust the ylims
+for i in [0,2]: ax[i].set_ylim([-0.5e6,0.5e6])
+for i in [1,3]: ax[i].set_ylim([-1.5e6,2.5e6])
+
+plt.tight_layout()
 
