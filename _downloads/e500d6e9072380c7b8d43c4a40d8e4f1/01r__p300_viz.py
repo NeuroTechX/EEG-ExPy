@@ -4,7 +4,7 @@ P300 Load and Visualize Data
 
 This example demonstrates loading, organizing, and visualizing ERP response data from the visual P300 experiment. The experiment uses a visual oddball paradigm. Images of cats and dogs are shwn in a rapid serial visual presentation (RSVP) stream, with cats and dogs categorized respectively as 'targets' or 'non-targets', according to which has high or low probability of occurring, respectively. 
 
-The data used is the first subject and first session of the one of the eeg-notebooks P300 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.  
+The data used is the first subject and first session of the one of the eeg-expy P300 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.  
 
 We first use the `fetch_datasets` to obtain a list of filenames. If these files are not already present 
 in the specified data directory, they will be quickly downloaded from the cloud. 
@@ -39,7 +39,7 @@ from eegnb.datasets import fetch_dataset
 # Load Data
 # ---------------------
 #
-# We will use the eeg-notebooks N170 example dataset
+# We will use the eeg-expy N170 example dataset
 #
 # Note that if you are running this locally, the following cell will download
 # the example dataset, if you do not already have it.

@@ -2,7 +2,7 @@
 SSVEP Decoding
 ===============================
 
-This notebook runs only the data analysis part of N170 notebook.
+This notebook runs only the data analysis part of experiment.
 
 Look at the notes to see how this can be run on the web with binder or google collab.
 
