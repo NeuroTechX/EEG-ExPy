@@ -24,8 +24,6 @@ mypy
 pytest
 pytest-cov
 nbval
-
-# Types
 types-requests
 
 # Docs requirements
