@@ -33,7 +33,7 @@ warnings.filterwarnings('ignore')
 from mne import Epochs,find_events
 
 # EEG-Notebooks functions
-from eegnb.analysis.utils import load_data,plot_conditions
+from eegnb.analysis.analysis_utils import load_data,plot_conditions
 from eegnb.datasets import fetch_dataset
 
 # sphinx_gallery_thumbnail_number = 3
