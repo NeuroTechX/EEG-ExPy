@@ -1,6 +1,6 @@
-# Main repo requirements
-psychopy==2023.1.0
-psychtoolbox
+
+## ~~ Analysis Requirements ~~ 
+
 scikit-learn>=0.23.2
 pandas>=1.1.4
 numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
@@ -8,11 +8,44 @@ mne>=0.20.8
 seaborn>=0.11.0
 pyriemann>=0.2.7
 jupyter
+gdown>=4.5.1
+matplotlib>=3.3.3
+pysocks>=1.7.1
+pyserial>=3.5
+h5py>=3.1.0
+pytest-shutil
+pyo>=1.0.3; platform_system == "Linux"
+keyboard==0.13.5
+airium>=0.1.0
+attrdict>=2.0.1
+attrdict3
+
+
+## ~~ Streaming Requirements ~~ 
+
 muselsl>=2.0.2
 pylsl==1.10.5  # due to https://github.com/NeuroTechX/eeg-notebooks/issues/187
 brainflow>=4.8.2
-gdown>=4.5.1
-matplotlib>=3.3.3
+pysocks>=1.7.1
+pyserial>=3.5
+h5py>=3.1.0
+pytest-shutil
+pyo>=1.0.3; platform_system == "Linux"
+keyboard==0.13.5
+airium>=0.1.0
+attrdict>=2.0.1
+attrdict3
+
+
+## ~~ Stimpres Requirements ~~ 
+
+psychopy==2023.1.0
+psychtoolbox
+scikit-learn>=0.23.2
+pandas>=1.1.4
+numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
+mne>=0.20.8
+seaborn>=0.11.0
 pysocks>=1.7.1
 pyserial>=3.5
 h5py>=3.1.0
@@ -37,7 +70,19 @@ pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinho
 # See issue: https://github.com/psychopy/psychopy/issues/2876
 pyglet==1.4.11 ; platform_system == "Windows"
 
-# Test requirements
+
+
+## ~~ Docsbuild Requirements ~~ 
+
+# Docs
+sphinx
+sphinx-gallery
+sphinx_rtd_theme
+sphinx-tabs
+sphinx-copybutton
+sphinxcontrib-httpdomain
+
+# Tests
 mypy
 pytest
 pytest-cov
@@ -46,15 +91,4 @@ nbval
 # Types
 types-requests
 
-# Docs requirements
-sphinx
-sphinx-gallery
-sphinx_rtd_theme
-sphinx-tabs
-sphinx-copybutton
-sphinxcontrib-httpdomain
-numpydoc
-recommonmark
-versioneer
-rst2pdf
-docutils
+
