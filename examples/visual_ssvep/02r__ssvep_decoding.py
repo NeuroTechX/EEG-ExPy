@@ -27,7 +27,7 @@ from mne import Epochs,find_events
 from mne.decoding import Vectorizer
 
 # EEG-Notebooks functions
-from eegnb.analysis.utils import load_data
+from eegnb.analysis.analysis_utils import load_data
 from eegnb.datasets import fetch_dataset
 
 # Scikit-learn and Pyriemann ML functionalities

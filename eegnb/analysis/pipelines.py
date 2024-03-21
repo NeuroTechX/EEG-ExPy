@@ -37,7 +37,7 @@ from mne.io import RawArray
 
 # EEG-Notebooks functions
 from eegnb import generate_save_fn
-from eegnb.analysis.utils import load_data,plot_conditions, load_csv_as_raw, fix_musemissinglines
+from eegnb.analysis.analysis_utils import load_data,plot_conditions, load_csv_as_raw, fix_musemissinglines
 from eegnb.analysis.analysis_report import get_html
 from eegnb.datasets import fetch_dataset
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
