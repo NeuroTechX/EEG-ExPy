@@ -6,7 +6,7 @@ with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 fptxt = open('requirements.txt', 'r').read()
-install_requires_analysis = fptxt.split('## ~~ Analysis  Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
+install_requires_analysis = fptxt.split('## ~~ Analysis Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
 install_requires_streaming = fptxt.split('## ~~ Streaming Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
 install_requires_stimpres = fptxt.split('## ~~ Stimpres Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
 install_requires_docsbuild = fptxt.split('## ~~ Docsbuild Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
@@ -21,7 +21,6 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[ install_requires_analysis ],   # base dependencies
-    extras_require={
     extras_require={
         'docsbuild':  install_requires_docsbuild,
         'streaming':  install_requires_streaming,
