@@ -20,6 +20,7 @@ from typing import Optional
 class VisualP300(Experiment.BaseExperiment):
     
     def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None,
+
             n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2, use_vr = False):
         
         exp_name = "Visual P300"

@@ -1,6 +1,6 @@
-# EEG-Notebooks Documentation Developer Notes
+# EEG-ExPy Documentation Developer Notes
 
-The documentation page can be found at https://neurotechx.github.io/eeg-notebooks
+The documentation page can be found at https://neurotechx.github.io/eeg-expy
 
 The documentation source files are a combination of plain-text `.rst`, `.md`, and `.py` files. 
 
@@ -9,8 +9,8 @@ It is built locally with `sphinx`, and hosted on the github repo `gh-pages` bran
 
 There are two main locations for the documentation files:
 
-- The various files and sub-folders in  `eeg-notebooks/doc`, which contain the webpage contents
-- The files and sub-folders in `eeg-notebooks/examples`, which contains `.py` scripts, grouped by experiment
+- The various files and sub-folders in  `eeg-expy/doc`, which contain the webpage contents
+- The files and sub-folders in `eeg-expy/examples`, which contains `.py` scripts, grouped by experiment
 
 This general organization (with `doc` and `examples` folders) is widely used by excellent python libraries such as `MNE` and `Nilearn`, and we are largely following suit in the organization here. 
 
@@ -35,7 +35,7 @@ In terminal 1: edit the source files
 
 In terminal 2: build and re-build the docs periodically to inspect changes
 
-`cd eeg-notebooks/doc`
+`cd eeg-expy/doc`
 `make html`
 
 In terminal 3: keep a local http server running to render the docs

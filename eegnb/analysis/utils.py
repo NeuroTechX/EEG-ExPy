@@ -5,10 +5,8 @@ import logging
 import sys
 from collections import OrderedDict
 from glob import glob
-from typing import Union, List#, Dict
-# from collections import Iterable
+from typing import Union, List
 from time import sleep, time
-# from numpy.core.fromnumeric import std
 import keyboard
 import os
 
@@ -21,6 +19,7 @@ from mne.io import RawArray
 from mne.channels import make_standard_montage
 from mne.filter import create_filter
 from matplotlib import pyplot as plt
+from matplotlib import lines as mlines
 from scipy import stats
 from scipy.signal import lfilter, lfilter_zi
 
@@ -253,6 +252,7 @@ def plot_conditions(
         channel_order = np.array(channel_order)
     else:
         channel_order = np.array(range(channel_count))
+    channel_names = np.array(epochs.ch_names)[channel_order]
 
     if isinstance(conditions, dict):
         conditions = OrderedDict(conditions)
@@ -260,9 +260,8 @@ def plot_conditions(
     if palette is None:
         palette = sns.color_palette("hls", len(conditions) + 1)
 
-    X = epochs.get_data() * 1e6
-
-    X = X[:, channel_order]
+    dfX = epochs.to_data_frame() 
+    dfX[channel_names] *= 1e6
 
     times = epochs.times
     y = pd.Series(epochs.events[:, -1])
@@ -277,12 +276,13 @@ def plot_conditions(
             plot_axes.append(axes[axis_x, axis_y])
     axes = plot_axes
 
-    for ch in range(channel_count):
-        for cond, color in zip(conditions.values(), palette):
+    for ch,ch_name in enumerate(channel_names):
+        for cond,cond_name, color in zip(conditions.values(),conditions.keys(), palette):
+            dfXc = dfX[dfX.condition.isin(conditions[cond_name])]
             sns.lineplot(
-                data=pd.DataFrame(X[y.isin(cond), ch].T, index=times),
-                x=times,
-                y=ch,
+                data=dfXc,
+                x="time",
+                y=ch_name,
                 color=color,
                 n_boot=n_boot,
                 ax=axes[ch],
@@ -291,26 +291,30 @@ def plot_conditions(
         axes[ch].set(xlabel='Time (s)', ylabel='Amplitude (uV)', title=epochs.ch_names[channel_order[ch]])
 
         if diff_waveform:
-            diff = np.nanmean(X[y == diff_waveform[1], ch], axis=0) - np.nanmean(
-                X[y == diff_waveform[0], ch], axis=0
-            )
+            dfXc1 = dfX[dfX.condition.isin(conditions[diff_waveform[1]])]
+            dfXc2 = dfX[dfX.condition.isin(conditions[diff_waveform[0]])]
+            dfXc1_mn = dfXc1.set_index(['time', 'epoch'])[ch_name].unstack('epoch').mean(axis=1)
+            dfXc2_mn = dfXc2.set_index(['time', 'epoch'])[ch_name].unstack('epoch').mean(axis=1)
+            diff = (dfXc1_mn - dfXc2_mn).values
             axes[ch].plot(times, diff, color="k", lw=1)
 
-        axes[ch].set_title(epochs.ch_names[channel_order[ch]])
+        axes[ch].set_title(ch_name)
         axes[ch].set_ylim(ylim)
         axes[ch].axvline(
             x=0, ymin=ylim[0], ymax=ylim[1], color="k", lw=1, label="_nolegend_"
         )
 
+    legs = []
+    for cond,cond_name,color in zip(conditions.values(),conditions.keys(), palette):
+        lh = mlines.Line2D([], [], color=color, marker='', ls='-', label=cond_name)
+        legs.append(lh)
     if diff_waveform:
-        legend = ["{} - {}".format(diff_waveform[1], diff_waveform[0])] + list(
-            conditions.keys()
-        )
-    else:
-        legend = conditions.keys()
-    axes[-1].legend(
-        legend, bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0
-    )
+        lh = mlines.Line2D([], [], color="k", marker='', ls='-', 
+                          label = "{} - {}".format(diff_waveform[1], diff_waveform[0]))
+        legs.append(lh)
+
+    axes[-1].legend(handles=legs,  
+                    bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0)
     sns.despine()
     plt.tight_layout()
 
@@ -330,6 +334,9 @@ def plot_highlight_regions(
     Args:
         x (array_like): x coordinates
         y (array_like): y values of same shape as `x`
+    Keyword Args:
+        hue (array_like): values to be plotted as hue based on `hue_thresh`.
+            Must be of the same shape as `x` and `y`.
     Keyword Args:
         hue (array_like): values to be plotted as hue based on `hue_thresh`.
             Must be of the same shape as `x` and `y`.
@@ -455,12 +462,9 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     Usage:
     ------
     from eegnb.devices.eeg import EEG
-    from eegnb.analysis.utils import check_report
-    eeg = EEG(device='museS')
-    check_report(eeg)
+    standard deviation for a quality recording.
 
-    The thres_std_low & thres_std_high values are the 
-    lower and  upper bound of accepted
+    thresholds = {
     standard deviation for a quality recording.
 
     thresholds = {

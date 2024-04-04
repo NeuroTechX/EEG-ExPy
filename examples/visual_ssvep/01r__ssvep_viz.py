@@ -4,7 +4,7 @@ SSVEP Visualization
 
 This example demonstrates loading, organizing, and visualizing data from the steady-state visual evoked potentials (SSVEP) experiment. 
 
-The data used is the first subject and first session of the one of the eeg-notebooks ssvep example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.  
+The data used is the first subject and first session of the one of the eeg-expy ssvep example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.  
 
 We first use the `fetch_datasets` to obtain a list of filenames. If these files are not already present 
 in the specified data directory, they will be quickly downloaded from the cloud. 
@@ -38,7 +38,7 @@ from eegnb.datasets import fetch_dataset
 # Load Data
 # ---------------------
 #
-# We will use the eeg-notebooks SSVEP example dataset
+# We will use the eeg-expy SSVEP example dataset
 #
 # Note that if you are running this locally, the following cell will download
 # the example dataset, if you do not already have it.
@@ -146,6 +146,8 @@ tfr, itc = tfr_morlet(epochs['20 Hz'], freqs=frequencies,picks='all',
 tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio', 
                  title='POz - 20 Hz stim');
 
+# Set Layout engine to tight to fix error with using colorbar layout error
+plt.figure().set_layout_engine('tight');
 plt.tight_layout()
 
 # Once again we can see clear SSVEPs at 30hz and 20hz

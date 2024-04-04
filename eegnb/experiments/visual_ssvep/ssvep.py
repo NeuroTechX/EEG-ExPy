@@ -85,6 +85,7 @@ class VisualSSVEP(Experiment.BaseExperiment):
             )
         )
 
+
         return [
             init_flicker_stim(frame_rate, 2, self.soa),
             init_flicker_stim(frame_rate, 3, self.soa),
