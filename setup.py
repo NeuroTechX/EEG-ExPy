@@ -20,7 +20,8 @@ setup(
     install_requires = install_requires,
     url='https://github.com/NeuroTechX/eeg-expy',
     license="BSD (3-clause)",
-    entry_points={"console_scripts": ["eegnb=eegnb.cli.__main__:main"]},
+    entry_points={"console_scripts": ["eegnb=eegnb.cli.__main__:main",
+                                      "eegexpy=eegnb.cli.__main__:main"]},
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
