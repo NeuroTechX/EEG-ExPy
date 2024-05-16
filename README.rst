@@ -17,7 +17,7 @@ EEG-ExPy
 
 EEG-ExPy is a collection of classic EEG experiments, implemented in Python. The experimental protocols and analyses are quite generic, but are primarily taylored for low-budget / consumer EEG hardware such as the InteraXon MUSE and OpenBCI Cyton. The goal is to make cognitive neuroscience and neurotechnology more accessible, affordable, and scalable. 
 
-- **For an intro talk on the ***EEG-ExPy*** (formerly ***eeg-notebooks***) project see:** `JG's Brainhack Ontario presentation <https://www.crowdcast.io/e/brainhack-ontario/7>`_.  
+- **For an intro talk on the** *EEG-ExPy* **(formerly** *eeg-notebooks*) **project see:** `JG's Brainhack Ontario presentation <https://www.crowdcast.io/e/brainhack-ontario/7>`_.  
 - **For documentation see:** `documentation site <https://neurotechx.github.io/eeg-expy/index.html>`_.
 - **For code see:** `github site <https://github.com/neurotechx/eeg-expy>`_.
 - **For instructions on running experiments see:** `running experiments <https://neurotechx.github.io/eeg-expy/getting_started/running_experiments.html>`_.
@@ -84,10 +84,3 @@ Contact
 -------------
 
 The best place for general discussion on eeg-expy functionality is the `issues page <https://github.com/NeuroTechX/eeg-expy/issues/new/choose>`_. For more general questions and discussions, you can e-mail `john.griffiths@utoronto.ca`, or ping us on the `NeuroTechX Discord <https://discord.gg/zYCBfBf4W4>`_ or `NeuroTechX slack <https://neurotechx.herokuapp.com>`_.
-
-
-
-.. image:: https://github.com/NeuroTechX/EEG-ExPy/blob/master/doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png
-   :align: center
-   :scale: 50
-   
