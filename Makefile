@@ -1,6 +1,6 @@
 build:
 	# Use pep517 to install pygatt==4.0.5(deprecated setuptools/egg installer) on macos
-	pip install --use-pep517 .
+	pip install --use-pep517 .[full]
 
 install-docs-build-dependencies:
 	pip install -e .[docsbuild]
