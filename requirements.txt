@@ -35,6 +35,7 @@ keyboard==0.13.5
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
+click
 
 
 ## ~~ Stimpres Requirements ~~ 
@@ -59,7 +60,6 @@ attrdict3
 # This might try to build from source on linux (since there are no wheels for Linux on PyPI) .
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
-click
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
