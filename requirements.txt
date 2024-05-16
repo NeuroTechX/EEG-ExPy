@@ -73,6 +73,9 @@ pyglet==1.4.11 ; platform_system == "Windows"
 
 
 ## ~~ Docsbuild Requirements ~~ 
+recommonmark
+brainflow
+numpydoc
 
 # Docs
 sphinx
