@@ -108,6 +108,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-virtual-reality">Using virtual reality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#heads-up-display">Heads up display</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#features-to-be-added-in-future-releases">Features to be added in future releases:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#steps-for-running-experiment-in-vr">Steps for running experiment in VR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-experiments-can-have-vr-added-too">Other experiments can have VR added too.</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="data_zipper.html">Data Zipping</a><ul>
@@ -575,6 +586,62 @@
 <span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="using-virtual-reality">
+<h2>Using virtual reality<a class="headerlink" href="#using-virtual-reality" title="Permalink to this heading"></a></h2>
+<section id="heads-up-display">
+<h3>Heads up display<a class="headerlink" href="#heads-up-display" title="Permalink to this heading"></a></h3>
+<p>A heads-up display can be used for presenting experiments in a similar way to a monitor, without much modification.</p>
+<section id="features-to-be-added-in-future-releases">
+<h4>Features to be added in future releases:<a class="headerlink" href="#features-to-be-added-in-future-releases" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>Controller input</p></li>
+<li><p>Controller haptic feedback</p></li>
+</ul>
+</section>
+</section>
+<section id="prerequisites">
+<h3>Prerequisites:<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Oculus Rift compatible VR headset, e.g. Oculus Rift or Meta Quest series.</p></li>
+<li><p>Native Windows installation with meta link compatible video card.</p></li>
+<li><p>EEG device, e.g. OpenBCI Cyton or Muse</p></li>
+</ul>
+<p>If an experiment has the use_vr argument in its present method, it can have its stimulus presented to a subject’s VR headset.
+The N170 experiment for example, can have its stimulus displayed on the VR headset with a simple modification to the ‘use_vr’ argument, when presenting an experiment:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run stimulus presentation with VR enabled.</span>
+<span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">,</span> <span class="n">use_vr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3><a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+</section>
+<section id="steps-for-running-experiment-in-vr">
+<h3>Steps for running experiment in VR<a class="headerlink" href="#steps-for-running-experiment-in-vr" title="Permalink to this heading"></a></h3>
+<ol class="simple">
+<li><p>Launch the Oculus app on the Windows computer and the IDE or CLI to be used for running the experiment.</p></li>
+<li><p>Turn on the VR headset and put it on your head to make sure it is on and active, then take it off.</p></li>
+<li><p>Go to the ‘Devices’ view in the Oculus app, it will show the headset as connected and active, along with any inactive or connected controllers.</p></li>
+<li><p>Go to the ‘Settings’ view, under the ‘Beta’ title, enable ‘Pass through over Oculus Link’, double tapping the headset later with a fingertip will activate passthrough.</p></li>
+<li><p>Put the VR headset onto the head, activate passthrough to help with wearing the eeg device.</p></li>
+<li><p>Place the EEG device on top of the head.</p></li>
+<li><p>Ensure the electrodes are touching the scalp ok and not being blocked by the headset strap.</p></li>
+<li><p>From inside the VR headset’s ‘quick settings’ dashboard, select ‘Quest Link’ and connect to the Oculus server running on windows, via air link or link cable.</p></li>
+<li><p>Once the Oculus menu has finished loading on the VR headset, open the built-in Oculus desktop app by using the touch controllers or gamepad.</p></li>
+<li><p>Try opening an eeg device raw data viwer and verify that the electrodes are receiving a good signal without too much noise, eg ‘OpenBCI GUI’.</p></li>
+<li><p>Run the EEG-ExPy experiment from the command line or IDE, it should load and take control from the Oculus desktop app.</p></li>
+<li><p>Follow the experiment instructions, and press a key if necessary to begin the experiment and collect valid data.</p></li>
+</ol>
+</section>
+<section id="other-experiments-can-have-vr-added-too">
+<h3>Other experiments can have VR added too.<a class="headerlink" href="#other-experiments-can-have-vr-added-too" title="Permalink to this heading"></a></h3>
+<ol class="simple">
+<li><p>Load/prepare stimulus in the same function as previously (def load_stimulus(self))</p></li>
+<li><p>Present stimulus in the same function as previously(def present_stimulus(self, current_trial: int))</p></li>
+<li><p>VR can be enabled for the experiment as part of the initializer to the base Experiment class, by default it is not enabled(use_vr=False) and will function the same as previously before VR functionality was added.</p></li>
+</ol>
+</section>
 </section>
 </section>
 
