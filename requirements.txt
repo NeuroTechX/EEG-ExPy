@@ -70,6 +70,9 @@ pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinho
 # See issue: https://github.com/psychopy/psychopy/issues/2876
 pyglet==1.4.11 ; platform_system == "Windows"
 
+# Oculus/Quest VR support - currently only supported on Windows.
+psychxr>=0.2.4rc2; platform_system == "Windows"
+
 
 
 ## ~~ Docsbuild Requirements ~~ 
@@ -84,6 +87,11 @@ sphinx_rtd_theme
 sphinx-tabs
 sphinx-copybutton
 sphinxcontrib-httpdomain
+numpydoc
+recommonmark
+versioneer
+rst2pdf
+docutils
 
 # Tests
 mypy
@@ -93,5 +101,4 @@ nbval
 
 # Types
 types-requests
-
 

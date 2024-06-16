@@ -139,3 +139,52 @@ eeg_device = EEG(device=board_name)
 # Run stimulus presentation
 n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
 ```
+
+
+## Using virtual reality
+
+### Heads up display
+
+A heads-up display can be used for presenting experiments in a similar way to a monitor, without much modification.
+
+#### Features to be added in future releases:
+
+* Controller input
+* Controller haptic feedback
+
+### Prerequisites:
+* Oculus Rift compatible VR headset, e.g. Oculus Rift or Meta Quest series.
+* Native Windows installation with meta link compatible video card.
+* EEG device, e.g. OpenBCI Cyton or Muse
+
+If an experiment has the use_vr argument in its present method, it can have its stimulus presented to a subject's VR headset.
+The N170 experiment for example, can have its stimulus displayed on the VR headset with a simple modification to the 'use_vr' argument, when presenting an experiment:
+
+```python
+# Run stimulus presentation with VR enabled.
+n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn, use_vr=True)
+```
+
+### 
+
+### Steps for running experiment in VR
+
+1. Launch the Oculus app on the Windows computer and the IDE or CLI to be used for running the experiment.
+2. Turn on the VR headset and put it on your head to make sure it is on and active, then take it off.
+3. Go to the 'Devices' view in the Oculus app, it will show the headset as connected and active, along with any inactive or connected controllers.
+4. Go to the 'Settings' view, under the 'Beta' title, enable 'Pass through over Oculus Link', double tapping the headset later with a fingertip will activate passthrough.
+5. Put the VR headset onto the head, activate passthrough to help with wearing the eeg device.
+6. Place the EEG device on top of the head.
+7. Ensure the electrodes are touching the scalp ok and not being blocked by the headset strap.
+8. From inside the VR headset's 'quick settings' dashboard, select 'Quest Link' and connect to the Oculus server running on windows, via air link or link cable.
+9. Once the Oculus menu has finished loading on the VR headset, open the built-in Oculus desktop app by using the touch controllers or gamepad.
+10. Try opening an eeg device raw data viwer and verify that the electrodes are receiving a good signal without too much noise, eg 'OpenBCI GUI'.
+11. Run the EEG-ExPy experiment from the command line or IDE, it should load and take control from the Oculus desktop app.
+12. Follow the experiment instructions, and press a key if necessary to begin the experiment and collect valid data.
+
+### Other experiments can have VR added too.
+
+1. Load/prepare stimulus in the same function as previously (def load_stimulus(self))
+2. Present stimulus in the same function as previously(def present_stimulus(self, current_trial: int))
+3. VR can be enabled for the experiment as part of the initializer to the base Experiment class, by default it is not enabled(use_vr=False) and will function the same as previously before VR functionality was added.
+
