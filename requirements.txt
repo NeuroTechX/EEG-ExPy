@@ -1,6 +1,6 @@
-# Main repo requirements
-psychopy==2023.1.0
-psychtoolbox
+
+## ~~ Analysis Requirements ~~ 
+
 scikit-learn>=0.23.2
 pandas>=1.1.4
 numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
@@ -8,11 +8,45 @@ mne>=0.20.8
 seaborn>=0.11.0
 pyriemann>=0.2.7
 jupyter
+gdown>=4.5.1
+matplotlib>=3.3.3
+pysocks>=1.7.1
+pyserial>=3.5
+h5py>=3.1.0
+pytest-shutil
+pyo>=1.0.3; platform_system == "Linux"
+keyboard==0.13.5
+airium>=0.1.0
+attrdict>=2.0.1
+attrdict3
+
+
+## ~~ Streaming Requirements ~~ 
+
 muselsl>=2.0.2
 pylsl==1.10.5  # due to https://github.com/NeuroTechX/eeg-notebooks/issues/187
 brainflow>=4.8.2
-gdown>=4.5.1
-matplotlib>=3.3.3
+pysocks>=1.7.1
+pyserial>=3.5
+h5py>=3.1.0
+pytest-shutil
+pyo>=1.0.3; platform_system == "Linux"
+keyboard==0.13.5
+airium>=0.1.0
+attrdict>=2.0.1
+attrdict3
+click
+
+
+## ~~ Stimpres Requirements ~~ 
+
+psychopy==2023.1.0
+psychtoolbox
+scikit-learn>=0.23.2
+pandas>=1.1.4
+numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
+mne>=0.20.8
+seaborn>=0.11.0
 pysocks>=1.7.1
 pyserial>=3.5
 h5py>=3.1.0
@@ -26,7 +60,6 @@ attrdict3
 # This might try to build from source on linux (since there are no wheels for Linux on PyPI) .
 # You can pass `--find-links=https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/` your `pip install` to use the prebuilt wheels at the link.
 wxPython>=4.0 ; platform_system == "Linux"
-click
 
 # pywinhook needs some special treatment since there are only wheels on PyPI for Python 3.7-3.8, and building requires special tools (swig, VS C++ tools)
 # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/29
@@ -37,16 +70,17 @@ pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinho
 # See issue: https://github.com/psychopy/psychopy/issues/2876
 pyglet==1.4.11 ; platform_system == "Windows"
 
-# Test requirements
-mypy
-pytest
-pytest-cov
-nbval
+# Oculus/Quest VR support - currently only supported on Windows.
+psychxr>=0.2.4rc2; platform_system == "Windows"
 
-# Types
-types-requests
 
-# Docs requirements
+
+## ~~ Docsbuild Requirements ~~ 
+recommonmark
+brainflow
+numpydoc
+
+# Docs
 sphinx
 sphinx-gallery
 sphinx_rtd_theme
@@ -58,3 +92,13 @@ recommonmark
 versioneer
 rst2pdf
 docutils
+
+# Tests
+mypy
+pytest
+pytest-cov
+nbval
+
+# Types
+types-requests
+

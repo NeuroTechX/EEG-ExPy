@@ -12,8 +12,9 @@ EEG-ExPy
 .. |badge_binder| image:: https://mybinder.org/badge_logo.svg
    :target: https://mybinder.org/v2/gh/NeuroTechX/eeg-expy/master
 
-.. image:: https://github.com/NeuroTechX/EEG-ExPy/blob/master/doc/img/EEG-ExPy_Logo.png
+.. image:: ./doc/img/EEG-ExPy_Logo.png
    :align: center
+
 
 EEG-ExPy is a collection of classic EEG experiments, implemented in Python. The experimental protocols and analyses are quite generic, but are primarily taylored for low-budget / consumer EEG hardware such as the InteraXon MUSE and OpenBCI Cyton. The goal is to make cognitive neuroscience and neurotechnology more accessible, affordable, and scalable. 
 
@@ -87,7 +88,7 @@ The best place for general discussion on eeg-expy functionality is the `issues p
 
 
 
-.. image:: https://github.com/NeuroTechX/EEG-ExPy/blob/master/doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png
+.. image:: ./doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png
    :align: center
    :scale: 50
    

@@ -22,7 +22,7 @@ from mne.time_frequency import tfr_morlet
 
 # EEG-Notebooks functions
 from eegnb.datasets import datasets
-from eegnb.analysis.utils import load_data
+from eegnb.analysis.analysis_utils import load_data
 
 # sphinx_gallery_thumbnail_number = 1
 
