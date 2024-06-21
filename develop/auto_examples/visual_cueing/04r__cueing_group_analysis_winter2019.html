@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cueing Group Analysis Winter 2019 &mdash; EEG Notebooks 0.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=464912d9"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=a56c686a"></script>
+        <script src="../../_static/debug.js?v=63710f7d"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Visual Go-No-Go" href="../../experiments/gonogo.html" />
+    <link rel="prev" title="Cueing Behavioural Analysis Winter 2019" href="03r__cueing_behaviour_analysis_winter2019.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            EEG Notebooks
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#installing-the-python-library">Installing the Python library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#muse-requirements">MUSE Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-windows-bluemuse">MUSE recordings on windows: BlueMuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-mac-bled112-dongle">MUSE recordings on Mac: BLED112 Dongle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#muse-recordings-on-linux">MUSE recordings on Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/installation.html#issues">Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#common-problems">Common Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/installation.html#bug-reports">Bug reports</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/streaming.html">Initiating an EEG Stream</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#supported-devices">Supported Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#interaxon-muse">Interaxon Muse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#using-the-muse-on-windows">Using the Muse on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-ganglion">OpenBCI Ganglion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton">OpenBCI Cyton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#connecting-on-windows">Connecting on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#brainbit-eeg-headband">BrainBit EEG Headband</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#g-tec-unicorn">G.Tec Unicorn</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#initiating-a-muse-stream-in-windows-using-bluemuse">Initiating a Muse stream in Windows using Bluemuse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/streaming.html#finding-the-usb-port-of-the-openbci-usb-dongle">Finding the USB port of the OpenBCI USB dongle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/running_experiments.html">Running Experiments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#command-line-interface">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#using-the-introprompt-flag">Using the introprompt flag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#board-selection">Board Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#experiment-selection">Experiment Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#recording-duration">Recording Duration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#subject-id">Subject ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#session-number">Session Number</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-virtual-reality">Using virtual reality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#heads-up-display">Heads up display</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#features-to-be-added-in-future-releases">Features to be added in future releases:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#prerequisites">Prerequisites:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#id1"></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#steps-for-running-experiment-in-vr">Steps for running experiment in VR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#other-experiments-can-have-vr-added-too">Other experiments can have VR added too.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/data_zipper.html">Data Zipping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/data_zipper.html#command-line-interface">Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/data_zipper.html#using-the-introprompt-flag">Using the introprompt flag</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/analysis.html">Analyzing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/available_experiments.html">Available Experiments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/available_experiments.html#visual-p300-with-oddball-paradigm">Visual P300 with Oddball paradigm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/available_experiments.html#n170">N170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/available_experiments.html#ssvep">SSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/available_experiments.html#old-experiments">Old experiments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/available_experiments.html#go-no-go">Go/No-Go</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/available_experiments.html#ssaep">SSAEP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/available_experiments.html#c1-and-p1">C1 and P1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/available_experiments.html#auditory-p300">Auditory P300</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/available_experiments.html#unvalidated-experiments-and-other-phenomena">Unvalidated Experiments and other phenomena</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/available_experiments.html#n100-p200">N100 - P200</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/available_experiments.html#on-task-beta">On-task Beta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/available_experiments.html#alpha-reset">Alpha reset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experiments</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../experiments/vn170.html">Visual N170</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#run-experiment">Run experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_n170/01r__n170_viz.html">N170 Load and Visualize Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#epoch-average">Epoch average</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html">N170 Decoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#filteriing">Filteriing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#run-classification">Run classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#plot-decoding-results">Plot Decoding Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiments/vp300.html">Visual P300</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html">P300 run experiment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html#run-experiment">Run experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_p300/01r__p300_viz.html">P300 Load and Visualize Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#filteriing">Filteriing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#epoch-average">Epoch average</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html">P300 Decoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#filteriing">Filteriing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#classfication">Classfication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiments/vssvep.html">Visual SSVEP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html">SSVEP run experiment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html#run-experiment">Run experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html">SSVEP Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#stimuli-specific-psd">Stimuli-Specific PSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#spectrogram">Spectrogram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html">SSVEP Decoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#decoding">Decoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#id1">Decoding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../experiments/cueing.html">Visual Cueing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01r__cueing_singlesub_analysis.html">Cueing Single Subject Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#power-spectral-density">Power Spectral Density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#spectrogram">Spectrogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#now-we-compute-and-plot-the-differences">Now we compute and plot the differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#target-epoching">Target Epoching</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="02r__cueing_group_analysis.html">Cueing Group Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#download-the-data">Download the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#load-data-into-mne-objects">Load data into MNE objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#combine-subjects">Combine subjects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#compute-t-test">Compute t test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#save-average-powers-ipsi-and-contra">Save average powers ipsi and contra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#save-spectra">Save spectra</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="03r__cueing_behaviour_analysis_winter2019.html">Cueing Behavioural Analysis Winter 2019</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="03r__cueing_behaviour_analysis_winter2019.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03r__cueing_behaviour_analysis_winter2019.html#analyze-mat-behavioural-data-for-accuracy-and-rt">Analyze .mat behavioural data for Accuracy and RT</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cueing Group Analysis Winter 2019</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-the-data">Load the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#put-the-data-into-mne-epochs">Put the data into MNE Epochs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combine-subjects">Combine subjects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compute-t-test">Compute t test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-average-powers-ipsi-and-contra">Save average powers ipsi and contra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-spectra">Save spectra</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiments/gonogo.html">Visual Go-No-Go</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../experiments/all_examples.html">All Notebook Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01r__cueing_singlesub_analysis.html">Cueing Single Subject Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#power-spectral-density">Power Spectral Density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#spectrogram">Spectrogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#now-we-compute-and-plot-the-differences">Now we compute and plot the differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01r__cueing_singlesub_analysis.html#target-epoching">Target Epoching</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="02r__cueing_group_analysis.html">Cueing Group Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#download-the-data">Download the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#load-data-into-mne-objects">Load data into MNE objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#combine-subjects">Combine subjects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#compute-t-test">Compute t test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#save-average-powers-ipsi-and-contra">Save average powers ipsi and contra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02r__cueing_group_analysis.html#save-spectra">Save spectra</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="03r__cueing_behaviour_analysis_winter2019.html">Cueing Behavioural Analysis Winter 2019</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="03r__cueing_behaviour_analysis_winter2019.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03r__cueing_behaviour_analysis_winter2019.html#analyze-mat-behavioural-data-for-accuracy-and-rt">Analyze .mat behavioural data for Accuracy and RT</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cueing Group Analysis Winter 2019</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-the-data">Load the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#put-the-data-into-mne-epochs">Put the data into MNE Epochs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combine-subjects">Combine subjects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compute-t-test">Compute t test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-average-powers-ipsi-and-contra">Save average powers ipsi and contra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-spectra">Save spectra</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html">N170 run experiment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/00x__n170_run_experiment.html#run-experiment">Run experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_n170/01r__n170_viz.html">N170 Load and Visualize Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/01r__n170_viz.html#epoch-average">Epoch average</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html">N170 Decoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#filteriing">Filteriing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#run-classification">Run classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_n170/02r__n170_decoding.html#plot-decoding-results">Plot Decoding Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html">P300 run experiment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/00x__p300_run_experiment.html#run-experiment">Run experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_p300/01r__p300_viz.html">P300 Load and Visualize Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#filteriing">Filteriing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/01r__p300_viz.html#epoch-average">Epoch average</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html">P300 Decoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#filteriing">Filteriing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_p300/02r__p300_decoding.html#classfication">Classfication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html">SSVEP run experiment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html#initiate-eeg-device">Initiate EEG device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/00x__ssvep_run_experiment.html#run-experiment">Run experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html">SSVEP Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#visualize-the-power-spectrum">Visualize the power spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#stimuli-specific-psd">Stimuli-Specific PSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/01r__ssvep_viz.html#spectrogram">Spectrogram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html">SSVEP Decoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#load-data">Load Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#epoching">Epoching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#decoding">Decoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visual_ssvep/02r__ssvep_decoding.html#id1">Decoding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/muse_info.html">Technical Information about the MUSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#muse-setup-and-usage">MUSE setup and usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/muse_info.html#introduction-to-the-muse">Introduction to the MUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/muse_info.html#headband-fit-and-signal-quality-tutorial">Headband fit and signal quality tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/muse_info.html#adjusting-and-fitting-the-muse-for-better-signal-quality">Adjusting and fitting the MUSE for better signal quality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/muse_info.html#using-water-for-better-signal-quality">Using water for better signal quality</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/muse_info.html#details-related-to-muse-erp-analysis">Details related to Muse ERP analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/about_the_docs.html">About the EEG-ExPy Documentation Pages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html">NTCS Phase 1 Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#on-this-page">On this page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#instructional-videos">Instructional Videos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#summary-of-the-steps">Summary of the steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#tl-dr-instructions-version">TL;DR instructions version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#full-step-by-step-instructions">Full step-by-step instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#sign-up-and-provide-informed-consent">1. Sign up and provide informed consent.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#check-your-e-mail">2. Check your e-mail.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#install-miniconda">3. Install miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#set-up-environment-and-install-eeg-expy">4. Set up environment and install eeg-expy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#set-up-your-eeg-device">5. Set up your EEG Device</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#windows-muse-device-users">5.1 Windows+Muse device users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#openbci-devices">5.2 OpenBCI Devices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#run-the-visual-n170-experiment">6. Run the visual N170 experiment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#check-your-signal-quality">6.1 Check your signal quality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#run-the-experiment">6.2 Run the experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#after-recording-locate-and-zip-your-recorded-data">7. After recording, locate and zip your recorded data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#take-a-look-at-what-s-there">7.1 Take a look at what’s there</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#compress-your-data">7.2 Compress your data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#upload-your-zipped-data-file-to-your-personalized-url">8. Upload your zipped data file to your personalized URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#make-use-of-your-newfangled-knowledge">9. Make use of your newfangled knowledge!</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#faqs-troubleshooting-gotchas">FAQs, Troubleshooting, Gotchas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#where-are-my-files">Where are my files?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#openbci-ports-and-drivers">OpenBCI Ports and drivers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../misc/ntcs_phase1_instructions.html#python-is-not-3-7">Python is not 3.7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">EEG Notebooks</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../experiments/cueing.html">Visual Cueing</a></li>
+      <li class="breadcrumb-item active">Cueing Group Analysis Winter 2019</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="cueing-group-analysis-winter-2019">
+<span id="sphx-glr-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py"></span><h1>Cueing Group Analysis Winter 2019<a class="headerlink" href="#cueing-group-analysis-winter-2019" title="Permalink to this heading"></a></h1>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard Pythonic imports</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+
+<span class="c1"># MNE functions</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span> <span class="n">find_events</span><span class="p">,</span> <span class="n">concatenate_raws</span>
+<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">tfr_morlet</span>
+
+<span class="c1"># EEG-Noteooks functions</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.analysis_utils</span> <span class="kn">import</span> <span class="n">load_data</span>
+<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
+</pre></div>
+</div>
+</section>
+<section id="load-the-data">
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">cueing_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
+
+<span class="c1"># If dataset hasn&#39;t been downloaded yet, download it</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">cueing_data_path</span><span class="p">):</span>
+      <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="put-the-data-into-mne-epochs">
+<h2>Put the data into MNE Epochs<a class="headerlink" href="#put-the-data-into-mne-epochs" title="Permalink to this heading"></a></h2>
+<p>Fall 2018
+subs = [101, 102, 103, 104, 105, 106, 108, 109, 110, 111, 112,</p>
+<blockquote>
+<div><p>202, 203, 204, 205, 207, 208, 209, 210, 211,
+301, 302, 303, 304, 305, 306, 307, 308, 309]</p>
+</div></blockquote>
+<p>Winter 2019</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">subs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1101</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1103</span><span class="p">,</span> <span class="mi">1104</span><span class="p">,</span> <span class="mi">1105</span><span class="p">,</span> <span class="mi">1106</span><span class="p">,</span> <span class="mi">1108</span><span class="p">,</span> <span class="mi">1109</span><span class="p">,</span> <span class="mi">1110</span><span class="p">,</span>
+        <span class="mi">1202</span><span class="p">,</span> <span class="mi">1203</span><span class="p">,</span> <span class="mi">1205</span><span class="p">,</span> <span class="mi">1206</span><span class="p">,</span> <span class="mi">1209</span><span class="p">,</span> <span class="mi">1210</span><span class="p">,</span> <span class="mi">1211</span><span class="p">,</span> <span class="mi">1215</span><span class="p">,</span>
+        <span class="mi">1301</span><span class="p">,</span> <span class="mi">1302</span><span class="p">,</span> <span class="mi">1313</span><span class="p">,</span>
+        <span class="mi">1401</span><span class="p">,</span> <span class="mi">1402</span><span class="p">,</span> <span class="mi">1403</span><span class="p">,</span> <span class="mi">1404</span><span class="p">,</span> <span class="mi">1405</span><span class="p">,</span>  <span class="mi">1408</span><span class="p">,</span> <span class="mi">1410</span><span class="p">,</span> <span class="mi">1411</span><span class="p">,</span> <span class="mi">1412</span><span class="p">,</span> <span class="mi">1413</span><span class="p">,</span> <span class="mi">1413</span><span class="p">,</span> <span class="mi">1414</span><span class="p">,</span> <span class="mi">1415</span><span class="p">,</span> <span class="mi">1416</span><span class="p">]</span>
+<span class="c1">#</span>
+<span class="c1"># Both</span>
+<span class="c1"># subs = [101, 102, 103, 104, 105, 106, 108, 109, 110, 111, 112,</span>
+<span class="c1">#         202, 203, 204, 205, 207, 208, 209, 210, 211,</span>
+<span class="c1">#         301, 302, 303, 304, 305, 306, 307, 308, 309,</span>
+<span class="c1">#         1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,</span>
+<span class="c1">#         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,</span>
+<span class="c1">#         1301, 1302, 1313,</span>
+<span class="c1">#         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># placeholders to add to for each subject</span>
+<span class="n">diff_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">Ipsi_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">Contra_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">Ipsi_spectra_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">Contra_spectra_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">diff_spectra_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ERSP_diff_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ERSP_Ipsi_out</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ERSP_Contra_out</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">frequencies</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wave_cycles</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="c1"># time frequency window for analysis</span>
+<span class="n">f_low</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1"># Hz</span>
+<span class="n">f_high</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">f_diff</span> <span class="o">=</span> <span class="n">f_high</span><span class="o">-</span><span class="n">f_low</span>
+
+<span class="n">t_low</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># s</span>
+<span class="n">t_high</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">t_diff</span> <span class="o">=</span> <span class="n">t_high</span><span class="o">-</span><span class="n">t_low</span>
+
+<span class="n">bad_subs</span><span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">26</span><span class="p">]</span>
+<span class="n">really_bad_subs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">19</span><span class="p">]</span>
+<span class="n">sub_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+
+<span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">subs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+
+    <span class="n">sub_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">sub_count</span> <span class="ow">in</span> <span class="n">really_bad_subs</span><span class="p">):</span>
+        <span class="n">rej_thresh_uV</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">sub_count</span> <span class="ow">in</span> <span class="n">bad_subs</span><span class="p">):</span>
+        <span class="n">rej_thresh_uV</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rej_thresh_uV</span> <span class="o">=</span> <span class="mi">90</span>
+
+    <span class="n">rej_thresh</span> <span class="o">=</span> <span class="n">rej_thresh_uV</span><span class="o">*</span><span class="mf">1e-6</span>
+
+
+    <span class="c1"># Load both sessions</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># subject, session</span>
+                    <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span><span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
+
+    <span class="n">raw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+          <span class="n">load_data</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># subject, session</span>
+                    <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">))</span>
+
+
+    <span class="c1"># Filter Raw Data</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
+
+    <span class="c1">#Select Events</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+    <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LeftCue&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RightCue&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
+                    <span class="n">tmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:</span><span class="n">rej_thresh</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trials Remaining: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Compute morlet wavelet</span>
+    <span class="c1"># Left Cue</span>
+    <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;LeftCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+                          <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">),</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">power_Ipsi_TP9</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span>
+    <span class="n">power_Contra_TP10</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span>
+
+    <span class="c1"># Right Cue</span>
+    <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;RightCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+                          <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">),</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">power_Contra_TP9</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span>
+    <span class="n">power_Ipsi_TP10</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span>
+
+    <span class="c1"># Compute averages Differences</span>
+    <span class="n">power_Avg_Ipsi</span> <span class="o">=</span>   <span class="p">(</span><span class="n">power_Ipsi_TP9</span><span class="o">+</span><span class="n">power_Ipsi_TP10</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+    <span class="n">power_Avg_Contra</span> <span class="o">=</span> <span class="p">(</span><span class="n">power_Contra_TP9</span><span class="o">+</span><span class="n">power_Contra_TP10</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+    <span class="n">power_Avg_Diff</span> <span class="o">=</span> <span class="n">power_Avg_Ipsi</span><span class="o">-</span><span class="n">power_Avg_Contra</span><span class="p">;</span>
+
+    <span class="c1">#output data into array</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">times</span>
+    <span class="n">Ipsi_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power_Avg_Ipsi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">frequencies</span><span class="o">&gt;</span><span class="n">f_low</span><span class="p">):</span>
+                                           <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">frequencies</span><span class="o">&gt;</span><span class="n">f_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_low</span><span class="p">):</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">]</span>
+                           <span class="p">)</span>
+                   <span class="p">)</span>
+    <span class="n">Ipsi_spectra_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power_Avg_Ipsi</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_low</span><span class="p">):</span>
+                                                   <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">],</span><span class="mi">1</span>
+                                   <span class="p">)</span>
+                           <span class="p">)</span>
+
+    <span class="n">Contra_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power_Avg_Contra</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">frequencies</span><span class="o">&gt;</span><span class="n">f_low</span><span class="p">):</span>
+                                               <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">frequencies</span><span class="o">&gt;</span><span class="n">f_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_low</span><span class="p">):</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">]</span>
+                             <span class="p">)</span>
+                     <span class="p">)</span>
+
+    <span class="n">Contra_spectra_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power_Avg_Contra</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_low</span><span class="p">):</span>
+                                                       <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">],</span><span class="mi">1</span><span class="p">))</span>
+
+
+    <span class="n">diff_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power_Avg_Diff</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">frequencies</span><span class="o">&gt;</span><span class="n">f_low</span><span class="p">):</span>
+                                           <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">frequencies</span><span class="o">&gt;</span><span class="n">f_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_low</span><span class="p">):</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">]</span>
+                           <span class="p">)</span>
+                   <span class="p">)</span>
+    <span class="n">diff_spectra_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power_Avg_Diff</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_low</span><span class="p">):</span>
+                                                   <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">times</span><span class="o">&gt;</span><span class="n">t_high</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="p">],</span><span class="mi">1</span>
+                                   <span class="p">)</span>
+                           <span class="p">)</span>
+
+    <span class="c1">#save the spectrograms to average over after</span>
+    <span class="n">ERSP_diff_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">power_Avg_Diff</span><span class="p">)</span>
+    <span class="n">ERSP_Ipsi_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">power_Avg_Ipsi</span><span class="p">)</span>
+    <span class="n">ERSP_Contra_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">power_Avg_Contra</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>1101
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1101/session001/subject1101_session1_recording_2019-03-26-20.08.20.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1101/session002/subject1101_session2_recording_2019-03-26-20.16.25.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+67 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 1.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1102
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1102/session001/subject1102_session1_recording_2019-03-26-20.27.26.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1102/session002/subject1102_session2_recording_2019-03-26-20.35.07.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+136 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 31.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1103
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1103/session001/subject1103_session1_recording_2019-03-26-20.45.55.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1103/session002/subject1103_session2_recording_2019-03-26-20.52.46.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+161 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 64.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1104
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1104/session001/subject1104_session1_recording_2019-03-26-21.02.02.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1104/session002/subject1104_session2_recording_2019-03-26-21.08.38.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+187 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 51.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1105
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1105/session001/subject1105_session1_recording_2019-03-26-21.18.06.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1105/session002/subject1105_session2_recording_2019-03-26-21.24.15.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+192 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 73.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1106
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1106/session001/subject1106_session1_recording_2019-03-26-21.37.04.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1106/session002/subject1106_session2_recording_2019-03-26-21.44.54.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+134 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 56.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1108
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1108/session001/subject1108_session1_recording_2019-03-28-20.37.17.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1108/session002/subject1108_session2_recording_2019-03-28-20.44.39.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+146 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 25.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1109
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1109/session001/subject1109_session1_recording_2019-03-28-20.53.09.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1109/session002/subject1109_session2_recording_2019-03-28-21.00.47.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+176 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 47.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1110
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1110/session001/subject1110_session1_recording_2019-03-28-21.09.52.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1110/session002/subject1110_session2_recording_2019-03-28-21.16.24.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+168 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 12.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1202
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1202/session001/subject1202_session1_recording_2019-03-26-21.00.19.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61308
+    Range : 0 ... 61307 =      0.000 ...   239.480 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1202/session002/subject1202_session2_recording_2019-03-26-21.07.19.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+173 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 73.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1203
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1203/session001/subject1203_session1_recording_2019-03-26-21.18.01.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1203/session002/subject1203_session2_recording_2019-03-26-21.23.52.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+211 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 88.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1205
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1205/session001/subject1205_session1_recording_2019-03-26-20.27.40.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61308
+    Range : 0 ... 61307 =      0.000 ...   239.480 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1205/session002/subject1205_session2_recording_2019-03-26-20.33.10.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61308
+    Range : 0 ... 61307 =      0.000 ...   239.480 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+226 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 83.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1206
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1206/session001/subject1206_session1_recording_2019-03-26-20.43.14.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61308
+    Range : 0 ... 61307 =      0.000 ...   239.480 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1206/session002/subject1206_session2_recording_2019-03-26-20.49.14.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+214 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 66.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1209
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1209/session001/subject1209_session1_recording_2019-03-28-20.35.06.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1209/session002/subject1209_session2_recording_2019-03-28-20.41.47.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+186 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 40.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1210
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1210/session001/subject1210_session1_recording_2019-03-28-20.51.18.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1210/session002/subject1210_session2_recording_2019-03-28-20.57.32.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+198 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 27.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1211
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1211/session001/subject1211_session1_recording_2019-03-28-20.13.27.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1211/session002/subject1211_session2_recording_2019-03-28-20.23.34.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+139 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 53.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1215
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1215/session001/subject1215_session1_recording_2019-03-28-21.07.04.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1215/session002/subject1215_session2_recording_2019-03-28-21.13.37.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+193 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 46.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1301
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1301/session001/subject1301_session1_recording_2019-03-26-20.10.43.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1301/session002/subject1301_session2_recording_2019-03-26-20.17.14.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+197 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 0.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1302
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1302/session001/subject1302_session1_recording_2019-03-26-20.30.19.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1302/session002/subject1302_session2_recording_2019-03-26-20.36.50.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+194 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 0.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1313
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1313/session001/subject1313_session1_recording_2019-03-28-21.32.56.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1313/session002/subject1313_session2_recording_2019-03-28-21.39.30.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+186 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 56.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1401
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1401/session001/subject1401_session1_recording_2019-03-26-20.03.18.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1401/session002/subject1401_session2_recording_2019-03-26-20.11.54.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+125 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 43.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1402
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1402/session001/subject1402_session1_recording_2019-03-26-20.23.18.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1402/session002/subject1402_session2_recording_2019-03-26-20.31.17.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+158 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 65.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1403
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1403/session001/subject1403_session1_recording_2019-03-26-20.40.55.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1403/session002/subject1403_session2_recording_2019-03-26-20.48.07.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+172 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 17.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1404
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1404/session001/subject1404_session1_recording_2019-03-26-20.58.09.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1404/session002/subject1404_session2_recording_2019-03-26-21.06.17.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+112 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 38.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1405
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1405/session001/subject1405_session1_recording_2019-03-26-21.17.49.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1405/session002/subject1405_session2_recording_2019-03-26-21.25.03.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+162 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 26.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1408
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1408/session001/subject1408_session1_recording_2019-03-26-21.36.18.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1408/session002/subject1408_session2_recording_2019-03-26-21.44.04.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61284
+    Range : 0 ... 61283 =      0.000 ...   239.387 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+171 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 16.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1410
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1410/session001/subject1410_session1_recording_2019-03-28-20.01.52.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61308
+    Range : 0 ... 61307 =      0.000 ...   239.480 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1410/session002/subject1410_session2_recording_2019-03-28-20.09.14.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+172 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 53.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1411
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1411/session001/subject1411_session1_recording_2019-03-28-21.24.26.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1411/session002/subject1411_session2_recording_2019-03-28-21.31.09.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+160 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 53.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1412
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1412/session001/subject1412_session1_recording_2019-03-28-21.09.06.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1412/session002/subject1412_session2_recording_2019-03-28-21.15.30.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+168 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 46.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1413
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1413/session001/subject1413_session1_recording_2019-03-28-20.34.09.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1413/session002/subject1413_session2_recording_2019-03-28-20.40.57.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+154 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 41.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1413
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1413/session001/subject1413_session1_recording_2019-03-28-20.34.09.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1413/session002/subject1413_session2_recording_2019-03-28-20.40.57.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+154 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 41.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1414
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1414/session001/subject1414_session1_recording_2019-03-28-20.18.34.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61308
+    Range : 0 ... 61307 =      0.000 ...   239.480 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1414/session002/subject1414_session2_recording_2019-03-28-20.24.57.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+185 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 81.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1415
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1415/session001/subject1415_session1_recording_2019-03-28-21.39.58.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1415/session002/subject1415_session2_recording_2019-03-28-21.47.11.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+158 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 19.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+1416
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1416/session001/subject1416_session1_recording_2019-03-28-20.51.40.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+
+
+Loading these files:
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject1416/session002/subject1416_session2_recording_2019-03-28-20.58.50.csv
+
+
+
+
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=61296
+    Range : 0 ... 61295 =      0.000 ...   239.434 secs
+Ready.
+Filtering raw data in 2 contiguous segments
+Setting up band-pass filter from 1 - 30 Hz
+
+IIR filter parameters
+---------------------
+Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter:
+- Filter order 16 (effective, after forward-backward)
+- Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
+
+160 events found on stim channel stim
+Event IDs: [ 1  2 11 12 21 22]
+Trials Remaining: 40.
+Applying baseline correction (mode: mean)
+Applying baseline correction (mode: mean)
+</pre></div>
+</div>
+</section>
+<section id="combine-subjects">
+<h2>Combine subjects<a class="headerlink" href="#combine-subjects" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#average spectrograms</span>
+<span class="n">GrandAvg_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_diff_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">GrandAvg_Ipsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_Ipsi_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">GrandAvg_Contra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_Contra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">#average spectra</span>
+<span class="n">GrandAvg_spec_Ipsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Ipsi_spectra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">GrandAvg_spec_Contra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Contra_spectra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">GrandAvg_spec_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">diff_spectra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">#error bars for spectra (standard error)</span>
+<span class="n">num_good</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">diff_out</span><span class="p">))</span>
+<span class="n">GrandAvg_spec_Ipsi_ste</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">Ipsi_spectra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num_good</span><span class="p">)</span>
+<span class="n">GrandAvg_spec_Contra_ste</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">Contra_spectra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num_good</span><span class="p">)</span>
+<span class="n">GrandAvg_spec_diff_ste</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">diff_spectra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num_good</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot Spectra error bars</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span><span class="n">GrandAvg_spec_Ipsi</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">GrandAvg_spec_Ipsi_ste</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span><span class="n">GrandAvg_spec_Contra</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">GrandAvg_spec_Contra_ste</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s1">&#39;Ipsi&#39;</span><span class="p">,</span><span class="s1">&#39;Contra&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (uV^2)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fddc28c64f0&gt;
+</pre></div>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot Spectra Diff error bars</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span><span class="n">GrandAvg_spec_diff</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">GrandAvg_spec_diff_ste</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;Ipsi-Contra&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (uV^2)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fddc2be6e80&gt;
+</pre></div>
+</div>
+<p>Grand Average Ipsi</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">GrandAvg_Ipsi</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">GrandAvg_Contra</span><span class="p">))])</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">GrandAvg_Ipsi</span><span class="p">,</span>
+           <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power Ipsi&#39;</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">)</span>
+<span class="c1"># Create a Rectangle patch</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="c1"># Add the patch to the Axes</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1">##e#################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Grand Average Contra</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">GrandAvg_Contra</span><span class="p">,</span>
+           <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power Contra&#39;</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">)</span>
+<span class="c1"># Create a Rectangle patch</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="c1"># Add the patch to the Axes</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="c1">#</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" alt="Power Ipsi" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" alt="Power Contra" class = "sphx-glr-multi-img"/></li>
+</ul>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fddc2d46910&gt;
+</pre></div>
+</div>
+<p>Grand Average Ipsi-Contra Difference</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_max_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">GrandAvg_diff</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">GrandAvg_diff</span><span class="p">,</span>
+           <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max_diff</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max_diff</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power Difference Ipsi-Contra&#39;</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Ipsi-Contra Power&#39;</span><span class="p">)</span>
+<span class="c1"># Create a Rectangle patch</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="c1"># Add the patch to the Axes</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fddc2cf2e50&gt;
+</pre></div>
+</div>
+</section>
+<section id="compute-t-test">
+<h2>Compute t test<a class="headerlink" href="#compute-t-test" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">num_good</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">diff_out</span><span class="p">))</span>
+
+<span class="p">[</span><span class="n">tstat</span><span class="p">,</span> <span class="n">pval</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">diff_out</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)),</span><span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;omit&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ipsi Mean: &#39;</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Ipsi_out</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Contra Mean: &#39;</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Contra_out</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean Diff: &#39;</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;t(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_good</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">tstat</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pval</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 3.5735930197157026e-11
+Contra Mean: 2.6421745679207323e-11
+Mean Diff: 9.314184517949713e-12
+t(30) = 0.456
+p = 0.65
+</pre></div>
+</div>
+</section>
+<section id="save-average-powers-ipsi-and-contra">
+<h2>Save average powers ipsi and contra<a class="headerlink" href="#save-average-powers-ipsi-and-contra" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Ipsi Power&#39;</span><span class="p">:</span> <span class="n">Ipsi_out</span><span class="p">,</span>
+        <span class="s1">&#39;Contra Power&#39;</span><span class="p">:</span> <span class="n">Contra_out</span><span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Ipsi Power&#39;</span><span class="p">,</span> <span class="s1">&#39;Contra Power&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingEEG.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved subject averages for each condition to 375CueingEEG.csv file in present directory&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[nan, 1.789004769369718e-11, 6.402571924638044e-11, 1.201698855806472e-10, 1.6436811298970808e-10, 1.1465401250727375e-10, 8.107123680349165e-11, -3.1169419915324295e-11, 6.49372710835747e-11, 4.3529314385416065e-11, 2.8760356184521736e-11, 3.773350340044497e-11, 2.113134995947907e-11, 1.5571207459949488e-10, -4.6291150675500723e-10, -8.052232335321791e-11, -4.6644221372822607e-11, nan, nan, -3.438951097875039e-11, 7.091042185483073e-11, 1.298338355801429e-11, 1.3604198590381474e-10, -5.861633427481533e-11, -6.204912953285817e-11, 1.8344086913139518e-10, 2.380242500968444e-11, -8.805033297719282e-11, -7.508128947253835e-11, 2.907964859843707e-11, 2.907964859843707e-11, -4.146716305783299e-11, -1.5307351374032941e-10, 2.3393198398387354e-11]
+      Ipsi Power  Contra Power
+0            NaN           NaN
+1  -3.901325e-11 -5.690330e-11
+2   4.568905e-11 -1.833667e-11
+3   2.037251e-11 -9.979737e-11
+4   2.567893e-10  9.242117e-11
+5   1.128359e-10 -1.818109e-12
+6   3.090019e-10  2.279306e-10
+7  -1.325457e-10 -1.013762e-10
+8   4.086011e-11 -2.407716e-11
+9   8.168927e-11  3.815995e-11
+10  1.073335e-10  7.857313e-11
+11  5.134699e-10  4.757364e-10
+12 -1.088382e-11 -3.201517e-11
+13  1.006811e-10 -5.503096e-11
+14 -2.543183e-10  2.085932e-10
+15 -3.615777e-11  4.436455e-11
+16 -5.354581e-11 -6.901593e-12
+17           NaN           NaN
+18           NaN           NaN
+19  5.637907e-13  3.495330e-11
+20 -9.265134e-12 -8.017556e-11
+21 -2.448927e-10 -2.578761e-10
+22  2.682534e-10  1.322114e-10
+23  4.775386e-11  1.063702e-10
+24 -5.500639e-11  7.042736e-12
+25  1.907671e-11 -1.643642e-10
+26  2.746872e-11  3.666293e-12
+27 -9.699470e-11 -8.944371e-12
+28  1.345766e-10  2.096579e-10
+29  3.654300e-11  7.463347e-12
+30  3.654300e-11  7.463347e-12
+31 -3.302737e-11  8.439791e-12
+32 -4.426000e-11  1.088135e-10
+33 -4.177686e-11 -6.517005e-11
+Saved subject averages for each condition to 375CueingEEG.csv file in present directory
+</pre></div>
+</div>
+</section>
+<section id="save-spectra">
+<h2>Save spectra<a class="headerlink" href="#save-spectra" title="Permalink to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Ipsi_spectra_out</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingIpsiSpec.csv&#39;</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Contra_spectra_out</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingContraSpec.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved Spectra to 375CueingContraSpec.csv file in present directory&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>       6.000000      6.242424   ...     29.757576     30.000000
+0            NaN           NaN  ...           NaN           NaN
+1   7.991890e-11  8.036284e-11  ... -2.094144e-11 -2.057510e-11
+2   8.482874e-11  8.635330e-11  ... -3.867214e-12 -3.719235e-12
+3   1.394826e-10  1.324403e-10  ... -3.411441e-12 -4.411093e-12
+4   1.355015e-10  1.519385e-10  ... -5.270396e-12 -5.232011e-12
+5   4.146935e-11  4.747567e-11  ... -6.757861e-12 -6.344323e-12
+6   1.591767e-10  1.802644e-10  ... -3.011956e-12 -3.111111e-12
+7   2.051924e-10  1.359738e-10  ...  9.878931e-12  9.096915e-12
+8  -2.289620e-11 -1.966269e-11  ... -5.976043e-12 -5.762940e-12
+9   2.639212e-10  2.390503e-10  ...  1.273891e-12  1.085691e-12
+10  1.734091e-10  1.751927e-10  ...  1.127110e-12  1.042786e-12
+11 -4.155194e-11  5.554974e-11  ...  3.215457e-11  3.061286e-11
+12  1.132429e-10  9.957683e-11  ... -7.976622e-13 -6.777715e-13
+13  1.521996e-10  2.196098e-10  ... -1.447362e-11 -1.356378e-11
+14 -1.992109e-12  8.659712e-12  ...  1.917412e-12  1.278172e-12
+15 -1.632265e-10 -1.465498e-10  ... -4.835722e-12 -4.643791e-12
+16  1.051757e-10  9.010762e-11  ...  5.687247e-12  5.318740e-12
+17           NaN           NaN  ...           NaN           NaN
+18           NaN           NaN  ...           NaN           NaN
+19 -3.037587e-11 -3.195487e-11  ... -9.292653e-13 -1.176655e-12
+20 -4.576869e-11 -7.575594e-11  ...  5.139473e-12  4.728775e-12
+21 -3.017372e-10 -2.806035e-10  ... -1.168381e-13 -2.039849e-13
+22  1.892637e-10  1.928711e-10  ... -1.549501e-12 -1.594952e-12
+23 -1.863042e-10 -1.441354e-10  ...  9.789338e-12  9.213076e-12
+24 -1.099290e-10 -1.131996e-10  ...  6.197682e-12  5.769963e-12
+25 -2.486010e-10 -1.910190e-10  ...  9.456576e-12  9.193358e-12
+26 -2.444701e-10 -2.199233e-10  ...  1.492537e-11  1.519870e-11
+27 -1.015551e-10 -9.978091e-11  ... -1.160645e-11 -1.092205e-11
+28 -1.236814e-10 -1.335374e-10  ...  2.298211e-12  2.066240e-12
+29 -1.196307e-10 -1.035983e-10  ...  3.293275e-12  2.487449e-12
+30 -1.196307e-10 -1.035983e-10  ...  3.293275e-12  2.487449e-12
+31  4.570382e-11  2.986854e-11  ...  2.506011e-12  2.287051e-12
+32  6.194128e-10  6.055475e-10  ... -1.599190e-12 -1.352438e-12
+33 -1.126135e-10 -1.308744e-10  ... -3.366325e-11 -3.285204e-11
+
+[34 rows x 100 columns]
+Saved Spectra to 375CueingContraSpec.csv file in present directory
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 24.491 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/4cd288a0df5274e2be1a468e1967a571/04r__cueing_group_analysis_winter2019.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04r__cueing_group_analysis_winter2019.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/18e4b69d6ddc9302425e645c1fec16c3/04r__cueing_group_analysis_winter2019.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04r__cueing_group_analysis_winter2019.py</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03r__cueing_behaviour_analysis_winter2019.html" class="btn btn-neutral float-left" title="Cueing Behavioural Analysis Winter 2019" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../experiments/gonogo.html" class="btn btn-neutral float-right" title="Visual Go-No-Go" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright John Griffiths, Jadin Tredup, NeuroTechX, &amp; Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-XXXXXXX-1', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
