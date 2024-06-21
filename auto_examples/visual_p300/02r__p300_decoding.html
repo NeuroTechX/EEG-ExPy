@@ -108,6 +108,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-virtual-reality">Using virtual reality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#heads-up-display">Heads up display</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#features-to-be-added-in-future-releases">Features to be added in future releases:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#prerequisites">Prerequisites:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#id1"></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#steps-for-running-experiment-in-vr">Steps for running experiment in VR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#other-experiments-can-have-vr-added-too">Other experiments can have VR added too.</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/data_zipper.html">Data Zipping</a><ul>
@@ -441,7 +452,7 @@
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-visual-p300-02r-p300-decoding-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="p300-decoding">
 <span id="sphx-glr-auto-examples-visual-p300-02r-p300-decoding-py"></span><h1>P300 Decoding<a class="headerlink" href="#p300-decoding" title="Permalink to this heading"></a></h1>
@@ -463,7 +474,7 @@ dataset, and compares them in terms of classification performance.</p>
 <span class="kn">from</span> <span class="nn">mne.decoding</span> <span class="kn">import</span> <span class="n">Vectorizer</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.analysis_utils</span> <span class="kn">import</span> <span class="n">load_data</span>
 <span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
 
 <span class="c1"># Scikit-learn and Pyriemann ML functionalities</span>
@@ -500,15 +511,15 @@ dataset, and compares them in terms of classification performance.</p>
 
 /home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_45_13.csv
 
-/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_55_07.csv
-
-/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_51_07.csv
+/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-16_03_08.csv
 
 /home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_47_49.csv
 
-/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-16_03_08.csv
-
 /home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_58_30.csv
+
+/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_55_07.csv
+
+/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_51_07.csv
 
 
 
@@ -731,7 +742,7 @@ sample drop %:  1.5503875968992276
 <img src="../../_images/sphx_glr_02r__p300_decoding_001.png" srcset="../../_images/sphx_glr_02r__p300_decoding_001.png" alt="02r  p300 decoding" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: pick_types() is a legacy function. New code should use inst.pick(...).
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 13.076 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.321 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-p300-02r-p300-decoding-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db47b930ce10faf6f74a13d608925887/02r__p300_decoding.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02r__p300_decoding.ipynb</span></code></a></p>

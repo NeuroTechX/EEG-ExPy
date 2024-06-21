@@ -108,6 +108,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-jupyter-notebooks-or-a-custom-script">Using Jupyter Notebooks or a custom script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/running_experiments.html#using-virtual-reality">Using virtual reality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#heads-up-display">Heads up display</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../getting_started/running_experiments.html#features-to-be-added-in-future-releases">Features to be added in future releases:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#prerequisites">Prerequisites:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#id1"></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#steps-for-running-experiment-in-vr">Steps for running experiment in VR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/running_experiments.html#other-experiments-can-have-vr-added-too">Other experiments can have VR added too.</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/data_zipper.html">Data Zipping</a><ul>
@@ -441,7 +452,7 @@
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="cueing-group-analysis">
 <span id="sphx-glr-auto-examples-visual-cueing-02r-cueing-group-analysis-py"></span><h1>Cueing Group Analysis<a class="headerlink" href="#cueing-group-analysis" title="Permalink to this heading"></a></h1>
@@ -461,7 +472,7 @@ to download the full example code</p>
 
 <span class="c1"># EEG-Notebooks functions</span>
 <span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
+<span class="kn">from</span> <span class="nn">eegnb.analysis.analysis_utils</span> <span class="kn">import</span> <span class="n">load_data</span>
 </pre></div>
 </div>
 </section>
@@ -1702,9 +1713,9 @@ Ready.
 
 Loading these files:
 
-/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.31.03.csv
-
 /home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.18.04.csv
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.31.03.csv
 
 
 
@@ -2129,7 +2140,7 @@ Applying baseline correction (mode: mean)
 <li><img src="../../_images/sphx_glr_02r__cueing_group_analysis_091.png" srcset="../../_images/sphx_glr_02r__cueing_group_analysis_091.png" alt="Power Contra" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_02r__cueing_group_analysis_092.png" srcset="../../_images/sphx_glr_02r__cueing_group_analysis_092.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7ff720bb15b0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fddc2640d30&gt;
 </pre></div>
 </div>
 </section>
@@ -2183,7 +2194,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Saved Spectra to 375Cueing*Spec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 30.377 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 29.319 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1f56a155b1a68a196eeb8aea2e0b7517/02r__cueing_group_analysis.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02r__cueing_group_analysis.ipynb</span></code></a></p>
