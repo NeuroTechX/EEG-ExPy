@@ -52,11 +52,26 @@ jobs:
       if: "startsWith(runner.os, 'Linux')"
       run: |
         make install-deps-wxpython
+    - name: Install conda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        environment-file: environment.yml
+        auto-activate-base: true
+        python-version: 3.8
+        activate-environment: EEG-ExPy
+        channels: conda-forge
+        miniconda-version: "latest"
+    - name: Install dependencies via conda
+      shell: bash -el {0}
+      run: |
+        conda info
+        conda activate EEG-ExPy
     - name: Install dependencies
+      shell: bash -el {0}
       run: |
         make build
     - name: Run eegnb install test
-      shell: bash
+      shell: bash -el {0}
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
@@ -65,7 +80,7 @@ jobs:
         eegnb --help
         eegnb runexp --help
     - name: Run examples with coverage
-      shell: bash
+      shell: bash -el {0}
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &

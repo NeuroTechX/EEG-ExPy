@@ -7,7 +7,6 @@ from collections import OrderedDict
 from glob import glob
 from typing import Union, List
 from time import sleep, time
-import keyboard
 import os
 
 import pandas as pd
