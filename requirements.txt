@@ -15,7 +15,9 @@ pyserial>=3.5
 h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
-keyboard==0.13.5
+#pynput requires pyobjc, psychopy requires a version less than 8, setting pyobjc to
+# a specific version prevents an endless dependency resolution loop.
+pyobjc==7.3; sys_platform == 'darwin'
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
@@ -24,14 +26,20 @@ attrdict3
 ## ~~ Streaming Requirements ~~ 
 
 muselsl>=2.0.2
-pylsl==1.10.5  # due to https://github.com/NeuroTechX/eeg-notebooks/issues/187
+# Upgrade from 1.10.5 to 1.16.2 so the arm64 lib is available to macOS Apple Silicon for preventing error:
+# pylsl/liblsl64.dylib' (mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e' or 'arm64'))
+pylsl==1.16.2
 brainflow>=4.8.2
 pysocks>=1.7.1
 pyserial>=3.5
 h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
-keyboard==0.13.5
+#pynput requires pyobjc, psychopy requires a version less than 8, setting pyobjc to
+# a specific version prevents an endless dependency resolution loop.
+pyobjc==7.3; sys_platform == 'darwin'
+#Removed keyboard dependency due segmentation fault on Apple Silicon: https://github.com/boppreh/keyboard/issues/507
+pynput
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
@@ -40,7 +48,13 @@ click
 
 ## ~~ Stimpres Requirements ~~ 
 
-psychopy==2023.1.0
+#pynput requires pyobjc, psychopy requires a version less than 8, setting pyobjc to
+# a specific version prevents an endless dependency resolution loop.
+pyobjc==7.3; sys_platform == 'darwin'
+#upgrade psychopy to use newer wxpython dependency which is prebuilt for m1 support.
+psychopy==2023.2.2
+# PTB does not yet support macOS Apple Silicon, need to fallback to sounddevice.
+psychopy-sounddevice
 psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4
@@ -52,7 +66,6 @@ pyserial>=3.5
 h5py>=3.1.0
 pytest-shutil
 pyo>=1.0.3; platform_system == "Linux"
-keyboard==0.13.5
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
