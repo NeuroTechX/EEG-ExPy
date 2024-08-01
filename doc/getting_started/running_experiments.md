@@ -88,20 +88,20 @@ The first step is to import all of the necessary library dependencies. These are
 ```python
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from eegnb.experiments.visual_n170 import n170
+from eegnb.experiments import VisualN170
 ```
 
 Next we need to define session parameters which are otherwise handled via input prompts in the run `run_notebooks.py` script. After we define the session parameters we will pass them to the file name generator.
 
 ```python
-board_name = 'cyton'
-experiment = 'visual_n170'
-session = 1
-subject = 1
-record_duration = 120
+board_name = "muse2" # board name
+experiment_name = "visual_n170" # experiment name
+subject_id = 0 # test subject id
+session_nb = 0 # session number
+record_duration = 120 # recording duration
 
 # Create output filename
-save_fn = generate_save_fn(board_name, experiment, subject, session)
+save_fn = generate_save_fn(board_name, experiment_name, subject_id, session_nb)
 ```
 
 Next it is necessary to call the `eegnb.devices.eeg.EEG` class which handles all of the backend processes related to each device.
@@ -113,31 +113,46 @@ eeg_device = EEG(device=board_name)
 Finally, we call the `present` method of the class corresponding to our desired experiment, in this case the visual N170. We pass both the EEG device and generated save file name in order to collect and save data. The presentation can also be run without an EEG device/save file for testing and debugging.
 
 ```python
-n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+experiment = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_fn, use_vr=False)
+
+experiment.run()
 ```
 
 All together the example script looks like
 ```python
+###################################################################################################  
+# Setup
+# ---------------------  
+#  
 # Imports
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from eegnb.experiments.visual_n170 import n170
+from eegnb.experiments import VisualN170
 
 # Define some variables
-board_name = 'cyton'
-experiment = 'visual_n170'
-session = 1
-subject = 1
-record_duration = 120
+board_name = "muse2" # board name
+experiment_name = "visual_n170" # experiment name
+subject_id = 0 # test subject id
+session_nb = 0 # session number
+record_duration = 120 # recording duration
 
-# Create output filename
-save_fn = generate_save_fn(board_name, experiment, subject, session)
+# generate save path
+save_fn = generate_save_fn(board_name, experiment_name, subject_id, session_nb)
 
-# Setup EEG device
+# create device object
 eeg_device = EEG(device=board_name)
 
-# Run stimulus presentation
-n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+# Experiment type
+experiment = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_fn, use_vr=False)
+
+###################################################################################################  
+# Run experiment
+# ---------------------  
+#
+experiment.run()
+
+# Saved csv location
+print("Recording saved in", experiment.save_fn)
 ```
 
 
