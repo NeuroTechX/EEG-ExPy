@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -541,18 +541,18 @@
 <p>The first step is to import all of the necessary library dependencies. These are necessary for generating a save file name which conforms to the default folder structure, streaming and recording EEG data, and running the stimulus presentation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
 <span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
+<span class="kn">from</span> <span class="nn">eegnb.experiments</span> <span class="kn">import</span> <span class="n">VisualN170</span>
 </pre></div>
 </div>
 <p>Next we need to define session parameters which are otherwise handled via input prompts in the run <code class="docutils literal notranslate"><span class="pre">run_notebooks.py</span></code> script. After we define the session parameters we will pass them to the file name generator.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_n170&#39;</span>
-<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">board_name</span> <span class="o">=</span> <span class="s2">&quot;muse2&quot;</span> <span class="c1"># board name</span>
+<span class="n">experiment_name</span> <span class="o">=</span> <span class="s2">&quot;visual_n170&quot;</span> <span class="c1"># experiment name</span>
+<span class="n">subject_id</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># test subject id</span>
+<span class="n">session_nb</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># session number</span>
+<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span> <span class="c1"># recording duration</span>
 
 <span class="c1"># Create output filename</span>
-<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
+<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">session_nb</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Next it is necessary to call the <code class="docutils literal notranslate"><span class="pre">eegnb.devices.eeg.EEG</span></code> class which handles all of the backend processes related to each device.</p>
@@ -560,30 +560,45 @@
 </pre></div>
 </div>
 <p>Finally, we call the <code class="docutils literal notranslate"><span class="pre">present</span></code> method of the class corresponding to our desired experiment, in this case the visual N170. We pass both the EEG device and generated save file name in order to collect and save data. The presentation can also be run without an EEG device/save file for testing and debugging.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">VisualN170</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">,</span> <span class="n">use_vr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>All together the example script looks like</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">###################################################################################################  </span>
+<span class="c1"># Setup</span>
+<span class="c1"># ---------------------  </span>
+<span class="c1">#  </span>
+<span class="c1"># Imports</span>
 <span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
 <span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
+<span class="kn">from</span> <span class="nn">eegnb.experiments</span> <span class="kn">import</span> <span class="n">VisualN170</span>
 
 <span class="c1"># Define some variables</span>
-<span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="s1">&#39;visual_n170&#39;</span>
-<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">board_name</span> <span class="o">=</span> <span class="s2">&quot;muse2&quot;</span> <span class="c1"># board name</span>
+<span class="n">experiment_name</span> <span class="o">=</span> <span class="s2">&quot;visual_n170&quot;</span> <span class="c1"># experiment name</span>
+<span class="n">subject_id</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># test subject id</span>
+<span class="n">session_nb</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># session number</span>
+<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span> <span class="c1"># recording duration</span>
 
-<span class="c1"># Create output filename</span>
-<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
+<span class="c1"># generate save path</span>
+<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">session_nb</span><span class="p">)</span>
 
-<span class="c1"># Setup EEG device</span>
+<span class="c1"># create device object</span>
 <span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
 
-<span class="c1"># Run stimulus presentation</span>
-<span class="n">n170</span><span class="o">.</span><span class="n">present</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
+<span class="c1"># Experiment type</span>
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">VisualN170</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">,</span> <span class="n">use_vr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1">###################################################################################################  </span>
+<span class="c1"># Run experiment</span>
+<span class="c1"># ---------------------  </span>
+<span class="c1">#</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="c1"># Saved csv location</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Recording saved in&quot;</span><span class="p">,</span> <span class="n">experiment</span><span class="o">.</span><span class="n">save_fn</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
