@@ -31,14 +31,7 @@ jobs:
         make docs
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
+      if: github.ref == 'refs/heads/master' && github.repository == 'NeuroTechX/EEG-ExPy'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html
-    - name: Deploy Dev Docs
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/develop' && github.repository == 'NeuroTechX/EEG-ExPy'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: doc/_build/html
-        destination_dir: develop
