@@ -76,6 +76,12 @@ be run to begin the notebooks interfacing with the bluemuse backend.
 **Backend:** Brainflow
 **Needed Parameters:**  No additional parameters are needed to connect to the Notion. It is necessary however to make sure the Notion is on the same network and readable by Neurosity's developer console.
 
+### Neurosity Crown
+![fig](../img/notion.png)
+**Device Name:** *'crown'*
+**Backend:** Brainflow
+**Needed Parameters:**  No additional parameters are needed to connect to the Notion. It is necessary however to make sure the Notion is on the same network and readable by Neurosity's developer console.
+
 #### Connecting on Windows
 In order to connect to the Notion on Windows you must first turn off your network firewall for the Open Sound Control (OSC) protocol to function for the notion.
 
