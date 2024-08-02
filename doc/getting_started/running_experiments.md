@@ -177,7 +177,7 @@ The N170 experiment for example, can have its stimulus displayed on the VR heads
 
 ```python
 # Run stimulus presentation with VR enabled.
-n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn, use_vr=True)
+experiment = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_fn, use_vr=True)
 ```
 
 ### 
