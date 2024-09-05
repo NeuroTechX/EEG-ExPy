@@ -17,3 +17,5 @@ htmlcov
 
 # PyCharm
 .idea/
+
+*.DS_Store*

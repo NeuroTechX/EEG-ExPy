@@ -128,7 +128,6 @@ def create_analysis_report(
             experiment, eegdevice, subject, session, site, filepath = analysis_intro_prompt()
     analysis_report(experiment, eegdevice, subject, session, site, filepath)
 
-
 @main.command()
 @click.option("-ed", "--eegdevice", help="EEG device to use", required=True)
 def checksigqual(eegdevice: str):

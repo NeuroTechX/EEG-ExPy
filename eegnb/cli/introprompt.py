@@ -199,7 +199,7 @@ def analysis_device_prompt():
 def analysis_intro_prompt():
 
     # check if user has filepath
-    print("Welcome to NeurotechX EEG Notebooks\n")
+    print("Welcome to NeurotechX EEG-ExPy\n")
     print("Do you have a filepath to a .csv file you would like to analyze? \n")
     print("[1] Yes \n")
     print("[0] No \n")
@@ -218,7 +218,6 @@ def analysis_intro_prompt():
     experiment = exp_prompt()
     
     return experiment, eegdevice, subject, session, site, filepath
-
 
 
 def intro_prompt_zip() -> Tuple[str,str]:
