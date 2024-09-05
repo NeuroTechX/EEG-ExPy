@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -83,7 +83,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-ganglion">OpenBCI Ganglion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton">OpenBCI Cyton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-crown">Neurosity Crown</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#connecting-on-windows">Connecting on Windows</a></li>
 </ul>
 </li>
@@ -510,9 +511,7 @@ to download the full example code.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loading these files:
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
-
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.20.04.csv
 
@@ -520,7 +519,9 @@ to download the full example code.</p>
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
 
 
 
@@ -547,13 +548,13 @@ Creating RawArray with float64 data, n_channels=6, n_times=30732
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Creating RawArray with float64 data, n_channels=6, n_times=30720
+    Range : 0 ... 30719 =      0.000 ...   119.996 secs
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30720
-    Range : 0 ... 30719 =      0.000 ...   119.996 secs
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 </pre></div>
 </div>
@@ -687,13 +688,16 @@ Cov + MDM
 CSP + Cov + TS
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.827 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.828 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-02r-ssvep-decoding-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a74331ba25f1e4b93e2ecf2b3efd4a13/02r__ssvep_decoding.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02r__ssvep_decoding.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6c7787744c46f6694529791768174f35/02r__ssvep_decoding.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02r__ssvep_decoding.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d7644fe8bcf78dd2f4222335d1ecf63a/02r__ssvep_decoding.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">02r__ssvep_decoding.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>

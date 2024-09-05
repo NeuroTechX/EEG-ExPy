@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -83,7 +83,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-ganglion">OpenBCI Ganglion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton">OpenBCI Cyton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#openbci-cyton-daisy">OpenBCI Cyton + Daisy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-notion-versions-1-and-2">Neurosity Notion (versions 1 and 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../getting_started/streaming.html#neurosity-crown">Neurosity Crown</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../getting_started/streaming.html#connecting-on-windows">Connecting on Windows</a></li>
 </ul>
 </li>
@@ -501,23 +502,20 @@ to download the full example code.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1ABOVJ9S0BeJOsqdGFnexaTFZ-ZcsIXfQ
-From (redirected): https://drive.google.com/uc?id=1ABOVJ9S0BeJOsqdGFnexaTFZ-ZcsIXfQ&amp;confirm=t&amp;uuid=015d1c9b-6ead-4318-b5d9-333a0b7d7b30
+From (redirected): https://drive.google.com/uc?id=1ABOVJ9S0BeJOsqdGFnexaTFZ-ZcsIXfQ&amp;confirm=t&amp;uuid=bb118ab7-bac2-453d-9b68-69d75ecb4b3a
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/102M [00:00&lt;?, ?B/s]
-  6%|▌         | 6.29M/102M [00:00&lt;00:01, 62.1MB/s]
- 12%|█▏        | 12.6M/102M [00:00&lt;00:03, 27.5MB/s]
- 17%|█▋        | 17.3M/102M [00:00&lt;00:03, 26.1MB/s]
- 25%|██▌       | 25.7M/102M [00:00&lt;00:02, 31.2MB/s]
- 34%|███▎      | 34.1M/102M [00:01&lt;00:01, 36.8MB/s]
- 42%|████▏     | 42.5M/102M [00:01&lt;00:01, 39.8MB/s]
- 50%|█████     | 50.9M/102M [00:01&lt;00:01, 34.0MB/s]
- 58%|█████▊    | 59.2M/102M [00:01&lt;00:01, 40.7MB/s]
- 67%|██████▋   | 67.6M/102M [00:01&lt;00:00, 43.1MB/s]
- 75%|███████▍  | 76.0M/102M [00:01&lt;00:00, 46.1MB/s]
- 88%|████████▊ | 89.1M/102M [00:02&lt;00:00, 62.8MB/s]
- 96%|█████████▌| 97.0M/102M [00:02&lt;00:00, 53.2MB/s]
-100%|██████████| 102M/102M [00:02&lt;00:00, 43.7MB/s]
+  9%|▉         | 8.91M/102M [00:00&lt;00:01, 77.8MB/s]
+ 24%|██▍       | 24.6M/102M [00:00&lt;00:00, 121MB/s]
+ 37%|███▋      | 37.2M/102M [00:00&lt;00:00, 85.1MB/s]
+ 46%|████▋     | 47.2M/102M [00:00&lt;00:00, 89.4MB/s]
+ 56%|█████▋    | 57.1M/102M [00:00&lt;00:00, 58.8MB/s]
+ 70%|██████▉   | 70.8M/102M [00:00&lt;00:00, 75.3MB/s]
+ 80%|███████▉  | 80.7M/102M [00:01&lt;00:00, 61.9MB/s]
+ 91%|█████████▏| 92.8M/102M [00:01&lt;00:00, 62.3MB/s]
+100%|█████████▉| 101M/102M [00:01&lt;00:00, 62.6MB/s]
+100%|██████████| 102M/102M [00:01&lt;00:00, 69.4MB/s]
 
 
 Loading these files:
@@ -536,9 +534,9 @@ Ready.
 
 Loading these files:
 
-/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.18.04.csv
-
 /home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.31.03.csv
+
+/home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0302/session002/subject302_session2_recording_2018-11-20-17.18.04.csv
 
 
 
@@ -770,7 +768,7 @@ No baseline correction applied
 <li><img src="../../_images/sphx_glr_01r__cueing_singlesub_analysis_010.png" srcset="../../_images/sphx_glr_01r__cueing_singlesub_analysis_010.png" alt="302 - Power Average Contra to Cue" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_01r__cueing_singlesub_analysis_011.png" srcset="../../_images/sphx_glr_01r__cueing_singlesub_analysis_011.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fddc5f5dbe0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f9bc7403460&gt;
 </pre></div>
 </div>
 </section>
@@ -802,13 +800,16 @@ Event IDs: [ 1  2 11 12 21 22]
 sample drop %:  89.67136150234741
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.934 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 14.127 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-01r-cueing-singlesub-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bffc7389ff14934d31aa05a911f58bf0/01r__cueing_singlesub_analysis.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01r__cueing_singlesub_analysis.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c8168bec3b40b12111ac87ce4dfeac13/01r__cueing_singlesub_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01r__cueing_singlesub_analysis.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/9cc7f9dd7ba2ef70725be21789657940/01r__cueing_singlesub_analysis.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">01r__cueing_singlesub_analysis.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
