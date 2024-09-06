@@ -66,12 +66,16 @@ class EEG:
         mac_addr=None,
         other=None,
         ip_addr=None,
+        ch_names=None
     ):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
         Parameters:
             device (str): name of eeg device used for reading data.
+        
+            ch_names (array_like or None): array containing custom specified channel names. Useful for custom montagues 
+        like when external electrodes are used.
         """
         # determine if board uses brainflow or muselsl backend
         self.device_name = device
@@ -85,6 +89,7 @@ class EEG:
         self.n_channels = len(EEG_INDICES[self.device_name])
         self.sfreq = SAMPLE_FREQS[self.device_name]
         self.channels = EEG_CHANNELS[self.device_name]
+        self.ch_names = ch_names
 
     def initialize_backend(self):
         if self.backend == "brainflow":
@@ -346,8 +351,11 @@ class EEG:
         # transform data for saving
         data = data.T  # transpose data
 
-        # get the channel names for EEG data
-        if (
+        # explicitly assign channel names for EEG data
+        if self.ch_names is not None:
+            ch_names = self.ch_names
+        # automatically assign the channel names for EEG data
+        elif (
             self.brainflow_id == BoardIds.GANGLION_BOARD.value
             or self.brainflow_id == BoardIds.GANGLION_WIFI_BOARD.value
         ):
