@@ -19,10 +19,10 @@ EEG-ExPy
 EEG-ExPy is a collection of classic EEG experiments, implemented in Python. The experimental protocols and analyses are quite generic, but are primarily taylored for low-budget / consumer EEG hardware such as the InteraXon MUSE and OpenBCI Cyton. The goal is to make cognitive neuroscience and neurotechnology more accessible, affordable, and scalable. 
 
 - **For an intro talk on the ***EEG-ExPy*** (formerly ***eeg-notebooks***) project see:** `JG's Brainhack Ontario presentation <https://www.crowdcast.io/e/brainhack-ontario/7>`_.  
-- **For documentation see:** `documentation site <https://neurotechx.github.io/eeg-expy/index.html>`_.
+- **For documentation see:** `documentation site <https://neurotechx.github.io/EEG-ExPy/index.html>`_.
 - **For code see:** `github site <https://github.com/neurotechx/eeg-expy>`_.
-- **For instructions on running experiments see:** `running experiments <https://neurotechx.github.io/eeg-expy/getting_started/running_experiments.html>`_.
-- **For instructions on initiating an EEG stream see:** `initiating an EEG stream <https://neurotechx.github.io/eeg-expy/getting_started/streaming.html>`_.
+- **For instructions on running experiments see:** `running experiments <https://neurotechx.github.io/EEG-ExPy/getting_started/running_experiments.html>`_.
+- **For instructions on initiating an EEG stream see:** `initiating an EEG stream <https://neurotechx.github.io/EEG-ExPy/getting_started/streaming.html>`_.
 - **A series of tutorial videos will be coming soon!**  
 
 
@@ -57,10 +57,10 @@ Documentation
 
 The current version of eeg-expy is the 0.2.X series. The code-base and API are under major development and subject to change.
 
-Check the `changelog <https://neurotechx.github.io/eeg-expy/changelog.html>`_ for notes on changes from previous versions.
+Check the `changelog <https://neurotechx.github.io/EEG-ExPy/changelog.html>`_ for notes on changes from previous versions.
 
 **Installation instructions**, steps for **getting started**, common **troubleshooting** solutions and more can be found in the documentation for eeg-expy, available on the
-`documentation site <https://neurotechx.github.io/eeg-expy/index.html>`_.
+`documentation site <https://neurotechx.github.io/EEG-ExPy/index.html>`_.
 
 Acknowledgments
 ----------------
