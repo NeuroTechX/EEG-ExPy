@@ -17,3 +17,6 @@ htmlcov
 
 # PyCharm
 .idea/
+
+# VSCode
+.vscode/
