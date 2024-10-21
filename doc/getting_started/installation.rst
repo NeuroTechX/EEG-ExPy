@@ -44,13 +44,13 @@ Use the following commands to download the repo, create and activate a conda or 
 
        .. code-block:: bash
 
-           conda create -n "eeg-notebooks" python=3.7 git pip wxpython
+           conda create -n "eeg-expy" python=3.8 git pip
 
-           conda activate "eeg-notebooks"
+           conda activate "eeg-expy"
 
-           git clone https://github.com/NeuroTechX/eeg-notebooks
+           git clone https://github.com/NeuroTechX/eeg-expy
 
-           cd eeg-notebooks
+           cd eeg-expy
            
            pip install -e .
 
@@ -67,7 +67,7 @@ Use the following commands to download the repo, create and activate a conda or 
 
                  python3 -m venv eegnb-env
 
-                 git clone https://github.com/NeuroTechX/eeg-notebooks
+                 git clone https://github.com/NeuroTechX/eeg-expy
 
                  eegnb-env\Scripts\activate.bat
 
@@ -83,7 +83,7 @@ Use the following commands to download the repo, create and activate a conda or 
 
                  python3 -m venv eegnb-env
 
-                 git clone https://github.com/NeuroTechX/eeg-notebooks
+                 git clone https://github.com/NeuroTechX/eeg-expy
 
                  source eegnb-env/bin/activate
 
@@ -95,12 +95,12 @@ Use the following commands to download the repo, create and activate a conda or 
 
 **Add the new environment to the jupyter kernel list**
 
-For some operating systems, it is necessary the following command is necessary in order to make the new `eeg-notebooks` environment available from the jupyter notebook landing page
+For some operating systems, it is necessary the following command is necessary in order to make the new `eeg-expy` environment available from the jupyter notebook landing page
 
 
 .. code-block:: bash
 
-   python -m ipykernel install --user --name eeg-notebooks
+   python -m ipykernel install --user --name eeg-expy
 
 
 
