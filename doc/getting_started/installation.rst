@@ -31,7 +31,7 @@ As may be expected, the installation and setup steps for mode 2 are simpler than
 Installing the Python library
 ===============================
 
-We highly recommend making use of a virtual environment (either `conda` or `virtualenv`) when installing eeg-notebooks.
+We highly recommend making use of a virtual environment (either `conda` or `virtualenv`) when installing eeg-expy.
 
 If you don't already have a Python installation, grab the latest `miniconda` version for your operating system from here (https://docs.conda.io/en/latest/miniconda.html).
 
@@ -71,7 +71,7 @@ Use the following commands to download the repo, create and activate a conda or 
 
                  eegnb-env\Scripts\activate.bat
 
-                 cd eeg-notebooks
+                 cd eeg-expy
 
                  pip install -e .
 
@@ -87,7 +87,7 @@ Use the following commands to download the repo, create and activate a conda or 
 
                  source eegnb-env/bin/activate
 
-                 cd eeg-notebooks
+                 cd eeg-expy
 
                  pip install -e .
 
@@ -106,7 +106,7 @@ For some operating systems, it is necessary the following command is necessary i
 
 **Test installation**
 
-Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the code below. This will run one session of the Visual N170 with your board of choice.
+Start a jupyter notebooks session and you will be presented with the eeg-expy file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the code below. This will run one session of the Visual N170 with your board of choice.
 
 .. code-block:: python
 
@@ -153,7 +153,7 @@ BlueMuse is a Windows 10 program that allows communication between a Muse headba
 MUSE recordings on Mac: BLED112 Dongle
 ---------------------------------------------
 
-Unfortunately, the native bluetooth driver on Mac cannot be used with eeg-notebooks. To run on this operating system, it is necessary to purchase a `BLED112 USB Dongle <https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/>`_. Note: this is a 'special' bluetooth dongle; standard bluetooth dongles will not work.
+Unfortunately, the native bluetooth driver on Mac cannot be used with eeg-expy. To run on this operating system, it is necessary to purchase a `BLED112 USB Dongle <https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/>`_. Note: this is a 'special' bluetooth dongle; standard bluetooth dongles will not work.
 
 
 MUSE recordings on Linux
@@ -172,9 +172,9 @@ If you have created the conda env but it is not appearing as a kernel option in 
 
 .. code-block:: shell
 
-   $ conda activate eeg-notebooks
+   $ conda activate eeg-expy
    $ pip install ipykernel
-   $ python -m ipykernel install --user --name eeg-notebooks
+   $ python -m ipykernel install --user --name eeg-expy
 
 
 In windows, if the above is causing errors, the following commands may help:
@@ -190,7 +190,7 @@ In windows, if the above is causing errors, the following commands may help:
 Bug reports
 -----------
 
-Please use the `Github issue tracker <https://github.com/neurotechx/eeg-notebooks/issues>`_
+Please use the `Github issue tracker <https://github.com/neurotechx/eeg-expy/issues>`_
 to file bug reports and/or ask questions about this project. When filing a bug report, please include the follwing information:
 * Operating System.
 * Device being used.
