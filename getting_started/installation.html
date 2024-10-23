@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en">
 <head>
@@ -6,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; EEG Notebooks 0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -16,19 +18,15 @@
       <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=464912d9"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
-        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../_static/copybutton.js?v=a56c686a"></script>
-        <script src="../_static/tabs.js?v=3030b3cb"></script>
-        <script src="../_static/debug.js?v=63710f7d"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=464912d9"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=a56c686a"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+      <script src="../_static/debug.js?v=63710f7d"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -47,9 +45,6 @@
           <a href="../index.html" class="icon icon-home">
             EEG Notebooks
           </a>
-              <div class="version">
-                0.2.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -469,17 +464,17 @@
 </ul>
 <section id="installing-the-python-library">
 <h2>Installing the Python library<a class="headerlink" href="#installing-the-python-library" title="Permalink to this heading"></a></h2>
-<p>We highly recommend making use of a virtual environment (either <cite>conda</cite> or <cite>virtualenv</cite>) when installing eeg-notebooks.</p>
+<p>We highly recommend making use of a virtual environment (either <cite>conda</cite> or <cite>virtualenv</cite>) when installing eeg-expy.</p>
 <p>If you don’t already have a Python installation, grab the latest <cite>miniconda</cite> version for your operating system from here (<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>).</p>
 <p>Use the following commands to download the repo, create and activate a conda or virtualenv virtual environment:</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Conda</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Virtualenv</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;eeg-notebooks&quot;</span><span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7<span class="w"> </span>git<span class="w"> </span>pip<span class="w"> </span>wxpython
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Conda</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Virtualenv</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;eeg-expy&quot;</span><span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8<span class="w"> </span>git<span class="w"> </span>pip
 
-conda<span class="w"> </span>activate<span class="w"> </span><span class="s2">&quot;eeg-notebooks&quot;</span>
+conda<span class="w"> </span>activate<span class="w"> </span><span class="s2">&quot;eeg-expy&quot;</span>
 
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-notebooks
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-expy
 
-<span class="nb">cd</span><span class="w"> </span>eeg-notebooks
+<span class="nb">cd</span><span class="w"> </span>eeg-expy
 
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
@@ -489,11 +484,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 
 python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>eegnb-env
 
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-notebooks
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-expy
 
 eegnb-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.bat
 
-<span class="nb">cd</span><span class="w"> </span>eeg-notebooks
+<span class="nb">cd</span><span class="w"> </span>eeg-expy
 
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
@@ -502,11 +497,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 
 python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>eegnb-env
 
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-notebooks
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-expy
 
 <span class="nb">source</span><span class="w"> </span>eegnb-env/bin/activate
 
-<span class="nb">cd</span><span class="w"> </span>eeg-notebooks
+<span class="nb">cd</span><span class="w"> </span>eeg-expy
 
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
@@ -514,12 +509,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </div></div>
 </div></div>
 <p><strong>Add the new environment to the jupyter kernel list</strong></p>
-<p>For some operating systems, it is necessary the following command is necessary in order to make the new <cite>eeg-notebooks</cite> environment available from the jupyter notebook landing page</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>eeg-notebooks
+<p>For some operating systems, it is necessary the following command is necessary in order to make the new <cite>eeg-expy</cite> environment available from the jupyter notebook landing page</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>eeg-expy
 </pre></div>
 </div>
 <p><strong>Test installation</strong></p>
-<p>Start a jupyter notebooks session and you will be presented with the eeg-notebooks file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the code below. This will run one session of the Visual N170 with your board of choice.</p>
+<p>Start a jupyter notebooks session and you will be presented with the eeg-expy file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the code below. This will run one session of the Visual N170 with your board of choice.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
@@ -558,7 +553,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </section>
 <section id="muse-recordings-on-mac-bled112-dongle">
 <h3>MUSE recordings on Mac: BLED112 Dongle<a class="headerlink" href="#muse-recordings-on-mac-bled112-dongle" title="Permalink to this heading"></a></h3>
-<p>Unfortunately, the native bluetooth driver on Mac cannot be used with eeg-notebooks. To run on this operating system, it is necessary to purchase a <a class="reference external" href="https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/">BLED112 USB Dongle</a>. Note: this is a ‘special’ bluetooth dongle; standard bluetooth dongles will not work.</p>
+<p>Unfortunately, the native bluetooth driver on Mac cannot be used with eeg-expy. To run on this operating system, it is necessary to purchase a <a class="reference external" href="https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/">BLED112 USB Dongle</a>. Note: this is a ‘special’ bluetooth dongle; standard bluetooth dongles will not work.</p>
 </section>
 <section id="muse-recordings-on-linux">
 <h3>MUSE recordings on Linux<a class="headerlink" href="#muse-recordings-on-linux" title="Permalink to this heading"></a></h3>
@@ -571,9 +566,9 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <h3>Common Problems<a class="headerlink" href="#common-problems" title="Permalink to this heading"></a></h3>
 <p><strong>Problems with Conda and Jupyter Notebook:</strong>
 If you have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>eeg-notebooks
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>eeg-expy
 $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ipykernel
-$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>eeg-notebooks
+$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>eeg-expy
 </pre></div>
 </div>
 <p>In windows, if the above is causing errors, the following commands may help:</p>
@@ -586,7 +581,7 @@ $<span class="w"> </span>conda<span class="w"> </span>install<span class="w"> </
 </section>
 <section id="bug-reports">
 <h3>Bug reports<a class="headerlink" href="#bug-reports" title="Permalink to this heading"></a></h3>
-<p>Please use the <a class="reference external" href="https://github.com/neurotechx/eeg-notebooks/issues">Github issue tracker</a>
+<p>Please use the <a class="reference external" href="https://github.com/neurotechx/eeg-expy/issues">Github issue tracker</a>
 to file bug reports and/or ask questions about this project. When filing a bug report, please include the follwing information:
 * Operating System.
 * Device being used.
