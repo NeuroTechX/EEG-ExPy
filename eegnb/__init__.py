@@ -30,7 +30,7 @@ def _get_recording_dir(
     data_dir=DATA_DIR,
 ) -> Path:
     """A subroutine of get_recording_dir that accepts subject and session as strings"""
-    # folder structure is /DATA_DIR/experiment/board_name/site/subject/session/*.csv
+    # folder structure is /DATA_DIR/experiment/site/subject/session/*.csv
     recording_dir = (
         Path(data_dir) / experiment / site / board_name / subject_str / session_str
     )
@@ -51,7 +51,7 @@ def generate_save_fn(
 ) -> Path:
     """Generates a file name with the proper trial number for the current subject/experiment combo"""
     recording_dir = get_recording_dir(
-        board_name, experiment, subject_id, session_nb, data_dir=data_dir
+        board_name, experiment, subject_id, session_nb, data_dir=DATA_DIR
     )
 
     # generate filename based on recording date-and-timestamp and then append to recording_dir
