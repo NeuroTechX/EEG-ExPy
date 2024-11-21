@@ -39,10 +39,6 @@ def present(
 ):
 
 
-    # Create markers stream outlet
-    #info = StreamInfo("Markers", "Markers", 1, 0, "int32", "myuidw43536")
-    #outlet = StreamOutlet(info)
-
     start = time()
 
     # Set up trial parameters
