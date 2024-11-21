@@ -13,11 +13,7 @@ from time import time
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import prefs
-
-#prefs.general["audioLib"] = ["pygame"]
 from psychopy import visual, core, event, sound
-from pylsl import StreamInfo, StreamOutlet
 from scipy import stats
 
 __title__ = "Auditory SSAEP (single freq)"
@@ -39,12 +35,6 @@ def present(
     sample_rate=44100,
 ):
 
-
-    # Create markers stream outlet
-    info = StreamInfo("Markers", "Markers", 1, 0, "int32", "myuidw43536")
-    outlet = StreamOutlet(info)
-
-    markernames = [1]
     start = time()
 
     # Set up trial parameters
@@ -61,9 +51,6 @@ def present(
     fixation = visual.GratingStim(win=mywin, size=0.2, pos=[0, 0], sf=0, rgb=[1, 0, 0])
     fixation.setAutoDraw(True)
 
-
-
-
     # Generate stimuli
     am1 = generate_am_waveform(cf1, amf1, secs=soa, sample_rate=sample_rate)
 
@@ -73,11 +60,9 @@ def present(
     auds = [aud1]
 
     mywin.flip()
-
 	
     # Show the instructions screen
     show_instructions(duration)
-    
 
     # start the EEG stream=
     if eeg:
@@ -90,21 +75,24 @@ def present(
         # Create auditory sound object and play tone
         aud = sound.Sound(am1)
         aud.setVolume(0.8)
+        aud.stop()
         aud.play()
 
         # Push sample
         if eeg:
             timestamp = time()
             if eeg.backend == "muselsl":
-                marker = [markernames[1]]
+                marker = 1
                 marker = list(map(int, marker))
             else:
-                marker = markernames[1]
+                marker = 1
             eeg.push_sample(marker=marker, timestamp=timestamp)
-
+        
+        mywin.flip()
+        
         # offset
         core.wait(soa)
-        mywin.flip()
+        
         if len(event.getKeys()) > 0:
             break
         if (time() - start) > record_duration:
@@ -117,8 +105,6 @@ def present(
         eeg.stop()
 
     mywin.close()
-
-	
 	
 	
 def show_instructions(duration):
@@ -153,7 +139,6 @@ def show_instructions(duration):
 
 	mywin.mouseVisible = True
 	mywin.close()
-		
 
 def generate_am_waveform(
     carrier_freq,
