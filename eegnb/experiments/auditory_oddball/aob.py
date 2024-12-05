@@ -1,8 +1,12 @@
 import numpy as np
 from pandas import DataFrame
 from psychopy import prefs
+
 # PTB does not yet support macOS Apple Silicon, need to fall back to sounddevice.
-prefs.hardware['audioLib'] = ['sounddevice']
+import sys
+if sys.platform == 'darwin':
+    prefs.hardware['audioLib'] = ['sounddevice']
+
 from psychopy import visual, core, event, sound
 
 from time import time
@@ -72,11 +76,11 @@ class AuditoryOddball(Experiment.BaseExperiment):
 
         return 
     
-    def present_stimulus(self, idx : int, trial):
+    def present_stimulus(self, idx: int):
         """ Presents the Stimulus """
 
         # Select and play sound
-        ind = int(trial["sound_ind"])
+        ind = int(self.trials["sound_ind"].iloc[idx])
         self.auds[ind].stop()
         self.auds[ind].play()
 
