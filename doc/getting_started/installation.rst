@@ -44,7 +44,7 @@ Use the following commands to download the repo, create and activate a conda or 
 
        .. code-block:: bash
 
-           conda create -n "eeg-expy" python=3.8 git pip
+           conda env create -f environment.yml -n "eeg-expy"
 
            conda activate "eeg-expy"
 
