@@ -2,11 +2,6 @@ import numpy as np
 from pandas import DataFrame
 from psychopy import prefs
 
-# PTB does not yet support macOS Apple Silicon, need to fall back to sounddevice.
-import sys
-if sys.platform == 'darwin':
-    prefs.hardware['audioLib'] = ['sounddevice']
-
 from psychopy import visual, core, event, sound
 
 from time import time
