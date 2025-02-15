@@ -1,6 +1,0 @@
-channels:
-    - conda-forge
-dependencies:
-    - python=3.8
-    - pytables # install pytables for macOS arm64, so do not need to build from source.
-    - liblsl # install liblsl to prevent error on macOS and Ubuntu: "RuntimeError: LSL binary library file was not found."

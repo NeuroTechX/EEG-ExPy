@@ -42,17 +42,48 @@ Use the following commands to download the repo, create and activate a conda or 
 
     .. tab:: Conda
 
-       .. code-block:: bash
+       .. tabs::
 
-           conda create -n "eeg-expy" python=3.8 git pip
+            Available environment suffixes:
 
-           conda activate "eeg-expy"
+            - `-full`: Install all dependencies
 
-           git clone https://github.com/NeuroTechX/eeg-expy
+            - `-docsbuild`: Documentation build dependencies
 
-           cd eeg-expy
-           
-           pip install -e .
+            - `-stimpres`: Stimulus presentation dependencies
+
+            - `-streaming`: Data streaming dependencies
+
+            - `-streamstim`: Combined streaming and stimulus dependencies
+
+
+          .. tab:: Windows, Linux or MacOS intel
+
+            .. code-block:: bash
+
+               conda env create -f environments/environment-full.yml -n "eeg-expy"
+
+               conda activate "eeg-expy"
+
+               git clone https://github.com/NeuroTechX/eeg-expy
+
+               cd eeg-expy
+
+          .. tab:: MacOS arm64(M1, M2, etc.)
+
+            .. code-block:: bash
+
+               # for audio to be supported, osx-64 runtime is currently required, drop the '--platform osx-64' parameter if audio is not needed, to use native runtime.
+               conda env create --platform osx-64 -f environments/environment-full.yml -n "eeg-expy-audio"
+
+               # activate the environment
+               conda activate "eeg-expy-audio"
+
+               # clone the repo
+               git clone https://github.com/NeuroTechX/eeg-expy
+
+               # navigate to the repo  
+               cd eeg-expy
 
 
     .. tab:: Virtualenv
