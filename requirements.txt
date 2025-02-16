@@ -53,8 +53,6 @@ click
 pyobjc==7.3; sys_platform == 'darwin'
 #upgrade psychopy to use newer wxpython dependency which is prebuilt for m1 support.
 psychopy==2023.2.2
-# PTB does not yet support macOS Apple Silicon, need to fallback to sounddevice.
-psychopy-sounddevice
 psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4

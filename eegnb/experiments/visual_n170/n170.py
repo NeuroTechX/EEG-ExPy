@@ -41,7 +41,7 @@ class VisualN170(Experiment.BaseExperiment):
         # Return the list of images as a stimulus object
         return [self.houses, self.faces]
         
-    def present_stimulus(self, idx : int, trial):
+    def present_stimulus(self, idx: int):
         
         # Get the label of the trial
         label = self.trials["parameter"].iloc[idx]
