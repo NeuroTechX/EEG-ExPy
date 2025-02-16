@@ -1,4 +1,4 @@
-name: eegexpy-full
+name: eeg-expy-streamstim
 channels:
     - conda-forge
     - defaults
