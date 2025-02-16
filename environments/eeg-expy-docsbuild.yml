@@ -1,11 +1,11 @@
-name: eegexpy-docsbuild
+name: eeg-expy-docsbuild
 channels:
     - conda-forge
-    - defaults
 dependencies:
     # System-level dependencies
-    - python>=3.8
+    - python=3.8
     - pytables # install pytables for macOS arm64, so do not need to build from source.
+    - rust # used by docsbuild
     - pip
     - pip:
       # Install package with only Analysis requirements

@@ -44,7 +44,7 @@ Use the following commands to download the repo, create and activate a conda or 
 
        .. tabs::
 
-            Available environment suffixes:
+            Available environment options:
 
             - `-full`: Install all dependencies
 
@@ -61,9 +61,9 @@ Use the following commands to download the repo, create and activate a conda or 
 
             .. code-block:: bash
 
-               conda env create -f environments/environment-full.yml -n "eeg-expy"
+               conda env create -f environments/environment-full.yml
 
-               conda activate "eeg-expy"
+               conda activate "eeg-expy-full"
 
                git clone https://github.com/NeuroTechX/eeg-expy
 
@@ -73,11 +73,12 @@ Use the following commands to download the repo, create and activate a conda or 
 
             .. code-block:: bash
 
-               # for audio to be supported, osx-64 runtime is currently required, drop the '--platform osx-64' parameter if audio is not needed, to use native runtime.
-               conda env create --platform osx-64 -f environments/environment-full.yml -n "eeg-expy-audio"
+               # for audio to be supported, osx-64 runtime is currently required,
+               # drop the '--platform osx-64' parameter if audio is not needed, to use the native runtime.
+               conda env create --platform osx-64 -f environments/environment-full.yml
 
                # activate the environment
-               conda activate "eeg-expy-audio"
+               conda activate "eeg-expy-full"
 
                # clone the repo
                git clone https://github.com/NeuroTechX/eeg-expy

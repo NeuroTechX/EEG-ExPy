@@ -1,10 +1,9 @@
-name: eegexpy-stimpres
+name: eeg-expy-stimpres
 channels:
     - conda-forge
-    - defaults
 dependencies:
     # System-level dependencies
-    - python>=3.8
+    - python=3.8
     - wxpython>=4.0 # install wxpython to prevent error on macOS arm64: "site-packages/wx/_core.cpython-38-darwin.so, 0x0002): symbol not found in flat namespace '__ZN10wxBoxSizer20InformFirstDirectionEiii'"
     - pip
     - pip:

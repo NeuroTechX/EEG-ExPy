@@ -55,7 +55,7 @@ jobs:
     - name: Install conda
       uses: conda-incubator/setup-miniconda@v3
       with:
-        environment-file: environments/environment-full.yml
+        environment-file: environments/eeg-expy-full.yml
         auto-activate-base: true
         python-version: 3.8
         activate-environment: eeg-expy-full
