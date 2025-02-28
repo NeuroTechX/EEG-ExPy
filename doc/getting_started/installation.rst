@@ -44,26 +44,26 @@ Use the following commands to download the repo, create and activate a conda or 
 
        .. tabs::
 
-            Available environment options:
+            Available environment file options:
 
-            - `-full`: Install all dependencies
+            - `eeg-expy-full`: Install all dependencies
 
-            - `-docsbuild`: Documentation build dependencies
+            - `eeg-expy-docsbuild`: Documentation
 
-            - `-stimpres`: Stimulus presentation dependencies
+            - `eeg-expy-stimpres`: Stimulus presentation
 
-            - `-streaming`: Data streaming dependencies
+            - `eeg-expy-streaming`: Data streaming
 
-            - `-streamstim`: Combined streaming and stimulus dependencies
+            - `eeg-expy-streamstim`: Combined streaming and stimulus presentation
 
 
           .. tab:: Windows, Linux or MacOS intel
 
             .. code-block:: bash
 
-               conda env create -f environments/environment-full.yml
+               conda env create -v -f environments/eeg-expy-full.yml
 
-               conda activate "eeg-expy-full"
+               conda activate eeg-expy-full
 
                git clone https://github.com/NeuroTechX/eeg-expy
 
