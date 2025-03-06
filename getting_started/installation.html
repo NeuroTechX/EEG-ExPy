@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
@@ -516,11 +516,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p><strong>Test installation</strong></p>
 <p>Start a jupyter notebooks session and you will be presented with the eeg-expy file structure. You can test the installation by opening a new jupyter notebook and running a cell containing the code below. This will run one session of the Visual N170 with your board of choice.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.devices.eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.experiments.visual_n170</span><span class="w"> </span><span class="kn">import</span> <span class="n">n170</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
 
 <span class="c1"># Define some variables</span>
 <span class="n">board_name</span> <span class="o">=</span> <span class="s1">&#39;muse&#39;</span>

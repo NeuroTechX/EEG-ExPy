@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cueing Group Analysis Winter 2019 &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
@@ -454,21 +454,21 @@ to download the full example code.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard Pythonic imports</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
 
 <span class="c1"># MNE functions</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span> <span class="n">find_events</span><span class="p">,</span> <span class="n">concatenate_raws</span>
-<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">tfr_morlet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span> <span class="n">find_events</span><span class="p">,</span> <span class="n">concatenate_raws</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne.time_frequency</span><span class="w"> </span><span class="kn">import</span> <span class="n">tfr_morlet</span>
 
 <span class="c1"># EEG-Noteooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.analysis_utils</span> <span class="kn">import</span> <span class="n">load_data</span>
-<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
 </pre></div>
 </div>
 </section>
@@ -2127,7 +2127,7 @@ Applying baseline correction (mode: mean)
 <span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fa89dd72280&gt;
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7f82edabe490&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot Spectra Diff error bars</span>
@@ -2139,7 +2139,7 @@ Applying baseline correction (mode: mean)
 <span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7fa89df31f10&gt;
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x7f82eddcea90&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi</p>
@@ -2182,7 +2182,7 @@ Applying baseline correction (mode: mean)
 <li><img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" alt="Power Ipsi" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" alt="Power Contra" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fa89e079550&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f82edf99a30&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi-Contra Difference</p>
@@ -2202,7 +2202,7 @@ Applying baseline correction (mode: mean)
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7fa89e0e5cd0&gt;
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f82edf26dc0&gt;
 </pre></div>
 </div>
 </section>
@@ -2328,7 +2328,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 Saved Spectra to 375CueingContraSpec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 24.537 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 24.534 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4cd288a0df5274e2be1a468e1967a571/04r__cueing_group_analysis_winter2019.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04r__cueing_group_analysis_winter2019.ipynb</span></code></a></p>

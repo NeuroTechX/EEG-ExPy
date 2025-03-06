@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SSVEP Decoding &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
@@ -457,31 +457,31 @@ to download the full example code.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="c1"># MNE functions</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
-<span class="kn">from</span> <span class="nn">mne.decoding</span> <span class="kn">import</span> <span class="n">Vectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne.decoding</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vectorizer</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.analysis_utils</span> <span class="kn">import</span> <span class="n">load_data</span>
-<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
 
 <span class="c1"># Scikit-learn and Pyriemann ML functionalities</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span>
-<span class="kn">from</span> <span class="nn">pyriemann.estimation</span> <span class="kn">import</span> <span class="n">Covariances</span><span class="p">,</span> <span class="n">ERPCovariances</span><span class="p">,</span> <span class="n">XdawnCovariances</span>
-<span class="kn">from</span> <span class="nn">pyriemann.spatialfilters</span> <span class="kn">import</span> <span class="n">CSP</span>
-<span class="kn">from</span> <span class="nn">pyriemann.tangentspace</span> <span class="kn">import</span> <span class="n">TangentSpace</span>
-<span class="kn">from</span> <span class="nn">pyriemann.classification</span> <span class="kn">import</span> <span class="n">MDM</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.discriminant_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann.estimation</span><span class="w"> </span><span class="kn">import</span> <span class="n">Covariances</span><span class="p">,</span> <span class="n">ERPCovariances</span><span class="p">,</span> <span class="n">XdawnCovariances</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann.spatialfilters</span><span class="w"> </span><span class="kn">import</span> <span class="n">CSP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann.tangentspace</span><span class="w"> </span><span class="kn">import</span> <span class="n">TangentSpace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann.classification</span><span class="w"> </span><span class="kn">import</span> <span class="n">MDM</span>
 </pre></div>
 </div>
 </section>
@@ -505,21 +505,36 @@ to download the full example code.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loading these files:
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.20.04.csv
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv
 
 
 
-
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30732
@@ -532,23 +547,8 @@ Creating RawArray with float64 data, n_channels=6, n_times=30720
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 </pre></div>
 </div>
@@ -682,7 +682,7 @@ Cov + MDM
 CSP + Cov + TS
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.807 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.780 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-02r-ssvep-decoding-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a74331ba25f1e4b93e2ecf2b3efd4a13/02r__ssvep_decoding.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02r__ssvep_decoding.ipynb</span></code></a></p>

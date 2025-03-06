@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loading and Saving Data &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
@@ -462,8 +462,8 @@
 <h2>Changing the Default Data Directory<a class="headerlink" href="#changing-the-default-data-directory" title="Permalink to this heading"></a></h2>
 <p>The default directory for saving data is automatically set within the library. If you want to save and analyze data to/from a new directory, it must be passed as a parameter to both the <code class="docutils literal notranslate"><span class="pre">eegnb.generate_save_fn()</span></code> and <code class="docutils literal notranslate"><span class="pre">eegnb.analysis.load_data()</span></code> functions.</p>
 <p><strong>Saving to new directory:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments.visual_n170</span> <span class="kn">import</span> <span class="n">n170</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.experiments.visual_n170</span><span class="w"> </span><span class="kn">import</span> <span class="n">n170</span>
 
 <span class="c1"># Define session parameters</span>
 <span class="n">board</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>
@@ -479,7 +479,7 @@
 </pre></div>
 </div>
 <p><strong>Loading from new directory:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.analysis.utils</span> <span class="kn">import</span> <span class="n">load_data</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
 
 <span class="c1"># Define parameters for session you want to load</span>
 <span class="n">board</span> <span class="o">=</span> <span class="s1">&#39;cyton&#39;</span>

@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Initiating an EEG Stream &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
@@ -449,7 +449,7 @@
 <p>The exact steps for this varies with the device (MUSE, OpenBCI, others) and operating system (Windows, Mac, Linux) used. When using these instructions, you should make sure you are consulting the section appropriate for your combination of device and OS.</p>
 <p>Initiating an EEG stream is a relatively easy process using the <code class="docutils literal notranslate"><span class="pre">eegnb.devices.eeg.EEG</span></code> class which abstracts the
 the various devices and backends behind one easy call.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.devices.eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span>
 
 <span class="c1"># define the name for the board you are using and call the EEG object</span>
 <span class="n">eeg</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cyton&#39;</span><span class="p">)</span>
@@ -556,7 +556,7 @@ port. If this is happening you can check the serial port of the dongle by openin
 menu pictures below.</p>
 <p><img alt="fig" src="../_images/windows_usb_select.PNG" /></p>
 <p>Now that we have the COM port, we can initiate the stream by passing it to the EEG device in the object call.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.devices.eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span>
 
 <span class="c1"># define the name for the board you are using and call the EEG object</span>
 <span class="n">eeg</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span>

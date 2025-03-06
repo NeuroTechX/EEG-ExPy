@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SSVEP Visualization &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
@@ -458,19 +458,19 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 <p>After loading the data, we place it in an MNE <cite>Epochs</cite> object, and obtain the trial-averaged response.</p>
 <p>The final figures show the visual frequencies appearing in the measured power spectrum.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="c1"># MNE functions</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
-<span class="kn">from</span> <span class="nn">mne.time_frequency</span> <span class="kn">import</span> <span class="n">tfr_morlet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne.time_frequency</span><span class="w"> </span><span class="kn">import</span> <span class="n">tfr_morlet</span>
 
 <span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span> <span class="nn">eegnb.analysis.analysis_utils</span> <span class="kn">import</span> <span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
-<span class="kn">from</span> <span class="nn">eegnb.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
 </pre></div>
 </div>
 <dl>
@@ -502,27 +502,42 @@ From: https://drive.google.com/uc?id=1zj9Wx-YEMJo7GugUUu7Sshcybfsr-Fze
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/5.14M [00:00&lt;?, ?B/s]
- 92%|█████████▏| 4.72M/5.14M [00:00&lt;00:00, 25.9MB/s]
-100%|██████████| 5.14M/5.14M [00:00&lt;00:00, 27.9MB/s]
+ 92%|█████████▏| 4.72M/5.14M [00:00&lt;00:00, 38.2MB/s]
+100%|██████████| 5.14M/5.14M [00:00&lt;00:00, 41.0MB/s]
 
 
 Loading these files:
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.20.04.csv
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
 
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv
 
 
 
-
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=6, n_times=30732
+    Range : 0 ... 30731 =      0.000 ...   120.043 secs
+Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30732
@@ -535,23 +550,8 @@ Creating RawArray with float64 data, n_channels=6, n_times=30720
 Ready.
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30732
-    Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 </pre></div>
 </div>
@@ -753,7 +753,7 @@ Effective window size : 4.016 (s)
 Applying baseline correction (mode: logratio)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.402 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 14.106 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/482813616f7e52f19737a9e9e4714600/01r__ssvep_viz.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01r__ssvep_viz.ipynb</span></code></a></p>

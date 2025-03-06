@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Running Experiments &mdash; EEG Notebooks 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
@@ -534,9 +534,9 @@
 <section id="using-jupyter-notebooks-or-a-custom-script">
 <h2>Using Jupyter Notebooks or a custom script<a class="headerlink" href="#using-jupyter-notebooks-or-a-custom-script" title="Permalink to this heading"></a></h2>
 <p>The first step is to import all of the necessary library dependencies. These are necessary for generating a save file name which conforms to the default folder structure, streaming and recording EEG data, and running the stimulus presentation.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments</span> <span class="kn">import</span> <span class="n">VisualN170</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.devices.eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisualN170</span>
 </pre></div>
 </div>
 <p>Next we need to define session parameters which are otherwise handled via input prompts in the run <code class="docutils literal notranslate"><span class="pre">run_notebooks.py</span></code> script. After we define the session parameters we will pass them to the file name generator.</p>
@@ -566,9 +566,9 @@
 <span class="c1"># ---------------------  </span>
 <span class="c1">#  </span>
 <span class="c1"># Imports</span>
-<span class="kn">from</span> <span class="nn">eegnb</span> <span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span> <span class="nn">eegnb.devices.eeg</span> <span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span> <span class="nn">eegnb.experiments</span> <span class="kn">import</span> <span class="n">VisualN170</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.devices.eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisualN170</span>
 
 <span class="c1"># Define some variables</span>
 <span class="n">board_name</span> <span class="o">=</span> <span class="s2">&quot;muse2&quot;</span> <span class="c1"># board name</span>
