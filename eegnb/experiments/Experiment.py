@@ -11,7 +11,8 @@ obj.run()
 from abc import abstractmethod
 from typing import Callable
 from psychopy import prefs
-#change the pref libraty to PTB and set the latency mode to high precision
+from eegnb.experiments.utils import TrialParams
+#change the pref library to PTB and set the latency mode to high precision
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
@@ -27,15 +28,15 @@ from eegnb import generate_save_fn
 
 class BaseExperiment:
 
-    def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True):
+    def __init__(self, exp_name, duration, eeg, save_fn, trial_params: TrialParams, use_vr=False, use_fullscr = True):
         """ Initializer for the Base Experiment Class
 
         Args:
-            n_trials (int): Number of trials/stimulus
-            iti (float): Inter-trial interval
-            soa (float): Stimulus on arrival
-            jitter (float): Random delay between stimulus
+            exp_name (str): Name of the experiment
+            duration (float): Total duration of the experiment
+            eeg: EEG object
+            save_fn: Function to save data
+            trial_params (TrialParams): Trial parameters
             use_vr (bool): Use VR for displaying stimulus
         """
 
@@ -45,17 +46,14 @@ class BaseExperiment:
         self.duration = duration
         self.eeg = eeg
         self.save_fn = save_fn
-        self.n_trials = n_trials
-        self.iti = iti
-        self.soa = soa
-        self.jitter = jitter
+        self.trial_params = trial_params
         self.use_vr = use_vr
         self.use_fullscr = use_fullscr
-        self.window_size = [1600,800] 
+        self.window_size = [1600,800]
 
     @abstractmethod
     def load_stimulus(self):
-        """ 
+        """
         Method that loads the stimulus for the specific experiment, overwritten by the specific experiment
         Returns the stimulus object in the form of [{stim1},{stim2},...]
         Throws error if not overwritten in the specific experiment
@@ -79,19 +77,19 @@ class BaseExperiment:
         # Initializing the record duration and the marker names
         self.record_duration = np.float32(self.duration)
         self.markernames = [1, 2]
-        
-        # Setting up the trial and parameter list
-        self.parameter = np.random.binomial(1, 0.5, self.n_trials)
-        self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
-        # Setting up Graphics 
+        # Setting up the trial and parameter list
+        self.parameter = np.random.binomial(1, 0.5, self.trial_params.n_trials)
+        self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.trial_params.n_trials)))
+
+        # Setting up Graphics
         self.window = (
             visual.Rift(monoscopic=True, headLocked=True) if self.use_vr
             else visual.Window(self.window_size, monitor="testMonitor", units="deg", fullscr=self.use_fullscr))
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
-        
+
         # Show Instruction Screen if not skipped by the user
         if instructions:
             self.show_instructions()
@@ -99,7 +97,7 @@ class BaseExperiment:
         # Checking for EEG to setup the EEG stream
         if self.eeg:
              # If no save_fn passed, generate a new unnamed save file
-            if self.save_fn is None:  
+            if self.save_fn is None:
                 # Generating a random int for the filename
                 random_id = random.randint(1000,10000)
                 # Generating save function
@@ -109,9 +107,9 @@ class BaseExperiment:
                 print(
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"
                 )
-    
+
     def show_instructions(self):
-        """ 
+        """
         Method that shows the instructions for the specific Experiment
         In the usual case it is not overwritten, the instruction text can be overwritten by the specific experiment
         No parameters accepted, can be skipped through passing a False while running the Experiment
@@ -151,7 +149,7 @@ class BaseExperiment:
         """ Do the present operation for a bunch of experiments """
 
         def iti_with_jitter():
-            return self.iti + np.random.rand() * self.jitter
+            return self.trial_params.iti + np.random.rand() * self.trial_params.jitter
 
         # Setup the experiment, alternatively could get rid of this line, something to think about
         self.setup(instructions)
@@ -178,7 +176,7 @@ class BaseExperiment:
             if current_trial_end < current_experiment_seconds:
                 current_trial += 1
                 current_trial_begin = current_experiment_seconds + iti_with_jitter()
-                current_trial_end = current_trial_begin + self.soa
+                current_trial_end = current_trial_begin + self.trial_params.soa
 
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
             elif current_trial_begin < current_experiment_seconds:
