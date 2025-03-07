@@ -61,17 +61,23 @@ Use the following commands to download the repo, create and activate a conda or 
 
             .. code-block:: bash
 
-               conda env create -v -f environments/eeg-expy-full.yml
-
-               conda activate eeg-expy-full
-
                git clone https://github.com/NeuroTechX/eeg-expy
 
                cd eeg-expy
 
+               conda env create -v -f environments/eeg-expy-full.yml
+
+               conda activate eeg-expy-full
+
           .. tab:: MacOS arm64(M1, M2, etc.)
 
             .. code-block:: bash
+
+               # clone the repo
+               git clone https://github.com/NeuroTechX/eeg-expy
+
+               # navigate to the repo
+               cd eeg-expy
 
                # for audio to be supported, osx-64 runtime is currently required,
                # drop the '--platform osx-64' parameter if audio is not needed, to use the native runtime.
@@ -79,13 +85,6 @@ Use the following commands to download the repo, create and activate a conda or 
 
                # activate the environment
                conda activate eeg-expy-full
-
-               # clone the repo
-               git clone https://github.com/NeuroTechX/eeg-expy
-
-               # navigate to the repo  
-               cd eeg-expy
-
 
     .. tab:: Virtualenv
 
