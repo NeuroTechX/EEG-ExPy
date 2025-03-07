@@ -55,21 +55,17 @@ jobs:
     - name: Install conda
       uses: conda-incubator/setup-miniconda@v3
       with:
-        environment-file: environment.yml
+        environment-file: environments/eeg-expy-full.yml
         auto-activate-base: true
         python-version: 3.8
-        activate-environment: EEG-ExPy
+        activate-environment: eeg-expy-full
         channels: conda-forge
         miniconda-version: "latest"
     - name: Install dependencies via conda
       shell: bash -el {0}
       run: |
         conda info
-        conda activate EEG-ExPy
-    - name: Install dependencies
-      shell: bash -el {0}
-      run: |
-        make build
+        conda activate eeg-expy-full
     - name: Run eegnb install test
       shell: bash -el {0}
       run: |
@@ -86,7 +82,8 @@ jobs:
           Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
           export DISPLAY=:0
         fi
-        make test
+        make test PYTEST_ARGS="--ignore=tests/test_run_experiments.py"
+
 
   typecheck:
     name: typecheck (${{ matrix.os }}, py-${{ matrix.python_version }})

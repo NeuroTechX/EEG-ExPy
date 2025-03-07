@@ -6,7 +6,7 @@ install-docs-build-dependencies:
 	pip install -e .[docsbuild]
 
 test:
-	pytest
+	pytest $(PYTEST_ARGS)
 
 typecheck:
 	# Exclude visual_cueing due to errors

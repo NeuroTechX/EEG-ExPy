@@ -158,9 +158,9 @@ print("Recording saved in", experiment.save_fn)
 
 ## Using virtual reality
 
-### Heads up display
+### Head mounted display
 
-A heads-up display can be used for presenting experiments in a similar way to a monitor, without much modification.
+A head mounted display can be used for presenting experiments in a similar way to a monitor, without much modification.
 
 #### Features to be added in future releases:
 
