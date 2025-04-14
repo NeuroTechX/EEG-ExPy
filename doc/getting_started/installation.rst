@@ -44,48 +44,47 @@ Use the following commands to download the repo, create and activate a conda or 
 
        .. tabs::
 
-            Available environment options:
+            Available environment file options:
 
-            - `-full`: Install all dependencies
+            - `eeg-expy-full`: Install all dependencies
 
-            - `-docsbuild`: Documentation build dependencies
+            - `eeg-expy-docsbuild`: Documentation
 
-            - `-stimpres`: Stimulus presentation dependencies
+            - `eeg-expy-stimpres`: Stimulus presentation
 
-            - `-streaming`: Data streaming dependencies
+            - `eeg-expy-streaming`: Data streaming
 
-            - `-streamstim`: Combined streaming and stimulus dependencies
+            - `eeg-expy-streamstim`: Combined streaming and stimulus presentation
 
 
           .. tab:: Windows, Linux or MacOS intel
 
             .. code-block:: bash
 
-               conda env create -f environments/environment-full.yml
-
-               conda activate "eeg-expy-full"
-
                git clone https://github.com/NeuroTechX/eeg-expy
 
                cd eeg-expy
+
+               conda env create -v -f environments/eeg-expy-full.yml
+
+               conda activate eeg-expy-full
 
           .. tab:: MacOS arm64(M1, M2, etc.)
 
             .. code-block:: bash
 
-               # for audio to be supported, osx-64 runtime is currently required,
-               # drop the '--platform osx-64' parameter if audio is not needed, to use the native runtime.
-               conda env create --platform osx-64 -f environments/environment-full.yml
-
-               # activate the environment
-               conda activate "eeg-expy-full"
-
                # clone the repo
                git clone https://github.com/NeuroTechX/eeg-expy
 
-               # navigate to the repo  
+               # navigate to the repo
                cd eeg-expy
 
+               # for audio to be supported, osx-64 runtime is currently required,
+               # drop the '--platform osx-64' parameter if audio is not needed, to use the native runtime.
+               conda env create -v --platform osx-64 -f environments/eeg-expy-full.yml
+
+               # activate the environment
+               conda activate eeg-expy-full
 
     .. tab:: Virtualenv
 
