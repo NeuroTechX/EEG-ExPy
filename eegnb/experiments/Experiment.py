@@ -78,15 +78,13 @@ class BaseExperiment:
         """
         raise NotImplementedError
 
-    def present_iti(self):
+    def present_inter_trial_interval(self):
         """
-        Method that presents the inter-trial interval display for the specific experiment.
+        Displays the screen content between stimulus presentations.
 
-        This method defines what is shown on the screen during the period between stimuli.
-        It could be a blank screen, a fixation cross, or any other appropriate display.
-
-        This is an optional method - the default implementation simply flips the window with no additional content.
-        Subclasses can override this method to provide custom ITI displays.
+        By default, simply refreshes the screen with no content.
+        Subclasses should override this to implement specific inter-trial displays
+        (e.g., fixation cross, blank screen with specific color).
         """
         self.window.flip()
 
@@ -266,7 +264,7 @@ class BaseExperiment:
                 current_trial += 1
                 trial_start_time = elapsed_time + iti_with_jitter()
                 trial_end_time = trial_start_time + self.soa
-                self.__draw(lambda: self.present_iti())
+                self.__draw(lambda: self.present_inter_trial_interval())
 
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
             elif elapsed_time > trial_start_time:
@@ -277,7 +275,7 @@ class BaseExperiment:
                     self.__draw(lambda: self.present_stimulus(current_trial))
                     rendering_trial = current_trial
             else:
-                self.__draw(lambda: self.present_iti())
+                self.__draw(lambda: self.present_inter_trial_interval())
 
         # Clearing the screen for the next trial
         event.clearEvents()

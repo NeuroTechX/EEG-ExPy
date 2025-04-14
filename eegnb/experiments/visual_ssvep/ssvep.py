@@ -126,3 +126,7 @@ class VisualSSVEP(Experiment.BaseExperiment):
                 self.fixation.draw()
                 self.window.flip()
         pass
+
+    def present_inter_trial_interval(self):
+        self.fixation.draw()
+        self.window.flip()
