@@ -26,6 +26,40 @@ jobs:
       run: |
         make install-docs-build-dependencies
 
+
+    - name: Get list of changed files
+      id: changes
+      run: |
+        git fetch origin master
+        git diff --name-only origin/master...HEAD > changed_files.txt
+        cat changed_files.txt
+
+
+    - name: Determine build mode
+      id: mode
+      run: |
+        if grep -vqE '^examples/.*\.py$' changed_files.txt; then
+          echo "FULL_BUILD=true" >> $GITHUB_ENV
+          echo "Detected non-example file change. Full build triggered."
+        else
+          CHANGED_EXAMPLES=$(grep '^examples/.*\.py$' changed_files.txt | paste -sd '|' -)
+          echo "FULL_BUILD=false" >> $GITHUB_ENV
+          echo "CHANGED_EXAMPLES=$CHANGED_EXAMPLES" >> $GITHUB_ENV
+          echo "Changed examples: $CHANGED_EXAMPLES"
+        fi
+
+
+    - name: Cache built documentation
+      id: cache-docs
+      uses: actions/cache@v4
+      with:
+        path: |
+          doc/_build/html
+        key: ${{ runner.os }}-sphinx-${{ hashFiles('examples/**/*.py', 'doc/**/*', 'conf.py') }}
+        restore-keys: |
+          ${{ runner.os }}-sphinx-
+
+
     - name: Build docs
       run: |
         make docs
