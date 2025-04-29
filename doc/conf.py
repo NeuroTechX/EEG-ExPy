@@ -288,3 +288,20 @@ sphinx_gallery_conf = {
 }
 
 """
+
+import os
+
+changed_examples = os.getenv('CHANGED_EXAMPLES')
+full_build = os.getenv('FULL_BUILD', 'true').lower() == 'true'
+
+if not full_build and changed_examples:
+    print(f"Only building examples matching: {changed_examples}")
+    sphinx_gallery_conf.update({
+        'filename_pattern': changed_examples,
+    })
+else:
+    print("Building all examples (full build).")
+    sphinx_gallery_conf.update({
+        'filename_pattern': r'.*\.py',
+    })
+
