@@ -10,9 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    
     - name: Checkout repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0   
         
@@ -70,6 +69,8 @@ jobs:
     - name: Build docs
       run: |
         make docs
+
+        
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
