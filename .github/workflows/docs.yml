@@ -10,11 +10,16 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0   
+        
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.8
+        
     - name: Install dependencies
       run: |
         make install-deps-apt
@@ -22,13 +27,50 @@ jobs:
         python -m pip install attrdict
 
         make install-deps-wxpython
+        
     - name: Build project
       run: |
         make install-docs-build-dependencies
 
+
+    - name: Get list of changed files
+      id: changes
+      run: |
+        git fetch origin master
+        git diff --name-only origin/master...HEAD > changed_files.txt
+        cat changed_files.txt
+
+
+    - name: Determine build mode
+      id: mode
+      run: |
+        if grep -vqE '^examples/.*\.py$' changed_files.txt; then
+          echo "FULL_BUILD=true" >> $GITHUB_ENV
+          echo "Detected non-example file change. Full build triggered."
+        else
+          CHANGED_EXAMPLES=$(grep '^examples/.*\.py$' changed_files.txt | paste -sd '|' -)
+          echo "FULL_BUILD=false" >> $GITHUB_ENV
+          echo "CHANGED_EXAMPLES=$CHANGED_EXAMPLES" >> $GITHUB_ENV
+          echo "Changed examples: $CHANGED_EXAMPLES"
+        fi
+
+
+    - name: Cache built documentation
+      id: cache-docs
+      uses: actions/cache@v4
+      with:
+        path: |
+          doc/_build/html
+        key: ${{ runner.os }}-sphinx-${{ hashFiles('examples/**/*.py', 'doc/**/*', 'conf.py') }}
+        restore-keys: |
+          ${{ runner.os }}-sphinx-
+
+
     - name: Build docs
       run: |
         make docs
+
+        
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
