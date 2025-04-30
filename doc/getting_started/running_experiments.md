@@ -3,7 +3,7 @@ After you have installed the library there are two methods for collecting data. 
 
 ## Command Line Interface
 To activate the command line tool, open a command/terminal prompt and enter `eegnb runexp` followed by the appropriate flags for your device, desired experiment, and more. The possible flags are
-* *-ed ; --eegdevice*: The device being used to record data. Each device has a specific string to be passed which can be seen on the [Initiating an EEG Stream](https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html) under the `EEG.device` parameter for the respective device.
+* *-ed ; --eegdevice*: The device being used to record data. Each device has a specific string to be passed which can be seen on the [Initiating an EEG Stream](https://neurotechx.github.io/EEG-ExPy/getting_started/streaming.html) under the `EEG.device` parameter for the respective device.
 * *-ex ; --experiment*: The experiment to be run
 * *-ma ; --macaddr*: The MAC address of device to use (applicable devices e.g ganglion)
 * *-rd ; --recdur*: Duration of recording (in seconds).
@@ -78,7 +78,7 @@ Enter session #:
 ```
 The session number corresponds to each time you sit down to take multiple recordings. If you put your device on and run this script 5 consecutive times you would use the same session number every time. However, if you were to take a break then return for an additional 3 recordings, the last 3 would have a new session number. For more information about how this corresponds to saving data please see the documentation page on loading and saving data. 
 
-If you are using **OpenBCI on Windows/MacOS** you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see [Initiating an EEG Stream](https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html).
+If you are using **OpenBCI on Windows/MacOS** you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see [Initiating an EEG Stream](https://neurotechx.github.io/EEG-ExPy/getting_started/streaming.html).
 
 
 
@@ -193,7 +193,7 @@ experiment = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_f
 7. Ensure the electrodes are touching the scalp ok and not being blocked by the headset strap.
 8. From inside the VR headset's 'quick settings' dashboard, select 'Quest Link' and connect to the Oculus server running on windows, via air link or link cable.
 9. Once the Oculus menu has finished loading on the VR headset, open the built-in Oculus desktop app by using the touch controllers or gamepad.
-10. Try opening an eeg device raw data viwer and verify that the electrodes are receiving a good signal without too much noise, eg 'OpenBCI GUI'.
+10. Try opening an eeg device raw data viewer and verify that the electrodes are receiving a good signal without too much noise, eg 'OpenBCI GUI'.
 11. Run the EEG-ExPy experiment from the command line or IDE, it should load and take control from the Oculus desktop app.
 12. Follow the experiment instructions, and press a key if necessary to begin the experiment and collect valid data.
 
