@@ -302,6 +302,5 @@ if not full_build and changed_examples:
 else:
     print("Building all examples (full build).")
     sphinx_gallery_conf.update({
-        'filename_pattern': r'.*\.py',
+        'filename_pattern': '(?=.*r__)(?=.*.py)',  # r'.*\.py',
     })
-
