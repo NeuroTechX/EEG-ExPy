@@ -1,0 +1,13 @@
+name: eeg-expy-streamstim
+channels:
+    - conda-forge
+    - defaults
+dependencies:
+    # System-level dependencies
+    - python=3.8
+    - liblsl # install liblsl to prevent error on macOS and Ubuntu: "RuntimeError: LSL binary library file was not found."
+    - wxpython>=4.0 # install wxpython to prevent error on macOS arm64: "site-packages/wx/_core.cpython-38-darwin.so, 0x0002): symbol not found in flat namespace '__ZN10wxBoxSizer20InformFirstDirectionEiii'"
+    - pip
+    - pip:
+      # Install package with only Analysis requirements
+      - -e ..[streamstim]
