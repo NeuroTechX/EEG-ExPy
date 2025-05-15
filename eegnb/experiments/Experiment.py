@@ -262,7 +262,7 @@ class BaseExperiment:
                 if rendering_trial < current_trial:
                     # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
                     # Stimulus presentation overwritten by specific experiment
-                    self.__draw(lambda: self.present_stimulus(current_trial, current_trial))
+                    self.__draw(lambda: self.present_stimulus(current_trial))
                     rendering_trial = current_trial
             else:
                 self.__draw(lambda: self.window.flip())
