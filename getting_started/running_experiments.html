@@ -450,7 +450,7 @@
 <h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this heading"></a></h2>
 <p>To activate the command line tool, open a command/terminal prompt and enter <code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">runexp</span></code> followed by the appropriate flags for your device, desired experiment, and more. The possible flags are</p>
 <ul class="simple">
-<li><p><em>-ed ; –eegdevice</em>: The device being used to record data. Each device has a specific string to be passed which can be seen on the <a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html">Initiating an EEG Stream</a> under the <code class="docutils literal notranslate"><span class="pre">EEG.device</span></code> parameter for the respective device.</p></li>
+<li><p><em>-ed ; –eegdevice</em>: The device being used to record data. Each device has a specific string to be passed which can be seen on the <a class="reference external" href="https://neurotechx.github.io/EEG-ExPy/getting_started/streaming.html">Initiating an EEG Stream</a> under the <code class="docutils literal notranslate"><span class="pre">EEG.device</span></code> parameter for the respective device.</p></li>
 <li><p><em>-ex ; –experiment</em>: The experiment to be run</p></li>
 <li><p><em>-ma ; –macaddr</em>: The MAC address of device to use (applicable devices e.g ganglion)</p></li>
 <li><p><em>-rd ; –recdur</em>: Duration of recording (in seconds).</p></li>
@@ -527,7 +527,7 @@
 </pre></div>
 </div>
 <p>The session number corresponds to each time you sit down to take multiple recordings. If you put your device on and run this script 5 consecutive times you would use the same session number every time. However, if you were to take a break then return for an additional 3 recordings, the last 3 would have a new session number. For more information about how this corresponds to saving data please see the documentation page on loading and saving data.</p>
-<p>If you are using <strong>OpenBCI on Windows/MacOS</strong> you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see <a class="reference external" href="https://neurotechx.github.io/eeg-notebooks/getting_started/streaming.html">Initiating an EEG Stream</a>.</p>
+<p>If you are using <strong>OpenBCI on Windows/MacOS</strong> you will be given an additional prompt to enter the name of the serial port the USB dongle is using. For instructions on how to use the OpenBCI GUI to find the serial port see <a class="reference external" href="https://neurotechx.github.io/EEG-ExPy/getting_started/streaming.html">Initiating an EEG Stream</a>.</p>
 </section>
 </section>
 </section>
@@ -639,7 +639,7 @@ The N170 experiment for example, can have its stimulus displayed on the VR heads
 <li><p>Ensure the electrodes are touching the scalp ok and not being blocked by the headset strap.</p></li>
 <li><p>From inside the VR headset’s ‘quick settings’ dashboard, select ‘Quest Link’ and connect to the Oculus server running on windows, via air link or link cable.</p></li>
 <li><p>Once the Oculus menu has finished loading on the VR headset, open the built-in Oculus desktop app by using the touch controllers or gamepad.</p></li>
-<li><p>Try opening an eeg device raw data viwer and verify that the electrodes are receiving a good signal without too much noise, eg ‘OpenBCI GUI’.</p></li>
+<li><p>Try opening an eeg device raw data viewer and verify that the electrodes are receiving a good signal without too much noise, eg ‘OpenBCI GUI’.</p></li>
 <li><p>Run the EEG-ExPy experiment from the command line or IDE, it should load and take control from the Oculus desktop app.</p></li>
 <li><p>Follow the experiment instructions, and press a key if necessary to begin the experiment and collect valid data.</p></li>
 </ol>
