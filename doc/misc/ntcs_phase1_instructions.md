@@ -2,7 +2,7 @@
 
 Welcome to the **NeuroTech Challenge Series (NTCS)**, **Phase 1 (P1)** instructions page. 
 
-**NTCSP1** is an international citizen science research study, run by researchers at the University of Toronto and the [CAMH KCNI](www.krembilneuroinformatics.ca), in collaboration with [OpenBCI](https://openbci.com), [NeuroTechX](www.neurotechx.com), and the eeg-expy core developer team. 
+**NTCSP1** is an international citizen science research study, run by researchers at the University of Toronto and the [CAMH KCNI](http://www.krembilneuroinformatics.ca), in collaboration with [OpenBCI](https://openbci.com), [NeuroTechX](https://neurotechx.com), and the eeg-expy core developer team.
 
 If this is the first time you are learning about NTCS, check out the [NTCS website](https://neurotech-challenge.com/) for additional info about this and other upcoming challenges and opportunities. 
 
@@ -127,7 +127,7 @@ Installation instructions: [https://conda.io/projects/conda/en/latest/user-guide
 
 ### 4. Set up environment and install eeg-expy
 Follow the instructions on this page of the eeg-expy docs
-[https://neurotechx.github.io/eeg-expy/getting_started/installation.html](https://neurotechx.github.io/eeg-expy/getting_started/installation.html)
+[https://neurotechx.github.io/EEG-ExPy/getting_started/installation.html](https://neurotechx.github.io/EEG-ExPy/getting_started/installation.html)
 
 ```
 conda create -n "ntcs" python=3.7 git pip wxpython
@@ -146,7 +146,7 @@ pip install -e .
 First, some general notes:
 
 - We have some [general device and streaming notes](https://github.com/NeuroTechX/eeg-expy/blob/2ee42af999ed2d15626ea5865a2147791e1fbde7/doc/getting_started/streaming.md) 
-- Muse users should also check out the additional *muse device usage information* [here](https://github.com/NeuroTechX/eeg-noteexpy/blob/master/doc/misc/muse_info.md).
+- Muse users should also check out the additional *muse device usage information* [here](https://github.com/NeuroTechX/EEG-ExPy/blob/master/doc/misc/muse_info.md).
 
 
 #### 5.1 Windows+Muse device users 
@@ -163,7 +163,7 @@ Ideally the default option, Brainflow (with native bluetooth), will work well fo
 
 The `eeg-expy` codes for the 3 currently available muse models are `muse2016`, `muse2`, and `museS`.
 
-For each of these, there is the option to strean on either `muselsl` (via `BlueMuse`), `Brainflow` with *native* bluetooth, or `Brainflow` with *BLED dongle* bluetooth. For a muse 2 device, the codes for these three streaming options would be `muse2_bfn`, `muse2_bfb`, `muse2`.
+For each of these, there is the option to stream on either `muselsl` (via `BlueMuse`), `Brainflow` with *native* bluetooth, or `Brainflow` with *BLED dongle* bluetooth. For a muse 2 device, the codes for these three streaming options would be `muse2_bfn`, `muse2_bfb`, `muse2`.
 
 
 **How to check the brainflow is working ok with the muse**
@@ -317,5 +317,5 @@ This is a major gotcha. So much so we're listing it twice. If you are using Open
 
 ### Python is not 3.7
 
-- Python 3.8+ is not currently supported by `eeg-expy`. If you type `Python` and the prompt tells you it is not `Python 3.7`, and this was not something you indended, then something has gone wrong with your installation or environment setup. Go back and repeat the environment setup steps; if the issue persists, repeat the `miniconda` install steps. 
+- Python 3.8+ is not currently supported by `eeg-expy`. If you type `Python` and the prompt tells you it is not `Python 3.7`, and this was not something you intended, then something has gone wrong with your installation or environment setup. Go back and repeat the environment setup steps; if the issue persists, repeat the `miniconda` install steps.
 
