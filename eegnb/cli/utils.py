@@ -10,13 +10,26 @@ from eegnb.devices.eeg import EEG
 from eegnb.experiments import VisualN170, Experiment
 from eegnb.experiments import VisualP300
 from eegnb.experiments import VisualSSVEP
-from eegnb.experiments import AuditoryOddball
 from eegnb.experiments.visual_cueing import cueing
 from eegnb.experiments.visual_codeprose import codeprose
-from eegnb.experiments.auditory_oddball import diaconescu
-from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
 from typing import Optional
 
+# PTB does not yet support macOS Apple Silicon,
+# this experiment needs to run as i386 if on macOS.
+import sys
+import platform
+if sys.platform == 'darwin' and platform.processor() == 'arm':
+    auditory_experiments = {}
+else:
+    from eegnb.experiments import AuditoryOddball
+    from eegnb.experiments.auditory_oddball import diaconescu
+    from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
+    auditory_experiments = {
+        "auditory-SSAEP orig": ssaep,
+        "auditory-SSAEP onefreq": ssaep_onefreq,
+        "auditory-oddball orig": AuditoryOddball(),
+        "auditory-oddball diaconescu": diaconescu,
+    }
 
 # New Experiment Class structure has a different initilization, to be noted
 experiments = {
@@ -25,10 +38,7 @@ experiments = {
     "visual-SSVEP": VisualSSVEP(),
     "visual-cue": cueing,
     "visual-codeprose": codeprose,
-    "auditory-SSAEP orig": ssaep,
-    "auditory-SSAEP onefreq": ssaep_onefreq,
-    "auditory-oddball orig": AuditoryOddball(),
-    "auditory-oddball diaconescu": diaconescu,
+    **auditory_experiments
 }
 
 
