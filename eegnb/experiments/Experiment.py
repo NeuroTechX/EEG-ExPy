@@ -78,16 +78,6 @@ class BaseExperiment:
         """
         raise NotImplementedError
 
-    def present_inter_trial_interval(self):
-        """
-        Displays the screen content between stimulus presentations.
-
-        By default, simply refreshes the screen with no content.
-        Subclasses should override this to implement specific inter-trial displays
-        (e.g., fixation cross, blank screen with specific color).
-        """
-        self.window.flip()
-
     def setup(self, instructions=True):
 
         # Initializing the record duration and the marker names
@@ -246,9 +236,9 @@ class BaseExperiment:
         print("EEG Stream started")
 
         # Run trial until a key is pressed or experiment duration has expired.
-        start_time = time()
-        current_trial = trial_end_time = -1
-        trial_start_time = None
+        start = time()
+        current_trial = current_trial_end = -1
+        current_trial_begin = None
 
         # Current trial being rendered
         rendering_trial = -1
@@ -256,26 +246,26 @@ class BaseExperiment:
         # Clear/reset user input buffer
         self.__clear_user_input()
 
-        while not self.__user_input('cancel') and (time() - start_time) < self.record_duration:
+        while not self.__user_input('cancel') and (time() - start) < self.record_duration:
 
-            elapsed_time = time() - start_time
+            current_experiment_seconds = time() - start
             # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
-            if elapsed_time > trial_end_time:
+            if current_trial_end < current_experiment_seconds:
                 current_trial += 1
-                trial_start_time = elapsed_time + iti_with_jitter()
-                trial_end_time = trial_start_time + self.soa
-                self.__draw(lambda: self.present_inter_trial_interval())
+                current_trial_begin = current_experiment_seconds + iti_with_jitter()
+                current_trial_end = current_trial_begin + self.soa
 
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
-            elif elapsed_time > trial_start_time:
+            elif current_trial_begin < current_experiment_seconds:
 
-                # if current trial number changed present new stimulus.
-                if current_trial > rendering_trial:
+                # if current trial number changed get new choice of image.
+                if rendering_trial < current_trial:
+                    # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
                     # Stimulus presentation overwritten by specific experiment
                     self.__draw(lambda: self.present_stimulus(current_trial))
                     rendering_trial = current_trial
             else:
-                self.__draw(lambda: self.present_inter_trial_interval())
+                self.__draw(lambda: self.window.flip())
 
         # Clearing the screen for the next trial
         event.clearEvents()
