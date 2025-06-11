@@ -65,9 +65,13 @@ Use the following commands to download the repo, create and activate a conda or 
 
                cd eeg-expy
 
-               conda env create -v -f environments/eeg-expy-full.yml
+               # Specify newer python than 3.8 version if needed.
+               conda create -v -n eeg-expy-full python=3.8
 
                conda activate eeg-expy-full
+
+               # install only necessary dependencies
+               conda env update -f environments/eeg-expy-full.yml
 
           .. tab:: MacOS arm64(M1, M2, etc.)
 
@@ -81,10 +85,14 @@ Use the following commands to download the repo, create and activate a conda or 
 
                # for audio to be supported, osx-64 runtime is currently required,
                # drop the '--platform osx-64' parameter if audio is not needed, to use the native runtime.
-               conda env create -v --platform osx-64 -f environments/eeg-expy-full.yml
+               # Specify newer python than 3.8 version if needed.
+               conda create -v --platform osx-64 -n eeg-expy-full python=3.8
 
                # activate the environment
                conda activate eeg-expy-full
+
+               # install only necessary dependencies
+               conda env update -f environments/eeg-expy-full.yml
 
     .. tab:: Virtualenv
 
