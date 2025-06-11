@@ -3,7 +3,6 @@ channels:
     - conda-forge
 dependencies:
     # System-level dependencies
-    - python=3.8
     - liblsl # install liblsl to prevent error on macOS and Ubuntu: "RuntimeError: LSL binary library file was not found."
     - pip
     - pip:
