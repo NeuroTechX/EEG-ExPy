@@ -3,7 +3,8 @@
 
 scikit-learn>=0.23.2
 pandas>=1.1.4
-numpy>=1.26.0  # 3.13 compatible
+numpy>=1.26.0;  python_version >= "3.9"
+numpy<=1.24.4; python_version == "3.8"
 mne>=0.20.8
 seaborn>=0.11.0
 pyriemann>=0.2.7
@@ -57,7 +58,8 @@ ffpyplayer==4.5.2 # 4.5.3 fails to build as wheel.
 psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4
-numpy>=1.26.0  # 3.13 compatible
+numpy>=1.26.0;  python_version >= "3.9"
+numpy==1.24.4; python_version == "3.8"
 mne>=0.20.8
 seaborn>=0.11.0
 pysocks>=1.7.1
