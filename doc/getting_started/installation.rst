@@ -44,17 +44,22 @@ Use the following commands to download the repo, create and activate a conda or 
 
        .. tabs::
 
-            Available environment file options:
+            **Environment file options**
+
+
+            *Python 3.8 - 3.10:*
 
             - `eeg-expy-full`: Install all dependencies
 
-            - `eeg-expy-docsbuild`: Documentation
-
             - `eeg-expy-stimpres`: Stimulus presentation
 
-            - `eeg-expy-streaming`: Data streaming
-
             - `eeg-expy-streamstim`: Combined streaming and stimulus presentation
+
+            *Python 3.8 - 3.13:*
+
+            - `eeg-expy-docsbuild`: Documentation
+
+            - `eeg-expy-streaming`: Data streaming
 
 
           .. tab:: Windows, Linux or MacOS intel

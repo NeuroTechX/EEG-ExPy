@@ -19,13 +19,7 @@ jobs:
         os: ['ubuntu-22.04', windows-latest, macOS-latest]
         python_version: ['3.8']
         include:
-          # Experimental: Python 3.9
-          # Works fine, commented out because mostly covered (at least installing/building deps) by the typecheck job
-          # See issue: https://github.com/NeuroTechX/eeg-notebooks/issues/50
-          #- os: ubuntu-latest
-          #  python_version: 3.9
-
-          # Check 3.10 for future-proofing
+          # PsychoPy currently restricted to <= 3.10
           - os: ubuntu-22.04
             python_version: '3.10'
 
