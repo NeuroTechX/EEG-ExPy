@@ -151,7 +151,7 @@ for m in clfs:
 results = pd.DataFrame(data=auc, columns=['AUC'])
 results['Method'] = methods
 
-fig = plt.figure(figsize=[8,4])
+fig = plt.figure(figsize=(8, 4))
 sns.barplot(data=results, x='AUC', y='Method')
 plt.xlim(0.4, 1)
 sns.despine()

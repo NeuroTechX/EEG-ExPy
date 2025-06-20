@@ -3,7 +3,8 @@
 
 scikit-learn>=0.23.2
 pandas>=1.1.4
-numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
+numpy>=1.26.0;  python_version >= "3.9"
+numpy<=1.24.4; python_version == "3.8"
 mne>=0.20.8
 seaborn>=0.11.0
 pyriemann>=0.2.7
@@ -53,10 +54,12 @@ click
 pyobjc==7.3; sys_platform == 'darwin'
 #upgrade psychopy to use newer wxpython dependency which is prebuilt for m1 support.
 psychopy==2023.2.2
+ffpyplayer==4.5.2 # 4.5.3 fails to build as wheel.
 psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4
-numpy>=1.19.4,<1.24  # due to outdated libs not changing the names after: https://github.com/numpy/numpy/pull/22607
+numpy>=1.26.0;  python_version >= "3.9"
+numpy==1.24.4; python_version == "3.8"
 mne>=0.20.8
 seaborn>=0.11.0
 pysocks>=1.7.1
@@ -77,8 +80,10 @@ pywinhook @ https://github.com/ActivityWatch/wheels/raw/master/pywinhook/pyWinho
 # See issue: https://github.com/psychopy/psychopy/issues/2876
 pyglet==1.4.11 ; platform_system == "Windows"
 
-# Oculus/Quest VR support - currently only supported on Windows.
-psychxr>=0.2.4rc2; platform_system == "Windows"
+# Oculus/Quest VR support - currently only supported on Windows and
+# <= 3.9, otherwise will need Oculus PC SDK to build wheel.
+psychxr>=0.2.4rc2; platform_system == "Windows" and python_version <= "3.9"
+
 
 
 

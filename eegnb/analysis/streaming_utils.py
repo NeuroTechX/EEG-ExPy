@@ -25,6 +25,7 @@ from scipy.signal import lfilter, lfilter_zi
 from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 #from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
+from eegnb.analysis.utils import thres_stds
 
 # this should probably not be done here
 sns.set_context("talk")

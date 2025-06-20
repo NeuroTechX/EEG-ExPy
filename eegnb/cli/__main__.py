@@ -63,7 +63,7 @@ def runexp(
         eeg, experiment, recdur, outfname = intro_prompt()
     else:
         # Random values for outfile for now
-        outfname = generate_save_fn(eegdevice, experiment,7, 7)
+        outfname = str(generate_save_fn(str(eegdevice), experiment,7, 7))
         if eegdevice == "ganglion":
             # if the ganglion is chosen a MAC address should also be provided
             eeg = EEG(device=eegdevice, mac_addr=macaddr)
