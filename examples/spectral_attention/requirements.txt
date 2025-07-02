@@ -1,0 +1,12 @@
+numpy 
+pandas 
+mne 
+scikit-learn 
+matplotlib 
+seaborn 
+pyriemann 
+gdown 
+torch
+scipy
+jupyter
+PyQt5
