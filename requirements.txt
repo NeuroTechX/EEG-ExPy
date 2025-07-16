@@ -80,7 +80,8 @@ pyglet==1.4.11 ; platform_system == "Windows"
 # Oculus/Quest VR support - currently only supported on Windows.
 psychxr>=0.2.4rc2; platform_system == "Windows"
 
-
+# Used for generating checkerboard in pattern reversal experiment
+stimupy
 
 ## ~~ Docsbuild Requirements ~~ 
 recommonmark
