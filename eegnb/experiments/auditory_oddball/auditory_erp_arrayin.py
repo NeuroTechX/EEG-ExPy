@@ -82,7 +82,7 @@ def present(eeg: Optional[EEG]=None, save_fn=None,
         if save_fn is None:  # If no save_fn passed, generate a new unnamed save file
             # random_id = random.randint(1000,10000)
             random_id = 9999
-            save_fn = generate_save_fn(eeg.device_name, "auditory_erp_arrayin", random_id, random_id, "unnamed")
+            save_fn = generate_save_fn(eeg.device_name, "auditory_erp_arrayin", random_id, random_id, data_dir="unnamed")
             print(
                 f"No path for a save file was passed to the experiment. Saving data to {save_fn}"
             )
