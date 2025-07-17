@@ -14,10 +14,10 @@ class VisualVEP(Experiment.BaseExperiment):
         exp_name = "Visual VEP"
         super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter)
 
-    def load_stimulus():
+    def load_stimulus(self):
         pass
     
-    def present_stimulus():
+    def present_stimulus(self, idx: int):
         pass
 
 

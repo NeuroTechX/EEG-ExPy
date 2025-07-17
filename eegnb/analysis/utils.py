@@ -25,6 +25,7 @@ from scipy.signal import lfilter, lfilter_zi
 from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
+from pynput import keyboard
 
 # this should probably not be done here
 sns.set_context("talk")
@@ -529,14 +530,22 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
             prompt_time = time()
-            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")    
+            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")
+            c_key_pressed = False
+
+            def update_key_press(key):
+                if key.char == 'c':
+                    globals().update(c_key_pressed=True)
+            listener = keyboard.Listener(on_press=update_key_press)
+            listener.start()
             while time() < prompt_time + 5:  
-                if keyboard.is_pressed('c'): 
+                if c_key_pressed:
                     print("\nStopping signal quality checks!")
                     flag = True
-                    break  
+                    break
+            listener.stop()
         if flag: 
-            break  
+            break
             
 def fix_musemissinglines(orig_f,new_f=''):
 
