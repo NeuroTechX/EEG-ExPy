@@ -120,7 +120,7 @@ class BaseExperiment:
                 random_id = random.randint(1000,10000)
                 # Generating save function
                 experiment_directory = self.name.replace(' ', '_')
-                self.save_fn = generate_save_fn(self.eeg.device_name, experiment_directory, random_id, random_id, "unnamed")
+                self.save_fn = generate_save_fn(self.eeg.device_name, experiment_directory, random_id, random_id, data_dir="unnamed")
 
                 print(
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"

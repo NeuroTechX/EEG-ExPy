@@ -7,7 +7,7 @@ prefs.hardware['audioLatencyMode'] = 3
 
 from eegnb.devices.eeg import EEG
 
-from eegnb.experiments import VisualN170
+from eegnb.experiments import VisualN170, Experiment
 from eegnb.experiments import VisualP300
 from eegnb.experiments import VisualSSVEP
 from eegnb.experiments import AuditoryOddball
@@ -47,7 +47,7 @@ def run_experiment(
         module = experiments[experiment]
 
         # Condition added for different run types of old and new experiment class structure
-        if experiment == "visual-N170" or experiment == "visual-P300" or experiment == "visual-SSVEP" or experiment == "auditory-oddball orig":
+        if isinstance(module, Experiment.BaseExperiment):
             module.duration = record_duration
             module.eeg = eeg_device
             module.save_fn = save_fn
