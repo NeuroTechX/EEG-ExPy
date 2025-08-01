@@ -1,4 +1,5 @@
 ﻿from time import time
+import numpy as np
 from pandas import DataFrame
 
 from psychopy import visual
@@ -10,8 +11,8 @@ from stimupy.stimuli.checkerboards import contrast_contrast
 
 class VisualPatternReversalVEP(Experiment.BaseExperiment):
 
-    def __init__(self, duration=120, eeg: Optional[EEG] = None, save_fn=None,
-                 n_trials=2000, iti=0, soa=0.5, jitter=0, use_vr=False, use_fullscr=True):
+    def __init__(self, duration=200, eeg: Optional[EEG] = None, save_fn=None,
+                 n_trials=400, iti=0, soa=0.5, jitter=0, use_vr=False, use_fullscr=True):
 
         super().__init__("Visual Pattern Reversal VEP", duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr, use_fullscr)
 
@@ -19,7 +20,14 @@ class VisualPatternReversalVEP(Experiment.BaseExperiment):
         self.stim = None
 
         # Setting up the trial and parameter list
-        self.parameter = self.n_trials
+        # Show stimulus in left eye for first half of block, right eye for second half
+        block_size = 50
+        n_repeats = self.n_trials // block_size
+        left_eye = 0
+        right_eye = 1
+        # First half of block (25 trials) = left eye, second half (25 trials) = right eye
+        block = [left_eye] * 25 + [right_eye] * 25
+        self.parameter = np.array(block * n_repeats)
         self.trials = DataFrame(dict(parameter=self.parameter))
 
     @staticmethod
