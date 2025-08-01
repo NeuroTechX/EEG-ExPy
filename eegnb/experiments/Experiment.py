@@ -8,8 +8,8 @@ obj = VisualP300({parameters})
 obj.run()
 """
 
-from abc import abstractmethod
-from typing import Callable
+from abc import abstractmethod, ABC
+from typing import Callable, Optional
 from psychopy import prefs
 from psychopy.visual.rift import Rift
 #change the pref libraty to PTB and set the latency mode to high precision
@@ -26,7 +26,7 @@ from psychopy import visual, event
 from eegnb import generate_save_fn
 
 
-class BaseExperiment:
+class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
                  use_vr=False, use_fullscr = True):
@@ -51,11 +51,18 @@ class BaseExperiment:
         self.soa = soa
         self.jitter = jitter
         self.use_vr = use_vr
-        if use_vr:
-            # VR interface accessible by specific experiment classes for customizing and using controllers.
-            self.rift: Rift = visual.Rift(monoscopic=True, headLocked=True)
         self.use_fullscr = use_fullscr
+
         self.window_size = [1600,800]
+        self.rift: Optional[Rift] = None
+
+        # Initializing the record duration and the marker names
+        self.record_duration = np.float32(self.duration)
+        self.markernames = [1, 2]
+
+        # Setting up the trial and parameter list
+        self.parameter = np.random.binomial(1, 0.5, self.n_trials)
+        self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
     @abstractmethod
     def load_stimulus(self):
@@ -92,15 +99,11 @@ class BaseExperiment:
 
     def setup(self, instructions=True):
 
-        # Initializing the record duration and the marker names
-        self.record_duration = np.float32(self.duration)
-        self.markernames = [1, 2]
-        
-        # Setting up the trial and parameter list
-        self.parameter = np.random.binomial(1, 0.5, self.n_trials)
-        self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
+        if self.use_vr is True and self.rift is None:
+            # VR interface accessible by specific experiment classes for customizing and using controllers.
+            self.rift: Rift = visual.Rift(monoscopic=True, headLocked=True)
 
-        # Setting up Graphics 
+        # Setting up Graphics
         self.window = (
             self.rift if self.use_vr
             else visual.Window(self.window_size, monitor="testMonitor", units="deg", fullscr=self.use_fullscr))
