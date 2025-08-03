@@ -1,5 +1,4 @@
-﻿from abc import ABC
-from time import time
+﻿from time import time
 import numpy as np
 from pandas import DataFrame
 
@@ -10,7 +9,7 @@ from eegnb.experiments.BlockExperiment import BlockExperiment
 from stimupy.stimuli.checkerboards import contrast_contrast
 
 
-class VisualPatternReversalVEP(BlockExperiment,ABC):
+class VisualPatternReversalVEP(BlockExperiment):
 
     def __init__(self, eeg: Optional[EEG] = None, save_fn=None,
                  block_duration_seconds=25, block_trial_size: int=50, n_blocks: int=8, iti=0, soa=0.5, jitter=0,
