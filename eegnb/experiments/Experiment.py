@@ -10,6 +10,7 @@ obj.run()
 
 from abc import abstractmethod, ABC
 from typing import Callable, Optional
+from eegnb.devices.eeg import EEG
 from psychopy import prefs
 from psychopy.visual.rift import Rift
 #change the pref libraty to PTB and set the latency mode to high precision
@@ -33,18 +34,23 @@ class BaseExperiment(ABC):
         """ Initializer for the Base Experiment Class
 
         Args:
+            exp_name (str): Name of the experiment
+            duration (float): Duration of the experiment in seconds
+            eeg: EEG device object for recording
+            save_fn (str): Save filename function for data
             n_trials (int): Number of trials/stimulus
             iti (float): Inter-trial interval
             soa (float): Stimulus on arrival
             jitter (float): Random delay between stimulus
             use_vr (bool): Use VR for displaying stimulus
+            use_fullscr (bool): Use fullscreen mode
         """
 
         self.exp_name = exp_name
         self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
         Press spacebar to continue. \n""".format(self.exp_name)
         self.duration = duration
-        self.eeg = eeg
+        self.eeg: EEG = eeg
         self.save_fn = save_fn
         self.n_trials = n_trials
         self.iti = iti
@@ -143,10 +149,10 @@ class BaseExperiment(ABC):
         self.window.mouseVisible = False
 
         # clear/reset any old key/controller events
-        self.__clear_user_input()
+        self._clear_user_input()
 
         # Waiting for the user to press the spacebar or controller button or trigger to start the experiment
-        while not self.__user_input('start'):
+        while not self._user_input('start'):
             # Displaying the instructions on the screen
             text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
             self.__draw(lambda: self.__draw_instructions(text))
@@ -154,7 +160,7 @@ class BaseExperiment(ABC):
             # Enabling the cursor again
             self.window.mouseVisible = True
 
-    def __user_input(self, input_type):
+    def _user_input(self, input_type):
         if input_type == 'start':
             key_input = 'spacebar'
             vr_inputs = [
@@ -225,7 +231,7 @@ class BaseExperiment(ABC):
             self.window.setDefaultView()
         present_stimulus()
 
-    def __clear_user_input(self):
+    def _clear_user_input(self):
         event.getKeys()
         self.clear_vr_input()
 
@@ -235,14 +241,64 @@ class BaseExperiment(ABC):
         """
         if self.use_vr:
             self.rift.updateInputState()
+        
+    def _run_trial_loop(self, start_time, duration):
+        """
+        Run the trial presentation loop
+        
+        This method handles the common trial presentation logic used by both
+        BaseExperiment.run() and BlockExperiment._run_block().
+        
+        Args:
+            start_time (float): Time when the trial loop started
+            duration (float): Maximum duration of the trial loop in seconds
 
-    def run(self, instructions=True):
-        """ Do the present operation for a bunch of experiments """
+        """
 
         def iti_with_jitter():
             return self.iti + np.random.rand() * self.jitter
 
-        # Setup the experiment, alternatively could get rid of this line, something to think about
+        # Initialize trial variables
+        current_trial = trial_end_time = -1
+        trial_start_time = None
+        rendering_trial = -1
+        
+        # Clear/reset user input buffer
+        self._clear_user_input()
+        
+        # Run the trial loop
+        while (time() - start_time) < duration:
+            elapsed_time = time() - start_time
+            
+            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
+            if elapsed_time > trial_end_time:
+                current_trial += 1
+                
+                # Calculate timing for this trial
+                trial_start_time = elapsed_time + iti_with_jitter()
+                trial_end_time = trial_start_time + self.soa
+                self.__draw(lambda: self.present_iti())
+
+            # Do not present stimulus after trial has ended(stimulus on arrival interval).
+            elif elapsed_time > trial_start_time:
+                # if current trial number changed present new stimulus.
+                if current_trial > rendering_trial:
+                    # Stimulus presentation overwritten by specific experiment
+                    self.__draw(lambda: self.present_stimulus(current_trial))
+                    rendering_trial = current_trial
+            else:
+                self.__draw(lambda: self.present_iti())
+
+            if self._user_input('cancel'):
+                return False
+                
+        # Return the number of trials that were run
+        return True
+
+    def run(self, instructions=True):
+        """ Do the present operation for a bunch of experiments """
+
+        # Setup the experiment
         self.setup(instructions)
 
         print("Wait for the EEG-stream to start...")
@@ -253,37 +309,11 @@ class BaseExperiment(ABC):
 
         print("EEG Stream started")
 
-        # Run trial until a key is pressed or experiment duration has expired.
-        start_time = time()
-        current_trial = trial_end_time = -1
-        trial_start_time = None
-
-        # Current trial being rendered
-        rendering_trial = -1
-
-        # Clear/reset user input buffer
-        self.__clear_user_input()
-
-        while not self.__user_input('cancel') and (time() - start_time) < self.record_duration:
-
-            elapsed_time = time() - start_time
-            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
-            if elapsed_time > trial_end_time:
-                current_trial += 1
-                trial_start_time = elapsed_time + iti_with_jitter()
-                trial_end_time = trial_start_time + self.soa
-                self.__draw(lambda: self.present_iti())
-
-            # Do not present stimulus after trial has ended(stimulus on arrival interval).
-            elif elapsed_time > trial_start_time:
-
-                # if current trial number changed present new stimulus.
-                if current_trial > rendering_trial:
-                    # Stimulus presentation overwritten by specific experiment
-                    self.__draw(lambda: self.present_stimulus(current_trial))
-                    rendering_trial = current_trial
-            else:
-                self.__draw(lambda: self.present_iti())
+        # Record experiment until a key is pressed or duration has expired.
+        record_start_time = time()
+        
+        # Run the trial loop
+        self._run_trial_loop(record_start_time, self.record_duration)
 
         # Clearing the screen for the next trial
         event.clearEvents()

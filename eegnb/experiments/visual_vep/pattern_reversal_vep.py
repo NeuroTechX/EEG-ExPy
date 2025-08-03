@@ -5,30 +5,63 @@ from pandas import DataFrame
 from psychopy import visual
 from typing import Optional
 from eegnb.devices.eeg import EEG
-from eegnb.experiments import Experiment
+from eegnb.experiments.BlockExperiment import BlockExperiment
 from stimupy.stimuli.checkerboards import contrast_contrast
 
 
-class VisualPatternReversalVEP(Experiment.BaseExperiment):
+class VisualPatternReversalVEP(BlockExperiment):
 
-    def __init__(self, duration=200, eeg: Optional[EEG] = None, save_fn=None,
-                 n_trials=400, iti=0, soa=0.5, jitter=0, use_vr=False, use_fullscr=True):
+    def __init__(self, eeg: Optional[EEG] = None, save_fn=None,
+                 block_duration_seconds=25, block_trial_size: int=50, n_blocks: int=8, iti=0, soa=0.5, jitter=0,
+                 use_vr=False, use_fullscr=True):
 
-        super().__init__("Visual Pattern Reversal VEP", duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr, use_fullscr)
+        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter,
+                         use_vr, use_fullscr)
 
         self.black_background = None
         self.stim = None
 
         # Setting up the trial and parameter list
         # Show stimulus in left eye for first half of block, right eye for second half
-        block_size = 50
-        n_repeats = self.n_trials // block_size
+        self.block_trial_size = 50
+        n_repeats = self.n_trials // self.block_trial_size
         left_eye = 0
         right_eye = 1
         # First half of block (25 trials) = left eye, second half (25 trials) = right eye
-        block = [left_eye] * 25 + [right_eye] * 25
+        block = [left_eye] * (self.block_trial_size//2) + [right_eye] * (self.block_trial_size//2)
         self.parameter = np.array(block * n_repeats)
         self.trials = DataFrame(dict(parameter=self.parameter))
+
+    def present_block_instructions(self, trial_number):
+        if trial_number % 2 == 0:
+            instruction_text = """
+            CLOSE YOUR RIGHT EYE
+            KEEP YOUR LEFT EYE OPEN
+            
+            For the next 25 trials, please:
+            - Close your right eye completely
+            - Keep your left eye open and focused on the center of the screen
+            - Stay as still as possible
+            
+            Press SPACEBAR when ready to continue
+            """
+        else:
+            instruction_text = """
+            CLOSE YOUR LEFT EYE
+            KEEP YOUR RIGHT EYE OPEN
+            
+            For the next 25 trials, please:
+            - Close your left eye completely
+            - Keep your right eye open and focused on the center of the screen
+            - Stay as still as possible
+            
+            Press SPACEBAR when ready to continue
+            """
+
+        text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
+        text.draw()
+        self.window.flip()
+
 
     @staticmethod
     def create_monitor_checkerboard(intensity_checks):
@@ -84,14 +117,14 @@ class VisualPatternReversalVEP(Experiment.BaseExperiment):
                                     image=create_checkerboard(intensity_checks)['img'],
                                     units='pix', size=size, color='white')
 
-        self.stim = [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
+        return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
 
     def present_stimulus(self, idx: int):
         # Get the label of the trial
         label = self.trials["parameter"].iloc[idx]
 
         # eye for presentation
-        eye = 'left' if label is 0 else 'right'
+        eye = 'left' if label == 0 else 'right'
 
         self.black_background.draw()
 
