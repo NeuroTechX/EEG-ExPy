@@ -27,9 +27,9 @@ class BlockExperiment(BaseExperiment, ABC):
 
         Args:
             exp_name (str): Name of the experiment
+            block_duration (float): Duration of each block in seconds
             eeg: EEG device object for recording
             save_fn (str): Save filename for data
-            block_duration (float): Duration of each block in seconds
             block_trial_size (int): Number of trials per block
             n_blocks (int): Number of blocks to run
             iti (float): Inter-trial interval
@@ -59,10 +59,24 @@ class BlockExperiment(BaseExperiment, ABC):
         # Flag to track if stimulus has been loaded
         self.stimulus_loaded = False
 
-    def present_block_instructions(self, trial_number):
+    def present_block_instructions(self, current_block):
+        """
+        Display instructions for the current block to the user.
+        
+        This method is meant to be overridden by child classes to provide
+        experiment-specific instructions before each block. The base implementation
+        simply flips the window without adding any text.
+        
+        This method is called by __show_block_instructions in a loop until the user
+        provides input to continue or cancel the experiment.
+        
+        Args:
+            current_block (int): The current block number (0-indexed), used to customize
+                                instructions for specific blocks if needed.
+        """
         self.window.flip()
 
-    def __show_block_instructions(self, block_number):
+    def _show_block_instructions(self, block_number):
         """
         Show instructions for a specific block
         
@@ -111,7 +125,7 @@ class BlockExperiment(BaseExperiment, ABC):
             print(f"Starting block {block_index + 1} of {self.n_blocks}")
             
             # Show block-specific instructions
-            if not self.__show_block_instructions(block_index):
+            if not self._show_block_instructions(block_index):
                 break
             
             # Run this block

@@ -1,4 +1,5 @@
-﻿from time import time
+﻿from abc import ABC
+from time import time
 import numpy as np
 from pandas import DataFrame
 
@@ -9,17 +10,22 @@ from eegnb.experiments.BlockExperiment import BlockExperiment
 from stimupy.stimuli.checkerboards import contrast_contrast
 
 
-class VisualPatternReversalVEP(BlockExperiment):
+class VisualPatternReversalVEP(BlockExperiment,ABC):
 
     def __init__(self, eeg: Optional[EEG] = None, save_fn=None,
                  block_duration_seconds=25, block_trial_size: int=50, n_blocks: int=8, iti=0, soa=0.5, jitter=0,
                  use_vr=False, use_fullscr=True):
 
-        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter,
-                         use_vr, use_fullscr)
+        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr)
 
-        self.black_background = None
-        self.stim = None
+        self.instruction_text = f"""Welcome to the Visual Pattern Reversal VEP experiment!
+        
+        Stay still and focus on the red dot in the centre of the screen.
+        
+        This experiment will run for {n_blocks} blocks of {block_duration_seconds} seconds each.
+        
+        Press spacebar or controller to continue.
+        """
 
         # Setting up the trial and parameter list
         # Show stimulus in left eye for first half of block, right eye for second half
@@ -32,31 +38,11 @@ class VisualPatternReversalVEP(BlockExperiment):
         self.parameter = np.array(block * n_repeats)
         self.trials = DataFrame(dict(parameter=self.parameter))
 
-    def present_block_instructions(self, trial_number):
-        if trial_number % 2 == 0:
-            instruction_text = """
-            CLOSE YOUR RIGHT EYE
-            KEEP YOUR LEFT EYE OPEN
-            
-            For the next 25 trials, please:
-            - Close your right eye completely
-            - Keep your left eye open and focused on the center of the screen
-            - Stay as still as possible
-            
-            Press SPACEBAR when ready to continue
-            """
+    def present_block_instructions(self, current_block):
+        if current_block % 2 == 0:
+            instruction_text = "Close your right eye, then focus on the red dot with your left eye. Press spacebar or controller when ready."
         else:
-            instruction_text = """
-            CLOSE YOUR LEFT EYE
-            KEEP YOUR RIGHT EYE OPEN
-            
-            For the next 25 trials, please:
-            - Close your left eye completely
-            - Keep your right eye open and focused on the center of the screen
-            - Stay as still as possible
-            
-            Press SPACEBAR when ready to continue
-            """
+            instruction_text = "Close your left eye, then focus on the red dot with your right eye. Press spacebar or controller when ready."
 
         text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
         text.draw()
