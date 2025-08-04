@@ -27,25 +27,15 @@ class VisualPatternReversalVEP(BlockExperiment):
         """
 
         # Setting up the trial and parameter list
-        # Show stimulus in left eye for first half of block, right eye for second half
-        self.block_trial_size = 50
-        n_repeats = self.n_trials // self.block_trial_size
         left_eye = 0
         right_eye = 1
-        # First half of block (25 trials) = left eye, second half (25 trials) = right eye
-        block = [left_eye] * (self.block_trial_size//2) + [right_eye] * (self.block_trial_size//2)
-        self.parameter = np.array(block * n_repeats)
+        # Alternate between left and right eye blocks
+        block_eyes = []
+        for block_num in range(n_blocks):
+            eye = left_eye if block_num % 2 == 0 else right_eye
+            block_eyes.extend([eye] * block_trial_size)
+        self.parameter = np.array(block_eyes)
         self.trials = DataFrame(dict(parameter=self.parameter))
-
-    def present_block_instructions(self, current_block):
-        if current_block % 2 == 0:
-            instruction_text = "Close your right eye, then focus on the red dot with your left eye. Press spacebar or controller when ready."
-        else:
-            instruction_text = "Close your left eye, then focus on the red dot with your right eye. Press spacebar or controller when ready."
-
-        text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
-        text.draw()
-        self.window.flip()
 
 
     @staticmethod
@@ -57,7 +47,7 @@ class VisualPatternReversalVEP(BlockExperiment):
             ppd=72,  # pixels per degree
             frequency=(0.5, 0.5),  # spatial frequency of the checkerboard (0.5 cpd = 1 degree check size)
             intensity_checks=intensity_checks,
-            target_shape=(1, 1),
+            target_shape=(0, 0),
             alpha=0,
             tau=0
         )
@@ -72,7 +62,7 @@ class VisualPatternReversalVEP(BlockExperiment):
             ppd=20,  # pixels per degree for Quest 2
             frequency=(0.5, 0.5),  # spatial frequency (0.5 cpd = 1 degree check size)
             intensity_checks=intensity_checks,
-            target_shape=(1, 1),
+            target_shape=(0, 0),
             alpha=0,
             tau=0
         )
@@ -97,6 +87,11 @@ class VisualPatternReversalVEP(BlockExperiment):
                                             height=self.window.size[1],
                                             fillColor='black')
 
+        # fixation
+        grating_sf = 400 if self.use_vr else 0.2
+        self.fixation = visual.GratingStim(win=self.window, pos=[0, 0], sf=grating_sf, color=[1, 0, 0])
+        self.fixation.size = 0.02 if self.use_vr else 0.4
+
         def create_checkerboard_stim(intensity_checks):
             return visual.ImageStim(self.window,
                                     image=create_checkerboard(intensity_checks)['img'],
@@ -104,9 +99,21 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
 
+    def present_block_instructions(self, current_block):
+        if current_block % 2 == 0:
+            instruction_text = "Close your right eye, then focus on the red dot with your left eye. Press spacebar or controller when ready."
+        else:
+            instruction_text = "Close your left eye, then focus on the red dot with your right eye. Press spacebar or controller when ready."
+
+        text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
+        text.draw()
+        self.fixation.draw()
+        self.window.flip()
+
     def present_stimulus(self, idx: int):
         # Get the label of the trial
-        label = self.trials["parameter"].iloc[idx]
+        block_trial_offset = self.current_block_index*self.block_trial_size
+        label = self.trials["parameter"].iloc[idx+block_trial_offset]
 
         # eye for presentation
         eye = 'left' if label == 0 else 'right'
@@ -117,6 +124,7 @@ class VisualPatternReversalVEP(BlockExperiment):
         checkerboard_frame = idx % 2
         image = self.stim[checkerboard_frame]
         image.draw()
+        self.fixation.draw()
         self.window.flip()
 
         # Pushing the sample to the EEG
