@@ -12,7 +12,7 @@ from stimupy.stimuli.checkerboards import contrast_contrast
 class VisualPatternReversalVEP(BlockExperiment):
 
     def __init__(self, eeg: Optional[EEG] = None, save_fn=None,
-                 block_duration_seconds=25, block_trial_size: int=50, n_blocks: int=8, iti=0, soa=0.5, jitter=0,
+                 block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, iti=0, soa=0.5, jitter=0,
                  use_vr=False, use_fullscr=True):
 
         super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr)
