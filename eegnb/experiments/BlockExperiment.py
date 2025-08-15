@@ -94,7 +94,7 @@ class BlockExperiment(BaseExperiment, ABC):
         # Wait for user input to continue
         while True:
             # Display the instruction text
-            self.present_block_instructions(block_number)
+            super()._draw(lambda: self.present_block_instructions(block_number))
 
             if self._user_input('start'):
                 return True

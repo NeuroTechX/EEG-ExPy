@@ -156,7 +156,7 @@ class BaseExperiment(ABC):
         while not self._user_input('start'):
             # Displaying the instructions on the screen
             text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-            self.__draw(lambda: self.__draw_instructions(text))
+            self._draw(lambda: self.__draw_instructions(text))
 
             # Enabling the cursor again
             self.window.mouseVisible = True
@@ -221,7 +221,7 @@ class BaseExperiment(ABC):
         text.draw()
         self.window.flip()
 
-    def __draw(self, present_stimulus: Callable):
+    def _draw(self, present_stimulus: Callable):
         """
         Set the current eye position and projection for all given stimulus,
         then draw all stimulus and flip the window/buffer
@@ -278,17 +278,17 @@ class BaseExperiment(ABC):
                 # Calculate timing for this trial
                 trial_start_time = elapsed_time + iti_with_jitter()
                 trial_end_time = trial_start_time + self.soa
-                self.__draw(lambda: self.present_iti())
+                self._draw(lambda: self.present_iti())
 
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
             elif elapsed_time > trial_start_time:
                 # if current trial number changed present new stimulus.
                 if current_trial > rendering_trial:
                     # Stimulus presentation overwritten by specific experiment
-                    self.__draw(lambda: self.present_stimulus(current_trial))
+                    self._draw(lambda: self.present_stimulus(current_trial))
                     rendering_trial = current_trial
             else:
-                self.__draw(lambda: self.present_iti())
+                self._draw(lambda: self.present_iti())
 
             if self._user_input('cancel'):
                 return False
