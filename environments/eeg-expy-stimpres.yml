@@ -1,4 +1,3 @@
-name: eeg-expy-stimpres
 channels:
     - conda-forge
 dependencies:
