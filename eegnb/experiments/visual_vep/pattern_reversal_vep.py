@@ -123,7 +123,6 @@ class VisualPatternReversalVEP(BlockExperiment):
         else:
             self._draw_block_instruction(current_block)
 
-
     def present_stimulus(self, idx: int):
         # Get the label of the trial
         block_trial_offset = self.current_block_index*self.block_trial_size
@@ -146,8 +145,14 @@ class VisualPatternReversalVEP(BlockExperiment):
         marker = self.markernames[label]
         self.eeg.push_sample(marker=marker, timestamp=time())
 
+    def _draw_iti(self) -> None:
+        self.black_background.draw()
+        self.window.flip()
+
     def present_iti(self):
-        for eye in ['left', 'right']:
-            self.window.setBuffer(eye)
-            self.black_background.draw()
-            self.window.flip()
+        if self.use_vr:
+            for eye in ['left', 'right']:
+                self.window.setBuffer(eye)
+                self._draw_iti()
+        else:
+            self._draw_iti()
