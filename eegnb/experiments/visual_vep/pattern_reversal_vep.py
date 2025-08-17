@@ -99,15 +99,17 @@ class VisualPatternReversalVEP(BlockExperiment):
         return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
 
     def present_block_instructions(self, current_block):
-        if current_block % 2 == 0:
-            instruction_text = "Close your right eye, then focus on the red dot with your left eye. Press spacebar or controller when ready."
-        else:
-            instruction_text = "Close your left eye, then focus on the red dot with your right eye. Press spacebar or controller when ready."
+        for eye in ['left', 'right']:
+            self.window.setBuffer(eye)
+            if current_block % 2 == 0:
+                instruction_text = "Close your right eye, then focus on the red dot with your left eye. Press spacebar or controller when ready."
+            else:
+                instruction_text = "Close your left eye, then focus on the red dot with your right eye. Press spacebar or controller when ready."
 
-        text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
-        text.draw()
-        self.fixation.draw()
-        self.window.flip()
+            text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
+            text.draw()
+            self.fixation.draw()
+            self.window.flip()
 
     def present_stimulus(self, idx: int):
         # Get the label of the trial
@@ -132,5 +134,7 @@ class VisualPatternReversalVEP(BlockExperiment):
         self.eeg.push_sample(marker=marker, timestamp=time())
 
     def present_iti(self):
-        self.black_background.draw()
-        self.window.flip()
+        for eye in ['left', 'right']:
+            self.window.setBuffer(eye)
+            self.black_background.draw()
+            self.window.flip()
