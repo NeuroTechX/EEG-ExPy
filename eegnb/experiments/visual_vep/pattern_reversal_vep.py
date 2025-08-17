@@ -15,7 +15,7 @@ class VisualPatternReversalVEP(BlockExperiment):
                  block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, iti=0, soa=0.5, jitter=0,
                  use_vr=False, use_fullscr=True):
 
-        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr)
+        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, rift = visual.Rift(monoscopic=False, headLocked=True))
 
         self.instruction_text = f"""Welcome to the Visual Pattern Reversal VEP experiment!
         
@@ -36,7 +36,6 @@ class VisualPatternReversalVEP(BlockExperiment):
             block_eyes.extend([eye] * block_trial_size)
         self.parameter = np.array(block_eyes)
         self.trials = DataFrame(dict(parameter=self.parameter))
-
 
     @staticmethod
     def create_monitor_checkerboard(intensity_checks):
@@ -117,6 +116,7 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         # eye for presentation
         eye = 'left' if label == 0 else 'right'
+        self.window.setBuffer(eye)
 
         self.black_background.draw()
 

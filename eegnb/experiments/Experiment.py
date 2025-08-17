@@ -30,7 +30,7 @@ from eegnb import generate_save_fn
 class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True):
+                 use_vr=False, use_fullscr = True, rift: Optional[Rift] = None):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -59,7 +59,7 @@ class BaseExperiment(ABC):
         self.use_fullscr = use_fullscr
 
         self.window_size = [1600,800]
-        self.rift: Optional[Rift] = None
+        self.rift = rift
 
         # Initializing the record duration and the marker names
         self.record_duration = np.float32(self.duration)
