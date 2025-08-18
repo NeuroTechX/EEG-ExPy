@@ -11,11 +11,17 @@ from stimupy.stimuli.checkerboards import contrast_contrast
 
 class VisualPatternReversalVEP(BlockExperiment):
 
-    def __init__(self, eeg: Optional[EEG] = None, save_fn=None,
-                 block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, iti=0, soa=0.5, jitter=0,
-                 use_vr=False, use_fullscr=True):
+    def __init__(self, display_refresh_rate: int, eeg: Optional[EEG] = None, save_fn=None,
+                 block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, use_vr=False, use_fullscr=True):
 
-        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, rift = visual.Rift(monoscopic=False, headLocked=True))
+        self.display_refresh_rate = display_refresh_rate
+        soa=0.5
+        iti=0
+        jitter=0
+
+        rift = visual.Rift(monoscopic=False, headLocked=True) if use_vr else None
+
+        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, rift=rift)
 
         self.instruction_text = f"""Welcome to the Visual Pattern Reversal VEP experiment!
         
@@ -67,6 +73,14 @@ class VisualPatternReversalVEP(BlockExperiment):
         )
 
     def load_stimulus(self):
+
+        # Frame rate, in Hz
+        # GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
+        actual_frame_rate = np.round(self.window.displayRefreshRate if self.use_vr else self.window.getActualFrameRate())
+        # Ensure the expected frame rate matches and is divisable by the stimulus rate(soa)
+        assert actual_frame_rate % self.soa == 0
+        assert self.display_refresh_rate == actual_frame_rate
+
         if self.use_vr:
             # Create VR checkerboard
             create_checkerboard = self.create_vr_checkerboard
