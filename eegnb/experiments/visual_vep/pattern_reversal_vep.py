@@ -145,8 +145,11 @@ class VisualPatternReversalVEP(BlockExperiment):
         label = self.trials["parameter"].iloc[idx+block_trial_offset]
 
         # eye for presentation
-        eye = 'left' if label == 0 else 'right'
-        self.window.setBuffer(eye)
+        open_eye = 'left' if label == 0 else 'right'
+        closed_eye = 'left' if label == 1 else 'right'
+
+        if self.use_vr:
+            self.window.setBuffer(open_eye)
 
         self.black_background.draw()
 
@@ -156,6 +159,11 @@ class VisualPatternReversalVEP(BlockExperiment):
         image.draw()
         self.fixation.draw()
         self.window.flip()
+
+        if self.use_vr:
+            self.window.setBuffer(closed_eye)
+            self.black_background.draw()
+            self.window.flip()
 
         # Pushing the sample to the EEG
         marker = self.markernames[label]
