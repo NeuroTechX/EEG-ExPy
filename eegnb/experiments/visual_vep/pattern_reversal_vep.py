@@ -19,9 +19,7 @@ class VisualPatternReversalVEP(BlockExperiment):
         iti=0
         jitter=0
 
-        rift = visual.Rift(monoscopic=False, headLocked=True) if use_vr else None
-
-        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, rift=rift)
+        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, stereoscopic=True)
 
         self.instruction_text = f"""Welcome to the Visual Pattern Reversal VEP experiment!
         
@@ -129,7 +127,6 @@ class VisualPatternReversalVEP(BlockExperiment):
         text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
         text.draw()
         self.fixation.draw()
-        self.window.flip()
 
     def present_block_instructions(self, current_block: int) -> None:
         if self.use_vr:
@@ -138,6 +135,7 @@ class VisualPatternReversalVEP(BlockExperiment):
                 self._draw_block_instruction(current_block)
         else:
             self._draw_block_instruction(current_block)
+        self.window.flip()
 
     def present_stimulus(self, idx: int):
         # Get the label of the trial
@@ -158,25 +156,20 @@ class VisualPatternReversalVEP(BlockExperiment):
         image = self.stim[checkerboard_frame]
         image.draw()
         self.fixation.draw()
-        self.window.flip()
 
         if self.use_vr:
             self.window.setBuffer(closed_eye)
             self.black_background.draw()
-            self.window.flip()
+
+        self.window.flip()
 
         # Pushing the sample to the EEG
         marker = self.markernames[label]
         self.eeg.push_sample(marker=marker, timestamp=time())
 
-    def _draw_iti(self) -> None:
-        self.black_background.draw()
-        self.window.flip()
-
     def present_iti(self):
         if self.use_vr:
             for eye in ['left', 'right']:
                 self.window.setBuffer(eye)
-                self._draw_iti()
-        else:
-            self._draw_iti()
+                self.black_background.draw()
+        self.window.flip()

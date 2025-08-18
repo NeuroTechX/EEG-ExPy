@@ -7,11 +7,6 @@ Running each experiment:
 obj = VisualP300({parameters})
 obj.run()
 """
-import logging
-
-# Add this near the top of your file with other imports
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 from abc import abstractmethod, ABC
 from typing import Callable, Optional
@@ -35,7 +30,7 @@ from eegnb import generate_save_fn
 class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True, rift: Optional[Rift] = None):
+                 use_vr=False, use_fullscr = True, stereoscopic = False):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -61,10 +56,12 @@ class BaseExperiment(ABC):
         self.soa = soa
         self.jitter = jitter
         self.use_vr = use_vr
+        self.stereoscopic = stereoscopic
+        if use_vr:
+            # VR interface accessible by specific experiment classes for customizing and using controllers.
+            self.rift: Rift = visual.Rift(monoscopic=not stereoscopic, headLocked=True)
         self.use_fullscr = use_fullscr
-
         self.window_size = [1600,800]
-        self.rift = rift
 
         # Initializing the record duration and the marker names
         self.record_duration = np.float32(self.duration)
@@ -108,11 +105,6 @@ class BaseExperiment(ABC):
         self.window.flip()
 
     def setup(self, instructions=True):
-
-        if self.use_vr is True and self.rift is None:
-            # VR interface accessible by specific experiment classes for customizing and using controllers.
-            self.rift: Rift = visual.Rift(monoscopic=True, headLocked=True)
-
         # Setting up Graphics
         self.window = (
             self.rift if self.use_vr
@@ -223,7 +215,29 @@ class BaseExperiment(ABC):
         return False
 
     def __draw_instructions(self, text):
-        text.draw()
+        print(f"Window type: {type(self.window)}")
+        print(f"Window size: {self.window.size}")
+        print(f"use_vr: {self.use_vr}")
+        print(f"rift object: {self.rift}")
+
+        if self.use_vr and self.stereoscopic:
+            for eye in ["left", "right"]:
+                self.window.setBuffer(eye)
+                text.draw()
+
+            # Draw different shapes to each eye
+            # rift = self.rift
+            # left_rect = visual.Rect(rift, pos=(-2, 0), fillColor='red')
+            # right_rect = visual.Rect(rift, pos=(2, 0), fillColor='blue')
+            #
+            # rift.setBuffer("left")
+            # left_rect.draw()
+            #
+            # rift.setBuffer("right")
+            # right_rect.draw()
+
+        else:
+            text.draw()
         self.window.flip()
 
     def _draw(self, present_stimulus: Callable):
