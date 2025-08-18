@@ -99,14 +99,16 @@ class VisualPatternReversalVEP(BlockExperiment):
         return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
 
     def _draw_block_instruction(self, current_block: int) -> None:
-        if current_block % 2 == 0:
-            instruction_text = (
-                "Close your right eye, then focus on the red dot with your left eye. "
-                "Press spacebar or controller when ready."
-            )
+        if self.use_vr:
+            instruction_text = "Press spacebar or controller when ready."
+        elif current_block % 2 == 0:
+                instruction_text = (
+                    "Close your right eye, then focus on the red dot with your left eye. "
+                    "Press spacebar or controller when ready."
+                )
         else:
             instruction_text = (
-                "Close your left eye, then focus on the red dot with your right eye. "
+                "Close your right eye, then focus on the red dot with your left eye. "
                 "Press spacebar or controller when ready."
             )
 
