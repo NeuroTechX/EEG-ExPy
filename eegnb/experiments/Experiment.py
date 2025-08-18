@@ -7,6 +7,11 @@ Running each experiment:
 obj = VisualP300({parameters})
 obj.run()
 """
+import logging
+
+# Add this near the top of your file with other imports
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 from abc import abstractmethod, ABC
 from typing import Callable, Optional
@@ -278,10 +283,9 @@ class BaseExperiment(ABC):
                 # Calculate timing for this trial
                 trial_start_time = elapsed_time + iti_with_jitter()
                 trial_end_time = trial_start_time + self.soa
-                self._draw(lambda: self.present_iti())
 
             # Do not present stimulus after trial has ended(stimulus on arrival interval).
-            elif elapsed_time > trial_start_time:
+            if elapsed_time >= trial_start_time:
                 # if current trial number changed present new stimulus.
                 if current_trial > rendering_trial:
                     # Stimulus presentation overwritten by specific experiment
@@ -289,6 +293,9 @@ class BaseExperiment(ABC):
                     rendering_trial = current_trial
             else:
                 self._draw(lambda: self.present_iti())
+                # log 'present iti' with the elapsed time and trial end time
+                # Log the ITI presentation
+                # logger.info(f"Present ITI - Trial: {current_trial}, Elapsed Time: {elapsed_time:.3f}s, Trial End Time: {trial_end_time:.3f}s, Trial Start Time: {trial_start_time:.3f}s")
 
             if self._user_input('cancel'):
                 return False
