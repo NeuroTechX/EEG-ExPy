@@ -215,27 +215,11 @@ class BaseExperiment(ABC):
         return False
 
     def __draw_instructions(self, text):
-        print(f"Window type: {type(self.window)}")
-        print(f"Window size: {self.window.size}")
-        print(f"use_vr: {self.use_vr}")
-        print(f"rift object: {self.rift}")
-
         if self.use_vr and self.stereoscopic:
-            for eye in ["left", "right"]:
+            for eye, x_pos in [("left", 0.1), ("right", -0.1)]:
                 self.window.setBuffer(eye)
+                text.pos = (x_pos, 0)
                 text.draw()
-
-            # Draw different shapes to each eye
-            # rift = self.rift
-            # left_rect = visual.Rect(rift, pos=(-2, 0), fillColor='red')
-            # right_rect = visual.Rect(rift, pos=(2, 0), fillColor='blue')
-            #
-            # rift.setBuffer("left")
-            # left_rect.draw()
-            #
-            # rift.setBuffer("right")
-            # right_rect.draw()
-
         else:
             text.draw()
         self.window.flip()

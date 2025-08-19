@@ -8,6 +8,7 @@ from eegnb.devices.eeg import EEG
 from eegnb.experiments.BlockExperiment import BlockExperiment
 from stimupy.stimuli.checkerboards import contrast_contrast
 
+QUEST_PPD = 20
 
 class VisualPatternReversalVEP(BlockExperiment):
 
@@ -62,7 +63,7 @@ class VisualPatternReversalVEP(BlockExperiment):
         # Using standard 1 degree check size (0.5 cpd)
         return contrast_contrast(
             visual_size=(20, 20),  # size in degrees - covers a good portion of the FOV
-            ppd=20,  # pixels per degree for Quest 2
+            ppd=QUEST_PPD,  # pixels per degree for Quest 2
             frequency=(0.5, 0.5),  # spatial frequency (0.5 cpd = 1 degree check size)
             intensity_checks=intensity_checks,
             target_shape=(0, 0),
@@ -110,7 +111,7 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
 
-    def _draw_block_instruction(self, current_block: int) -> None:
+    def _draw_block_instruction(self, current_block: int, x_pos: float) -> None:
         if self.use_vr:
             instruction_text = "Press spacebar or controller when ready."
         elif current_block % 2 == 0:
@@ -124,15 +125,16 @@ class VisualPatternReversalVEP(BlockExperiment):
                 "Press spacebar or controller when ready."
             )
 
-        text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
+        text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1], pos=(x_pos, 0))
         text.draw()
+        self.fixation.pos = (x_pos, 0)
         self.fixation.draw()
 
     def present_block_instructions(self, current_block: int) -> None:
         if self.use_vr:
-            for eye in ["left", "right"]:
+            for eye, x_pos in [("left", 0.1), ("right", -0.1)]:
                 self.window.setBuffer(eye)
-                self._draw_block_instruction(current_block)
+                self._draw_block_instruction(current_block, x_pos)
         else:
             self._draw_block_instruction(current_block)
         self.window.flip()
@@ -143,8 +145,8 @@ class VisualPatternReversalVEP(BlockExperiment):
         label = self.trials["parameter"].iloc[idx+block_trial_offset]
 
         # eye for presentation
-        open_eye = 'left' if label == 0 else 'right'
-        closed_eye = 'left' if label == 1 else 'right'
+        open_eye, open_x = ('left', 0.1) if label == 0 else ('right', -0.1)
+        closed_eye, closed_x = ('left', 0.1) if label == 1 else ('right', -0.1)
 
         if self.use_vr:
             self.window.setBuffer(open_eye)
@@ -154,13 +156,17 @@ class VisualPatternReversalVEP(BlockExperiment):
         # draw checkerboard
         checkerboard_frame = idx % 2
         image = self.stim[checkerboard_frame]
+
+        window_width = self.window.size[0]
+        open_x_pix = open_x * (window_width / 2)  # Convert norm to pixels
+        image.pos = (open_x_pix, 0)
         image.draw()
+        self.fixation.pos = (open_x, 0)
         self.fixation.draw()
 
         if self.use_vr:
             self.window.setBuffer(closed_eye)
             self.black_background.draw()
-
         self.window.flip()
 
         # Pushing the sample to the EEG
