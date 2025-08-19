@@ -72,13 +72,13 @@ class VisualPatternReversalVEP(BlockExperiment):
         )
 
     def load_stimulus(self):
-
         # Frame rate, in Hz
         # GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
         actual_frame_rate = np.round(self.window.displayRefreshRate if self.use_vr else self.window.getActualFrameRate())
         # Ensure the expected frame rate matches and is divisable by the stimulus rate(soa)
-        assert actual_frame_rate % self.soa == 0
-        assert self.display_refresh_rate == actual_frame_rate
+        assert actual_frame_rate % self.soa == 0, f"Expected frame rate divisable by stimulus rate: {self.soa}, but got {actual_frame_rate} Hz"
+        assert self.display_refresh_rate == actual_frame_rate, f"Expected frame rate {self.display_refresh_rate} Hz, but got {actual_frame_rate} Hz"
+
 
         if self.use_vr:
             # Create VR checkerboard
@@ -132,11 +132,11 @@ class VisualPatternReversalVEP(BlockExperiment):
 
     def present_block_instructions(self, current_block: int) -> None:
         if self.use_vr:
-            for eye, x_pos in [("left", 0.1), ("right", -0.1)]:
+            for eye, x_pos in [("left", self.left_eye_x_pos), ("right", self.right_eye_x_pos)]:
                 self.window.setBuffer(eye)
                 self._draw_block_instruction(current_block, x_pos)
         else:
-            self._draw_block_instruction(current_block)
+            self._draw_block_instruction(current_block, x_pos=0)
         self.window.flip()
 
     def present_stimulus(self, idx: int):
@@ -144,9 +144,8 @@ class VisualPatternReversalVEP(BlockExperiment):
         block_trial_offset = self.current_block_index*self.block_trial_size
         label = self.trials["parameter"].iloc[idx+block_trial_offset]
 
-        # eye for presentation
-        open_eye, open_x = ('left', 0.1) if label == 0 else ('right', -0.1)
-        closed_eye, closed_x = ('left', 0.1) if label == 1 else ('right', -0.1)
+        open_eye, open_x = ('left', self.left_eye_x_pos) if label == 0 else ('right', self.right_eye_x_pos)
+        closed_eye, closed_x = ('left', self.left_eye_x_pos) if label == 1 else ('right', self.right_eye_x_pos)
 
         if self.use_vr:
             self.window.setBuffer(open_eye)
@@ -156,10 +155,10 @@ class VisualPatternReversalVEP(BlockExperiment):
         # draw checkerboard
         checkerboard_frame = idx % 2
         image = self.stim[checkerboard_frame]
-
-        window_width = self.window.size[0]
-        open_x_pix = open_x * (window_width / 2)  # Convert norm to pixels
-        image.pos = (open_x_pix, 0)
+        if self.stereoscopic:
+            window_width = self.window.size[0]
+            open_pix_x_pos = open_x * (window_width / 2)  # Convert norm to pixels
+            image.pos = (open_pix_x_pos, 0)
         image.draw()
         self.fixation.pos = (open_x, 0)
         self.fixation.draw()

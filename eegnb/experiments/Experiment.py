@@ -60,6 +60,14 @@ class BaseExperiment(ABC):
         if use_vr:
             # VR interface accessible by specific experiment classes for customizing and using controllers.
             self.rift: Rift = visual.Rift(monoscopic=not stereoscopic, headLocked=True)
+        # eye for presentation
+        if use_vr and stereoscopic:
+            self.left_eye_x_pos = 0.1
+            self.right_eye_x_pos = -0.1
+        else:
+            self.left_eye_x_pos = 0
+            self.right_eye_x_pos = 0
+
         self.use_fullscr = use_fullscr
         self.window_size = [1600,800]
 
@@ -216,7 +224,7 @@ class BaseExperiment(ABC):
 
     def __draw_instructions(self, text):
         if self.use_vr and self.stereoscopic:
-            for eye, x_pos in [("left", 0.1), ("right", -0.1)]:
+            for eye, x_pos in [("left", self.left_eye_x_pos), ("right", self.right_eye_x_pos)]:
                 self.window.setBuffer(eye)
                 text.pos = (x_pos, 0)
                 text.draw()
