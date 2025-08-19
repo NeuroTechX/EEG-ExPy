@@ -121,7 +121,7 @@ class VisualPatternReversalVEP(BlockExperiment):
                 )
         else:
             instruction_text = (
-                "Close your right eye, then focus on the red dot with your left eye. "
+                "Close your left eye, then focus on the red dot with your right eye. "
                 "Press spacebar or controller when ready."
             )
 
