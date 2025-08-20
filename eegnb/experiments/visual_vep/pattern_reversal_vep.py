@@ -111,32 +111,35 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
 
-    def _draw_block_instruction(self, current_block: int, x_pos: float) -> None:
+    def _present_block_instructions(self, open_eye, closed_eye, open_x):
+        self.window.setBuffer(open_eye)
+        text = visual.TextStim(win=self.window, text="Press spacebar or controller when ready.", color=[-1, -1, -1], pos=(open_x, 0))
+        text.draw()
+        self.fixation.pos = (open_x, 0)
+        self.fixation.draw()
+        self.window.setBuffer(closed_eye)
+        self.black_background.draw()
+
+    def present_block_instructions(self, current_block: int) -> None:
         if self.use_vr:
-            instruction_text = "Press spacebar or controller when ready."
-        elif current_block % 2 == 0:
+            if current_block % 2 == 0:
+                self._present_block_instructions(open_eye="left", closed_eye="right", open_x=self.left_eye_x_pos)
+            else:
+                self._present_block_instructions(open_eye="right", closed_eye="left", open_x=self.right_eye_x_pos)
+        else:
+            if current_block % 2 == 0:
                 instruction_text = (
                     "Close your right eye, then focus on the red dot with your left eye. "
                     "Press spacebar or controller when ready."
                 )
-        else:
-            instruction_text = (
-                "Close your left eye, then focus on the red dot with your right eye. "
-                "Press spacebar or controller when ready."
-            )
-
-        text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1], pos=(x_pos, 0))
-        text.draw()
-        self.fixation.pos = (x_pos, 0)
-        self.fixation.draw()
-
-    def present_block_instructions(self, current_block: int) -> None:
-        if self.use_vr:
-            for eye, x_pos in [("left", self.left_eye_x_pos), ("right", self.right_eye_x_pos)]:
-                self.window.setBuffer(eye)
-                self._draw_block_instruction(current_block, x_pos)
-        else:
-            self._draw_block_instruction(current_block, x_pos=0)
+            else:
+                instruction_text = (
+                    "Close your left eye, then focus on the red dot with your right eye. "
+                    "Press spacebar or controller when ready."
+                )
+            text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
+            text.draw()
+            self.fixation.draw()
         self.window.flip()
 
     def present_stimulus(self, idx: int):
