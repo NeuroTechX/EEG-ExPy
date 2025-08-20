@@ -125,7 +125,7 @@ class VisualPatternReversalVEP(BlockExperiment):
         self.fixation.pos = (open_x, 0)
         self.fixation.draw()
         self.window.setBuffer(closed_eye)
-        self.grey_background.draw()
+        self.black_background.draw()
 
     def present_block_instructions(self, current_block: int) -> None:
         if self.use_vr:
