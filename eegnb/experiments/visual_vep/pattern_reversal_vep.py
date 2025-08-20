@@ -93,11 +93,18 @@ class VisualPatternReversalVEP(BlockExperiment):
         else:
             size = (self.window_size[1], self.window_size[1])
 
-        # the surrounding / periphery needs to be dark
+        # the surrounding / periphery needs to be dark when not vr.
         self.black_background = visual.Rect(self.window,
                                             width=self.window.size[0],
                                             height=self.window.size[1],
                                             fillColor='black')
+
+        # a grey background must be used in vr to maintain luminence.
+        self.grey_background = visual.Rect(self.window,
+                                            width=self.window.size[0],
+                                            height=self.window.size[1],
+                                            fillColor=[-0.22, -0.22, -0.22])
+
 
         # fixation
         grating_sf = 400 if self.use_vr else 0.2
@@ -111,21 +118,21 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
 
-    def _present_block_instructions(self, open_eye, closed_eye, open_x):
+    def _present_vr_block_instructions(self, open_eye, closed_eye, open_x):
         self.window.setBuffer(open_eye)
         text = visual.TextStim(win=self.window, text="Press spacebar or controller when ready.", color=[-1, -1, -1], pos=(open_x, 0))
         text.draw()
         self.fixation.pos = (open_x, 0)
         self.fixation.draw()
         self.window.setBuffer(closed_eye)
-        self.black_background.draw()
+        self.grey_background.draw()
 
     def present_block_instructions(self, current_block: int) -> None:
         if self.use_vr:
             if current_block % 2 == 0:
-                self._present_block_instructions(open_eye="left", closed_eye="right", open_x=self.left_eye_x_pos)
+                self._present_vr_block_instructions(open_eye="left", closed_eye="right", open_x=self.left_eye_x_pos)
             else:
-                self._present_block_instructions(open_eye="right", closed_eye="left", open_x=self.right_eye_x_pos)
+                self._present_vr_block_instructions(open_eye="right", closed_eye="left", open_x=self.right_eye_x_pos)
         else:
             if current_block % 2 == 0:
                 instruction_text = (
@@ -152,8 +159,9 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         if self.use_vr:
             self.window.setBuffer(open_eye)
-
-        self.black_background.draw()
+            self.grey_background.draw()
+        else:
+            self.black_background.draw()
 
         # draw checkerboard
         checkerboard_frame = idx % 2
