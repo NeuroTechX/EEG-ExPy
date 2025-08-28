@@ -40,7 +40,6 @@ class VisualPatternReversalVEP(BlockExperiment):
             eye = left_eye if block_num % 2 == 0 else right_eye
             block_eyes.extend([eye] * block_trial_size)
         self.parameter = np.array(block_eyes)
-        self.trials = DataFrame(dict(parameter=self.parameter))
 
     @staticmethod
     def create_monitor_checkerboard(intensity_checks):
@@ -181,8 +180,8 @@ class VisualPatternReversalVEP(BlockExperiment):
 
     def present_stimulus(self, idx: int):
         # Get the label of the trial
-        block_trial_offset = self.current_block_index*self.block_trial_size
-        label = self.trials["parameter"].iloc[idx+block_trial_offset]
+        trial_idx = self.current_block_index * self.block_trial_size + idx
+        label = self.parameter[trial_idx]
 
         open_eye = 'left' if label == 0 else 'right'
         closed_eye = 'left' if label == 1 else 'right'
