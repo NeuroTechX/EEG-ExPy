@@ -9,7 +9,7 @@ obj.run()
 """
 
 from abc import abstractmethod, ABC
-from typing import Callable, Optional
+from typing import Callable
 from eegnb.devices.eeg import EEG
 from psychopy import prefs
 from psychopy.visual.rift import Rift
@@ -304,14 +304,10 @@ class BaseExperiment(ABC):
                     rendering_trial = current_trial
             else:
                 self._draw(lambda: self.present_iti())
-                # log 'present iti' with the elapsed time and trial end time
-                # Log the ITI presentation
-                # logger.info(f"Present ITI - Trial: {current_trial}, Elapsed Time: {elapsed_time:.3f}s, Trial End Time: {trial_end_time:.3f}s, Trial Start Time: {trial_start_time:.3f}s")
 
             if self._user_input('cancel'):
                 return False
-                
-        # Return the number of trials that were run
+
         return True
 
     def run(self, instructions=True):
