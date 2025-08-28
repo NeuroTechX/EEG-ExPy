@@ -1,6 +1,5 @@
 ﻿from time import time
 import numpy as np
-from pandas import DataFrame
 
 from psychopy import visual
 from typing import Optional, Dict, Any
@@ -190,14 +189,14 @@ class VisualPatternReversalVEP(BlockExperiment):
         if self.use_vr:
             self.window.setBuffer(open_eye)
             self.grey_background.draw()
-            display_key = 'left' if label == 0 else 'right'
+            display = self.stim['left' if label == 0 else 'right']
         else:
             self.black_background.draw()
-            display_key = 'monoscopic'
+            display = self.stim['monoscopic']
             
         checkerboard_frame = idx % 2
-        self.stim[display_key]['checkerboards'][checkerboard_frame].draw()
-        self.stim[display_key]['fixation'].draw()
+        display['checkerboards'][checkerboard_frame].draw()
+        display['fixation'].draw()
 
         if self.use_vr:
             self.window.setBuffer(closed_eye)
