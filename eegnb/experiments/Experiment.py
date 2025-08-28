@@ -123,7 +123,7 @@ class BaseExperiment(ABC):
         
         # Show Instruction Screen if not skipped by the user
         if instructions:
-            self.show_instructions()
+            return self.show_instructions()
 
         # Checking for EEG to setup the EEG stream
         if self.eeg:
@@ -138,6 +138,7 @@ class BaseExperiment(ABC):
                 print(
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"
                 )
+        return True
     
     def show_instructions(self):
         """ 
@@ -165,6 +166,10 @@ class BaseExperiment(ABC):
 
             # Enabling the cursor again
             self.window.mouseVisible = True
+
+            if self._user_input('cancel'):
+                return False
+        return True
 
     def _user_input(self, input_type):
         if input_type == 'start':

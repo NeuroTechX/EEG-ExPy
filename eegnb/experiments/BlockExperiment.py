@@ -111,7 +111,8 @@ class BlockExperiment(BaseExperiment, ABC):
             instructions (bool): Whether to show the initial experiment instructions
         """
         # Setup the experiment (creates window, loads stimulus once)
-        self.setup(instructions)
+        if not self.setup(instructions):
+            return False
         
         # Start EEG Stream once for all blocks
         if self.eeg:
