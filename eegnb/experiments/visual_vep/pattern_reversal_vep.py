@@ -3,7 +3,7 @@ import numpy as np
 from pandas import DataFrame
 
 from psychopy import visual
-from typing import Optional
+from typing import Optional, Dict, Any
 from eegnb.devices.eeg import EEG
 from eegnb.experiments.BlockExperiment import BlockExperiment
 from stimupy.stimuli.checkerboards import contrast_contrast
@@ -71,7 +71,7 @@ class VisualPatternReversalVEP(BlockExperiment):
             tau=0
         )
 
-    def load_stimulus(self):
+    def load_stimulus(self) -> Dict[str, Any]:
         # Frame rate, in Hz
         # GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
         actual_frame_rate = np.round(self.window.displayRefreshRate if self.use_vr else self.window.getActualFrameRate())
@@ -79,60 +79,90 @@ class VisualPatternReversalVEP(BlockExperiment):
         assert actual_frame_rate % self.soa == 0, f"Expected frame rate divisable by stimulus rate: {self.soa}, but got {actual_frame_rate} Hz"
         assert self.display_refresh_rate == actual_frame_rate, f"Expected frame rate {self.display_refresh_rate} Hz, but got {actual_frame_rate} Hz"
 
-
         if self.use_vr:
-            # Create VR checkerboard
+            # Create the VR checkerboard
             create_checkerboard = self.create_vr_checkerboard
-        else:
-            # Create Monitor checkerboard
-            create_checkerboard = self.create_monitor_checkerboard
-
-        if self.use_vr:
             # the window is large over the eye, checkerboard should only cover the central vision
             size = self.window.size / 1.5
         else:
+            # Create the Monitor checkerboard
+            create_checkerboard = self.create_monitor_checkerboard
             size = (self.window_size[1], self.window_size[1])
 
-        # the surrounding / periphery needs to be dark when not vr.
+        # The surrounding / periphery needs to be dark when not using vr.
+        # Also used for covering eye which is not being stimulated.
         self.black_background = visual.Rect(self.window,
                                             width=self.window.size[0],
                                             height=self.window.size[1],
                                             fillColor='black')
 
-        # a grey background must be used in vr to maintain luminence.
+        # A grey background behind the checkerboard must be used in vr to maintain luminence.
         self.grey_background = visual.Rect(self.window,
                                             width=self.window.size[0],
                                             height=self.window.size[1],
                                             fillColor=[-0.22, -0.22, -0.22])
 
-
-        # fixation
-        grating_sf = 400 if self.use_vr else 0.2
-        self.fixation = visual.GratingStim(win=self.window, pos=[0, 0], sf=grating_sf, color=[1, 0, 0])
-        self.fixation.size = 0.02 if self.use_vr else 0.4
-
-        def create_checkerboard_stim(intensity_checks):
+        # Create checkerboard stimuli
+        def create_checkerboard_stim(intensity_checks, pos):
             return visual.ImageStim(self.window,
                                     image=create_checkerboard(intensity_checks)['img'],
-                                    units='pix', size=size, color='white')
+                                    units='pix', size=size, color='white', pos=pos)
 
-        return [create_checkerboard_stim((1, -1)), create_checkerboard_stim((-1, 1))]
+        # Create fixation stimuli
+        def create_fixation_stim(pos):
+            fixation = visual.GratingStim(
+                win=self.window, 
+                pos=pos, 
+                sf=400 if self.use_vr else 0.2,
+                color=[1, 0, 0]
+            )
+            fixation.size = 0.02 if self.use_vr else 0.4
+            return fixation
 
-    def _present_vr_block_instructions(self, open_eye, closed_eye, open_x):
+        # Create VR block instruction stimuli
+        def create_vr_block_instruction(pos):
+            return visual.TextStim(win=self.window, text="Press spacebar or controller when ready.", color=[-1, -1, -1], pos=pos)
+
+        # Create and position stimulus
+        def create_eye_stimuli(eye_x_pos, pix_x_pos):
+            return {
+                'checkerboards': [
+                    create_checkerboard_stim((1, -1), pos=(pix_x_pos, 0)),
+                    create_checkerboard_stim((-1, 1), pos=(pix_x_pos, 0))
+                ],
+                'fixation': create_fixation_stim([eye_x_pos, 0]),
+                'vr_block_instructions': create_vr_block_instruction((eye_x_pos, 0))
+            }
+
+        # Structure all stimuli in organized dictionary
+        if self.use_vr:
+            # Calculate pixel positions for stereoscopic presentation
+            window_width = self.window.size[0]
+            left_pix_x_pos = self.left_eye_x_pos * (window_width / 2)
+            right_pix_x_pos = self.right_eye_x_pos * (window_width / 2)
+
+            return {
+                'left': create_eye_stimuli(self.left_eye_x_pos, left_pix_x_pos),
+                'right': create_eye_stimuli(self.right_eye_x_pos, right_pix_x_pos)
+            }
+        else:
+            return {
+                'monoscopic': create_eye_stimuli(0, 0)
+            }
+
+    def _present_vr_block_instructions(self, open_eye, closed_eye):
         self.window.setBuffer(open_eye)
-        text = visual.TextStim(win=self.window, text="Press spacebar or controller when ready.", color=[-1, -1, -1], pos=(open_x, 0))
-        text.draw()
-        self.fixation.pos = (open_x, 0)
-        self.fixation.draw()
+        self.stim[open_eye]['vr_block_instructions'].draw()
+        self.stim[open_eye]['fixation'].draw()
         self.window.setBuffer(closed_eye)
         self.black_background.draw()
 
     def present_block_instructions(self, current_block: int) -> None:
         if self.use_vr:
             if current_block % 2 == 0:
-                self._present_vr_block_instructions(open_eye="left", closed_eye="right", open_x=self.left_eye_x_pos)
+                self._present_vr_block_instructions(open_eye="left", closed_eye="right")
             else:
-                self._present_vr_block_instructions(open_eye="right", closed_eye="left", open_x=self.right_eye_x_pos)
+                self._present_vr_block_instructions(open_eye="right", closed_eye="left")
         else:
             if current_block % 2 == 0:
                 instruction_text = (
@@ -146,7 +176,7 @@ class VisualPatternReversalVEP(BlockExperiment):
                 )
             text = visual.TextStim(win=self.window, text=instruction_text, color=[-1, -1, -1])
             text.draw()
-            self.fixation.draw()
+            self.stim['monoscopic']['fixation'].draw()
         self.window.flip()
 
     def present_stimulus(self, idx: int):
@@ -154,25 +184,21 @@ class VisualPatternReversalVEP(BlockExperiment):
         block_trial_offset = self.current_block_index*self.block_trial_size
         label = self.trials["parameter"].iloc[idx+block_trial_offset]
 
-        open_eye, open_x = ('left', self.left_eye_x_pos) if label == 0 else ('right', self.right_eye_x_pos)
-        closed_eye, closed_x = ('left', self.left_eye_x_pos) if label == 1 else ('right', self.right_eye_x_pos)
+        open_eye = 'left' if label == 0 else 'right'
+        closed_eye = 'left' if label == 1 else 'right'
 
+        # draw checkerboard and fixation
         if self.use_vr:
             self.window.setBuffer(open_eye)
             self.grey_background.draw()
+            display_key = 'left' if label == 0 else 'right'
         else:
             self.black_background.draw()
-
-        # draw checkerboard
+            display_key = 'monoscopic'
+            
         checkerboard_frame = idx % 2
-        image = self.stim[checkerboard_frame]
-        if self.stereoscopic:
-            window_width = self.window.size[0]
-            open_pix_x_pos = open_x * (window_width / 2)  # Convert norm to pixels
-            image.pos = (open_pix_x_pos, 0)
-        image.draw()
-        self.fixation.pos = (open_x, 0)
-        self.fixation.draw()
+        self.stim[display_key]['checkerboards'][checkerboard_frame].draw()
+        self.stim[display_key]['fixation'].draw()
 
         if self.use_vr:
             self.window.setBuffer(closed_eye)
