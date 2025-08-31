@@ -23,8 +23,6 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         self.instruction_text = f"""Welcome to the Visual Pattern Reversal VEP experiment!
         
-        Stay still and focus on the red dot in the centre of the screen.
-        
         This experiment will run for {n_blocks} blocks of {block_duration_seconds} seconds each.
         
         Press spacebar or controller to continue.
@@ -119,7 +117,8 @@ class VisualPatternReversalVEP(BlockExperiment):
 
         # Create VR block instruction stimuli
         def create_vr_block_instruction(pos):
-            return visual.TextStim(win=self.window, text="Press spacebar or controller when ready.", color=[-1, -1, -1], pos=pos)
+            return visual.TextStim(win=self.window, text="Focus on the red dot, and try not to blink whilst the squares are flashing, press the spacebar or pull the controller trigger when ready to commence.", color=[-1, -1, -1],
+            pos=pos, height=0.1)
 
         # Create and position stimulus
         def create_eye_stimuli(eye_x_pos, pix_x_pos):
