@@ -61,9 +61,9 @@ class BaseExperiment(ABC):
             # VR interface accessible by specific experiment classes for customizing and using controllers.
             self.rift: Rift = visual.Rift(monoscopic=not stereoscopic, headLocked=True)
         # eye for presentation
-        if use_vr and stereoscopic:
-            self.left_eye_x_pos = 0.1
-            self.right_eye_x_pos = -0.1
+        if stereoscopic:
+            self.left_eye_x_pos = 0.2
+            self.right_eye_x_pos = -0.2
         else:
             self.left_eye_x_pos = 0
             self.right_eye_x_pos = 0
