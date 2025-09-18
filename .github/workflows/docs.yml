@@ -20,13 +20,15 @@ jobs:
       with:
         python-version: 3.8
         
-    - name: Install dependencies
-      run: |
-        make install-deps-apt
-        python -m pip install --upgrade pip wheel
-        python -m pip install attrdict
-
-        make install-deps-wxpython
+    - name: Install conda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        environment-file: environments/eeg-expy-docsbuild.yml
+        auto-activate-base: false
+        python-version: ${{ matrix.python_version }}
+        activate-environment: eeg-expy-full
+        channels: conda-forge
+        miniconda-version: "latest"
         
     - name: Build project
       run: |
