@@ -88,7 +88,7 @@ def create_stim_array(timestamps, markers):
         timestamps (array of floats): Timestamps from the EEG data.
         markers (array of ints): Markers and their associated timestamps.
     """
-    marker_max = np.max(markers)
+    # marker_max = np.max(markers)
     num_samples = len(timestamps)
     stim_array = np.zeros((num_samples, 1))
     for marker in markers:
