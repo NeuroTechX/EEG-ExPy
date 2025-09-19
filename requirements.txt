@@ -85,7 +85,8 @@ pyglet==1.4.11 ; platform_system == "Windows"
 psychxr>=0.2.4rc2; platform_system == "Windows" and python_version <= "3.9"
 
 
-
+# Used for generating checkerboard in pattern reversal experiment
+stimupy
 
 ## ~~ Docsbuild Requirements ~~ 
 recommonmark
