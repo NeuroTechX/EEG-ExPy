@@ -62,8 +62,8 @@ test_config = dict(run_n170 = True,
                    )
 # -----------------------------------------------------------------------
 # ***EDIT THIS SECTION ONLY*** to specify any non-default config entries
-test_config['audio_device'] = "Speakers (Apple Audio Device)"  # see `sound.getDevices()` 
-test_config['audio_lib'] = "ptb"
+test_config['audio_device'] = 'MacBook Pro Speakers' # see `sound.getDevices()`
+test_config['audio_lib'] = 'sounddevice'
 # ----------------------------------------------------------------------
 
 # ---------------------------------------
@@ -75,9 +75,17 @@ test_config['audio_lib'] = "ptb"
 #
 # ---------------------------------------
 
+# ---------------------------------------
+# CONFIG NOTES:
+#
+# - macOS 15.5 on Macbook Pro M1 (through bootcamp):
+#     test_config['audio_device'] = 'MacBook Pro Speakers'
+#     test_config['audio_lib'] = 'sounddevice'
+#
+# ---------------------------------------
+
 tc = test_config
 
-assert tc['audio_device'] in sound.getDevices()
 d = tc['test_duration']
 
 
@@ -100,9 +108,14 @@ if tc['run_ssvep']:
     expt.run()
 
 if tc['run_aob']:
-    from eegnb.experiments.auditory_oddball.aob import AuditoryOddball
+    # prefs need to be set before importing eegnb.experiments, otherwise the default audio device will be used for the 'sounddevice' lib.
     prefs.hardware['audioDevice'] = tc['audio_device']
     prefs.hardware['audioLib'] = tc['audio_lib']
+    from eegnb.experiments.auditory_oddball.aob import AuditoryOddball
+
+    # sound.getDevices() will fail for sounddevice lib until eegnb.experiments is imported.
+    assert tc['audio_device'] in sound.getDevices()
+
     expt = AuditoryOddball(duration=d)
     expt.use_fullscr = tc['fullscreen']
     expt.run()
