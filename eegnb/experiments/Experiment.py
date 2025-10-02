@@ -48,7 +48,8 @@ class BaseExperiment(ABC):
         """
 
         self.exp_name = exp_name
-        self.instruction_text = None
+        self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
+        Press spacebar to continue. \n""".format(self.exp_name)
         self.duration = duration
         self.eeg: EEG = eeg
         self.save_fn = save_fn
@@ -149,9 +150,7 @@ class BaseExperiment(ABC):
         """
 
         # Splitting instruction text into lines
-        if self.instruction_text is None:
-            self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
-            Press spacebar to continue. \n""".format(self.exp_name) % self.duration
+        self.instruction_text = self.instruction_text % self.duration
 
         # Disabling the cursor during display of instructions
         self.window.mouseVisible = False
