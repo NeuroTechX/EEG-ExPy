@@ -26,6 +26,9 @@ from eegnb.devices.utils import (
     EEG_CHANNELS,
 )
 
+import socket, json, logging, struct
+from time import time
+
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +57,7 @@ brainflow_devices = [
 ]
 
 
+
 class EEG:
     device_name: str
     stream_started: bool = False
@@ -66,8 +70,7 @@ class EEG:
         mac_addr=None,
         other=None,
         ip_addr=None,
-        ch_names=None
-    ):
+        ch_names=None):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
@@ -92,23 +95,30 @@ class EEG:
         self.ch_names = ch_names
 
     def initialize_backend(self):
+        # run this at initialization to get some
+        # stream metadata into the eeg class
         if self.backend == "brainflow":
             self._init_brainflow()
             self.timestamp_channel = BoardShim.get_timestamp_channel(self.brainflow_id)
         elif self.backend == "muselsl":
             self._init_muselsl()
-            self._muse_get_recent()  # run this at initialization to get some
-            # stream metadata into the eeg class
+            self._muse_get_recent()
+        elif self.backend == "kernelflow":
+            self._init_kf()
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
             return "brainflow"
         elif device_name in ["muse2016", "muse2", "museS"]:
             return "muselsl"
+        elif device_name in ["kernelflow"]:
+            return "kernelflow"
+
 
     #####################
     #   MUSE functions  #
     #####################
+
     def _init_muselsl(self):
         # Currently there's nothing we need to do here. However keeping the
         # option open to add things with this init method.
@@ -186,9 +196,11 @@ class EEG:
         df = pd.DataFrame(samples, index=timestamps, columns=ch_names)
         return df
 
+
     ##########################
     #   BrainFlow functions  #
     ##########################
+
     def _init_brainflow(self):
         """This function initializes the brainflow backend based on the input device name. It calls
         a utility function to determine the appropriate USB port to use based on the current operating system.
@@ -398,10 +410,86 @@ class EEG:
         # print (df)
         return df
 
+
+
+    ###########################
+    #   Kernel Flow functions #
+    ###########################
+
+
+    def _init_kf(self):
+        # Currently there's nothing we need to do here. However keeping the
+        # option open to add things with this init method.
+        self._notes = None #muse_recent_inlet = None
+
+
+    def _start_kf(self): #:, duration):
+
+        start_timestamp = int(time()*1e6)
+
+        # Create log file
+        #dtstr = str(datetime.now()).replace(' ', '_').split('.')[0] # think I prefer this to gmtime() tbh
+        self.kf_logfile_fname = '/tmp/eegexpy_kf_logfile__%s.txt' % strftime("%Y-%m-%d-%H.%M.%S", gmtime())
+        self.kf_logfile_txt = []
+
+        # one time connection
+        host = 'acquisition.computer.host'
+        port = 6767
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((host, port))
+
+        # Send first data packet 
+        self.kf_evnum = 0
+        data_to_send = {"id": self.kf_evnum,
+                        "timestamp": start_timestamp,
+                        "event": "start_experiment",
+                        "value": "0"
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        # Update logfile text
+        self.kflogfile_txt.append(data_to_send)
+    
+    
+    def _kf_push_sample(self, timestamp, marker, marker_name):
+    
+        # Send trigger
+        self.kf_evnum+=1
+        adj_timestamp = int(timestamp*1e9)
+        data_to_send = {
+                         "id": self.kf_evnum, #event_id,
+                         "timestamp": adj_timestamp,
+                         "event": marker_name, #event_name,
+                         "value":"1",
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        # Update logfile text
+        self.kf_logfile_txt.append(data_to_send)
+    
+    
+    def _stop_kf(self):
+        
+        self.kf_evnum+=1
+        stop_timestamp = int(time()*1e9)
+        data_to_send = {
+                        "id": self.kf_evnum,
+                        "timestamp": stop_timestamp,
+                         "event": "end_experiment",
+                         "value": "2",
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        self.kf_logfile_txt.append(data_to_send)
+
+    def _kf_sendeventinfo(event_info):
+            
+    	event_info_pack = json.dumps(event_info).encode("utf-8")
+        msg = struct.pack("!I", len(event_info_pack)) + event_info_pack
+        sock.sendall(msg)
+    
+    
     #################################
     #   Highlevel device functions  #
     #################################
-
+    
     def start(self, fn, duration=None):
         """Starts the EEG device based on the defined backend.
 
@@ -416,8 +504,10 @@ class EEG:
             self.markers = []
         elif self.backend == "muselsl":
             self._start_muse(duration)
+        elif self.backend == "kernelflow":
+            self._start_kf()
 
-    def push_sample(self, marker, timestamp):
+    def push_sample(self, marker, timestamp, marker_name=None):
         """
         Universal method for pushing a marker and its timestamp to store alongside the EEG data.
 
@@ -429,12 +519,16 @@ class EEG:
             self._brainflow_push_sample(marker=marker)
         elif self.backend == "muselsl":
             self._muse_push_sample(marker=marker, timestamp=timestamp)
+        elif self.backend == "kernelflow":
+           self._kf_push_sample(marker=marker,timestamp=timestamp, marker_name=marker_name)
 
     def stop(self):
         if self.backend == "brainflow":
             self._stop_brainflow()
         elif self.backend == "muselsl":
             pass
+        elif self.backend == "kernelflow":
+          self._stop_kf()
 
     def get_recent(self, n_samples: int = 256):
         """
