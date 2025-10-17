@@ -9,6 +9,7 @@ import sys
 import time
 import logging
 from time import sleep
+from datetime import datetime
 from multiprocessing import Process
 
 import numpy as np
@@ -70,7 +71,8 @@ class EEG:
         mac_addr=None,
         other=None,
         ip_addr=None,
-        ch_names=None):
+        ch_names=None,
+        make_logfile=False):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
@@ -87,6 +89,7 @@ class EEG:
         self.mac_address = mac_addr
         self.ip_addr = ip_addr
         self.other = other
+        self.make_logfile = make_logfile # currently only used for kf
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
         self.n_channels = len(EEG_INDICES[self.device_name])
@@ -418,72 +421,97 @@ class EEG:
 
 
     def _init_kf(self):
-        # Currently there's nothing we need to do here. However keeping the
-        # option open to add things with this init method.
+        
         self._notes = None #muse_recent_inlet = None
 
+        # Grab the init time for tracking
+        dtstr = str(datetime.now()).replace(' ', '_').split('.')[0].replace(':', '-') 
 
-    def _start_kf(self): #:, duration):
-
-        start_timestamp = int(time()*1e6)
-
-        # Create log file
-        #dtstr = str(datetime.now()).replace(' ', '_').split('.')[0] # think I prefer this to gmtime() tbh
-        self.kf_logfile_fname = '/tmp/eegexpy_kf_logfile__%s.txt' % strftime("%Y-%m-%d-%H.%M.%S", gmtime())
-        self.kf_logfile_txt = []
-
-        # one time connection
-        host = 'acquisition.computer.host'
+        # Initiate connection to trigger-recording port
+        host = 'localhost'  # could be another computer on network with a visible IP address?
         port = 6767
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((host, port))
+        self.kf_host = host
+        self.kf_port = port
+        self.kf_socket = sock
+
+        # Triggers history list
+        self.kf_triggers_history = []
+        self.kf_triggers_history.append('Initiated connection: %s' %dtstr)
+
+        # Optionally maintain a logfile
+        if self.make_logfile:
+            self.kf_logfile_fname = 'eegexpy_kf_logfile__%s.txt' % dtstr
+            self.kf_logfile_handle = open(self.kf_logfile_fname, 'a')
+            self.kf_logfile_handle.write('KF TRIGGERS LOGFILE %s \n\n' %dtstr)
+             
+
+    def _start_kf(self): #:, duration):
+
+        kf_start_timestamp = int(time()*1e6)
 
         # Send first data packet 
         self.kf_evnum = 0
         data_to_send = {"id": self.kf_evnum,
-                        "timestamp": start_timestamp,
+                        "timestamp": kf_start_timestamp,
                         "event": "start_experiment",
                         "value": "0"
                         }
         self._kf_sendeventinfo(data_to_send)
+        
         # Update logfile text
-        self.kflogfile_txt.append(data_to_send)
-    
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_start_timestamp': kf_start_timestamp,
+                                         'packet_sent': data_to_send})
+
     
     def _kf_push_sample(self, timestamp, marker, marker_name):
-    
+   
         # Send trigger
         self.kf_evnum+=1
-        adj_timestamp = int(timestamp*1e9)
+        kf_trigger_timestamp = int(time()*1e6)
         data_to_send = {
                          "id": self.kf_evnum, #event_id,
-                         "timestamp": adj_timestamp,
-                         "event": marker_name, #event_name,
-                         "value":"1",
+                         "timestamp": kf_trigger_timestamp, # timestamp
+                         "event": 'start_trial', #marker_name, #event_name,
+                         "value": str(marker), #str(marker_name), 
                         }
         self._kf_sendeventinfo(data_to_send)
+        
         # Update logfile text
-        self.kf_logfile_txt.append(data_to_send)
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_trigger_timestamp': kf_trigger_timestamp,
+                                         'experiment_timestamp': timestamp,
+                                         'packet_sent': data_to_send})
     
     
     def _stop_kf(self):
         
         self.kf_evnum+=1
-        stop_timestamp = int(time()*1e9)
+        kf_stop_timestamp = int(time()*1e6)
         data_to_send = {
-                        "id": self.kf_evnum,
-                        "timestamp": stop_timestamp,
-                         "event": "end_experiment",
-                         "value": "2",
+                        "id": 3, #self.kf_evnum,
+                        "timestamp": kf_stop_timestamp,
+                        "event": "end_experiment",
+                        "value": "5"
                         }
         self._kf_sendeventinfo(data_to_send)
-        self.kf_logfile_txt.append(data_to_send)
 
-    def _kf_sendeventinfo(event_info):
-            
-    	event_info_pack = json.dumps(event_info).encode("utf-8")
+        self.kf_triggers_history.append({'kf_evnum': '%s' % self.kf_evnum,
+                                         'kf_stop_timestamp': kf_stop_timestamp,
+                                         'packet_sent': data_to_send})
+        
+        if self.make_logfile:
+            self.kf_logfile_handle.write(self.kf_triggers_history)
+            self.kf_logfile_handle.close()
+
+
+    def _kf_sendeventinfo(self, event_info):
+
+        event_info_pack = json.dumps(event_info).encode("utf-8")
         msg = struct.pack("!I", len(event_info_pack)) + event_info_pack
-        sock.sendall(msg)
+        self.kf_socket.sendall(msg)
     
     
     #################################
