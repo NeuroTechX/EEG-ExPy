@@ -66,7 +66,8 @@ class EEG:
         mac_addr=None,
         other=None,
         ip_addr=None,
-        ch_names=None
+        ch_names=None,
+        config=None
     ):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
@@ -84,6 +85,7 @@ class EEG:
         self.mac_address = mac_addr
         self.ip_addr = ip_addr
         self.other = other
+        self.config = config
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
         self.n_channels = len(EEG_INDICES[self.device_name])
@@ -297,6 +299,16 @@ class EEG:
         self.sfreq = BoardShim.get_sampling_rate(self.brainflow_id)
         self.board = BoardShim(self.brainflow_id, self.brainflow_params)
         self.board.prepare_session()
+
+        # Apply board configuration if provided
+        if self.config:
+            # For Cyton boards, split config string by 'X' delimiter and apply each setting
+            if 'cyton' in self.device_name:
+                config_settings = self.config.split('X')
+                for setting in config_settings:
+                    self.board.config_board(setting + 'X')
+            else:
+                self.board.config_board(self.config)
 
     def _start_brainflow(self):
         # only start stream if non exists
