@@ -53,7 +53,9 @@ click
 # a specific version prevents an endless dependency resolution loop.
 pyobjc==7.3; sys_platform == 'darwin'
 #upgrade psychopy to use newer wxpython dependency which is prebuilt for m1 support.
-psychopy==2023.2.2
+psychopy==2025.1.1
+#needed for macos arm sound support: https://github.com/psychopy/psychopy-sounddevice/pull/4
+-e psychopy-sounddevice
 ffpyplayer==4.5.2 # 4.5.3 fails to build as wheel.
 psychtoolbox
 scikit-learn>=0.23.2

@@ -10,11 +10,7 @@ obj.run()
 
 from abc import abstractmethod
 from typing import Callable
-from psychopy import prefs
 from psychopy.visual.rift import Rift
-#change the pref libraty to PTB and set the latency mode to high precision
-prefs.hardware['audioLib'] = 'PTB'
-prefs.hardware['audioLatencyMode'] = 3
 
 from time import time
 import random
