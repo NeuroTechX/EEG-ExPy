@@ -6,9 +6,8 @@
 """
 
 import sys
-import time
 import logging
-from time import sleep
+from time import sleep, time
 from datetime import datetime
 from multiprocessing import Process
 
@@ -27,8 +26,7 @@ from eegnb.devices.utils import (
     EEG_CHANNELS,
 )
 
-import socket, json, logging, struct
-from time import time
+import socket, json, struct
 
 
 logger = logging.getLogger(__name__)
@@ -152,9 +150,9 @@ class EEG:
         self.recording = Process(target=record, args=(duration, self.save_fn))
         self.recording.start()
 
-        time.sleep(5)
+        sleep(5)
         self.stream_started = True
-        self.push_sample([99], timestamp=time.time())
+        self.push_sample([99], timestamp=time())
 
     def _stop_muse(self):
         pass
@@ -487,7 +485,7 @@ class EEG:
     
     
     def _stop_kf(self):
-        
+
         self.kf_evnum+=1
         kf_stop_timestamp = int(time()*1e6)
         data_to_send = {
