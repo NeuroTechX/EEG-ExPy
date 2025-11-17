@@ -19,6 +19,8 @@ from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
+from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
+
 from eegnb.devices.utils import (
     get_openbci_usb,
     create_stim_array,
@@ -109,8 +111,8 @@ class EEG:
         elif self.backend == "kernelflow":
             self._init_kf()
         elif self.backend == "serialport":
-            #self._init_serial()
-            pass
+            self._init_serial(self.serial_port)
+
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
@@ -524,26 +526,38 @@ class EEG:
     #   Serial Port Function  #
     ###########################
 
-    def _serial_push_sample(self, timestamp, marker):
+
+    def _init_serial(self, serial_port):
+        self.serial = self._serial_open_port(serial_port)
+
+
+    def _serial_push_sample(self, marker, clearandflush=True, pulse_ms=5):
    
-        # Send trigger
-        serial_obj = self.serial
-        pulse_ms = 5
-        clearandflush=True
-
-        code = marker
- 
-        if not (0 <= code <= 255):  raise ValueError("code must be 045255")
-
-        serial_obj.write(bytes([code]))
+        if not (0 <= marker <= 255):  raise ValueError("marker code must be 045255")
+        self.serial.write(bytes([marker]))
         if clearandflush:
-         serial_obj.flush()  # push immediately
+         self.serial.flush()  # push immediately
          sleep(pulse_ms / 1000.0)
-         serial_obj.write(b"\x00")  # clear back to zero
-         serial_obj.flush()
+         self.serial.write(b"\x00")  # clear back to zero
+         self.serial.flush()
 
-    def _start_serial(self):
-      pass
+
+
+    def _serial_open_port(self,PORT_ID="COM4", BAUD=115200):
+        """
+        PORT_ID = "COM4"  # Example of a stimulus delivery computer USB out port name 
+        # on linux it should be sth like    # PORT_ID = "/dev/ttyUSB0"  # Linux
+        # on macOS it should be sth like    # PORT_ID = "/dev/tty.usbserial-XXXX"  # macOS
+        BAUD = 115200          # This matches ActiView's serial settings
+        """
+        my_serial = Serial(PORT_ID, BAUD, bytesize=EIGHTBITS, parity=PARITY_NONE,
+                           stopbits=STOPBITS_ONE, timeout=0, write_timeout=0)
+
+        print("\nOpened Serial Port %s\n" %PORT_ID)
+
+        return my_serial
+
+
 
 
 
@@ -587,7 +601,7 @@ class EEG:
         elif self.backend == "kernelflow":
            self._kf_push_sample(marker=marker,timestamp=timestamp, marker_name=marker_name)
         elif self.backend == "serialport": 
-           self._serial_push_sample(marker=marker, timestamp=timestamp)      
+           self._serial_push_sample(marker=marker) 
 
 
     def stop(self):
