@@ -108,6 +108,9 @@ class EEG:
             self._muse_get_recent()
         elif self.backend == "kernelflow":
             self._init_kf()
+        elif self.backend == "serialport":
+            #self._init_serial()
+            pass
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
@@ -116,6 +119,8 @@ class EEG:
             return "muselsl"
         elif device_name in ["kernelflow"]:
             return "kernelflow"
+        elif device_name in ["biosemi"]:
+            return "serialport"
 
 
     #####################
@@ -512,7 +517,36 @@ class EEG:
         event_info_pack = json.dumps(event_info).encode("utf-8")
         msg = struct.pack("!I", len(event_info_pack)) + event_info_pack
         self.kf_socket.sendall(msg)
-    
+   
+
+
+    ###########################
+    #   Serial Port Function  #
+    ###########################
+
+    def _serial_push_sample(self, timestamp, marker):
+   
+        # Send trigger
+        serial_obj = self.serial
+        pulse_ms = 5
+        clearandflush=True
+
+        code = marker
+ 
+        if not (0 <= code <= 255):  raise ValueError("code must be 045255")
+
+        serial_obj.write(bytes([code]))
+        if clearandflush:
+         serial_obj.flush()  # push immediately
+         sleep(pulse_ms / 1000.0)
+         serial_obj.write(b"\x00")  # clear back to zero
+         serial_obj.flush()
+
+    def _start_serial(self):
+      pass
+
+
+
     
     #################################
     #   Highlevel device functions  #
@@ -534,6 +568,9 @@ class EEG:
             self._start_muse(duration)
         elif self.backend == "kernelflow":
             self._start_kf()
+        elif self.backend == "serialport": 
+            self._start_serial()
+
 
     def push_sample(self, marker, timestamp, marker_name=None):
         """
@@ -549,6 +586,9 @@ class EEG:
             self._muse_push_sample(marker=marker, timestamp=timestamp)
         elif self.backend == "kernelflow":
            self._kf_push_sample(marker=marker,timestamp=timestamp, marker_name=marker_name)
+        elif self.backend == "serialport": 
+           self._serial_push_sample(marker=marker, timestamp=timestamp)      
+
 
     def stop(self):
         if self.backend == "brainflow":
