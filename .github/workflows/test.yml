@@ -53,6 +53,10 @@ jobs:
       env:
         PYTHON_VERSION: ${{ matrix.python_version }}
 
+    - name: Fix PsychXR numpy dependency DLL issues (Windows only)
+      if: matrix.os == 'windows-latest'
+      run: |
+        conda install --force-reinstall numpy
 
     - name: Run eegnb install test
       run: |
