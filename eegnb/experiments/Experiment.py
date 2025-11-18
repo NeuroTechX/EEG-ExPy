@@ -101,8 +101,8 @@ class BaseExperiment:
 
         # Checking for EEG to setup the EEG stream
         if self.eeg:
-             # If no save_fn passed, generate a new unnamed save file
-            if self.save_fn is None:  
+            # If no save_fn passed, and data is being streamed, generate a new unnamed save file
+            if self.save_fn is None and self.eeg.backend not in ['serialport', 'kernelflow']:
                 # Generating a random int for the filename
                 random_id = random.randint(1000,10000)
                 # Generating save function
@@ -226,13 +226,12 @@ class BaseExperiment:
         # Setup the experiment, alternatively could get rid of this line, something to think about
         self.setup(instructions)
 
-        print("Wait for the EEG-stream to start...")
-
         # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
         if self.eeg:
-            self.eeg.start(self.save_fn, duration=self.record_duration + 5)
-
-        print("EEG Stream started")
+            if self.eeg.backend not in ['serialport']:
+                print("Wait for the EEG-stream to start...")
+                self.eeg.start(self.save_fn, duration=self.record_duration + 5)
+                print("EEG Stream started")
 
         # Run trial until a key is pressed or experiment duration has expired.
         start = time()

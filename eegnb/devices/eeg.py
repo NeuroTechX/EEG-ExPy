@@ -111,7 +111,7 @@ class EEG:
         elif self.backend == "kernelflow":
             self._init_kf()
         elif self.backend == "serialport":
-            self._init_serial(self.serial_port)
+            self._init_serial()
 
 
     def _get_backend(self, device_name):
@@ -527,8 +527,11 @@ class EEG:
     ###########################
 
 
-    def _init_serial(self, serial_port):
-        self.serial = self._serial_open_port(serial_port)
+    def _init_serial(self):
+        if self.serial_port:      # if a port name is supplied, open a serial port.
+          self.serial = self._serial_open_port(PORT_ID=self.serial_port)
+                                 # (otherwise, don't open; assuming serial obj will be
+                                 #  manually added)
 
 
     def _serial_push_sample(self, marker, clearandflush=True, pulse_ms=5):
@@ -542,13 +545,13 @@ class EEG:
          self.serial.flush()
 
 
-
     def _serial_open_port(self,PORT_ID="COM4", BAUD=115200):
         """
         PORT_ID = "COM4"  # Example of a stimulus delivery computer USB out port name 
-        # on linux it should be sth like    # PORT_ID = "/dev/ttyUSB0"  # Linux
-        # on macOS it should be sth like    # PORT_ID = "/dev/tty.usbserial-XXXX"  # macOS
-        BAUD = 115200          # This matches ActiView's serial settings
+        # on windows it should be sth like  # PORT_ID = "COM4"
+        # on linux it should be sth like    # PORT_ID = "/dev/ttyUSB0"  
+        # on macOS it should be sth like    # PORT_ID = "/dev/tty.usbserial-XXXX"  
+        BAUD = 115200          # -> This matches BioSemi ActiView's serial settings
         """
         my_serial = Serial(PORT_ID, BAUD, bytesize=EIGHTBITS, parity=PARITY_NONE,
                            stopbits=STOPBITS_ONE, timeout=0, write_timeout=0)
@@ -583,7 +586,7 @@ class EEG:
         elif self.backend == "kernelflow":
             self._start_kf()
         elif self.backend == "serialport": 
-            self._start_serial()
+            pass 
 
 
     def push_sample(self, marker, timestamp, marker_name=None):
