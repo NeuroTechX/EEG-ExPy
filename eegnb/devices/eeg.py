@@ -6,9 +6,9 @@
 """
 
 import sys
-import time
 import logging
-from time import sleep
+from time import sleep, time
+from datetime import datetime
 from multiprocessing import Process
 
 import numpy as np
@@ -25,6 +25,8 @@ from eegnb.devices.utils import (
     EEG_INDICES,
     EEG_CHANNELS,
 )
+
+import socket, json, struct
 
 
 logger = logging.getLogger(__name__)
@@ -54,6 +56,7 @@ brainflow_devices = [
 ]
 
 
+
 class EEG:
     device_name: str
     stream_started: bool = False
@@ -67,8 +70,8 @@ class EEG:
         other=None,
         ip_addr=None,
         ch_names=None,
-        config=None
-    ):
+        config=None,
+        make_logfile=False):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
@@ -86,6 +89,7 @@ class EEG:
         self.ip_addr = ip_addr
         self.other = other
         self.config = config
+        self.make_logfile = make_logfile # currently only used for kf
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
         self.n_channels = len(EEG_INDICES[self.device_name])
@@ -94,23 +98,30 @@ class EEG:
         self.ch_names = ch_names
 
     def initialize_backend(self):
+        # run this at initialization to get some
+        # stream metadata into the eeg class
         if self.backend == "brainflow":
             self._init_brainflow()
             self.timestamp_channel = BoardShim.get_timestamp_channel(self.brainflow_id)
         elif self.backend == "muselsl":
             self._init_muselsl()
-            self._muse_get_recent()  # run this at initialization to get some
-            # stream metadata into the eeg class
+            self._muse_get_recent()
+        elif self.backend == "kernelflow":
+            self._init_kf()
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
             return "brainflow"
         elif device_name in ["muse2016", "muse2", "museS"]:
             return "muselsl"
+        elif device_name in ["kernelflow"]:
+            return "kernelflow"
+
 
     #####################
     #   MUSE functions  #
     #####################
+
     def _init_muselsl(self):
         # Currently there's nothing we need to do here. However keeping the
         # option open to add things with this init method.
@@ -141,9 +152,9 @@ class EEG:
         self.recording = Process(target=record, args=(duration, self.save_fn))
         self.recording.start()
 
-        time.sleep(5)
+        sleep(5)
         self.stream_started = True
-        self.push_sample([99], timestamp=time.time())
+        self.push_sample([99], timestamp=time())
 
     def _stop_muse(self):
         pass
@@ -188,9 +199,11 @@ class EEG:
         df = pd.DataFrame(samples, index=timestamps, columns=ch_names)
         return df
 
+
     ##########################
     #   BrainFlow functions  #
     ##########################
+
     def _init_brainflow(self):
         """This function initializes the brainflow backend based on the input device name. It calls
         a utility function to determine the appropriate USB port to use based on the current operating system.
@@ -410,10 +423,143 @@ class EEG:
         # print (df)
         return df
 
+
+
+    ###########################
+    #   Kernel Flow functions #
+    ###########################
+
+
+    def _init_kf(self):
+        
+        self._notes = None #muse_recent_inlet = None
+
+        # Grab the init time for tracking
+        dtstr = str(datetime.now()).replace(' ', '_').split('.')[0].replace(':', '-') 
+
+        # Initiate connection to trigger-recording port
+        host = 'localhost'  # could be another computer on network with a visible IP address?
+        port = 6767
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((host, port))
+        self.kf_host = host
+        self.kf_port = port
+        self.kf_socket = sock
+
+        # Triggers history list
+        self.kf_triggers_history = []
+        self.kf_triggers_history.append('Initiated connection: %s' %dtstr)
+
+        # Optionally maintain a logfile
+        if self.make_logfile:
+            self.kf_logfile_fname = 'eegexpy_kf_logfile__%s.txt' % dtstr
+            self.kf_logfile_handle = open(self.kf_logfile_fname, 'a')
+            self.kf_logfile_handle.write('KF TRIGGERS LOGFILE %s \n\n' %dtstr)
+             
+
+    def _start_kf(self): #:, duration):
+
+        kf_start_timestamp = int(time()*1e6)
+
+        self.kf_evnum = 0
+        self.kf_trialnum = 0
+
+        # Send first data packet 
+        data_to_send = {"id": self.kf_evnum,
+                        "timestamp": kf_start_timestamp,
+                        "event": "start_experiment",
+                        "value": "0"
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        
+        # Update logfile text
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_start_timestamp': kf_start_timestamp,
+                                         'packet_sent': data_to_send})
+
+    
+    def _kf_push_sample(self, timestamp, marker, marker_name):
+
+
+        self.kf_trialnum += 1
+
+        # 1/3: Send start trial trigger
+        self.kf_evnum+=1
+        kf_trigger_timestamp = int(time()*1e6)
+        data_to_send = {
+                         "id": self.kf_evnum, #event_id,
+                         "timestamp": kf_trigger_timestamp, # timestamp
+                         "event": 'start_trial', #marker_name, #event_name,
+                         "value": str(self.kf_trialnum), #str(marker_name), 
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_trigger_timestamp': kf_trigger_timestamp,
+                                         'experiment_timestamp': timestamp,
+                                         'packet_sent': data_to_send})
+        # 2/3: Send trial_type trigger
+        self.kf_evnum+=1
+        kf_trigger_timestamp = int(time()*1e6)
+        data_to_send = {
+                         "id": self.kf_evnum, #event_id,
+                         "timestamp": kf_trigger_timestamp, # timestamp
+                         "event": 'trial_type', #marker_name, #event_name,
+                         "value": str(marker), #str(marker_name), 
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_trigger_timestamp': kf_trigger_timestamp,
+                                         'experiment_timestamp': timestamp,
+                                         'packet_sent': data_to_send})
+        # 3/3: Send end trial trigger
+        self.kf_evnum+=1
+        kf_trigger_timestamp = int(time()*1e6)
+        data_to_send = {
+                         "id": self.kf_evnum, #event_id,
+                         "timestamp": kf_trigger_timestamp, # timestamp
+                         "event": 'end_trial', #marker_name, #event_name,
+                         "value":  str(self.kf_trialnum), #str(marker_name), 
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_trigger_timestamp': kf_trigger_timestamp,
+                                         'experiment_timestamp': timestamp,
+                                         'packet_sent': data_to_send})
+   
+    def _stop_kf(self):
+
+        self.kf_evnum+=1
+        kf_stop_timestamp = int(time()*1e6)
+
+        # Send end experiment trigger
+        data_to_send = {
+                        "id": self.kf_evnum,
+                        "timestamp": kf_stop_timestamp,
+                        "event": "end_experiment",
+                        "value": "1"
+                        }
+        self._kf_sendeventinfo(data_to_send)
+
+        self.kf_triggers_history.append({'kf_evnum': '%s' % self.kf_evnum,
+                                         'kf_stop_timestamp': kf_stop_timestamp,
+                                         'packet_sent': data_to_send})
+       
+        if self.make_logfile:
+            self.kf_logfile_handle.write(self.kf_triggers_history)
+            self.kf_logfile_handle.close()
+
+
+    def _kf_sendeventinfo(self, event_info):
+
+        event_info_pack = json.dumps(event_info).encode("utf-8")
+        msg = struct.pack("!I", len(event_info_pack)) + event_info_pack
+        self.kf_socket.sendall(msg)
+    
+    
     #################################
     #   Highlevel device functions  #
     #################################
-
+    
     def start(self, fn, duration=None):
         """Starts the EEG device based on the defined backend.
 
@@ -428,8 +574,10 @@ class EEG:
             self.markers = []
         elif self.backend == "muselsl":
             self._start_muse(duration)
+        elif self.backend == "kernelflow":
+            self._start_kf()
 
-    def push_sample(self, marker, timestamp):
+    def push_sample(self, marker, timestamp, marker_name=None):
         """
         Universal method for pushing a marker and its timestamp to store alongside the EEG data.
 
@@ -441,12 +589,16 @@ class EEG:
             self._brainflow_push_sample(marker=marker)
         elif self.backend == "muselsl":
             self._muse_push_sample(marker=marker, timestamp=timestamp)
+        elif self.backend == "kernelflow":
+           self._kf_push_sample(marker=marker,timestamp=timestamp, marker_name=marker_name)
 
     def stop(self):
         if self.backend == "brainflow":
             self._stop_brainflow()
         elif self.backend == "muselsl":
             pass
+        elif self.backend == "kernelflow":
+          self._stop_kf()
 
     def get_recent(self, n_samples: int = 256):
         """

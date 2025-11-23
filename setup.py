@@ -5,11 +5,25 @@ from setuptools import setup, find_packages
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
+def filter_requirements(requirements_list):
+    """Filter out invalid requirement specifiers"""
+    filtered = []
+    for req in requirements_list:
+        req = req.strip()
+        # Skip empty lines, comments, and editable installs
+        if req and not req.startswith('#') and not req.startswith('-e'):
+            # Remove inline comments
+            if '#' in req:
+                req = req.split('#')[0].strip()
+            if req:  # Make sure it's still not empty after removing inline comments
+                filtered.append(req)
+    return filtered
+
 fptxt = open('requirements.txt', 'r').read()
-install_requires_analysis = fptxt.split('## ~~ Analysis Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
-install_requires_streaming = fptxt.split('## ~~ Streaming Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
-install_requires_stimpres = fptxt.split('## ~~ Stimpres Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
-install_requires_docsbuild = fptxt.split('## ~~ Docsbuild Requirements ~~')[1].split('## ~~')[0].splitlines()[1:]
+install_requires_analysis = filter_requirements(fptxt.split('## ~~ Analysis Requirements ~~')[1].split('## ~~')[0].splitlines()[1:])
+install_requires_streaming = filter_requirements(fptxt.split('## ~~ Streaming Requirements ~~')[1].split('## ~~')[0].splitlines()[1:])
+install_requires_stimpres = filter_requirements(fptxt.split('## ~~ Stimpres Requirements ~~')[1].split('## ~~')[0].splitlines()[1:])
+install_requires_docsbuild = filter_requirements(fptxt.split('## ~~ Docsbuild Requirements ~~')[1].split('## ~~')[0].splitlines()[1:])
 
 setup(
     name="eeg-expy", 
@@ -20,7 +34,7 @@ setup(
     keywords='eeg, cognitive neuroscience, experiments, evoked response, auditory, visual',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    install_requires=[ install_requires_analysis ],   # base dependencies
+    install_requires=install_requires_analysis,   # base dependencies
     extras_require={
         'docsbuild':  install_requires_docsbuild,
         'streaming':  install_requires_streaming,
