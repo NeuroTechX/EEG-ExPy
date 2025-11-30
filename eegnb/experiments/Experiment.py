@@ -8,8 +8,10 @@ obj = VisualP300({parameters})
 obj.run()
 """
 
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 from typing import Callable
+from eegnb.devices.eeg import EEG
+from psychopy import prefs
 from psychopy.visual.rift import Rift
 
 from time import time
@@ -22,26 +24,32 @@ from psychopy import visual, event
 from eegnb import generate_save_fn
 
 
-class BaseExperiment:
+class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True, screen_num=0):
+                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False):
         """ Initializer for the Base Experiment Class
 
         Args:
+            exp_name (str): Name of the experiment
+            duration (float): Duration of the experiment in seconds
+            eeg: EEG device object for recording
+            save_fn (str): Save filename function for data
             n_trials (int): Number of trials/stimulus
             iti (float): Inter-trial interval
             soa (float): Stimulus on arrival
             jitter (float): Random delay between stimulus
             use_vr (bool): Use VR for displaying stimulus
+            use_fullscr (bool): Use fullscreen mode
             screen_num (int): Screen number (if multiple monitors present)
+            stereoscopic (bool): Use stereoscopic rendering for VR
         """
 
         self.exp_name = exp_name
         self.instruction_text = """\nWelcome to the {} experiment!\nStay still, focus on the centre of the screen, and try not to blink. \nThis block will run for %s seconds.\n
         Press spacebar to continue. \n""".format(self.exp_name)
         self.duration = duration
-        self.eeg = eeg
+        self.eeg: EEG = eeg
         self.save_fn = save_fn
         self.n_trials = n_trials
         self.iti = iti
@@ -49,11 +57,28 @@ class BaseExperiment:
         self.jitter = jitter
         self.use_vr = use_vr
         self.screen_num = screen_num
+        self.stereoscopic = stereoscopic
         if use_vr:
             # VR interface accessible by specific experiment classes for customizing and using controllers.
-            self.rift: Rift = visual.Rift(monoscopic=True, headLocked=True)
+            self.rift: Rift = visual.Rift(monoscopic=not stereoscopic, headLocked=True)
+        # eye for presentation
+        if stereoscopic:
+            self.left_eye_x_pos = 0.2
+            self.right_eye_x_pos = -0.2
+        else:
+            self.left_eye_x_pos = 0
+            self.right_eye_x_pos = 0
+
         self.use_fullscr = use_fullscr
         self.window_size = [1600,800]
+
+        # Initializing the record duration and the marker names
+        self.record_duration = np.float32(self.duration)
+        self.markernames = [1, 2]
+
+        # Setting up the trial and parameter list
+        self.parameter = np.random.binomial(1, 0.5, self.n_trials)
+        self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
     @abstractmethod
     def load_stimulus(self):
@@ -76,17 +101,20 @@ class BaseExperiment:
         """
         raise NotImplementedError
 
+    def present_iti(self):
+        """
+        Method that presents the inter-trial interval display for the specific experiment.
+
+        This method defines what is shown on the screen during the period between stimuli.
+        It could be a blank screen, a fixation cross, or any other appropriate display.
+
+        This is an optional method - the default implementation simply flips the window with no additional content.
+        Subclasses can override this method to provide custom ITI graphics.
+        """
+        self.window.flip()
+
     def setup(self, instructions=True):
-
-        # Initializing the record duration and the marker names
-        self.record_duration = np.float32(self.duration)
-        self.markernames = [1, 2]
-        
-        # Setting up the trial and parameter list
-        self.parameter = np.random.binomial(1, 0.5, self.n_trials)
-        self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
-
-        # Setting up Graphics 
+        # Setting up Graphics
         self.window = (
             self.rift if self.use_vr
             else visual.Window(self.window_size, monitor="testMonitor", units="deg", 
@@ -97,7 +125,8 @@ class BaseExperiment:
         
         # Show Instruction Screen if not skipped by the user
         if instructions:
-            self.show_instructions()
+            if not self.show_instructions():
+                return False
 
         # Checking for EEG to setup the EEG stream
         if self.eeg:
@@ -112,7 +141,8 @@ class BaseExperiment:
                 print(
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"
                 )
-    
+        return True
+
     def show_instructions(self):
         """ 
         Method that shows the instructions for the specific Experiment
@@ -127,18 +157,22 @@ class BaseExperiment:
         self.window.mouseVisible = False
 
         # clear/reset any old key/controller events
-        self.__clear_user_input()
+        self._clear_user_input()
 
         # Waiting for the user to press the spacebar or controller button or trigger to start the experiment
-        while not self.__user_input('start'):
+        while not self._user_input('start'):
             # Displaying the instructions on the screen
             text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-            self.__draw(lambda: self.__draw_instructions(text))
+            self._draw(lambda: self.__draw_instructions(text))
 
             # Enabling the cursor again
             self.window.mouseVisible = True
 
-    def __user_input(self, input_type):
+            if self._user_input('cancel'):
+                return False
+        return True
+
+    def _user_input(self, input_type):
         if input_type == 'start':
             key_input = 'spacebar'
             vr_inputs = [
@@ -154,6 +188,9 @@ class BaseExperiment:
                 ('LeftTouch', 'Y', False),
                 ('Xbox', 'B', None)
             ]
+
+        else:
+            raise Exception(f'Invalid input_type: {input_type}')
 
         if len(event.getKeys(keyList=key_input)) > 0:
             return True
@@ -192,10 +229,16 @@ class BaseExperiment:
         return False
 
     def __draw_instructions(self, text):
-        text.draw()
+        if self.use_vr and self.stereoscopic:
+            for eye, x_pos in [("left", self.left_eye_x_pos), ("right", self.right_eye_x_pos)]:
+                self.window.setBuffer(eye)
+                text.pos = (x_pos, 0)
+                text.draw()
+        else:
+            text.draw()
         self.window.flip()
 
-    def __draw(self, present_stimulus: Callable):
+    def _draw(self, present_stimulus: Callable):
         """
         Set the current eye position and projection for all given stimulus,
         then draw all stimulus and flip the window/buffer
@@ -206,7 +249,7 @@ class BaseExperiment:
             self.window.setDefaultView()
         present_stimulus()
 
-    def __clear_user_input(self):
+    def _clear_user_input(self):
         event.getKeys()
         self.clear_vr_input()
 
@@ -216,14 +259,61 @@ class BaseExperiment:
         """
         if self.use_vr:
             self.rift.updateInputState()
+        
+    def _run_trial_loop(self, start_time, duration):
+        """
+        Run the trial presentation loop
+        
+        This method handles the common trial presentation logic.
+        
+        Args:
+            start_time (float): Time when the trial loop started
+            duration (float): Maximum duration of the trial loop in seconds
 
-    def run(self, instructions=True):
-        """ Do the present operation for a bunch of experiments """
+        """
 
         def iti_with_jitter():
             return self.iti + np.random.rand() * self.jitter
 
-        # Setup the experiment, alternatively could get rid of this line, something to think about
+        # Initialize trial variables
+        current_trial = trial_end_time = -1
+        trial_start_time = None
+        rendering_trial = -1
+        
+        # Clear/reset user input buffer
+        self._clear_user_input()
+        
+        # Run the trial loop
+        while (time() - start_time) < duration:
+            elapsed_time = time() - start_time
+            
+            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
+            if elapsed_time > trial_end_time:
+                current_trial += 1
+                
+                # Calculate timing for this trial
+                trial_start_time = elapsed_time + iti_with_jitter()
+                trial_end_time = trial_start_time + self.soa
+
+            # Do not present stimulus after trial has ended(stimulus on arrival interval).
+            if elapsed_time >= trial_start_time:
+                # if current trial number changed present new stimulus.
+                if current_trial > rendering_trial:
+                    # Stimulus presentation overwritten by specific experiment
+                    self._draw(lambda: self.present_stimulus(current_trial))
+                    rendering_trial = current_trial
+            else:
+                self._draw(lambda: self.present_iti())
+
+            if self._user_input('cancel'):
+                return False
+
+        return True
+
+    def run(self, instructions=True):
+        """ Run the experiment """
+
+        # Setup the experiment
         self.setup(instructions)
 
         print("Wait for the EEG-stream to start...")
@@ -234,37 +324,11 @@ class BaseExperiment:
 
         print("EEG Stream started")
 
-        # Run trial until a key is pressed or experiment duration has expired.
-        start = time()
-        current_trial = current_trial_end = -1
-        current_trial_begin = None
-
-        # Current trial being rendered
-        rendering_trial = -1
-
-        # Clear/reset user input buffer
-        self.__clear_user_input()
-
-        while not self.__user_input('cancel') and (time() - start) < self.record_duration:
-
-            current_experiment_seconds = time() - start
-            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
-            if current_trial_end < current_experiment_seconds:
-                current_trial += 1
-                current_trial_begin = current_experiment_seconds + iti_with_jitter()
-                current_trial_end = current_trial_begin + self.soa
-
-            # Do not present stimulus after trial has ended(stimulus on arrival interval).
-            elif current_trial_begin < current_experiment_seconds:
-
-                # if current trial number changed get new choice of image.
-                if rendering_trial < current_trial:
-                    # Some form of presenting the stimulus - sometimes order changed in lower files like ssvep
-                    # Stimulus presentation overwritten by specific experiment
-                    self.__draw(lambda: self.present_stimulus(current_trial))
-                    rendering_trial = current_trial
-            else:
-                self.__draw(lambda: self.window.flip())
+        # Record experiment until a key is pressed or duration has expired.
+        record_start_time = time()
+        
+        # Run the trial loop
+        self._run_trial_loop(record_start_time, self.record_duration)
 
         # Clearing the screen for the next trial
         event.clearEvents()
