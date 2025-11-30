@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "psychopy-sounddevice"
+version = "0.0.1"
+description = "Extension for using SoundDevice for audio playback."
+readme = "README.md"
+requires-python = ">= 3.7"
+license = {text = "GNU General Public License v3 (GPLv3)"}
+authors = [
+  { name = "Jon Peirce", email = "jon@opensceincetools.org" },
+  { name = "Matthew Cutone", email = "mcutone@opensceincetools.org" },
+]
+classifiers = [
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+urls.homepage = "https://github.com/psychopy/psychopy-sounddevice"
+urls.changelog = "https://github.com/psychopy/psychopy-sounddevice/blob/main/CHANGELOG.txt"
+urls.documentation = "https://pages.github.com/psychopy/psychopy-sounddevice"
+urls.repository = "https://github.com/psychopy/psychopy-sounddevice"
+dependencies = [
+  "numpy",
+  "sounddevice",
+  "soundfile",
+]
+
+[tool.setuptools.packages.find]
+where = ["",]
+
+[project.entry-points."psychopy.sound"]
+backend_sounddevice = "psychopy_sounddevice.backend_sounddevice"
