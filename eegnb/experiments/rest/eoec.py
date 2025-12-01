@@ -105,6 +105,9 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
 
 
     def present_stimulus(self, idx: int):
+        if self.outlet is None or self.open_sound is None or self.close_sound is None:
+            raise RuntimeError("setup() must be called before present_stimulus()")
+
         label = self.trials["parameter"].iloc[idx]  # 0 open, 1 closed
         if self.trials["timestamp"].iloc[idx] == 0:
             timestamp = time()

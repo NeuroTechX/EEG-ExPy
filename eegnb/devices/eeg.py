@@ -6,9 +6,8 @@
 """
 
 import sys
-import time
 import logging
-from time import sleep
+from time import sleep, time
 from datetime import datetime
 from multiprocessing import Process
 
@@ -29,8 +28,7 @@ from eegnb.devices.utils import (
     EEG_CHANNELS,
 )
 
-import socket, json, logging, struct
-from time import time
+import socket, json, struct
 
 
 logger = logging.getLogger(__name__)
@@ -74,6 +72,7 @@ class EEG:
         other=None,
         ip_addr=None,
         ch_names=None,
+        config=None,
         make_logfile=False):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
@@ -91,6 +90,7 @@ class EEG:
         self.mac_address = mac_addr
         self.ip_addr = ip_addr
         self.other = other
+        self.config = config
         self.make_logfile = make_logfile # currently only used for kf
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
@@ -159,9 +159,9 @@ class EEG:
         self.recording = Process(target=record, args=(duration, self.save_fn))
         self.recording.start()
 
-        time.sleep(5)
+        sleep(5)
         self.stream_started = True
-        self.push_sample([99], timestamp=time.time())
+        self.push_sample([99], timestamp=time())
 
     def _stop_muse(self):
         pass
@@ -320,6 +320,16 @@ class EEG:
         self.board = BoardShim(self.brainflow_id, self.brainflow_params)
         self.board.prepare_session()
 
+        # Apply board configuration if provided
+        if self.config:
+            # For Cyton boards, split config string by 'X' delimiter and apply each setting
+            if 'cyton' in self.device_name:
+                config_settings = self.config.split('X')
+                for setting in config_settings:
+                    self.board.config_board(setting + 'X')
+            else:
+                self.board.config_board(self.config)
+
     def _start_brainflow(self):
         # only start stream if non exists
         if not self.stream_started:
@@ -458,8 +468,10 @@ class EEG:
 
         kf_start_timestamp = int(time()*1e6)
 
-        # Send first data packet 
         self.kf_evnum = 0
+        self.kf_trialnum = 0
+
+        # Send first data packet 
         data_to_send = {"id": self.kf_evnum,
                         "timestamp": kf_start_timestamp,
                         "event": "start_experiment",
@@ -474,41 +486,71 @@ class EEG:
 
     
     def _kf_push_sample(self, timestamp, marker, marker_name):
-   
-        # Send trigger
+
+
+        self.kf_trialnum += 1
+
+        # 1/3: Send start trial trigger
         self.kf_evnum+=1
         kf_trigger_timestamp = int(time()*1e6)
         data_to_send = {
                          "id": self.kf_evnum, #event_id,
                          "timestamp": kf_trigger_timestamp, # timestamp
                          "event": 'start_trial', #marker_name, #event_name,
-                         "value": str(marker), #str(marker_name), 
+                         "value": str(self.kf_trialnum), #str(marker_name), 
                         }
         self._kf_sendeventinfo(data_to_send)
-        
-        # Update logfile text
         self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
                                          'kf_trigger_timestamp': kf_trigger_timestamp,
                                          'experiment_timestamp': timestamp,
                                          'packet_sent': data_to_send})
-    
-    
+        # 2/3: Send trial_type trigger
+        self.kf_evnum+=1
+        kf_trigger_timestamp = int(time()*1e6)
+        data_to_send = {
+                         "id": self.kf_evnum, #event_id,
+                         "timestamp": kf_trigger_timestamp, # timestamp
+                         "event": 'trial_type', #marker_name, #event_name,
+                         "value": str(marker), #str(marker_name), 
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_trigger_timestamp': kf_trigger_timestamp,
+                                         'experiment_timestamp': timestamp,
+                                         'packet_sent': data_to_send})
+        # 3/3: Send end trial trigger
+        self.kf_evnum+=1
+        kf_trigger_timestamp = int(time()*1e6)
+        data_to_send = {
+                         "id": self.kf_evnum, #event_id,
+                         "timestamp": kf_trigger_timestamp, # timestamp
+                         "event": 'end_trial', #marker_name, #event_name,
+                         "value":  str(self.kf_trialnum), #str(marker_name), 
+                        }
+        self._kf_sendeventinfo(data_to_send)
+        self.kf_triggers_history.append({'kf_evnum': '%s' %self.kf_evnum,
+                                         'kf_trigger_timestamp': kf_trigger_timestamp,
+                                         'experiment_timestamp': timestamp,
+                                         'packet_sent': data_to_send})
+   
     def _stop_kf(self):
-        
+
         self.kf_evnum+=1
         kf_stop_timestamp = int(time()*1e6)
+
+        # Send end experiment trigger
         data_to_send = {
-                        "id": 3, #self.kf_evnum,
+                        "id": self.kf_evnum,
                         "timestamp": kf_stop_timestamp,
                         "event": "end_experiment",
-                        "value": "5"
+                        "value": "1"
                         }
         self._kf_sendeventinfo(data_to_send)
 
         self.kf_triggers_history.append({'kf_evnum': '%s' % self.kf_evnum,
                                          'kf_stop_timestamp': kf_stop_timestamp,
                                          'packet_sent': data_to_send})
-        
+       
         if self.make_logfile:
             self.kf_logfile_handle.write(self.kf_triggers_history)
             self.kf_logfile_handle.close()
