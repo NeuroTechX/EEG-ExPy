@@ -18,6 +18,8 @@ from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
+from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
+
 from eegnb.devices.utils import (
     get_openbci_usb,
     create_stim_array,
@@ -108,6 +110,9 @@ class EEG:
             self._muse_get_recent()
         elif self.backend == "kernelflow":
             self._init_kf()
+        elif self.backend == "serialport":
+            self._init_serial()
+
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
@@ -116,6 +121,8 @@ class EEG:
             return "muselsl"
         elif device_name in ["kernelflow"]:
             return "kernelflow"
+        elif device_name in ["biosemi"]:
+            return "serialport"
 
 
     #####################
@@ -554,7 +561,51 @@ class EEG:
         event_info_pack = json.dumps(event_info).encode("utf-8")
         msg = struct.pack("!I", len(event_info_pack)) + event_info_pack
         self.kf_socket.sendall(msg)
-    
+   
+
+
+    ###########################
+    #   Serial Port Function  #
+    ###########################
+
+
+    def _init_serial(self):
+        if self.serial_port:      # if a port name is supplied, open a serial port.
+          self.serial = self._serial_open_port(PORT_ID=self.serial_port)
+                                 # (otherwise, don't open; assuming serial obj will be
+                                 #  manually added)
+
+
+    def _serial_push_sample(self, marker, clearandflush=True, pulse_ms=5):
+   
+        if not (0 <= marker <= 255):  raise ValueError("marker code must be 045255")
+        self.serial.write(bytes([marker]))
+        if clearandflush:
+         self.serial.flush()  # push immediately
+         sleep(pulse_ms / 1000.0)
+         self.serial.write(b"\x00")  # clear back to zero
+         self.serial.flush()
+
+
+    def _serial_open_port(self,PORT_ID="COM4", BAUD=115200):
+        """
+        PORT_ID = "COM4"  # Example of a stimulus delivery computer USB out port name 
+        # on windows it should be sth like  # PORT_ID = "COM4"
+        # on linux it should be sth like    # PORT_ID = "/dev/ttyUSB0"  
+        # on macOS it should be sth like    # PORT_ID = "/dev/tty.usbserial-XXXX"  
+        BAUD = 115200          # -> This matches BioSemi ActiView's serial settings
+        """
+        my_serial = Serial(PORT_ID, BAUD, bytesize=EIGHTBITS, parity=PARITY_NONE,
+                           stopbits=STOPBITS_ONE, timeout=0, write_timeout=0)
+
+        print("\nOpened Serial Port %s\n" %PORT_ID)
+
+        return my_serial
+
+
+
+
+
     
     #################################
     #   Highlevel device functions  #
@@ -576,6 +627,9 @@ class EEG:
             self._start_muse(duration)
         elif self.backend == "kernelflow":
             self._start_kf()
+        elif self.backend == "serialport": 
+            pass 
+
 
     def push_sample(self, marker, timestamp, marker_name=None):
         """
@@ -591,6 +645,9 @@ class EEG:
             self._muse_push_sample(marker=marker, timestamp=timestamp)
         elif self.backend == "kernelflow":
            self._kf_push_sample(marker=marker,timestamp=timestamp, marker_name=marker_name)
+        elif self.backend == "serialport": 
+           self._serial_push_sample(marker=marker) 
+
 
     def stop(self):
         if self.backend == "brainflow":
