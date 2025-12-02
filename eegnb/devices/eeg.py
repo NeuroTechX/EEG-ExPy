@@ -20,6 +20,8 @@ from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
 
+import pyxid2
+
 from eegnb.devices.utils import (
     get_openbci_usb,
     create_stim_array,
@@ -57,7 +59,9 @@ brainflow_devices = [
     "muse2016_bfb",
 ]
 
-
+xid_devices = [
+   "nirsport2"
+]
 
 class EEG:
     device_name: str
@@ -68,6 +72,7 @@ class EEG:
         device=None,
         serial_port=None,
         serial_num=None,
+        xid_num=None,
         mac_addr=None,
         other=None,
         ip_addr=None,
@@ -88,6 +93,7 @@ class EEG:
         self.serial_num = serial_num
         self.serial_port = serial_port
         self.mac_address = mac_addr
+        self.xid_num = xid_num
         self.ip_addr = ip_addr
         self.other = other
         self.config = config
@@ -112,7 +118,8 @@ class EEG:
             self._init_kf()
         elif self.backend == "serialport":
             self._init_serial()
-
+        elif self.backend == "xidport":
+            self._init_xid()
 
     def _get_backend(self, device_name):
         if device_name in brainflow_devices:
@@ -123,6 +130,8 @@ class EEG:
             return "kernelflow"
         elif device_name in ["biosemi"]:
             return "serialport"
+        elif device_name in ["nirsport2"]:
+            return "xidport"
 
 
     #####################
@@ -606,6 +615,33 @@ class EEG:
 
 
 
+    ################################
+    #   Cedrus XID port functions  #
+    ################################
+
+
+    def _init_xid(self):
+        if self.xid_num is not None:      # if an xis device number is supplied, open and init that device
+            xids_list = pyxid2.get_xid_devices()
+            xid = xids_list[self.xid_num]
+            xid.init_device()
+                                    # (otherwise, don't open; assuming an xid attribute will be
+                                    #  manually added later)
+
+            xid.set_pulse_duration(1000) # [ is this needed / optimal in all cases ? ]
+            
+            print("\nOpened XID Device #%s:\n%s" %(self.xid_num, xid))
+            
+            self.xid = xid
+
+
+    def _xid_push_sample(self, marker):
+   
+        if not (0 <= marker <= 255):  raise ValueError("marker code must be 045255")
+        self.xid.activate_line(lines=[marker])
+
+
+
     
     #################################
     #   Highlevel device functions  #
@@ -628,7 +664,10 @@ class EEG:
         elif self.backend == "kernelflow":
             self._start_kf()
         elif self.backend == "serialport": 
-            pass 
+            pass
+        elif self.backend == "xidport":
+            pass
+
 
 
     def push_sample(self, marker, timestamp, marker_name=None):
@@ -647,7 +686,8 @@ class EEG:
            self._kf_push_sample(marker=marker,timestamp=timestamp, marker_name=marker_name)
         elif self.backend == "serialport": 
            self._serial_push_sample(marker=marker) 
-
+        elif self.backend == "xidport":
+           self._xid_push_sample(marker=marker)
 
     def stop(self):
         if self.backend == "brainflow":
