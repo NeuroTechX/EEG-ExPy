@@ -69,8 +69,9 @@ class VisualPatternReversalVEP(BlockExperiment):
 
     def load_stimulus(self) -> Dict[str, Any]:
         # Frame rate, in Hz
-        # GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
+        # TODO: Fix - Rift.GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
         actual_frame_rate = np.round(self.window.displayRefreshRate if self.use_vr else self.window.getActualFrameRate())
+
         # Ensure the expected frame rate matches and is divisable by the stimulus rate(soa)
         assert actual_frame_rate % self.soa == 0, f"Expected frame rate divisable by stimulus rate: {self.soa}, but got {actual_frame_rate} Hz"
         assert self.display_refresh_rate == actual_frame_rate, f"Expected frame rate {self.display_refresh_rate} Hz, but got {actual_frame_rate} Hz"

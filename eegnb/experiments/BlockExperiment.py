@@ -15,15 +15,15 @@ from .Experiment import BaseExperiment
 
 class BlockExperiment(BaseExperiment, ABC):
     """
-    Extended experiment class that inherits from BaseExperiment to provide block-based functionality.
+    Inherits from BaseExperiment to provide block-based functionality.
     
-    This class is designed for experiments that need to run multiple blocks, with each block
-    having its own instructions and duration. It loads stimulus only once and reuses it across blocks.
+    This class is designed for experiments that need to run as multiple blocks.
+    Each block has its own instructions and duration. It loads all stimuli at once, then re/uses it across blocks.
     """
 
     def __init__(self, exp_name, block_duration, eeg, save_fn, block_trial_size, n_blocks, iti: float, soa: float, jitter: float,
                  use_vr=False, use_fullscr=True, stereoscopic=False):
-        """ Initializer for the Block Experiment Class
+        """ Initializer for the BlockExperiment Class
 
         Args:
             exp_name (str): Name of the experiment
@@ -41,11 +41,11 @@ class BlockExperiment(BaseExperiment, ABC):
         # Calculate total trials for the base class
         total_trials = block_trial_size * n_blocks
         
-        # Initialize the base experiment with total trials
+        # Initialize BaseExperiment with total trials
         # Pass None for duration if block_duration is None to ignore time spent in instructions
         super().__init__(exp_name, block_duration, eeg, save_fn, total_trials, iti, soa, jitter, use_vr, use_fullscr, stereoscopic)
         
-        # Store block-specific parameters
+        # Block-specific parameters
         self.block_duration = block_duration
         self.block_trial_size = block_trial_size
         self.n_blocks = n_blocks
