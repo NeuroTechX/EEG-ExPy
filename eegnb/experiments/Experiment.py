@@ -117,7 +117,7 @@ class BaseExperiment(ABC):
         # Setting up Graphics
         self.window = (
             self.rift if self.use_vr
-            else visual.Window(self.window_size, monitor="testMonitor", units="deg",
+            else visual.Window(self.window_size, monitor="testMonitor", units="deg", 
                                screen = self.screen_num, fullscr=self.use_fullscr))
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
@@ -259,13 +259,13 @@ class BaseExperiment(ABC):
         """
         if self.use_vr:
             self.rift.updateInputState()
-
+        
     def _run_trial_loop(self, start_time, duration):
         """
         Run the trial presentation loop
-
+        
         This method handles the common trial presentation logic.
-
+        
         Args:
             start_time (float): Time when the trial loop started
             duration (float): Maximum duration of the trial loop in seconds
@@ -279,18 +279,18 @@ class BaseExperiment(ABC):
         current_trial = trial_end_time = -1
         trial_start_time = None
         rendering_trial = -1
-
+        
         # Clear/reset user input buffer
         self._clear_user_input()
-
+        
         # Run the trial loop
         while (time() - start_time) < duration:
             elapsed_time = time() - start_time
-
+            
             # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
             if elapsed_time > trial_end_time:
                 current_trial += 1
-
+                
                 # Calculate timing for this trial
                 trial_start_time = elapsed_time + iti_with_jitter()
                 trial_end_time = trial_start_time + self.soa
@@ -323,13 +323,12 @@ class BaseExperiment(ABC):
             if self.eeg.backend not in ['serialport']:
                 print("Wait for the EEG-stream to start...")
                 self.eeg.start(self.save_fn, duration=self.record_duration + 5)
-                print("EEG Stream started")
 
         print("EEG Stream started")
 
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
-
+        
         # Run the trial loop
         self._run_trial_loop(record_start_time, self.record_duration)
 
