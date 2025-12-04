@@ -13,9 +13,6 @@ from typing import Callable
 from eegnb.devices.eeg import EEG
 from psychopy import prefs
 from psychopy.visual.rift import Rift
-#change the pref libraty to PTB and set the latency mode to high precision
-prefs.hardware['audioLib'] = 'PTB'
-prefs.hardware['audioLatencyMode'] = 3
 
 from time import time
 import random
@@ -30,7 +27,7 @@ from eegnb import generate_save_fn
 class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True, stereoscopic = False):
+                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -44,6 +41,8 @@ class BaseExperiment(ABC):
             jitter (float): Random delay between stimulus
             use_vr (bool): Use VR for displaying stimulus
             use_fullscr (bool): Use fullscreen mode
+            screen_num (int): Screen number (if multiple monitors present)
+            stereoscopic (bool): Use stereoscopic rendering for VR
         """
 
         self.exp_name = exp_name
@@ -57,6 +56,7 @@ class BaseExperiment(ABC):
         self.soa = soa
         self.jitter = jitter
         self.use_vr = use_vr
+        self.screen_num = screen_num
         self.stereoscopic = stereoscopic
         if use_vr:
             # VR interface accessible by specific experiment classes for customizing and using controllers.
@@ -109,7 +109,7 @@ class BaseExperiment(ABC):
         It could be a blank screen, a fixation cross, or any other appropriate display.
 
         This is an optional method - the default implementation simply flips the window with no additional content.
-        Subclasses can override this method to provide custom ITI displays.
+        Subclasses can override this method to provide custom ITI graphics.
         """
         self.window.flip()
 
@@ -117,19 +117,21 @@ class BaseExperiment(ABC):
         # Setting up Graphics
         self.window = (
             self.rift if self.use_vr
-            else visual.Window(self.window_size, monitor="testMonitor", units="deg", fullscr=self.use_fullscr))
+            else visual.Window(self.window_size, monitor="testMonitor", units="deg",
+                               screen = self.screen_num, fullscr=self.use_fullscr))
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
         
         # Show Instruction Screen if not skipped by the user
         if instructions:
-            return self.show_instructions()
+            if not self.show_instructions():
+                return False
 
         # Checking for EEG to setup the EEG stream
         if self.eeg:
-             # If no save_fn passed, generate a new unnamed save file
-            if self.save_fn is None:  
+            # If no save_fn passed, and data is being streamed, generate a new unnamed save file
+            if self.save_fn is None and self.eeg.backend not in ['serialport', 'kernelflow']:
                 # Generating a random int for the filename
                 random_id = random.randint(1000,10000)
                 # Generating save function
@@ -140,7 +142,7 @@ class BaseExperiment(ABC):
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"
                 )
         return True
-    
+
     def show_instructions(self):
         """ 
         Method that shows the instructions for the specific Experiment
@@ -257,14 +259,13 @@ class BaseExperiment(ABC):
         """
         if self.use_vr:
             self.rift.updateInputState()
-        
+
     def _run_trial_loop(self, start_time, duration):
         """
         Run the trial presentation loop
-        
-        This method handles the common trial presentation logic used by both
-        BaseExperiment.run() and BlockExperiment._run_block().
-        
+
+        This method handles the common trial presentation logic.
+
         Args:
             start_time (float): Time when the trial loop started
             duration (float): Maximum duration of the trial loop in seconds
@@ -278,18 +279,18 @@ class BaseExperiment(ABC):
         current_trial = trial_end_time = -1
         trial_start_time = None
         rendering_trial = -1
-        
+
         # Clear/reset user input buffer
         self._clear_user_input()
-        
+
         # Run the trial loop
         while (time() - start_time) < duration:
             elapsed_time = time() - start_time
-            
+
             # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
             if elapsed_time > trial_end_time:
                 current_trial += 1
-                
+
                 # Calculate timing for this trial
                 trial_start_time = elapsed_time + iti_with_jitter()
                 trial_end_time = trial_start_time + self.soa
@@ -310,7 +311,7 @@ class BaseExperiment(ABC):
         return True
 
     def run(self, instructions=True):
-        """ Do the present operation for a bunch of experiments """
+        """ Run the experiment """
 
         # Setup the experiment
         self.setup(instructions)
@@ -319,13 +320,16 @@ class BaseExperiment(ABC):
 
         # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
         if self.eeg:
-            self.eeg.start(self.save_fn, duration=self.record_duration + 5)
+            if self.eeg.backend not in ['serialport']:
+                print("Wait for the EEG-stream to start...")
+                self.eeg.start(self.save_fn, duration=self.record_duration + 5)
+                print("EEG Stream started")
 
         print("EEG Stream started")
 
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
-        
+
         # Run the trial loop
         self._run_trial_loop(record_start_time, self.record_duration)
 

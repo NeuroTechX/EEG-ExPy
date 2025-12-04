@@ -7,11 +7,13 @@ dependencies:
     # - python>=3.8,<=3.10 # psychopy <= 3.10
 
     - dukpy==0.2.3 # psychopy dependency, avoid failing due to building wheel on win 3.9.
+    - numpy # fix PsychXR numpy dependency DLL issues on Windows
     - pytables # install pytables for macOS arm64, so do not need to build from source.
     - rust # used by docsbuild
     - liblsl # install liblsl to prevent error on macOS and Ubuntu: "RuntimeError: LSL binary library file was not found."
     - wxpython>=4.0 # install wxpython to prevent error on macOS arm64: "site-packages/wx/_core.cpython-38-darwin.so, 0x0002): symbol not found in flat namespace '__ZN10wxBoxSizer20InformFirstDirectionEiii'"
     - html2text # avoid building wheel
+    - cffi # Fix sound ffi.callback() issue with sounddevice on macOS: https://github.com/spatialaudio/python-sounddevice/issues/397
     - pip
     - pip:
       # Install package with only Analysis requirements

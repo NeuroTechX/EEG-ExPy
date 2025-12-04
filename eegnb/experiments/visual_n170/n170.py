@@ -1,10 +1,5 @@
 """  eeg-notebooks/eegnb/experiments/visual_n170/n170.py """
 
-from psychopy import prefs
-#change the pref libraty to PTB and set the latency mode to high precision
-prefs.hardware['audioLib'] = 'PTB'
-prefs.hardware['audioLatencyMode'] = 3
-
 import os
 from time import time
 from glob import glob
