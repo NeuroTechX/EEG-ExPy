@@ -36,8 +36,7 @@ def _get_recording_dir(
     )
 
     # check if directory exists, if not, make the directory
-    # Skip directory creation if wildcards are present (for pattern matching)
-    if not any('*' in str(part) for part in [subject_str, session_str]) and not path.exists(recording_dir):
+    if not path.exists(recording_dir):
         makedirs(recording_dir)
 
     return recording_dir

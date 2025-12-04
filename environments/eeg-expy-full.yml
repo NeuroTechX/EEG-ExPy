@@ -1,11 +1,9 @@
+name: eeg-expy-full
 channels:
     - conda-forge
 dependencies:
     # System-level dependencies
-
-    # conda overrides current environment python version when not using --freeze-installed, and installs a random version of python...
-    # - python>=3.8,<=3.10 # psychopy <= 3.10
-
+    - python>=3.8,<=3.10 # psychopy <= 3.10
     - dukpy==0.2.3 # psychopy dependency, avoid failing due to building wheel on win 3.9.
     - numpy # fix PsychXR numpy dependency DLL issues on Windows
     - pytables # install pytables for macOS arm64, so do not need to build from source.

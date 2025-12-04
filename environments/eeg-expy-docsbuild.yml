@@ -1,11 +1,9 @@
+name: eeg-expy-docsbuild
 channels:
     - conda-forge
 dependencies:
     # System-level dependencies
-
-    # conda overrides current environment python version when not using --freeze-installed, and installs a random version of python...
-    # - python>=3.8,<=3.13
-
+    - python>=3.8,<=3.13
     - pytables # install pytables for macOS arm64, so do not need to build from source.
     - rust # used by docsbuild
     - pip
