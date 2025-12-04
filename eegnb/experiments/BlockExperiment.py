@@ -52,12 +52,6 @@ class BlockExperiment(BaseExperiment, ABC):
         
         # Current block index
         self.current_block_index = 0
-        
-        # Original save filename
-        self.original_save_fn = save_fn
-        
-        # Flag to track if stimulus has been loaded
-        self.stimulus_loaded = False
 
     def present_block_instructions(self, current_block):
         """
