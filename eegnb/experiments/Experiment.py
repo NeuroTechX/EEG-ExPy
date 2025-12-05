@@ -339,6 +339,15 @@ class BaseExperiment(ABC):
         # Closing the window
         self.window.close()
 
+
+
+    def send_triggers(self, marker):
+        """Send timing triggers to recording device[s]"""
+        for dev in self.devices:
+            timestmamp = time()
+            dev.push_sample(marker=marker, timestamp=timestamp)
+
+
     @property
     def name(self) -> str:
         """ This experiment's name """
