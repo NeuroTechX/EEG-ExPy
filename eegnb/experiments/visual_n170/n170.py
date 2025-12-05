@@ -45,13 +45,24 @@ class VisualN170(Experiment.BaseExperiment):
         # Draw the image
         image.draw()
 
+
         # Pushing the sample to the EEG
         if self.eeg:
             timestamp = time()
+
             if self.eeg.backend == "muselsl":
                 marker = [self.markernames[label]]
             else:
                 marker = self.markernames[label]
+            
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
-        
+      
+
+        if self.devices:
+            marker = self.markernames[label]
+            self.send_triggers(marker)
+
+
         self.window.flip()
+
+
