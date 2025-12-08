@@ -29,6 +29,7 @@ EEG_CHANNELS = {
     "freeeeg32": [f"eeg_{i}" for i in range(0, 32)],
     "kernelflow": [],
     "biosemi": [],
+    "nirsport2": [],
 }
 
 BRAINFLOW_CHANNELS = {
@@ -60,6 +61,7 @@ EEG_INDICES = {
     "freeeeg32": BoardShim.get_eeg_channels(BoardIds.FREEEEG32_BOARD.value),
     "kernelflow": [],
     "biosemi": [],
+    "nirsport2": [],
     }
 
 SAMPLE_FREQS = {
@@ -84,6 +86,7 @@ SAMPLE_FREQS = {
     "freeeeg32": BoardShim.get_sampling_rate(BoardIds.FREEEEG32_BOARD.value),
     "kernelflow": [],
     "biosemi": [],
+    "nirsport2": [],
     }
 
 
