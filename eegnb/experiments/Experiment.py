@@ -27,7 +27,7 @@ from eegnb import generate_save_fn
 class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False):
+                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False, devices = list):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -50,6 +50,7 @@ class BaseExperiment(ABC):
         Press spacebar to continue. \n""".format(self.exp_name)
         self.duration = duration
         self.eeg: EEG = eeg
+        self.devices = devices
         self.save_fn = save_fn
         self.n_trials = n_trials
         self.iti = iti
@@ -344,7 +345,7 @@ class BaseExperiment(ABC):
     def send_triggers(self, marker):
         """Send timing triggers to recording device[s]"""
         for dev in self.devices:
-            timestmamp = time()
+            timestamp = time()
             dev.push_sample(marker=marker, timestamp=timestamp)
 
 
