@@ -316,12 +316,15 @@ class BaseExperiment(ABC):
         # Setup the experiment
         self.setup(instructions)
 
+        print("Wait for the EEG-stream to start...")
+
         # Start EEG Stream, wait for signal to settle, and then pull timestamp for start point
         if self.eeg:
             if self.eeg.backend not in ['serialport']:
                 print("Wait for the EEG-stream to start...")
                 self.eeg.start(self.save_fn, duration=self.record_duration + 5)
-                print("EEG Stream started")
+
+        print("EEG Stream started")
 
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
