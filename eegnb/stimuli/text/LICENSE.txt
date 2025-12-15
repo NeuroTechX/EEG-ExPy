@@ -1,0 +1,3 @@
+All the text data were taken from N400Stimset_stimuli_parameters.tsv from the paper given below
+Evoking the N400 event-related potential (ERP) component using a publicly available novel set of sentences with semantically incongruent or congruent eggplants 
+they are Public Domain (CC0).
