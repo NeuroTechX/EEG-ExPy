@@ -73,8 +73,7 @@ class BaseExperiment(ABC):
         self.use_fullscr = use_fullscr
         self.window_size = [1600,800]
 
-        # Initializing the record duration and the marker names
-        self.record_duration = np.float32(self.duration)
+        # Initializing the marker names
         self.markernames = [1, 2]
 
         # Setting up the trial and parameter list
@@ -321,14 +320,14 @@ class BaseExperiment(ABC):
         if self.eeg:
             if self.eeg.backend not in ['serialport']:
                 print("Wait for the EEG-stream to start...")
-                self.eeg.start(self.save_fn, duration=self.record_duration + 5)
+                self.eeg.start(self.save_fn, duration=self.duration + 5)
                 print("EEG Stream started")
 
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
-        
+
         # Run the trial loop
-        self._run_trial_loop(record_start_time, self.record_duration)
+        self._run_trial_loop(record_start_time, self.duration)
 
         # Clearing the screen for the next trial
         event.clearEvents()
