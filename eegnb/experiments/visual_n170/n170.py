@@ -15,14 +15,13 @@ from typing import Optional
 
 class VisualN170(Experiment.BaseExperiment):
 
-    def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None,
-
+    def __init__(self, duration=120, eeg: Optional[EEG]=None, devices: Optional[list]=None,save_fn=None,
             n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2, use_vr = False):
 
         # Set experiment name        
         exp_name = "Visual N170"
         # Calling the super class constructor to initialize the experiment variables
-        super(VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr)
+        super(VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr, devices=devices)
 
     def load_stimulus(self):
         
@@ -45,13 +44,24 @@ class VisualN170(Experiment.BaseExperiment):
         # Draw the image
         image.draw()
 
+
         # Pushing the sample to the EEG
         if self.eeg:
             timestamp = time()
+
             if self.eeg.backend == "muselsl":
                 marker = [self.markernames[label]]
             else:
                 marker = self.markernames[label]
+            
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
-        
+      
+
+        if self.devices:
+            marker = self.markernames[label]
+            self.send_triggers(marker)
+
+
         self.window.flip()
+
+
