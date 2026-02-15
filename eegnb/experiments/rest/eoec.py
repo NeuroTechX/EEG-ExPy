@@ -27,19 +27,18 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
     Resting-state experiment with alternating eyes-open / eyes-closed blocks, 
     and minimal visual and auditory cues to assist with task instructions.
     """
-
     def __init__(
         self,
         duration: Optional[float] = None,
         eeg: Optional[EEG] = None,
+        devices: Optional[list] = None,
         save_fn: Optional[str] = None,
         block_duration: float = 60.0,
         n_cycles: int = 5,
         serial_port: Optional[str] = None,
         use_verbal_cues: bool = False,
         open_audio: Optional[str] = None,
-        close_audio: Optional[str] = None
-        ):
+        close_audio: Optional[str] = None):
 
         exp_name = "Rest Eyes Open/Closed Alternating"
         if duration is None:
@@ -59,6 +58,7 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
             duration,
             eeg,
             save_fn,
+            devices=devices,
             n_trials=2 * n_cycles,
             iti=0,
             soa=block_duration,
@@ -113,18 +113,24 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
             timestamp = time()
             self.trials.at[idx, "timestamp"] = timestamp
             self.outlet.push_sample([self.markernames[label]], timestamp)
+            
             if self.eeg:
-                marker = (
-                    [self.markernames[label]]
-                    if self.eeg.backend == "muselsl"
-                    else self.markernames[label]
-                )
-                self.eeg.push_sample(marker=marker, timestamp=timestamp)
+              if self.eeg.backend == "muselsl":
+                  marker = [self.markernames[label]]
+              else:
+                  marker = self.markernames[label]
+              self.eeg.push_sample(marker=marker, timestamp=timestamp)
+            
+            if self.devices:
+              marker = self.markernames[label]
+              self.send_triggers(marker)
+
             if self.serial:
                 try:
                     self.serial.write(bytes([self.markernames[label]]))
                 except Exception:  # pragma: no cover
                     pass
+
             if label == 0:
                 self.open_sound.play()
             else:
