@@ -1,6 +1,6 @@
-name: eeg-expy-full
 channels:
     - conda-forge
+    - defaults
 dependencies:
     # System-level dependencies
     - python>=3.8,<=3.10 # psychopy <= 3.10

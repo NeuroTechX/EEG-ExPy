@@ -39,20 +39,6 @@ jobs:
         channels: conda-forge
         miniconda-version: "latest"
 
-    - name: Recreate environment with osx-64 platform (macOS only)
-      if: matrix.os == 'macOS-latest'
-      run: |
-        # Remove the osx-arm64 environment
-        conda deactivate
-        conda env remove -n eeg-expy-full --yes
-        
-        # Create osx-64 platform with audio support
-        conda create -v --platform osx-64 -n eeg-expy-full python=${PYTHON_VERSION}
-        conda activate eeg-expy-full
-        conda env update -f environments/eeg-expy-full.yml
-      env:
-        PYTHON_VERSION: ${{ matrix.python_version }}
-
     - name: Fix PsychXR numpy dependency DLL issues (Windows only)
       if: matrix.os == 'windows-latest'
       run: |

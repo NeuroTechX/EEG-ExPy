@@ -42,62 +42,36 @@ Use the following commands to download the repo, create and activate a conda or 
 
     .. tab:: Conda
 
-       .. tabs::
+       **Environment file options**
 
-            **Environment file options**
+       *Python 3.8 - 3.10:*
 
+       - `eeg-expy-full`: Install all dependencies
 
-            *Python 3.8 - 3.10:*
+       - `eeg-expy-stimpres`: Stimulus presentation
 
-            - `eeg-expy-full`: Install all dependencies
+       - `eeg-expy-streamstim`: Combined streaming and stimulus presentation
 
-            - `eeg-expy-stimpres`: Stimulus presentation
+       *Python 3.8 - 3.13:*
 
-            - `eeg-expy-streamstim`: Combined streaming and stimulus presentation
+       - `eeg-expy-docsbuild`: Documentation
 
-            *Python 3.8 - 3.13:*
+       - `eeg-expy-streaming`: Data streaming
 
-            - `eeg-expy-docsbuild`: Documentation
+       .. code-block:: bash
 
-            - `eeg-expy-streaming`: Data streaming
+          # Clone the repo
+          git clone https://github.com/NeuroTechX/eeg-expy
 
+          # Navigate to the repo
+          cd eeg-expy
 
-          .. tab:: Windows, Linux or MacOS intel
+          # Create conda environment from chosen eeg-expy-*.yml
+          # The Python version will be pinned by the environment file
+          conda env create -n eeg-expy --file=environments/eeg-expy-full.yml
 
-            .. code-block:: bash
-
-               git clone https://github.com/NeuroTechX/eeg-expy
-
-               cd eeg-expy
-
-               # Specify newer python than 3.8 version if needed.
-               conda create -v -n eeg-expy-full python=3.8
-
-               conda activate eeg-expy-full
-
-               # install only necessary dependencies
-               conda env update -f environments/eeg-expy-full.yml
-
-          .. tab:: MacOS arm64(M1, M2, etc.)
-
-            .. code-block:: bash
-
-               # clone the repo
-               git clone https://github.com/NeuroTechX/eeg-expy
-
-               # navigate to the repo
-               cd eeg-expy
-
-               # for audio to be supported, osx-64 runtime is currently required,
-               # drop the '--platform osx-64' parameter if audio is not needed, to use the native runtime.
-               # Specify newer python than 3.8 version if needed.
-               conda create -v --platform osx-64 -n eeg-expy-full python=3.8
-
-               # activate the environment
-               conda activate eeg-expy-full
-
-               # install only necessary dependencies
-               conda env update -f environments/eeg-expy-full.yml
+          # Activate the environment
+          conda activate eeg-expy
 
     .. tab:: Virtualenv
 
