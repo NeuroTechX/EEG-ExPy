@@ -25,8 +25,9 @@ attrdict>=2.0.1
 attrdict3
 
 
-## ~~ Streaming Requirements ~~ 
+## ~~ Streaming Requirements ~~
 
+pyxid2
 muselsl>=2.0.2
 # Upgrade from 1.10.5 to 1.16.2 so the arm64 lib is available to macOS Apple Silicon for preventing error:
 # pylsl/liblsl64.dylib' (mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e' or 'arm64'))
