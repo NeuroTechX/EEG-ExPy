@@ -5,6 +5,11 @@ on:
     branches: [ master, develop, 'dev/*' ]
   pull_request:
     branches: [ master, develop ]
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   build:
@@ -16,11 +21,13 @@ jobs:
         fetch-depth: 0   
         
     - name: Set up Python
+      if: github.event.action != 'closed'
       uses: actions/setup-python@v4
       with:
         python-version: 3.8
         
     - name: Install dependencies
+      if: github.event.action != 'closed'
       run: |
         make install-deps-apt
         python -m pip install --upgrade pip wheel
@@ -29,11 +36,13 @@ jobs:
         make install-deps-wxpython
         
     - name: Build project
+      if: github.event.action != 'closed'
       run: |
         make install-docs-build-dependencies
 
 
     - name: Get list of changed files
+      if: github.event.action != 'closed'
       id: changes
       run: |
         git fetch origin master
@@ -42,6 +51,7 @@ jobs:
 
 
     - name: Determine build mode
+      if: github.event.action != 'closed'
       id: mode
       run: |
         if grep -vqE '^examples/.*\.py$' changed_files.txt; then
@@ -56,6 +66,7 @@ jobs:
 
 
     - name: Cache built documentation
+      if: github.event.action != 'closed'
       id: cache-docs
       uses: actions/cache@v4
       with:
@@ -67,8 +78,36 @@ jobs:
 
 
     - name: Build docs
+      if: github.event.action != 'closed'
       run: |
         make docs
+
+
+    - name: Upload docs artifact
+      if: github.event.action != 'closed'
+      uses: actions/upload-artifact@v4
+      with:
+        name: docs-${{ github.sha }}
+        path: doc/_build/html
+
+
+    - name: Deploy PR Preview
+      if: github.event_name == 'pull_request' && github.event.action != 'closed'
+      uses: rossjrw/pr-preview-action@v1
+      with:
+        source-dir: doc/_build/html
+        preview-branch: gh-pages
+        umbrella-dir: pr-preview
+        action: deploy
+
+    - name: Remove PR Preview
+      if: github.event_name == 'pull_request' && github.event.action == 'closed'
+      uses: rossjrw/pr-preview-action@v1
+      with:
+        source-dir: doc/_build/html
+        preview-branch: gh-pages
+        umbrella-dir: pr-preview
+        action: remove
 
         
     - name: Deploy Docs
