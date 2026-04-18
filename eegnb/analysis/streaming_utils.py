@@ -7,8 +7,9 @@ from collections import OrderedDict
 from glob import glob
 from typing import Union, List
 from time import sleep, time
-from pynput import keyboard
 import os
+
+from eegnb.utils.cancel import wait_for_cancel
 
 import pandas as pd
 import numpy as np
@@ -192,21 +193,10 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         if (loop_index+1) % n_inarow == 0:
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
-            prompt_time = time()
-            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")
-            c_key_pressed = False
-
-            def update_key_press(key):
-                if key.char == 'c':
-                    globals().update(c_key_pressed=True)
-            listener = keyboard.Listener(on_press=update_key_press)
-            listener.start()
-            while time() < prompt_time + 5:
-                if c_key_pressed:
-                    print("\nStopping signal quality checks!")
-                    flag = True
-                    break
-            listener.stop()
+            print("Starting next cycle in 5 seconds, press C and enter to cancel")
+            if wait_for_cancel(timeout=5.0, cancel_key="c"):
+                print("\nStopping signal quality checks!")
+                flag = True
         if flag: 
             break  
 
