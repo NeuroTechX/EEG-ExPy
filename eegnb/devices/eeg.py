@@ -20,7 +20,13 @@ from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
 
-import pyxid2
+# pyxid2 is only needed for Cedrus XID response boxes (nirsport2 here).
+# It has C-build issues on some platforms and is not required by the
+# common Muse / OpenBCI / Unicorn paths, so make it optional.
+try:
+    import pyxid2
+except ImportError:
+    pyxid2 = None
 
 from eegnb.devices.utils import (
     get_openbci_usb,
@@ -621,6 +627,11 @@ class EEG:
 
 
     def _init_xid(self):
+        if pyxid2 is None:
+            raise ImportError(
+                "pyxid2 is required for Cedrus XID response boxes. "
+                "Install with: pip install pyxid2"
+            )
         if self.xid_num is not None:      # if an xis device number is supplied, open and init that device
             xids_list = pyxid2.get_xid_devices()
             xid = xids_list[self.xid_num]

@@ -39,8 +39,11 @@ pyo>=1.0.3; platform_system == "Linux"
 #pynput requires pyobjc, psychopy requires a version less than 8, setting pyobjc to
 # a specific version prevents an endless dependency resolution loop.
 pyobjc==7.3; sys_platform == 'darwin'
-#Removed keyboard dependency due segmentation fault on Apple Silicon: https://github.com/boppreh/keyboard/issues/507
-pynput
+#Removed pynput dependency: it pulls in evdev, which fails to build from
+#source on modern Linux under the conda toolchain (missing kernel header
+#symbols). The two callsites that used pynput.keyboard.Listener have been
+#replaced with a threading + stdin "press enter to cancel" helper in
+#eegnb/utils/cancel.py — cross-platform, zero new deps.
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
