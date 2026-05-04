@@ -65,9 +65,9 @@ class BaseExperiment(ABC):
             # VR extends psychopy's VR with clock sync, per-trial telemetry buffering, and telemetry CSV saving.
             self.vr: VR = VR(monoscopic=not stereoscopic, headLocked=True)
 
-        # Shift content onto each lens's optical axis. VR HMDs use canted
-        # asymmetric frustums, so NDC (0,0) is off-axis and binocular content
-        # there forces inward vergence ("cross-eyed" feel).
+        # Shift the display so it aligns perfectly with the center of each eye. 
+        # VR headsets have angled screens, so if we draw everything strictly at 
+        # the center of the display (0,0), it makes the user feel cross-eyed.
         if use_vr and stereoscopic:
             self.left_eye_x_pos, self.right_eye_x_pos = self.vr.compute_optical_axis_offsets()
         else:
@@ -83,7 +83,6 @@ class BaseExperiment(ABC):
         # Setting up the trial and parameter list
         self.parameter = np.random.binomial(1, 0.5, self.n_trials)
         self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
-
 
     @abstractmethod
     def load_stimulus(self):
@@ -121,8 +120,6 @@ class BaseExperiment(ABC):
     def present_soa(self, idx: int):
         """
         Method called each frame during the SOA wait (stimulus-on period between trial transitions).
-
-        The default implementation just flips the buffer, which is fine for most uses.
 
         Recommended for VR: override this to redraw the stimulus for trial `idx`. VR compositors
         prefer a freshly drawn frame each submission; submitting only a flip leads
@@ -270,7 +267,6 @@ class BaseExperiment(ABC):
             tracking_state = self.window.getTrackingState()
             self.window.calcEyePoses(tracking_state.headPose.thePose)
             self.window.setDefaultView()
-
         present_stimulus()
 
     def _clear_user_input(self):
@@ -338,48 +334,7 @@ class BaseExperiment(ABC):
 
         return True
 
-    def _enable_frame_tracking(self):
-        """Enable per-frame interval recording for dropped frame diagnostics."""
-        self.window.recordFrameIntervals = True
-        # Threshold for counting a frame as "dropped" — 50% over expected duration
-        expected_frame_dur = 1.0 / (self.window.displayRefreshRate if self.use_vr
-                                     else (self.window.getActualFrameRate() or 60))
-        self.window.refreshThreshold = expected_frame_dur * 1.5
 
-    def _report_frame_stats(self):
-        """Print frame timing summary and save intervals alongside recording."""
-        intervals = self.window.frameIntervals
-        if not intervals:
-            return
-
-        intervals_ms = [i * 1000 for i in intervals]
-        dropped = self.window.nDroppedFrames
-        total = len(intervals)
-        mean_ms = np.mean(intervals_ms)
-        std_ms = np.std(intervals_ms)
-        max_ms = max(intervals_ms)
-        refresh_rate_hz = int(np.round(
-            self.window.displayRefreshRate if self.use_vr
-            else (self.window.getActualFrameRate() or 0)
-        ))
-
-        print(f"\nFrame timing: {total} frames, {dropped} dropped ({dropped/total*100:.1f}%)")
-        print(f"  Refresh rate: {refresh_rate_hz} Hz")
-        print(f"  Mean: {mean_ms:.2f}ms  Std: {std_ms:.2f}ms  Max: {max_ms:.2f}ms")
-
-        if self.save_fn:
-            stats_path = self.save_fn.with_name(self.save_fn.stem + '_frame_stats.json')
-            with open(stats_path, 'w') as f:
-                json.dump({
-                    'display_refresh_rate_hz': refresh_rate_hz,
-                    'total_frames': total,
-                    'dropped_frames': dropped,
-                    'mean_ms': round(mean_ms, 3),
-                    'std_ms': round(std_ms, 3),
-                    'max_ms': round(max_ms, 3),
-                    'intervals_ms': [round(i, 3) for i in intervals_ms]
-                }, f, indent=2)
-            print(f"  Saved to {stats_path}")
 
     def run(self, instructions=True):
         """ Run the experiment """
@@ -394,8 +349,6 @@ class BaseExperiment(ABC):
                 self.eeg.start(self.save_fn, duration=self.duration + 5)
                 print("EEG Stream started")
 
-        self._enable_frame_tracking()
-
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
 
@@ -409,8 +362,6 @@ class BaseExperiment(ABC):
             gc.enable()
             core.rush(False)
 
-        self._report_frame_stats()
-
         # Clearing the screen for the next trial
         event.clearEvents()
 
@@ -423,21 +374,6 @@ class BaseExperiment(ABC):
 
         # Closing the window
         self.window.close()
-
-
-
-    def push_vr_marker(self, marker, trial_idx):
-        """
-        Pushes the marker to EEG and delegates high-resolution LibOVR 
-        compositor stats to the VR hardware object.
-        """
-        software_time = time()
-        
-        if not self.eeg.push_sample(marker=marker):
-            return
-
-        if self.use_vr:
-            self.vr.log_telemetry(trial_idx, software_time)
 
     def send_triggers(self, marker):
         """Send timing triggers to recording device[s]"""

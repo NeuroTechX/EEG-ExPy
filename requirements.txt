@@ -65,7 +65,7 @@ pysocks>=1.7.1
 pyserial>=3.5
 h5py>=3.1.0
 pytest-shutil
-pyo>=1.0.3; platform_system == "Linux"
+
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
