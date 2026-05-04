@@ -20,7 +20,10 @@ from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
 
-import pyxid2
+try:
+    import pyxid2
+except Exception:
+    pyxid2 = None
 
 from eegnb.devices.utils import (
     get_openbci_usb,
