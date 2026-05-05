@@ -57,11 +57,11 @@ def run_experiment(
         # If it's a class (BaseExperiment subclass), instantiate it
         if isinstance(exp_item, type) and issubclass(exp_item, Experiment.BaseExperiment):
             # Concrete subclasses supply defaults for BaseExperiment's required args; mypy can't see which subclass.
-            module = exp_item()  # type: ignore[call-arg]
-            module.duration = record_duration
-            module.eeg = eeg_device
-            module.save_fn = save_fn
-            module.run()
+            exp_instance = exp_item()  # type: ignore[call-arg]
+            exp_instance.duration = record_duration
+            exp_instance.eeg = eeg_device
+            exp_instance.save_fn = save_fn
+            exp_instance.run()
         else:
             # Otherwise it's an old-style module
             exp_item.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)  # type: ignore

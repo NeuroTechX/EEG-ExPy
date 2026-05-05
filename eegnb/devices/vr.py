@@ -15,8 +15,12 @@ class VR(Rift):
 
     def compute_optical_axis_offsets(self):
         """
-        NDC x offsets placing content on each lens's optical axis:
-        ndc_x = (LeftTan - RightTan) / (LeftTan + RightTan).
+        Computes the Normalized Device Coordinates (NDC) horizontal (x) offset 
+        needed to center content directly in front of each eye's physical lens.
+        
+        Because VR headsets use asymmetric lenses (the screen extends further 
+        to the outside of the eye than the inside), the mathematical center of 
+        the screen (NDC 0,0) does not align with the user's optical axis.
         """
         try:
             import psychxr.drivers.libovr as libovr
