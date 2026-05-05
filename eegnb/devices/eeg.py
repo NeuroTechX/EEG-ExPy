@@ -5,27 +5,26 @@
 
 """
 
+import logging
 import sys
 import time
-import logging
-from time import sleep
 from multiprocessing import Process
+from time import sleep
 
 import numpy as np
 import pandas as pd
-
-from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
-from muselsl import stream, list_muses, record, constants as mlsl_cnsts
-from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
+from brainflow.board_shim import BoardIds, BoardShim, BrainFlowInputParams
+from muselsl import constants as mlsl_cnsts
+from muselsl import list_muses, record, stream
+from pylsl import StreamInfo, StreamInlet, StreamOutlet, resolve_byprop
 
 from eegnb.devices.utils import (
-    get_openbci_usb,
-    create_stim_array,
-    SAMPLE_FREQS,
-    EEG_INDICES,
     EEG_CHANNELS,
+    EEG_INDICES,
+    SAMPLE_FREQS,
+    create_stim_array,
+    get_openbci_usb,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -73,8 +72,8 @@ class EEG:
 
         Parameters:
             device (str): name of eeg device used for reading data.
-        
-            ch_names (array_like or None): array containing custom specified channel names. Useful for custom montagues 
+
+            ch_names (array_like or None): array containing custom specified channel names. Useful for custom montagues
         like when external electrodes are used.
         """
         # determine if board uses brainflow or muselsl backend
@@ -380,7 +379,7 @@ class EEG:
     def _brainflow_get_recent(self, n_samples=256):
 
         # initialize brainflow if not set
-        if self.board == None:
+        if self.board is None:
             self._init_brainflow()
 
         # start branflow stream

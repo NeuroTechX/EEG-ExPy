@@ -1,17 +1,19 @@
-import click
 import os
-
-from eegnb import DATA_DIR
-from eegnb.datasets.datasets import zip_data_folders
-
-from .introprompt import intro_prompt, analysis_intro_prompt
-from .utils import run_experiment
-from eegnb import generate_save_fn
-from eegnb.devices.eeg import EEG
-from eegnb.analysis.utils import check_report
-from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, analysis_report, example_analysis_report
 from typing import Optional
 
+import click
+
+from eegnb import DATA_DIR, generate_save_fn
+from eegnb.analysis.pipelines import (
+    analysis_report,
+    example_analysis_report,
+)
+from eegnb.analysis.utils import check_report
+from eegnb.datasets.datasets import zip_data_folders
+from eegnb.devices.eeg import EEG
+
+from .introprompt import analysis_intro_prompt, intro_prompt
+from .utils import run_experiment
 
 
 @click.group(name="eegnb")
@@ -77,13 +79,13 @@ def runexp(
         elif do_sigqual != 'n':
             "Sorry, didn't recognize answer. "
             askforsigqualcheck()
-    
+
     def askforreportcheck():
-        generatereport = input("\n\nGenerate Report? (Y/n): \n").lower() != "n"
+        input("\n\nGenerate Report? (Y/n): \n").lower() != "n"
 
     if dosigqualcheck:
         askforsigqualcheck()
-    
+
     if generatereport:
         askforreportcheck()
 
@@ -108,7 +110,7 @@ def runexp(
 def create_analysis_report(
     experiment: str,
     eegdevice: Optional[str] = None,
-    subject: Optional[str] = None, 
+    subject: Optional[str] = None,
     session: Optional[str] = None,
     site: Optional[str] = None,
     filepath: Optional[str] = None,
@@ -117,7 +119,7 @@ def create_analysis_report(
     """
     Create analysis report of recorded data
     """
-    
+
     if prompt:
         example = input("Do you want to load an example experiment? (y/n)\n")
         print()
@@ -139,8 +141,8 @@ def checksigqual(eegdevice: str):
         eegnb checksigqual --eegdevice museS
     """
 
-    from eegnb.devices.eeg import EEG
     from eegnb.analysis.utils import check_report
+    from eegnb.devices.eeg import EEG
 
     eeg = EEG(device=eegdevice)
 
@@ -171,7 +173,7 @@ def runzip(experiment: str, site: str, prompt: bool = False):
 
     $ eegnb runzip -ex visual-N170
     $ eegnb runzip -ex visual-N170 -s local-ntcs-2
-    
+
     Launch the interactive command line to select experiment
 
     $ eegnb runzip -ip

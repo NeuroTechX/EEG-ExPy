@@ -2,10 +2,10 @@
 N170 Decoding
 ===============================
 
-This example runs a set of machine learning algorithms on the N170 faces/houses 
-dataset, and compares them in terms of classification performance. 
+This example runs a set of machine learning algorithms on the N170 faces/houses
+dataset, and compares them in terms of classification performance.
 
-The data used is exactly the same as in the N170 `load_and_visualize` example. 
+The data used is exactly the same as in the N170 `load_and_visualize` example.
 
 """
 
@@ -15,30 +15,32 @@ The data used is exactly the same as in the N170 `load_and_visualize` example.
 
 # Some standard pythonic imports
 import warnings
+
 warnings.filterwarnings('ignore')
-import os,numpy as np,pandas as pd
+import os
 from collections import OrderedDict
+
+import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 
 # MNE functions
-from mne import Epochs,find_events
+from mne import Epochs, find_events
 from mne.decoding import Vectorizer
+from pyriemann.classification import MDM
+from pyriemann.estimation import ERPCovariances, XdawnCovariances
+from pyriemann.tangentspace import TangentSpace
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedShuffleSplit, cross_val_score
+
+# Scikit-learn and Pyriemann ML functionalities
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 
 # EEG-Notebooks functions
 from eegnb.analysis.analysis_utils import load_data
 from eegnb.datasets import fetch_dataset
-
-# Scikit-learn and Pyriemann ML functionalities
-from sklearn.pipeline import make_pipeline
-from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-from sklearn.model_selection import cross_val_score, StratifiedShuffleSplit
-from pyriemann.estimation import ERPCovariances, XdawnCovariances
-from pyriemann.tangentspace import TangentSpace
-from pyriemann.classification import MDM
-
 
 ###################################################################################################
 # Load Data
@@ -47,12 +49,12 @@ from pyriemann.classification import MDM
 # ( See the n170 `load_and_visualize` example for further description of this)
 #
 
-eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')    
+eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
 n170_data_path = os.path.join(eegnb_data_path, 'visual-N170', 'eegnb_examples')
 
-# If dataset hasn't been downloaded yet, download it 
+# If dataset hasn't been downloaded yet, download it
 if not os.path.isdir(n170_data_path):
-    fetch_dataset(data_dir=eegnb_data_path, experiment='visual-N170', site='eegnb_examples')        
+    fetch_dataset(data_dir=eegnb_data_path, experiment='visual-N170', site='eegnb_examples')
 
 subject = 1
 session = 1
@@ -77,7 +79,7 @@ events = find_events(raw)
 event_id = {'House': 1, 'Face': 2}
 
 # Create an MNE Epochs object representing all the epochs around stimulus presentation
-epochs = Epochs(raw, events=events, event_id=event_id, 
+epochs = Epochs(raw, events=events, event_id=event_id,
                 tmin=-0.1, tmax=0.8, baseline=None,
                 reject={'eeg': 75e-6}, preload=True,
                 verbose=False, picks=[0,1,2,3])
@@ -103,8 +105,8 @@ X = epochs.get_data() * 1e6
 times = epochs.times
 y = epochs.events[:, -1]
 
-# define cross validation 
-cv = StratifiedShuffleSplit(n_splits=20, test_size=0.25, 
+# define cross validation
+cv = StratifiedShuffleSplit(n_splits=20, test_size=0.25,
                                     random_state=42)
 
 # run cross validation for each pipeline
@@ -113,7 +115,7 @@ methods = []
 for m in clfs:
     print(m)
     try:
-        res = cross_val_score(clfs[m], X, y==2, scoring='roc_auc', 
+        res = cross_val_score(clfs[m], X, y==2, scoring='roc_auc',
                               cv=cv, n_jobs=-1)
         auc.extend(res)
         methods.extend([m]*len(res))
@@ -123,7 +125,7 @@ for m in clfs:
 ###################################################################################################
 # Plot Decoding Results
 # ----------------------------
-    
+
 results = pd.DataFrame(data=auc, columns=['AUC'])
 results['Method'] = methods
 

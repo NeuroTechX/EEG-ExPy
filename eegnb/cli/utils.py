@@ -1,22 +1,19 @@
 
 #change the pref libraty to PTB and set the latency mode to high precision
 from psychopy import prefs
+
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
 
-from eegnb.devices.eeg import EEG
-
-from eegnb.experiments import VisualN170
-from eegnb.experiments import VisualP300
-from eegnb.experiments import VisualSSVEP
-from eegnb.experiments import AuditoryOddball
-from eegnb.experiments.visual_cueing import cueing
-from eegnb.experiments.visual_codeprose import codeprose
-from eegnb.experiments.auditory_oddball import diaconescu
-from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
 from typing import Optional
 
+from eegnb.devices.eeg import EEG
+from eegnb.experiments import AuditoryOddball, VisualN170, VisualP300, VisualSSVEP
+from eegnb.experiments.auditory_oddball import diaconescu
+from eegnb.experiments.auditory_ssaep import ssaep, ssaep_onefreq
+from eegnb.experiments.visual_codeprose import codeprose
+from eegnb.experiments.visual_cueing import cueing
 
 # New Experiment Class structure has a different initilization, to be noted
 experiments = {

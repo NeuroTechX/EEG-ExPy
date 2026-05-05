@@ -1,25 +1,22 @@
 import copy
-from copy import deepcopy
-import math
 import logging
-import sys
-from collections import OrderedDict
-from glob import glob
-from typing import Union, List
-from time import sleep, time
+import math
 import os
+from collections import OrderedDict
+from copy import deepcopy
+from glob import glob
+from time import sleep, time
+from typing import List, Union
 
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import seaborn as sns
-from mne import create_info, concatenate_raws
-from mne.io import RawArray
+from matplotlib import lines as mlines
+from mne import concatenate_raws, create_info
 from mne.channels import make_standard_montage
 from mne.filter import create_filter
-from matplotlib import pyplot as plt
-from matplotlib import lines as mlines
-from scipy import stats
+from mne.io import RawArray
 from scipy.signal import lfilter, lfilter_zi
 
 from eegnb import _get_recording_dir
@@ -34,8 +31,8 @@ sns.set_style("white")
 logger = logging.getLogger(__name__)
 
 
-# Empirically determined lower and upper bounds of 
-# acceptable temporal standard deviations 
+# Empirically determined lower and upper bounds of
+# acceptable temporal standard deviations
 # for different EEG devices tested by us
 openbci_devices = ['ganglion', 'ganglion_wifi', 'cyton', 'cyton_wifi', 'cyton_daisy_wifi']
 muse_devices = ['muse' + model + sfx for model in ['2016', '2', 'S'] for sfx in ['', '_bfn', '_bfb']]
@@ -43,7 +40,7 @@ neurosity_devices = ['notion1', 'notion2', 'crown']
 gtec_devices = ['unicorn']
 alltesteddevices = openbci_devices + muse_devices + neurosity_devices + gtec_devices
 thres_stds = {}
-for device in alltesteddevices: 
+for device in alltesteddevices:
     if device in openbci_devices: thres_stds[device] = [1,9]
     elif device in muse_devices: thres_stds[device] = [1,18]
     elif device in neurosity_devices: thres_stds[device] = [1,15]
@@ -118,7 +115,7 @@ def load_csv_as_raw(
         # create MNE object
         info = create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq, verbose=1)
         raw.append(RawArray(data=data, info=info, verbose=verbose))
-    
+
     raws = concatenate_raws(raw, verbose=verbose)
     montage = make_standard_montage("standard_1005")
     raws.set_montage(montage,on_missing=resp_on_missing)
@@ -259,11 +256,11 @@ def plot_conditions(
     if palette is None:
         palette = sns.color_palette("hls", len(conditions) + 1)
 
-    dfX = epochs.to_data_frame() 
+    dfX = epochs.to_data_frame()
     dfX[channel_names] *= 1e6
 
     times = epochs.times
-    y = pd.Series(epochs.events[:, -1])
+    pd.Series(epochs.events[:, -1])
 
     midaxis = math.ceil(channel_count / 2)
     fig, axes = plt.subplots(2, midaxis, figsize=[12, 6], sharex=True, sharey=False)
@@ -308,11 +305,11 @@ def plot_conditions(
         lh = mlines.Line2D([], [], color=color, marker='', ls='-', label=cond_name)
         legs.append(lh)
     if diff_waveform:
-        lh = mlines.Line2D([], [], color="k", marker='', ls='-', 
+        lh = mlines.Line2D([], [], color="k", marker='', ls='-',
                           label = "{} - {}".format(diff_waveform[1], diff_waveform[0]))
         legs.append(lh)
 
-    axes[-1].legend(handles=legs,  
+    axes[-1].legend(handles=legs,
                     bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0)
     sns.despine()
     plt.tight_layout()
@@ -402,7 +399,7 @@ def channel_filter(
             X = X / 1000 # adjust scale of readings
     else:
         raise ValueError(f"Unknown backend {device_backend}")
-    
+
     window = 10
     n_samples = int(sfreq * window)
     data_f = np.zeros((n_samples, n_chans))
@@ -430,11 +427,11 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
     """
 
     df = eeg.get_recent(n_samples=n_samples)
-    
+
     # seems to be necessary to give brainflow cnxn time to settle
-    if len(df) != n_samples: 
-      sleep(10) 
-      df = eeg.get_recent(n_samples=n_samples) 
+    if len(df) != n_samples:
+      sleep(10)
+      df = eeg.get_recent(n_samples=n_samples)
 
     assert len(df) == n_samples
 
@@ -444,14 +441,14 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
     device_name = eeg.device_name
 
     vals = df.values[:, :n_channels]
-    df.values[:, :n_channels] = channel_filter(vals, 
+    df.values[:, :n_channels] = channel_filter(vals,
                                     n_channels,
                                     sfreq,
                                     device_backend,
                                     device_name)
 
     std_series = df.std(axis=0)
-    
+
     return std_series
 
 
@@ -483,13 +480,13 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     if thres_std_high is None:
         if edn in thres_stds.keys():
             thres_std_high = thres_stds[edn][1]
-            
+
     print("\n\nRunning signal quality check...")
     print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
 
     CHECKMARK = "√"
     CROSS = "x"
-        
+
     print(f"running check (up to) {n_times} times, with {pause_time}-second windows")
     print(f"will stop after {n_goods} good check results in a row")
 
@@ -529,20 +526,20 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
             prompt_time = time()
-            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")    
-            while time() < prompt_time + 5:  
-                if keyboard.is_pressed('c'): 
+            print("Starting next cycle in 5 seconds, press C and enter to cancel")
+            while time() < prompt_time + 5:
+                if keyboard.is_pressed('c'):
                     print("\nStopping signal quality checks!")
                     flag = True
-                    break  
-        if flag: 
-            break  
-            
+                    break
+        if flag:
+            break
+
 def fix_musemissinglines(orig_f,new_f=''):
 
     #if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
 
-    # Overwriting 
+    # Overwriting
     new_f = orig_f
 
     print('writing fixed file to %s' %new_f)
@@ -552,7 +549,7 @@ def fix_musemissinglines(orig_f,new_f=''):
     F = open(orig_f, 'r')
     Ls = F.readlines()
     newLs = ['' for _ in Ls]
-    
+
 
     # Correct first line
 
@@ -581,4 +578,4 @@ def fix_musemissinglines(orig_f,new_f=''):
     newF = open(new_f, 'w+')
     newF.writelines(newLs)
     newF.close()
-                            
+

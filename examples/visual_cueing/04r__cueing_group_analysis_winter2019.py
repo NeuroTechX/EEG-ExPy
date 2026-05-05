@@ -9,16 +9,19 @@ Cueing Group Analysis Winter 2019
 # -----------------------------
 
 # Standard Pythonic imports
-import os,sys,glob,numpy as np, pandas as pd
-import scipy
-from collections import OrderedDict
+import os
 import warnings
+
+import numpy as np
+import pandas as pd
+import scipy
+
 warnings.filterwarnings('ignore')
-from matplotlib import pyplot as plt
 import matplotlib.patches as patches
+from matplotlib import pyplot as plt
 
 # MNE functions
-from mne import Epochs, find_events, concatenate_raws
+from mne import Epochs, find_events
 from mne.time_frequency import tfr_morlet
 
 # EEG-Noteooks functions
@@ -45,22 +48,22 @@ if not os.path.isdir(cueing_data_path):
 #
 # Fall 2018
 # subs = [101, 102, 103, 104, 105, 106, 108, 109, 110, 111, 112,
-#         202, 203, 204, 205, 207, 208, 209, 210, 211, 
+#         202, 203, 204, 205, 207, 208, 209, 210, 211,
 #         301, 302, 303, 304, 305, 306, 307, 308, 309]
 #
 # Winter 2019
 subs = [1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,
         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,
-        1301, 1302, 1313, 
+        1301, 1302, 1313,
         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]
 #
 # Both
 # subs = [101, 102, 103, 104, 105, 106, 108, 109, 110, 111, 112,
-#         202, 203, 204, 205, 207, 208, 209, 210, 211, 
+#         202, 203, 204, 205, 207, 208, 209, 210, 211,
 #         301, 302, 303, 304, 305, 306, 307, 308, 309,
 #         1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,
 #         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,
-#         1301, 1302, 1313, 
+#         1301, 1302, 1313,
 #         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]
 #
 #
@@ -82,23 +85,23 @@ wave_cycles = 6
 f_low = 7 # Hz
 f_high = 10
 f_diff = f_high-f_low
- 
+
 t_low = 0 # s
 t_high = 1
 t_diff = t_high-t_low
 
 bad_subs= [6, 7, 13, 26]
 really_bad_subs = [11, 12, 19]
-sub_count = 0    
-    
-    
-    
+sub_count = 0
+
+
+
 for sub in subs:
     print(sub)
-    
+
     sub_count += 1
 
-    
+
     if (sub_count in really_bad_subs):
         rej_thresh_uV = 90
     elif (sub_count in bad_subs):
@@ -107,18 +110,18 @@ for sub in subs:
         rej_thresh_uV = 90
 
     rej_thresh = rej_thresh_uV*1e-6
-    
-    
+
+
     # Load both sessions
     raw = load_data(sub,1, # subject, session
                     experiment='visual-cueing',site='kylemathlab_dev',device_name='muse2016',
                     data_dir = eegnb_data_path)
-                
+
     raw.append(
           load_data(sub,2, # subject, session
                     experiment='visual-cueing', site='kylemathlab_dev', device_name='muse2016',
                     data_dir = eegnb_data_path))
-    
+
 
     # Filter Raw Data
     raw.filter(1,30, method='iir')
@@ -126,54 +129,54 @@ for sub in subs:
     #Select Events
     events = find_events(raw)
     event_id = {'LeftCue': 1, 'RightCue': 2}
-    epochs = Epochs(raw, events=events, event_id=event_id, 
-                    tmin=-1, tmax=2, baseline=(-1, 0), 
+    epochs = Epochs(raw, events=events, event_id=event_id,
+                    tmin=-1, tmax=2, baseline=(-1, 0),
                     reject={'eeg':rej_thresh}, preload=True,
                     verbose=False, picks=[0, 3])
     print('Trials Remaining: ' + str(len(epochs.events)) + '.')
 
     # Compute morlet wavelet
     # Left Cue
-    tfr, itc = tfr_morlet(epochs['LeftCue'], freqs=frequencies, 
+    tfr, itc = tfr_morlet(epochs['LeftCue'], freqs=frequencies,
                           n_cycles=wave_cycles, return_itc=True)
     tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     power_Ipsi_TP9 = tfr.data[0,:,:]
     power_Contra_TP10 = tfr.data[1,:,:]
 
     # Right Cue
-    tfr, itc = tfr_morlet(epochs['RightCue'], freqs=frequencies, 
+    tfr, itc = tfr_morlet(epochs['RightCue'], freqs=frequencies,
                           n_cycles=wave_cycles, return_itc=True)
     tfr = tfr.apply_baseline((-1,-.5),mode='mean')
     power_Contra_TP9 = tfr.data[0,:,:]
     power_Ipsi_TP10 = tfr.data[1,:,:]
 
     # Compute averages Differences
-    power_Avg_Ipsi =   (power_Ipsi_TP9+power_Ipsi_TP10)/2;
-    power_Avg_Contra = (power_Contra_TP9+power_Contra_TP10)/2;
-    power_Avg_Diff = power_Avg_Ipsi-power_Avg_Contra;
-    
+    power_Avg_Ipsi =   (power_Ipsi_TP9+power_Ipsi_TP10)/2
+    power_Avg_Contra = (power_Contra_TP9+power_Contra_TP10)/2
+    power_Avg_Diff = power_Avg_Ipsi-power_Avg_Contra
+
     #output data into array
     times = epochs.times
     Ipsi_out.append(np.mean(power_Avg_Ipsi[np.argmax(frequencies>f_low):
                                            np.argmax(frequencies>f_high)-1,
                             np.argmax(times>t_low):np.argmax(times>t_high)-1 ]
                            )
-                   )            
+                   )
     Ipsi_spectra_out.append(np.mean(power_Avg_Ipsi[:,np.argmax(times>t_low):
                                                    np.argmax(times>t_high)-1 ],1
                                    )
                            )
-        
+
     Contra_out.append(np.mean(power_Avg_Contra[np.argmax(frequencies>f_low):
                                                np.argmax(frequencies>f_high)-1,
                             np.argmax(times>t_low):np.argmax(times>t_high)-1 ]
                              )
                      )
-    
+
     Contra_spectra_out.append(np.mean(power_Avg_Contra[:,np.argmax(times>t_low):
                                                        np.argmax(times>t_high)-1 ],1))
-    
-    
+
+
     diff_out.append(np.mean(power_Avg_Diff[np.argmax(frequencies>f_low):
                                            np.argmax(frequencies>f_high)-1,
                             np.argmax(times>t_low):np.argmax(times>t_high)-1 ]
@@ -183,13 +186,13 @@ for sub in subs:
                                                    np.argmax(times>t_high)-1 ],1
                                    )
                            )
-    
+
     #save the spectrograms to average over after
     ERSP_diff_out.append(power_Avg_Diff)
     ERSP_Ipsi_out.append(power_Avg_Ipsi)
     ERSP_Contra_out.append(power_Avg_Contra)
-    
-    
+
+
 ###################################################################################################
 # Combine subjects
 # ----------------------------
@@ -205,7 +208,7 @@ GrandAvg_spec_Contra = np.nanmean(Contra_spectra_out,0)
 GrandAvg_spec_diff = np.nanmean(diff_spectra_out,0)
 
 #error bars for spectra (standard error)
-num_good = len(diff_out) - sum(np.isnan(diff_out))   
+num_good = len(diff_out) - sum(np.isnan(diff_out))
 GrandAvg_spec_Ipsi_ste = np.nanstd(Ipsi_spectra_out,0)/np.sqrt(num_good)
 GrandAvg_spec_Contra_ste = np.nanstd(Contra_spectra_out,0)/np.sqrt(num_good)
 GrandAvg_spec_diff_ste = np.nanstd(diff_spectra_out,0)/np.sqrt(num_good)
@@ -218,7 +221,7 @@ plt.errorbar(frequencies,GrandAvg_spec_Ipsi,yerr=GrandAvg_spec_Ipsi_ste)
 plt.errorbar(frequencies,GrandAvg_spec_Contra,yerr=GrandAvg_spec_Contra_ste)
 plt.legend(('Ipsi','Contra'))
 plt.xlabel('Frequency (Hz)')
-plt.ylabel('Power (uV^2)')   
+plt.ylabel('Power (uV^2)')
 plt.hlines(0,3,33)
 
 ###################################################################################################
@@ -228,13 +231,13 @@ fig, ax = plt.subplots(1)
 plt.errorbar(frequencies,GrandAvg_spec_diff,yerr=GrandAvg_spec_diff_ste)
 plt.legend('Ipsi-Contra')
 plt.xlabel('Frequency (Hz)')
-plt.ylabel('Power (uV^2)')   
+plt.ylabel('Power (uV^2)')
 plt.hlines(0,3,33)
 
 ###################################################################################################
 #
 # Grand Average Ipsi
-plot_max = np.max([np.max(np.abs(GrandAvg_Ipsi)), np.max(np.abs(GrandAvg_Contra))])  
+plot_max = np.max([np.max(np.abs(GrandAvg_Ipsi)), np.max(np.abs(GrandAvg_Contra))])
 fig, ax = plt.subplots(1)
 im = plt.imshow(GrandAvg_Ipsi,
            extent=[times[0], times[-1], frequencies[0], frequencies[-1]],
@@ -293,9 +296,9 @@ ax.add_patch(rect)
 num_good = len(diff_out) - sum(np.isnan(diff_out))
 
 [tstat, pval] = scipy.stats.ttest_ind(diff_out,np.zeros(len(diff_out)),nan_policy='omit')
-print('Ipsi Mean: '+  str(np.nanmean(Ipsi_out))) 
-print('Contra Mean: '+  str(np.nanmean(Contra_out))) 
-print('Mean Diff: '+  str(np.nanmean(diff_out))) 
+print('Ipsi Mean: '+  str(np.nanmean(Ipsi_out)))
+print('Contra Mean: '+  str(np.nanmean(Contra_out)))
+print('Mean Diff: '+  str(np.nanmean(diff_out)))
 print('t(' + str(num_good-1) + ') = ' + str(round(tstat,3)))
 print('p = ' + str(round(pval,3)))
 
@@ -304,7 +307,7 @@ print('p = ' + str(round(pval,3)))
 # ----------------------------
 
 print(diff_out)
-raw_data = {'Ipsi Power': Ipsi_out, 
+raw_data = {'Ipsi Power': Ipsi_out,
         'Contra Power': Contra_out}
 df = pd.DataFrame(raw_data, columns = ['Ipsi Power', 'Contra Power'])
 print(df)

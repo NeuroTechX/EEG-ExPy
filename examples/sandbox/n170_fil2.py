@@ -6,14 +6,12 @@ Face vs. house paradigm stimulus presentation for evoking present.
 
 """
 
-from time import time
 from optparse import OptionParser
-from glob import glob
-from random import choice
+from time import time
 
 import numpy as np
-from pandas import DataFrame,read_csv
-from psychopy import visual, core, event
+from pandas import read_csv
+from psychopy import core, event, visual
 from pylsl import StreamInfo, StreamOutlet
 
 
@@ -39,11 +37,11 @@ def present(duration=120):
     #trials = DataFrame(dict(image_type=image_type,
     #                        timestamp=np.zeros(n_trials)))
 
-    
+
     fil_ims = read_csv('n170_fil_imslist.csv')
-    n_trials = fil_ims.shape[0]
-    
-    
+    fil_ims.shape[0]
+
+
     # Setup graphics
 
     def load_image(filename):
@@ -51,35 +49,35 @@ def present(duration=120):
 
     mywin = visual.Window([1600, 900], monitor='testMonitor', units='deg', winType='pygame',
                           fullscr=True)
-    
+
     #faces = list(map(load_image, glob(
     #    'stimulus_presentation/stim/face_house/faces/*_3.jpg')))
     #houses = list(map(load_image, glob(
     #    'stimulus_presentation/stim/face_house/houses/*.3.jpg')))
-    
+
 
     #for ii, trial in trials.iterrows():
     for ii,trial in fil_ims.iterrows():
 
         trialnum,filename,facehouse,girlboy = trial.values
-        
+
         # Intertrial interval
         core.wait(iti + np.random.rand() * jitter)
-    
+
         # Select and display image
         #label = trials['image_type'].iloc[ii]
         #image = choice(faces if label == 1 else houses)
         image = load_image(filename)
-        
+
         image.draw()
-     
+
         # Send marker
         timestamp = time()
         #outlet.push_sample([markernames[label]], timestamp)
         outlet.push_sample([trialnum,facehouse+1,girlboy+1], timestamp)
-        
+
         mywin.flip()
-    
+
         # offset
         core.wait(soa)
         mywin.flip()

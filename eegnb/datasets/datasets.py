@@ -1,14 +1,13 @@
-import os
 import glob
+import os
 import shutil
 import zipfile
-
-import requests
-import gdown
-
 from datetime import datetime
-from eegnb import DATA_DIR
 
+import gdown
+import requests
+
+from eegnb import DATA_DIR
 
 # eegnb example data sites. do not select these when zipping recordings
 eegnb_sites = ["eegnb_examples", "grifflab_dev", "jadinlab_home"]
@@ -189,7 +188,7 @@ def zip_data_folders(experiment: str, site: str = "local"):
     print('\nRunning Data Zipper')
     zip_directory=os.path.join(DATA_DIR,experiment,site)
     print('Looking for {} within {} \n'.format(experiment+'/'+site,DATA_DIR))
-    
+
     if not os.path.isdir(zip_directory):
         print('Invalid Directory')
         raise ValueError ('{} directory does not exist'.format(zip_directory))

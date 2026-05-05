@@ -1,3 +1,141 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "eeg-expy"
+version = "0.2.0"
+description = "Python library for EEG cognitive neuroscience experiments"
+readme = "README.rst"
+requires-python = ">=3.9, <3.12"
+license = { text = "BSD-3-Clause" }
+authors = [
+    { name = "John David Griffiths", email = "j.davidgriffiths@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "scikit-learn>=0.23.2",
+    "pandas>=1.1.4",
+    "numpy>=1.19.4,<1.24",
+    "mne>=0.20.8",
+    "seaborn>=0.11.0",
+    "pyriemann>=0.2.7",
+    "jupyter",
+    "gdown>=4.5.1",
+    "matplotlib>=3.3.3",
+    "pysocks>=1.7.1",
+    "pyserial>=3.5",
+    "h5py>=3.1.0",
+    "pytest-shutil",
+    "pyo>=1.0.3; platform_system == 'Linux'",
+    "pyobjc>=8.5, <9.0; sys_platform == 'darwin'",
+    "airium>=0.1.0",
+    "attrdict>=2.0.1",
+    "attrdict3",
+]
+
+[project.optional-dependencies]
+streaming = [
+    "muselsl>=2.0.2",
+    "pylsl==1.16.2",
+    "brainflow>=4.8.2",
+    "pynput",
+    "click",
+]
+stimpres = [
+    "psychopy>=2023.2.2",
+    "psychopy-sounddevice",
+    "psychtoolbox",
+    "wxPython>=4.0 ; platform_system == 'Linux'",
+    "psychxr>=0.2.4rc2; platform_system == 'Windows'",
+]
+docsbuild = [
+    "recommonmark",
+    "numpydoc",
+    "sphinx",
+    "sphinx-gallery",
+    "sphinx_rtd_theme",
+    "sphinx-tabs",
+    "sphinx-copybutton",
+    "sphinxcontrib-httpdomain",
+    "versioneer",
+    "rst2pdf",
+    "docutils",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+    "nbval",
+    "mypy",
+    "types-requests",
+]
+# Combined extras
+streamstim = [
+    "eeg-expy[streaming,stimpres]",
+]
+full = [
+    "eeg-expy[streaming,stimpres,docsbuild,test]",
+]
+
+[project.scripts]
+eegnb = "eegnb.cli.__main__:main"
+eegexpy = "eegnb.cli.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["eegnb", "eegexpy"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.uv]
+prerelease = "allow"
+environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
+]
+
+[tool.uv.extra-build-dependencies]
+pyobjc-framework-coremedia = ["setuptools"]
+pyobjc-framework-applicationservices = ["setuptools"]
+pyobjc-framework-quartz = ["setuptools"]
+pyobjc-framework-cocoa = ["setuptools"]
+pyobjc-framework-coredata = ["setuptools"]
+pyobjc-framework-foundation = ["setuptools"]
+pyobjc-framework-cfnetwork = ["setuptools"]
+pyobjc-framework-corebluetooth = ["setuptools"]
+pyobjc-framework-coreservices = ["setuptools"]
+pyobjc-framework-ituneslibrary = ["setuptools"]
+pyobjc-framework-libdispatch = ["setuptools"]
+pyobjc-framework-security = ["setuptools"]
+pyobjc-framework-colorsync = ["setuptools"]
+pyobjc-framework-coreaudio = ["setuptools"]
+pyobjc-framework-corelocation = ["setuptools"]
+pyobjc-framework-corevideo = ["setuptools"]
+pyobjc-framework-dictionaryservices = ["setuptools"]
+pyobjc-framework-fsevents = ["setuptools"]
+pyobjc-framework-inputmethodkit = ["setuptools"]
+pyobjc-framework-imagecapturecore = ["setuptools"]
+pyobjc-framework-launchservices = ["setuptools"]
+pyobjc-framework-multimedia = ["setuptools"]
+pyobjc-framework-netfs = ["setuptools"]
+pyobjc-framework-networkextension = ["setuptools"]
+pyobjc-framework-openid = ["setuptools"]
+pyobjc-framework-osakits = ["setuptools"]
+pyobjc-framework-pubsub = ["setuptools"]
+pyobjc-framework-scenekit = ["setuptools"]
+pyobjc-framework-searchkit = ["setuptools"]
+pyobjc-framework-service-management = ["setuptools"]
+pyobjc-framework-social = ["setuptools"]
+pyobjc-framework-syncservices = ["setuptools"]
+pyobjc-framework-systemconfiguration = ["setuptools"]
+pyobjc-framework-webkit = ["setuptools"]
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = """
@@ -13,6 +151,16 @@ addopts = """
 testpaths = [
     "eegnb",
     "tests",
-    #"examples",
 ]
 python_files = ["*.py", "*.ipynb"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "N"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["eegnb", "eegexpy"]

@@ -5,19 +5,19 @@ from optparse import OptionParser
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event, sound
+from psychopy import event, sound, visual
 from pylsl import StreamInfo, StreamOutlet
 
 
 def present(duration=120,stim_types=None,itis=None,secs=0.07,volume=0.8):
-            
-    #def present(duration=120, n_trials=10, iti=0.3, soa=0.2, jitter=0.2, 
+
+    #def present(duration=120, n_trials=10, iti=0.3, soa=0.2, jitter=0.2,
     #            secs=0.2, volume=0.8, random_state=None):
-    
+
 
     # Create markers stream outlet
     info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
-    outlet = StreamOutlet(info)    
+    outlet = StreamOutlet(info)
 
     #np.random.seed(random_state)
     markernames = [1, 2]
@@ -30,8 +30,8 @@ def present(duration=120,stim_types=None,itis=None,secs=0.07,volume=0.8):
     #aud1 = sound.Sound('C', octave=5, sampleRate=44100, secs=secs)
     aud1 = sound.Sound(440,secs=secs)#, octave=5, sampleRate=44100, secs=secs)
     aud1.setVolume(volume)
-    
-    
+
+
     aud1.setVolume(volume)
     #aud2 = sound.Sound('D', octave=6, sampleRate=44100, secs=secs)
     aud2 = sound.Sound(528,secs=secs)
@@ -53,22 +53,22 @@ def present(duration=120,stim_types=None,itis=None,secs=0.07,volume=0.8):
                                   rgb=[1, 0, 0])
     fixation.setAutoDraw(True)
     mywin.flip()
-    
-    
+
+
     for ii, trial in trials.iterrows():
-        
+
         # Intertrial interval
         time.sleep(trial['iti'])
 
         # Select and play sound
         ind = int(trial['sound_ind'])
-        auds[ind].stop()        
+        auds[ind].stop()
         auds[ind].play()
 
         # Send marker
         timestamp = time.time()
         outlet.push_sample([markernames[ind]], timestamp)
-        
+
         # Offset
         #time.sleep(soa)
         #if (time.time() - start) > record_duration:
@@ -76,19 +76,19 @@ def present(duration=120,stim_types=None,itis=None,secs=0.07,volume=0.8):
 
         # offset
         #core.wait(soa)
-        
+
         if len(event.getKeys()) > 0 or (time.time() - start) > record_duration:
             break
         event.clearEvents()
-        
+
         #if len(event.getKeys()) > 0 or (time() - start) > record_duration:
         #    break
         #event.clearEvents()
-        
+
     # Cleanup
     mywin.close()
-        
-        
+
+
     return trials
 
 
@@ -99,7 +99,7 @@ def main():
         '-d', '--duration', dest='duration', type='int', default=10,
         help='duration of the recording in seconds.')
     parser.add_option(
-        '-n', '--n_trials', dest='n_trials', type='int', 
+        '-n', '--n_trials', dest='n_trials', type='int',
         default=10, help='number of trials.')
     parser.add_option(
         '-i', '--iti', dest='iti', type='float', default=0.3,
@@ -117,15 +117,15 @@ def main():
         '-v', '--volume', dest='volume', type='float', default=0.8,
         help='volume of the sounds in [0, 1].')
     parser.add_option(
-        '-r', '--randomstate', dest='random_state', type='int', 
+        '-r', '--randomstate', dest='random_state', type='int',
         default=42, help='random seed')
 
     (options, args) = parser.parse_args()
     trials_df = present(
-        duration=options.duration, n_trials=options.duration, 
+        duration=options.duration, n_trials=options.duration,
         iti=options.iti, soa=options.soa, jitter=options.jitter,
-        secs=options.secs, volume=options.volume, 
-        random_state=options.random_state) 
+        secs=options.secs, volume=options.volume,
+        random_state=options.random_state)
 
     print(trials_df)
 

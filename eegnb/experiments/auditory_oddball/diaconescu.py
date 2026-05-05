@@ -1,9 +1,10 @@
 import os
 
-import numpy as np
 import h5py
+import numpy as np
 
 import eegnb
+
 from . import aMMN
 
 __title__ = "Auditory oddball (diaconescu)"
@@ -51,7 +52,7 @@ def present(duration: int, eeg, save_fn: str):
     inputs = np.squeeze(F["museEEG"]["design"]["inputs"][:]).astype(int)
 
     # based on inputs, creating oddball paradigms markers depending on "switch"
-    tonenums = maketonesnums(1800)
+    maketonesnums(1800)
     oddball3 = makeoddball(inputs, 3)
     oddball4 = makeoddball(inputs, 4)
     oddball5 = makeoddball(inputs, 5)

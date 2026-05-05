@@ -5,17 +5,17 @@ from optparse import OptionParser
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event, sound
+from psychopy import core, event, sound
 from pylsl import StreamInfo, StreamOutlet
 
 
-def present(duration=120, n_trials=10, iti=0.3, soa=0.2, jitter=0.2, 
+def present(duration=120, n_trials=10, iti=0.3, soa=0.2, jitter=0.2,
             secs=0.2, volume=0.8, random_state=None):
-    
+
 
     # Create markers stream outlet
     info = StreamInfo('Markers', 'Markers', 1, 0, 'int32', 'myuidw43536')
-    outlet = StreamOutlet(info)    
+    outlet = StreamOutlet(info)
 
     np.random.seed(random_state)
     markernames = [1, 2]
@@ -39,19 +39,19 @@ def present(duration=120, n_trials=10, iti=0.3, soa=0.2, jitter=0.2,
     trials['secs'] = secs
 
     for ii, trial in trials.iterrows():
-        
+
         # Intertrial interval
         time.sleep(trial['iti'])
 
         # Select and play sound
         ind = int(trial['sound_ind'])
-        auds[ind].stop()        
+        auds[ind].stop()
         auds[ind].play()
 
         # Send marker
         timestamp = time.time()
         outlet.push_sample([markernames[ind]], timestamp)
-        
+
         # Offset
         #time.sleep(soa)
         #if (time.time() - start) > record_duration:
@@ -62,13 +62,13 @@ def present(duration=120, n_trials=10, iti=0.3, soa=0.2, jitter=0.2,
         if len(event.getKeys()) > 0 or (time.time() - start) > record_duration:
             break
         event.clearEvents()
-        
+
         #if len(event.getKeys()) > 0 or (time() - start) > record_duration:
         #    break
         #event.clearEvents()
-        
-        
-        
+
+
+
     return trials
 
 
@@ -79,7 +79,7 @@ def main():
         '-d', '--duration', dest='duration', type='int', default=10,
         help='duration of the recording in seconds.')
     parser.add_option(
-        '-n', '--n_trials', dest='n_trials', type='int', 
+        '-n', '--n_trials', dest='n_trials', type='int',
         default=10, help='number of trials.')
     parser.add_option(
         '-i', '--iti', dest='iti', type='float', default=0.3,
@@ -97,15 +97,15 @@ def main():
         '-v', '--volume', dest='volume', type='float', default=0.8,
         help='volume of the sounds in [0, 1].')
     parser.add_option(
-        '-r', '--randomstate', dest='random_state', type='int', 
+        '-r', '--randomstate', dest='random_state', type='int',
         default=42, help='random seed')
 
     (options, args) = parser.parse_args()
     trials_df = present(
-        duration=options.duration, n_trials=options.duration, 
+        duration=options.duration, n_trials=options.duration,
         iti=options.iti, soa=options.soa, jitter=options.jitter,
-        secs=options.secs, volume=options.volume, 
-        random_state=options.random_state) 
+        secs=options.secs, volume=options.volume,
+        random_state=options.random_state)
 
     print(trials_df)
 

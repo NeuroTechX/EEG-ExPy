@@ -6,15 +6,15 @@ Face vs. house paradigm stimulus presentation for evoking present.
 
 """
 
-from time import time
-from optparse import OptionParser
 import os
 from glob import glob
+from optparse import OptionParser
 from random import choice
+from time import time
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event
+from psychopy import core, event, visual
 from pylsl import StreamInfo, StreamOutlet
 
 from eegnb import stimuli

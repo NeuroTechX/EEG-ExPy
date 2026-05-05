@@ -1,7 +1,10 @@
 print('Downloading 3 scikit-learn datasets')
 import warnings
+
 warnings.filterwarnings('ignore')
-import numpy as np, os
+import os
+
+import numpy as np
 from matplotlib import pyplot as plt
 from sklearn import datasets
 

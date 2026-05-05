@@ -8,17 +8,18 @@ An experiment to see if one can distinguish between reading code vs prose using 
 """
 
 # TODO: Switch to using time_ns when Python 3.7 is the minimum version for eegnb
-from time import time, strftime, gmtime
-from typing import Optional, List
-from pathlib import Path
 from dataclasses import dataclass, field
-from ...devices.eeg import EEG
+from pathlib import Path
+from time import gmtime, strftime, time
+from typing import List, Optional
 
 import pandas as pd
 import sklearn
-from psychopy import visual, core, event
+from psychopy import core, event, visual
 
 from eegnb import get_recording_dir
+
+from ...devices.eeg import EEG
 
 
 @dataclass

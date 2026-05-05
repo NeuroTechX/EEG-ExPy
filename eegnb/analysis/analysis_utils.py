@@ -1,30 +1,24 @@
 import copy
-from copy import deepcopy
-import math
 import logging
-import sys
-from collections import OrderedDict
-from glob import glob
-from typing import Union, List
-from time import sleep, time
+import math
 import os
+from collections import OrderedDict
+from copy import deepcopy
+from glob import glob
+from typing import List, Union
 
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import seaborn as sns
-from mne import create_info, concatenate_raws
-from mne.io import RawArray
+from mne import concatenate_raws, create_info
 from mne.channels import make_standard_montage
-from mne.filter import create_filter
-from matplotlib import pyplot as plt
-from scipy import stats
-from scipy.signal import lfilter, lfilter_zi
+from mne.io import RawArray
 
 from eegnb import _get_recording_dir
+
 #from eegnb.devices.eeg import EEG
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
-
 
 # this should probably not be done here
 sns.set_context("talk")
@@ -34,8 +28,8 @@ sns.set_style("white")
 logger = logging.getLogger(__name__)
 
 
-# Empirically determined lower and upper bounds of 
-# acceptable temporal standard deviations 
+# Empirically determined lower and upper bounds of
+# acceptable temporal standard deviations
 # for different EEG devices tested by us
 openbci_devices = ['ganglion', 'ganglion_wifi', 'cyton', 'cyton_wifi', 'cyton_daisy_wifi']
 muse_devices = ['muse' + model + sfx for model in ['2016', '2', 'S'] for sfx in ['', '_bfn', '_bfb']]
@@ -43,7 +37,7 @@ neurosity_devices = ['notion1', 'notion2', 'crown']
 gtec_devices = ['unicorn']
 alltesteddevices = openbci_devices + muse_devices + neurosity_devices + gtec_devices
 thres_stds = {}
-for device in alltesteddevices: 
+for device in alltesteddevices:
     if device in openbci_devices: thres_stds[device] = [1,9]
     elif device in muse_devices: thres_stds[device] = [1,18]
     elif device in neurosity_devices: thres_stds[device] = [1,15]
@@ -118,7 +112,7 @@ def load_csv_as_raw(
         # create MNE object
         info = create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq, verbose=1)
         raw.append(RawArray(data=data, info=info, verbose=verbose))
-    
+
     raws = concatenate_raws(raw, verbose=verbose)
     montage = make_standard_montage("standard_1005")
     raws.set_montage(montage,on_missing=resp_on_missing)
@@ -380,7 +374,7 @@ def fix_musemissinglines(orig_f,new_f=''):
 
     #if new_f == '': new_f = orig_f.replace('.csv', '_fml.csv')
 
-    # Overwriting 
+    # Overwriting
     new_f = orig_f
 
     print('writing fixed file to %s' %new_f)
@@ -390,7 +384,7 @@ def fix_musemissinglines(orig_f,new_f=''):
     F = open(orig_f, 'r')
     Ls = F.readlines()
     newLs = ['' for _ in Ls]
-    
+
 
     # Correct first line
 
@@ -419,4 +413,4 @@ def fix_musemissinglines(orig_f,new_f=''):
     newF = open(new_f, 'w+')
     newF.writelines(newLs)
     newF.close()
-                            
+

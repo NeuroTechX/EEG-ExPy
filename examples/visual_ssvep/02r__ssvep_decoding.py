@@ -16,30 +16,31 @@ All of the additional notes are removed; only the code cells are kept.
 
 # Some standard pythonic imports
 import warnings
+
 warnings.filterwarnings('ignore')
-import os,numpy as np,pandas as pd
+import os
 from collections import OrderedDict
+
+import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 
 # MNE functions
-from mne import Epochs,find_events
-from mne.decoding import Vectorizer
+from mne import Epochs, find_events
+from pyriemann.classification import MDM
+from pyriemann.estimation import Covariances
+from pyriemann.spatialfilters import CSP
+from pyriemann.tangentspace import TangentSpace
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedShuffleSplit, cross_val_score
+
+# Scikit-learn and Pyriemann ML functionalities
+from sklearn.pipeline import make_pipeline
 
 # EEG-Notebooks functions
 from eegnb.analysis.analysis_utils import load_data
 from eegnb.datasets import fetch_dataset
-
-# Scikit-learn and Pyriemann ML functionalities
-from sklearn.pipeline import make_pipeline
-from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-from sklearn.model_selection import cross_val_score, StratifiedShuffleSplit
-from pyriemann.estimation import Covariances, ERPCovariances, XdawnCovariances
-from pyriemann.spatialfilters import CSP
-from pyriemann.tangentspace import TangentSpace
-from pyriemann.classification import MDM
 
 ###################################################################################################
 # Load Data
@@ -48,16 +49,16 @@ from pyriemann.classification import MDM
 # ( See the ssvep `load_and_visualize` example for further description of this)
 #
 
-eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')    
+eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
 ssvep_data_path = os.path.join(eegnb_data_path, 'visual-SSVEP', 'eegnb_examples')
 
-# If dataset hasn't been downloaded yet, download it 
+# If dataset hasn't been downloaded yet, download it
 if not os.path.isdir(ssvep_data_path):
-    fetch_dataset(data_dir=eegnb_data_path, experiment='visual-SSVEP', site='eegnb_examples')        
+    fetch_dataset(data_dir=eegnb_data_path, experiment='visual-SSVEP', site='eegnb_examples')
 
 subject = 1
 session = 1
-raw = load_data(subject, session, 
+raw = load_data(subject, session,
                 experiment='visual-SSVEP', site='eegnb_examples', device_name='muse2016',
                 data_dir = eegnb_data_path,
                 replace_ch_names={'Right AUX': 'POz'})
@@ -71,7 +72,7 @@ raw = load_data(subject, session,
 
 events = find_events(raw)
 event_id = {'30 Hz': 1, '20 Hz': 2}
-epochs = Epochs(raw, events=events, event_id=event_id, 
+epochs = Epochs(raw, events=events, event_id=event_id,
                 tmin=-0.5, tmax=4, baseline=None, preload=True,
                 verbose=False, picks=[0, 1, 2, 3, 4])
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
@@ -79,7 +80,7 @@ print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
 #####################################################################################################
 # Decoding
 # ----------
- 
+
 # We can use a filter bank approach on the original 4 Muse electrodes (to see how the headband alone without external electrodes could be used to classify SSVEP):
 
 #    - Apply bandpass filters around both stimulation frequencies
@@ -95,15 +96,15 @@ raw_filt_30Hz.rename_channels(lambda x: x + '_30Hz')
 raw_filt_20Hz.rename_channels(lambda x: x + '_20Hz')
 
 # Concatenate with the bandpass filtered channels
-raw_all = raw_filt_30Hz.add_channels([raw_filt_20Hz], 
+raw_all = raw_filt_30Hz.add_channels([raw_filt_20Hz],
                                             force_update_info=True)
 
 # Extract epochs
 events = find_events(raw_all)
 event_id = {'30 Hz': 1, '20 Hz': 2}
 
-epochs_all = Epochs(raw_all, events=events, event_id=event_id, 
-                    tmin=1, tmax=3, baseline=None, 
+epochs_all = Epochs(raw_all, events=events, event_id=event_id,
+                    tmin=1, tmax=3, baseline=None,
                     reject={'eeg': 100e-6}, preload=True, verbose=False,)
 
 epochs_all.pick_types(eeg=True)
@@ -132,22 +133,22 @@ clfs['Cov + TS'] = make_pipeline(Covariances(), TangentSpace(), LogisticRegressi
 clfs['Cov + MDM'] = make_pipeline(Covariances(), MDM())
 clfs['CSP + Cov + TS'] = make_pipeline(Covariances(), CSP(4, log=False), TangentSpace(), LogisticRegression())
 
-# define cross validation 
-cv = StratifiedShuffleSplit(n_splits=20, test_size=0.25, 
+# define cross validation
+cv = StratifiedShuffleSplit(n_splits=20, test_size=0.25,
                                         random_state=42)
 
 # run cross validation for each pipeline
 auc = []
 methods = []
 for m in clfs:
-    print(m)     
-    try:    
+    print(m)
+    try:
         res = cross_val_score(clfs[m], X, y==2, scoring='roc_auc',cv=cv, n_jobs=-1)
         auc.extend(res)
         methods.extend([m]*len(res))
     except:
         pass
-    
+
 results = pd.DataFrame(data=auc, columns=['AUC'])
 results['Method'] = methods
 

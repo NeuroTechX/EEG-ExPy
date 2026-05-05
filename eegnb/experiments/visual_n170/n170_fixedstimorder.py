@@ -7,22 +7,21 @@ Face vs. house paradigm stimulus presentation for evoking present.
 """
 
 from psychopy import prefs
+
 #change the pref libraty to PTB and set the latency mode to high precision
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
-from time import time
-from optparse import OptionParser
 import os
-from glob import glob
-from random import choice
+from optparse import OptionParser
+from time import time
 
 import numpy as np
-from pandas import DataFrame, read_csv
-from psychopy import visual, core, event
+from pandas import read_csv
+from psychopy import core, event, visual
 from pylsl import StreamInfo, StreamOutlet
 
-from eegnb import stimuli, experiments
+from eegnb import experiments, stimuli
 
 stim_dir = os.path.split(stimuli.__file__)[0]
 exp_dir = os.path.split(experiments.__file__)[0]
@@ -54,7 +53,7 @@ def present(duration=120):
     #                        timestamp=np.zeros(n_trials)))
 
     fso_ims = read_csv(fso_list_file)
-    n_trials = fso_ims.shape[0]
+    fso_ims.shape[0]
 
     # Setup graphics
 

@@ -2,34 +2,36 @@
 SSVEP Visualization
 ===============================
 
-This example demonstrates loading, organizing, and visualizing data from the steady-state visual evoked potentials (SSVEP) experiment. 
+This example demonstrates loading, organizing, and visualizing data from the steady-state visual evoked potentials (SSVEP) experiment.
 
-The data used is the first subject and first session of the one of the eeg-expy ssvep example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.  
+The data used is the first subject and first session of the one of the eeg-expy ssvep example datasets, recorded using the InteraXon MUSE EEG headset (2016 model). This session consists of six two-minute blocks of continuous recording.
 
-We first use the `fetch_datasets` to obtain a list of filenames. If these files are not already present 
-in the specified data directory, they will be quickly downloaded from the cloud. 
+We first use the `fetch_datasets` to obtain a list of filenames. If these files are not already present
+in the specified data directory, they will be quickly downloaded from the cloud.
 
-After loading the data, we place it in an MNE `Epochs` object, and obtain the trial-averaged response. 
+After loading the data, we place it in an MNE `Epochs` object, and obtain the trial-averaged response.
 
-The final figures show the visual frequencies appearing in the measured power spectrum. 
+The final figures show the visual frequencies appearing in the measured power spectrum.
 
 """
 
 ###################################################################################################
 
 # Some standard pythonic imports
-import os, numpy as np, pandas as pd
-from collections import OrderedDict
+import os
 import warnings
+
+import numpy as np
+
 warnings.filterwarnings('ignore')
 from matplotlib import pyplot as plt
 
 # MNE functions
-from mne import Epochs,find_events
+from mne import Epochs, find_events
 from mne.time_frequency import tfr_morlet
 
 # EEG-Notebooks functions
-from eegnb.analysis.analysis_utils import load_data,plot_conditions
+from eegnb.analysis.analysis_utils import load_data
 from eegnb.datasets import fetch_dataset
 
 # sphinx_gallery_thumbnail_number = 3
@@ -45,17 +47,17 @@ from eegnb.datasets import fetch_dataset
 #
 ###################################################################################################
 
-eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')    
+eegnb_data_path = os.path.join(os.path.expanduser('~/'),'.eegnb', 'data')
 ssvep_data_path = os.path.join(eegnb_data_path, 'visual-SSVEP', 'eegnb_examples')
 
-# If dataset hasn't been downloaded yet, download it 
+# If dataset hasn't been downloaded yet, download it
 if not os.path.isdir(ssvep_data_path):
-    fetch_dataset(data_dir=eegnb_data_path, experiment='visual-SSVEP', site='eegnb_examples');        
+    fetch_dataset(data_dir=eegnb_data_path, experiment='visual-SSVEP', site='eegnb_examples')
 
 
 subject = 1
 session = 1
-raw = load_data(subject, session, 
+raw = load_data(subject, session,
                 experiment='visual-SSVEP', site='eegnb_examples', device_name='muse2016',
                 data_dir = eegnb_data_path,
                 replace_ch_names={'Right AUX': 'POz'})
@@ -76,7 +78,7 @@ raw.plot_psd()
 
 events = find_events(raw)
 event_id = {'30 Hz': 1, '20 Hz': 2}
-epochs = Epochs(raw, events=events, event_id=event_id, 
+epochs = Epochs(raw, events=events, event_id=event_id,
                 tmin=-0.5, tmax=4, baseline=None, preload=True,
                 verbose=False, picks=[0, 1, 2, 3, 4])
 print('sample drop %: ', (1 - len(epochs.events)/len(events)) * 100)
@@ -125,7 +127,7 @@ axs[1].set_xlabel('Frequency (Hz)')
 axs[0].legend()
 axs[1].legend()
 
-plt.show();
+plt.show()
 
 # With this visualization we can clearly see distinct peaks at 30hz and 20hz in the PSD, corresponding to the frequency of the visual stimulation. The peaks are much larger at the POz electrode, but still visible at TP9 and TP10
 
@@ -138,16 +140,16 @@ plt.show();
 frequencies = np.logspace(1, 1.75, 60)
 tfr, itc = tfr_morlet(epochs['30 Hz'], freqs=frequencies,picks='all',
                               n_cycles=15, return_itc=True)
-tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio', 
-                 title='POz - 30 Hz stim');
+tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio',
+                 title='POz - 30 Hz stim')
 
 tfr, itc = tfr_morlet(epochs['20 Hz'], freqs=frequencies,picks='all',
                               n_cycles=15, return_itc=True)
-tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio', 
-                 title='POz - 20 Hz stim');
+tfr.plot(picks=[4], baseline=(-0.5, -0.1), mode='logratio',
+                 title='POz - 20 Hz stim')
 
 # Set Layout engine to tight to fix error with using colorbar layout error
-plt.figure().set_layout_engine('tight');
+plt.figure().set_layout_engine('tight')
 plt.tight_layout()
 
 # Once again we can see clear SSVEPs at 30hz and 20hz

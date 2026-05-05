@@ -13,10 +13,9 @@ from time import time
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import prefs
 
 #prefs.general["audioLib"] = ["pygame"]
-from psychopy import visual, core, event, sound
+from psychopy import core, event, sound, visual
 from pylsl import StreamInfo, StreamOutlet
 from scipy import stats
 
@@ -42,7 +41,7 @@ def present(
 
     # Create markers stream outlet
     info = StreamInfo("Markers", "Markers", 1, 0, "int32", "myuidw43536")
-    outlet = StreamOutlet(info)
+    StreamOutlet(info)
 
     markernames = [1]
     start = time()
@@ -70,14 +69,13 @@ def present(
     aud1 = sound.Sound(am1, sampleRate=sample_rate)
     aud1.setVolume(0.8)
 
-    auds = [aud1]
 
     mywin.flip()
 
-	
+
     # Show the instructions screen
     show_instructions(duration)
-    
+
 
     # start the EEG stream=
     if eeg:
@@ -118,9 +116,9 @@ def present(
 
     mywin.close()
 
-	
-	
-	
+
+
+
 def show_instructions(duration):
 
 	instruction_text = \
@@ -153,7 +151,7 @@ def show_instructions(duration):
 
 	mywin.mouseVisible = True
 	mywin.close()
-		
+
 
 def generate_am_waveform(
     carrier_freq,
@@ -161,8 +159,8 @@ def generate_am_waveform(
     secs=1,
     sample_rate=None,
     am_type="sine",
-):	
-	
+):
+
         """Generate an amplitude-modulated waveform.
 
         Generate a sine wave amplitude-modulated by a second sine wave or a

@@ -1,15 +1,14 @@
-import numpy as np
-from pandas import DataFrame
-from psychopy import visual, core, event, logging
-from time import time, strftime, gmtime
-from optparse import OptionParser
-from pylsl import StreamInfo, StreamOutlet
-from glob import glob
-from random import choice
-import random
 import math
 import os
+import random
+from glob import glob
+from optparse import OptionParser
+from time import time
+
+import numpy as np
 import scipy.io
+from psychopy import core, event, logging, visual
+from pylsl import StreamInfo, StreamOutlet
 
 
 def present(subject, session, duration=120):
@@ -35,10 +34,10 @@ def present(subject, session, duration=120):
         return visual.ImageStim(win=mywin, image=filename)
 
     mywin = visual.Window([900, 500], monitor="testMonitor", units="deg", fullscr=False)
-    targets = list(
+    list(
         map(loadImage, glob("stimulus_presentation/stim/cats_dogs/target-*.jpg"))
     )
-    nontargets = list(
+    list(
         map(loadImage, glob("stimulus_presentation/stim/cats_dogs/nontarget-*.jpg"))
     )
 
@@ -85,7 +84,7 @@ def present(subject, session, duration=120):
 
     # create clocks and window
     globalClock = core.Clock()  # to keep track of time
-    trialClock = core.Clock()  # to keep track of time
+    core.Clock()  # to keep track of time
     win = visual.Window(
         screenRes,
         fullscr=params["fullScreen"],
@@ -267,7 +266,7 @@ def present(subject, session, duration=120):
                     if thisKey[0] in ["q", "escape"]:  # escape keys
                         CoolDown()  # exit gracefully
                     # only take first keypress
-                    elif thisKey[0] in params["respKeys"] and respKey == None:
+                    elif thisKey[0] in params["respKeys"] and respKey is None:
                         respKey = thisKey  # record keypress
 
         tempArray = [iTrial, isGoTrial, respKey, t]
@@ -283,7 +282,7 @@ def present(subject, session, duration=120):
             else:
                 fa_go += 1
         elif ~isGoTrial:
-            if respKey == None:
+            if respKey is None:
                 hits_nogo += 1
             else:
                 fa_nogo += 1

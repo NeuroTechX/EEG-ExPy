@@ -1,6 +1,6 @@
-from os import path, makedirs
-from time import strftime, gmtime
+from os import makedirs, path
 from pathlib import Path
+from time import gmtime, strftime
 
 DATA_DIR = path.join(path.expanduser("~/"), ".eegnb", "data")
 

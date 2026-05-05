@@ -1,17 +1,14 @@
-from muselsl import stream, list_muses, view, record
-from multiprocessing import freeze_support, set_start_method, Process, Pool
-from mne import Epochs, find_events
-from time import time, strftime, gmtime
 import os
-from utils import utils
-from collections import OrderedDict
-import sys
+from multiprocessing import Pool, Process, set_start_method
 from optparse import OptionParser
-import warnings
+from time import gmtime, strftime
+
+from muselsl import record
+
 #warnings.filterwarnings('ignore')
 
 parser = OptionParser()
- 
+
 parser.add_option("-d", "--duration",
                   dest="duration", type='int', default=400,
                   help="duration of the recording in seconds")
@@ -57,7 +54,7 @@ if __name__ == '__main__':
 
     pool.apply_async(eval(expprez), args=(duration, subject, run))
     pool.apply_async(record, args=(duration,recording_path))
-    
+
     pool.close()
     pool.join()
 

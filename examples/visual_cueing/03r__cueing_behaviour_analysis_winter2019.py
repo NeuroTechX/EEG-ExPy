@@ -11,9 +11,12 @@ Cueing Behavioural Analysis Winter 2019
 #
 
 # Standard Pythonic imports
-import os,sys,glob,numpy as np,pandas as pd
-import matplotlib.pyplot as plt 
-import scipy.io as sio 
+import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import scipy.io as sio
 
 # EEG-Notebooks imports
 from eegnb.datasets import datasets
@@ -40,7 +43,7 @@ if not os.path.isdir(cueing_data_path):
 
 # # Fall 2018
 subs = [101, 102, 103, 104, 106, 108, 109, 110, 111, 112,
-        202, 203, 204, 205, 207, 208, 209, 210, 211, 
+        202, 203, 204, 205, 207, 208, 209, 210, 211,
         301, 302, 303, 304, 305, 306, 307, 308, 309]
 
 # 105 - no trials in one condition
@@ -48,7 +51,7 @@ subs = [101, 102, 103, 104, 106, 108, 109, 110, 111, 112,
 # # Winter 2019
 # subs = [1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,
 #         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,
-#         1301, 1302, 1313, 
+#         1301, 1302, 1313,
 #         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]
 
 # # 1107 - no csv session 1
@@ -59,15 +62,15 @@ subs = [101, 102, 103, 104, 106, 108, 109, 110, 111, 112,
 # # 1314 - Muse 2
 # # 1407 - only session1
 
-# Both 
+# Both
 
 # Fall 2018
 # subs = [101, 102, 103, 104, 106, 108, 109, 110, 111, 112,
-#         202, 203, 204, 205, 207, 208, 209, 210, 211, 
+#         202, 203, 204, 205, 207, 208, 209, 210, 211,
 #         301, 302, 303, 304, 305, 306, 307, 308, 309,
 #         1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,
 #         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,
-#         1301, 1302, 1313, 
+#         1301, 1302, 1313,
 #         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]
 
 ###################################################################################################
@@ -97,7 +100,7 @@ prop_accu = np.zeros((n_subs, n_sesh, n_cond))
 sub = subs[0]
 print('Subject - ' + str(sub))
 
-#just one session 
+#just one session
 sesh = 1
 
 #load file
@@ -114,7 +117,7 @@ rt = output[:,7]
 validity = output[:,3]
 print(accuracy,rt,validity)
 
-# median rt on each condition	
+# median rt on each condition
 print('')
 print(rt)
 print(rt[validity == 0])
@@ -128,7 +131,7 @@ print('Valid RT = ' + str(validRT) + ' ms')
 
 InvalidRT =  np.nanmedian(rt[ (validity == 0) &
                               (rt >= rt_toofast) &
-                              (rt <= rt_tooslow)]) 
+                              (rt <= rt_tooslow)])
 
 print('Invalid RT = ' + str(InvalidRT) + ' ms')
 
@@ -142,7 +145,7 @@ for isub, sub in enumerate(subs):
         # get the path and file name and load data
         #path =  './subject' + str(sub) + '/session' + str(sesh+1) + '/'
         path =  cueing_data_path + '/muse2016/subject' + str('%04.f' %sub) + '/session' + str('%03.f' %(sesh+1)) + '/'
-       
+
         file =  [x for x in os.listdir(path) if x.endswith('.mat')][0]
         output_dict = sio.loadmat(path + file)
 
@@ -151,18 +154,18 @@ for isub, sub in enumerate(subs):
         accuracy = output[:,6]
         rt = output[:,7]
         validity = output[:,3]
-  
-        # median rt on each condition	
+
+        # median rt on each condition
         median_rt[isub,sesh,:] 	= [  np.nanmedian(rt[ (validity == 1) & (rt >= rt_toofast) & (rt <= rt_tooslow)]),
                                      np.nanmedian(rt[ (validity == 0) & (rt >= rt_toofast) & (rt <= rt_tooslow)]) ]
-    
+
         # proportion accurate (number accurate / count)
-        prop_accu[isub,sesh,:]  = [ np.sum(accuracy[(validity == 1) & (rt >= rt_toofast) & (rt <= rt_tooslow)]) / 
+        prop_accu[isub,sesh,:]  = [ np.sum(accuracy[(validity == 1) & (rt >= rt_toofast) & (rt <= rt_tooslow)]) /
                                    np.sum((validity == 1) & (rt >= rt_toofast) & (rt <= rt_tooslow)),
                                    np.sum(accuracy[(validity == 0) & (rt >= rt_toofast) & (rt <= rt_tooslow)]) /
                                    np.sum((validity == 0) & (rt >= rt_toofast) & (rt <= rt_tooslow)) ]
 
-    
+
 ###################################################################################################
 # Average over sessions and print data
 

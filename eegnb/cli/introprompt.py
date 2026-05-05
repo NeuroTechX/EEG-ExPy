@@ -1,15 +1,15 @@
-import os 
+import os
 from typing import Tuple
-from pathlib import Path
 
-from eegnb import generate_save_fn, DATA_DIR
+from eegnb import DATA_DIR, generate_save_fn
 from eegnb.devices.eeg import EEG
-from .utils import run_experiment, get_exp_desc, experiments
+
+from .utils import experiments, get_exp_desc, run_experiment
 
 eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
 
 
-def device_prompt() -> EEG: 
+def device_prompt() -> EEG:
     # define the names of the available boards
     # boards is a mapping from board code to board description
     boards = {
@@ -18,7 +18,7 @@ def device_prompt() -> EEG:
         "muse2": "Muse 2",
         "museS": "Muse S",
         "muse2016_bfn": "Muse 2016 - brainflow, native bluetooth",
-        "muse2016_bfb": "Muse 2016 - brainflow, BLED bluetooth dongle",        
+        "muse2016_bfb": "Muse 2016 - brainflow, BLED bluetooth dongle",
         "muse2_bfn": "Muse 2 - brainflow, native bluetooth",
         "muse2_bfb": "Muse 2 - brainflow, BLED bluetooth dongle",
         "museS_bfn": "Muse S - brainflow, native bluetooth",
@@ -73,7 +73,7 @@ def device_prompt() -> EEG:
                 f"\n{board_desc} + WiFi is not supported. Please use the dongle that was shipped with the device.\n"
             )
             exit()
-       
+
     if board_code.startswith("ganglion"):
         if board_code == "ganglion_wifi":
             eeg_device = EEG(device=board_code, ip_addr=ip_address)
@@ -106,14 +106,14 @@ def exp_prompt(runorzip:str='run') -> str:
 
 def site_prompt(experiment:str) -> str:
     experiment_dir=os.path.join(DATA_DIR,experiment)
-        
+
     if not (os.path.isdir(experiment_dir)):
         print('Folder {} does not exist in {}\n'.format(experiment,DATA_DIR))
         raise ValueError ('Directory does not exist')
 
     if len(os.listdir(experiment_dir) ) == 0:
         print('No subfolders exist in {}' .format(experiment_dir))
-        raise ValueError ('Directory is empty')  
+        raise ValueError ('Directory is empty')
 
     print("\nPlease select which experiment subfolder you would like to zip. Default 'local_ntcs'")
     print("\nCurrent subfolders for experiment {}:\n".format(experiment))
@@ -155,21 +155,21 @@ def intro_prompt() -> Tuple[EEG, str, int, str]:
 
     # generate the save file name
     save_fn = generate_save_fn(
-        eeg_device.device_name, exp_selection, subj_id, session_nb 
+        eeg_device.device_name, exp_selection, subj_id, session_nb
     )
 
     return eeg_device, exp_selection, duration, str(save_fn)
 
 
 def analysis_device_prompt():
-   
+
     boards = {
         "none": "None",
         "muse2016": "Muse (2016)",
         "muse2": "Muse 2",
         "museS": "Muse S",
         "muse2016_bfn": "Muse 2016 - brainflow, native bluetooth",
-        "muse2016_bfb": "Muse 2016 - brainflow, BLED bluetooth dongle",        
+        "muse2016_bfb": "Muse 2016 - brainflow, BLED bluetooth dongle",
         "muse2_bfn": "Muse 2 - brainflow, native bluetooth",
         "muse2_bfb": "Muse 2 - brainflow, BLED bluetooth dongle",
         "museS_bfn": "Muse S - brainflow, native bluetooth",
@@ -208,15 +208,15 @@ def analysis_intro_prompt():
         print("Please enter the filepath to the .csv file you would like to analyze. \n")
         filepath = input("Enter filepath: \n")
         subject, session, site = None, None, None
-    else:  
+    else:
         subject = int(input("Enter subject ID#: \n"))
         session = int(input("Enter session #: \n"))
         site = str(input("Enter site name: \n"))
         filepath = None
-    
+
     eegdevice = analysis_device_prompt()
     experiment = exp_prompt()
-    
+
     return experiment, eegdevice, subject, session, site, filepath
 
 
@@ -227,7 +227,7 @@ def intro_prompt_zip() -> Tuple[str,str]:
     # ask the user which experiment to zip
     exp_selection = exp_prompt(runorzip='zip')
     site= site_prompt(exp_selection)
-    
+
     return exp_selection,site
 
 

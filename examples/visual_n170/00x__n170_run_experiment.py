@@ -2,15 +2,15 @@
 N170 run experiment
 ===============================
 
-This example demonstrates the initiation of an EEG stream with eeg-expy, and how to run 
-an experiment. 
+This example demonstrates the initiation of an EEG stream with eeg-expy, and how to run
+an experiment.
 
 """
 
-###################################################################################################  
+###################################################################################################
 # Setup
-# ---------------------  
-#  
+# ---------------------
+#
 # Imports
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
@@ -32,9 +32,9 @@ eeg_device = EEG(device=board_name)
 # Experiment type
 experiment = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_fn, use_vr=False)
 
-###################################################################################################  
+###################################################################################################
 # Run experiment
-# ---------------------  
+# ---------------------
 #
 experiment.run()
 

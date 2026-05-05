@@ -1,12 +1,13 @@
-import numpy as np
-from pandas import DataFrame
-from psychopy import visual, core, event
-from time import time, strftime, gmtime
-from optparse import OptionParser
-from pylsl import StreamInfo, StreamOutlet
-import scipy.io
 import os
 import sys
+from optparse import OptionParser
+from time import gmtime, strftime, time
+
+import numpy as np
+import scipy.io
+from pandas import DataFrame
+from psychopy import core, event, visual
+from pylsl import StreamInfo, StreamOutlet
 
 
 # TODO: These default values are bad
@@ -22,7 +23,6 @@ def present(duration, subject=0, session=0, **kwargs):
     # 1 - Cue Left, 2 - Cue Right
     cue_markernames = [1, 2]
     # 31 - incorrect, 32 - Correct
-    resp_markernames = [31, 32]
 
     n_trials = 2010
     instruct = 1
@@ -38,7 +38,6 @@ def present(duration, subject=0, session=0, **kwargs):
     cue_validity = 0.80
     record_duration = np.float32(duration)
 
-    target_positions = [-10, 10]
     target_size = [1]
 
     # Setup log
@@ -269,8 +268,6 @@ def practice():
 
     record_duration = np.float32(practice_duration)
 
-    target_positions = [-10, 10]
-    target_size = [2]
 
     # Setup log
     tilt = np.random.binomial(1, 0.5, n_trials)
@@ -322,7 +319,7 @@ def practice():
             grating.pos = [-10, 0]
 
         # 1- Valid cue, 0 - Invalid
-        validity = int(not abs(cue - pos))
+        int(not abs(cue - pos))
 
         # til, 1 - Horizontal, 0 - Vertical
         grating.ori = 90 * til
@@ -355,8 +352,6 @@ def practice():
         # Wait for response
         keys = event.waitKeys(keyList=["right", "up"], timeStamped=clock)
         # categorize response
-        correct = 1
-        response = 1
         # if validity:
         # print("Valid Target")
         # else:
@@ -364,25 +359,21 @@ def practice():
 
         if keys[0][0] == "right":
             # print("pressed horizontal")
-            response = 1
             if til:
                 # print("Correct")
-                correct = 1
+                pass
             else:
                 # print("Incorrect")
                 # play sound
                 sys.stdout.write("\a")
-                correct = 0
         elif keys[0][0] == "up":
             # print("pressed vertical")
-            response = 0
             if til:
                 # print("Incorrect")
                 sys.stdout.write("\a")
-                correct = 0
             else:
                 # print("Correct")
-                correct = 1
+                pass
 
         # reset sound
         sys.stdout.flush()

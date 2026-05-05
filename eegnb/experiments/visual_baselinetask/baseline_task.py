@@ -1,14 +1,11 @@
-from time import time
-from time import sleep
 import os
 import random
+from time import sleep, time
 
-import numpy as np
-from pandas import DataFrame
 from psychopy import prefs
 
 prefs.general["audioLib"] = ["pygame"]
-from psychopy import visual, core, event, sound
+from psychopy import core, event, sound, visual
 from pylsl import StreamInfo, StreamOutlet, local_clock
 
 # Create markers stream outlet

@@ -2,7 +2,8 @@
 
 import sys
 from multiprocessing import Process
-from time import strftime, gmtime
+from time import gmtime, strftime
+
 
 def run_experiment(expt_name, subj_num='', sess_num='', muse_lsl_dir='muse-lsl'):
 
@@ -47,7 +48,7 @@ if __name__ == '__main__':
     """
     Usage:
 
-    python run_eeg_experiment.py EXPT_NAME SUBJECT_NUM SESS_NUM 
+    python run_eeg_experiment.py EXPT_NAME SUBJECT_NUM SESS_NUM
 
 
     Experiment names:
@@ -63,7 +64,7 @@ if __name__ == '__main__':
 
     Examples:
 
-    python run_experiment.py N170 
+    python run_experiment.py N170
 
 
     python run_experiment.py mlsl_SSVEP_test

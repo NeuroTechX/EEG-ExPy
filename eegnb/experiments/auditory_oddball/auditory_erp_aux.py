@@ -5,7 +5,7 @@ from optparse import OptionParser
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event, sound
+from psychopy import core, event, sound
 from pylsl import StreamInfo, StreamOutlet
 
 

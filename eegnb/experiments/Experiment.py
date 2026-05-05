@@ -1,4 +1,4 @@
-""" 
+"""
 Initial run of the Experiment Class Refactor base class
 
 Specific experiments are implemented as sub classes that overload a load_stimulus and present_stimulus method
@@ -10,17 +10,19 @@ obj.run()
 
 from abc import abstractmethod
 from typing import Callable
+
 from psychopy import prefs
+
 #change the pref libraty to PTB and set the latency mode to high precision
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
-from time import time
 import random
+from time import time
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, event
+from psychopy import event, visual
 
 from eegnb import generate_save_fn
 
@@ -53,7 +55,7 @@ class BaseExperiment:
 
     @abstractmethod
     def load_stimulus(self):
-        """ 
+        """
         Method that loads the stimulus for the specific experiment, overwritten by the specific experiment
         Returns the stimulus object in the form of [{stim1},{stim2},...]
         Throws error if not overwritten in the specific experiment
@@ -77,19 +79,19 @@ class BaseExperiment:
         # Initializing the record duration and the marker names
         self.record_duration = np.float32(self.duration)
         self.markernames = [1, 2]
-        
+
         # Setting up the trial and parameter list
         self.parameter = np.random.binomial(1, 0.5, self.n_trials)
         self.trials = DataFrame(dict(parameter=self.parameter, timestamp=np.zeros(self.n_trials)))
 
-        # Setting up Graphics 
+        # Setting up Graphics
         self.window = (
             visual.Rift(monoscopic=True, headLocked=True) if self.use_vr
             else visual.Window([1600, 900], monitor="testMonitor", units="deg", fullscr=True))
-        
+
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
-        
+
         # Show Instruction Screen if not skipped by the user
         if instructions:
             self.show_instructions()
@@ -97,7 +99,7 @@ class BaseExperiment:
         # Checking for EEG to setup the EEG stream
         if self.eeg:
              # If no save_fn passed, generate a new unnamed save file
-            if self.save_fn is None:  
+            if self.save_fn is None:
                 # Generating a random int for the filename
                 random_id = random.randint(1000,10000)
                 # Generating save function
@@ -107,9 +109,9 @@ class BaseExperiment:
                 print(
                     f"No path for a save file was passed to the experiment. Saving data to {self.save_fn}"
                 )
-    
+
     def show_instructions(self):
-        """ 
+        """
         Method that shows the instructions for the specific Experiment
         In the usual case it is not overwritten, the instruction text can be overwritten by the specific experiment
         No parameters accepted, can be skipped through passing a False while running the Experiment

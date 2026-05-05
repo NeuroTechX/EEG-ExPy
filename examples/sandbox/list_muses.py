@@ -1,4 +1,5 @@
-from bluepy.btle import Scanner, DefaultDelegate
+from bluepy.btle import DefaultDelegate, Scanner
+
 
 class ScanDelegate(DefaultDelegate):
     def __init__(self):

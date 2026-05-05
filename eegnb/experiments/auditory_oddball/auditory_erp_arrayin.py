@@ -2,21 +2,22 @@
 """
 
 from psychopy import prefs
+
 #change the pref libraty to PTB and set the latency mode to high precision
 prefs.hardware['audioLib'] = 'PTB'
 prefs.hardware['audioLatencyMode'] = 3
 
 import time
 from optparse import OptionParser
+from typing import Optional
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event, sound
+from psychopy import core, event, sound, visual
 from pylsl import StreamInfo, StreamOutlet
 
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from typing import Optional
 
 #from eegnb.stimuli import FACE_HOUSE
 
@@ -41,7 +42,7 @@ def present(eeg: Optional[EEG]=None, save_fn=None,
         "Markers", "Markers", 1 + len(additional_labels), 0, "float32", "myuidw43536"
     )
 
-    outlet = StreamOutlet(info)
+    StreamOutlet(info)
 
     # np.random.seed(random_state)
     markernames = [1, 2]
@@ -149,7 +150,7 @@ def present(eeg: Optional[EEG]=None, save_fn=None,
 
         if len(event.getKeys()) > 0 or (time.time() - start) > (record_duration_float+5):
             break
-        
+
         event.clearEvents()
 
 
@@ -168,14 +169,14 @@ def present(eeg: Optional[EEG]=None, save_fn=None,
 def show_instructions(duration):
 
     instruction_text = """
-    Welcome to the Auditory Oddball Experiment! 
- 
-    Stay still, focus on the centre of the screen, listen to the tones, and try not to blink. 
+    Welcome to the Auditory Oddball Experiment!
+
+    Stay still, focus on the centre of the screen, listen to the tones, and try not to blink.
 
     This block will run for %s seconds.
 
-    Press spacebar to continue. 
-    
+    Press spacebar to continue.
+
     """
     instruction_text = instruction_text % duration
 

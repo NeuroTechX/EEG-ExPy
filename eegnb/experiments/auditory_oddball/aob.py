@@ -1,19 +1,20 @@
 import numpy as np
 from pandas import DataFrame
 from psychopy import prefs
+
 # PTB does not yet support macOS Apple Silicon, need to fall back to sounddevice.
 prefs.hardware['audioLib'] = ['sounddevice']
-from psychopy import visual, core, event, sound
-
 from time import time
-from eegnb.devices.eeg import EEG
-from eegnb.experiments import Experiment
 from typing import Optional
 
+from psychopy import sound, visual
+
+from eegnb.devices.eeg import EEG
+from eegnb.experiments import Experiment
 
 
 class AuditoryOddball(Experiment.BaseExperiment):
-    
+
     def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None, n_trials = 2010, iti = 0.3, soa = 0.2, jitter = 0.2, secs=0.2, volume=0.8, random_state=42, s1_freq="C", s2_freq="D", s1_octave=5, s2_octave=6):
 
         """
@@ -50,10 +51,10 @@ class AuditoryOddball(Experiment.BaseExperiment):
 
     def load_stimulus(self):
         """ Loads the Stimulus """
-        
+
         # Set up trial parameters
         np.random.seed(self.random_state)
-        
+
         # Initialize stimuli
         aud1, aud2 = sound.Sound(self.s1_freq, octave=self.s1_octave, secs=self.secs), sound.Sound(self.s2_freq, octave=self.s2_octave, secs=self.secs)
         aud1.setVolume(self.volume)
@@ -71,8 +72,8 @@ class AuditoryOddball(Experiment.BaseExperiment):
         self.fixation.setAutoDraw(True)
         self.window.flip()
 
-        return 
-    
+        return
+
     def present_stimulus(self, idx : int, trial):
         """ Presents the Stimulus """
 

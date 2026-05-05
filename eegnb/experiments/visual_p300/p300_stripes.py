@@ -1,8 +1,9 @@
+from optparse import OptionParser
+from time import time
+
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event
-from time import time, strftime, gmtime
-from optparse import OptionParser
+from psychopy import core, event, visual
 from pylsl import StreamInfo, StreamOutlet
 
 

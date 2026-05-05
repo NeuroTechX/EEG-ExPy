@@ -1,15 +1,9 @@
-import os
-from time import time, sleep
-from glob import glob
-from random import choice
-from optparse import OptionParser
+from time import sleep, time
+from typing import Optional
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event, sound
-
-from eegnb import generate_save_fn
-from typing import Optional
+from psychopy import core, event, sound, visual
 
 
 def present(
@@ -22,7 +16,6 @@ def present(
     volume=0.8,
     eeg=None,
 ):
-    markernames = [1, 2]
     record_duration = np.float32(duration)
 
     ## Initialize stimuli
@@ -103,14 +96,14 @@ def present(
 def show_instructions(duration):
 
     instruction_text = """
-    Welcome to the aMMN experiment! 
- 
-    Stay still, focus on the centre of the screen, and try not to blink. 
+    Welcome to the aMMN experiment!
+
+    Stay still, focus on the centre of the screen, and try not to blink.
 
     This block will run for %s seconds.
 
-    Press spacebar to continue. 
-    
+    Press spacebar to continue.
+
     """
     instruction_text = instruction_text % duration
 

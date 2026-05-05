@@ -2,7 +2,7 @@
 
 CLI Pipeline for Analysis of EEGNB Recorded Data
 
-To do: 
+To do:
 1. Beautify analysis pdf
 2. Handle cli automated errors for report creation
 
@@ -22,32 +22,34 @@ example_analysis_report()
 
 # Some standard pythonic imports
 import os
-from collections import OrderedDict
 import warnings
-import matplotlib.pyplot as plt
+from collections import OrderedDict
 from datetime import datetime
-import numpy as np
 from typing import Dict
+
+import matplotlib.pyplot as plt
 
 warnings.filterwarnings('ignore')
 
 # MNE functions
-from mne import Epochs,find_events, create_info
-from mne.io import RawArray
+from mne import Epochs, find_events
+
+from eegnb.analysis.analysis_report import get_html
 
 # EEG-Notebooks functions
-from eegnb import generate_save_fn
-from eegnb.analysis.analysis_utils import load_data,plot_conditions, load_csv_as_raw, fix_musemissinglines
-from eegnb.analysis.analysis_report import get_html
+from eegnb.analysis.analysis_utils import (
+    load_csv_as_raw,
+    load_data,
+    plot_conditions,
+)
 from eegnb.datasets import fetch_dataset
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
-from pathlib import Path
 
 DATA_DIR = os.path.join(os.path.expanduser("~/"), ".eegnb", "data")
 eegdevice, experiment_name, subject_id, session_nb, example_flag = None, None, None, None, False
 
 
-def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None, 
+def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', tmin=-0.1, tmax=0.6, baseline=None,
                     reject={'eeg': 5e-5}, preload=True, verbose=1, site='local',
                         picks=None, event_id = OrderedDict(House=1,Face=2), fnames=None, example=False):
     """
@@ -88,14 +90,14 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
         if fnames is None:
             raw = load_data(subject=subject, session=session, experiment=experiment, device_name=device_name, site=site, data_dir=DATA_DIR)
         else:
- 
+
             # Replace Ch names has arbitarily been set to None
-            if device_name in ["muse2016", "muse2", "museS"]: 
+            if device_name in ["muse2016", "muse2", "museS"]:
                 aux_ind=[5]
             else:
                 aux_ind=None
 
-            raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, aux_ind=aux_ind, 
+            raw = load_csv_as_raw([fnames], sfreq=sfreq, ch_ind=ch_ind, aux_ind=aux_ind,
                                   replace_ch_names=None, verbose=verbose)
 
             # Getting the subject and session
@@ -114,12 +116,12 @@ def load_eeg_data(experiment, subject=1, session=1, device_name='muse2016_bfn', 
         raw = load_data(subject = subject, session = session,
                         experiment=experiment, site='eegnb_examples', device_name=device_name,
                         data_dir = DATA_DIR)
- 
+
     # Filtering the data under a certain frequency range
     raw.filter(1,30, method='iir')
 
     # Visualising the power spectrum
-    fig = raw.plot_psd(fmin=1, fmax=30, show=False)
+    raw.plot_psd(fmin=1, fmax=30, show=False)
 
     # Saving the figure so it can be accessed by the pdf creation. Automatically deleted when added to the pdf.
     plt.tight_layout()
@@ -158,13 +160,13 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
     ----------
     epochs : MNE Epochs object
     conditions : OrderedDict holding the conditions to plot
-    ci: confidence interval 
+    ci: confidence interval
     n_boot: number of bootstrap samples
     title: title of the plot
     diff_waveform: tuple of two integers indicating the channels to compare
     channel_order: list of integers indicating the order of the channels to plot
     """
-    
+
     if 'muse' in experimental_parameters['eeg_device']: channel_order = [1,0,2,3] # reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes
     nchan = len(epochs.ch_names)
     if channel_order is None: channel_order = range(0,nchan)
@@ -173,7 +175,7 @@ def make_erp_plot(epochs, experimental_parameters:Dict, conditions=OrderedDict(H
                             ci=97.5, n_boot=1000, title='',
                             diff_waveform=None, #(1, 2))
                             channel_order=channel_order,
-                            channel_count=nchan) 
+                            channel_count=nchan)
 
     # Autoscaling the y axis to a tight fit to the ERP
     for i in range(nchan): ax[i].autoscale(tight=True) # [0,1,2,3,4]
@@ -198,17 +200,17 @@ def create_pdf(experimental_parameters:Dict):
 
     # Getting the directory where the report should be saved
     save_dir = get_save_directory(experiment=experiment, eegdevice=eegdevice, subject=subject, session=session, example=example, label="analysis")
-    
+
     #get whole filepath
     filepath = os.path.join(save_dir, 'analysis_report_{}.html'.format(datetime.now().strftime("%d-%m-%Y_%H-%M-%S")))
-    
-    # Get the report 
+
+    # Get the report
     report_html = get_html(experimental_parameters)
 
     # Save html file
     with open(filepath, 'w') as f:
         f.write(report_html)
-    
+
     # Informing the user that the report has been saved
     print('Analysis report saved to {}\n'.format(filepath))
     print("Open the report by clicking the following link: {}{}".format("file:///", filepath))
@@ -216,7 +218,7 @@ def create_pdf(experimental_parameters:Dict):
 
 def get_save_directory(experiment, eegdevice, subject, session, example, label):
     """ Returns save directory as a String for the analysis report """
-    
+
     if not example:
         site='local'
     else:
@@ -229,7 +231,7 @@ def get_save_directory(experiment, eegdevice, subject, session, example, label):
     # Creating the directory if it doesn't exist
     if not os.path.isdir(save_path):
         os.makedirs(save_path)
-    
+
     return save_path
 
 
@@ -243,7 +245,7 @@ def analysis_report(experiment, eegdevice, subject=None, session=None, site='loc
 
 def example_analysis_report():
     """ Example of how to use the analysis report function """
-    
+
     experiment = ["visual-N170", "visual-P300"]
     experiment_choice = experiment[int(input("Choose an experiment: {} 0 or 1\n".format(experiment)))]
 

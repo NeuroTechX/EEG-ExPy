@@ -12,7 +12,7 @@ from time import time
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, core, event, sound
+from psychopy import core, event, sound, visual
 from scipy import stats
 
 __title__ = "Auditory SSAEP (orig)"

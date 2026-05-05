@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import os
 import re
+import sys
+
 
 # If we are building locally, or the build on Read the Docs looks like a PR
 # build, prefer to use the version of the theme in this repo, not the installed
@@ -21,9 +22,7 @@ if is_development_build():
     sys.path.insert(0, os.path.abspath('..'))
 sys.path.append(os.path.abspath('./demo/'))
 
-import sphinx_rtd_theme
 from sphinx.locale import _
-
 
 project = 'EEG Notebooks'
 slug = re.sub(r'\W+', '-', project.lower())
@@ -65,7 +64,7 @@ html_theme = 'sphinx_rtd_theme'
 #}
 html_context = {}
 
-if not 'READTHEDOCS' in os.environ:
+if 'READTHEDOCS' not in os.environ:
     html_static_path = ['_static/']
     html_js_files = ['debug.js']
 
@@ -122,7 +121,7 @@ def setup(app):
         ]
     )
 
-    
+
     # JG_ADD
     app.add_css_file('theme_override.css')
 
@@ -134,12 +133,10 @@ def setup(app):
 # Sphinx gallery stuff
 
 import os
-from os.path import dirname as up
-from datetime import date
-import sphinx_gallery
+
 #    import sphinx_bootstrap_theme
 #import sphinx_rtd_theme
-from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
+from sphinx_gallery.sorting import FileNameSortKey
 
 # Add any Sphinx extension module names here, as strings.
 extensions += [
@@ -218,7 +215,7 @@ html_theme_options = {
 html_theme_options = {
     'navbar_sidebarrel': False,
     'navbar_links': [
-        ("About", "about"),        
+        ("About", "about"),
         ("Examples", "auto_examples/index"),
         ("User guide", "user_guide/index"),
         ("FAQ", "faq"),
@@ -255,7 +252,7 @@ html_show_sourcelink = False
 
 # Configurations for sphinx gallery
 
-sphinx_gallery_conf = {'filename_pattern': '(?=.*r__)(?=.*.py)', 
+sphinx_gallery_conf = {'filename_pattern': '(?=.*r__)(?=.*.py)',
                        'examples_dirs': ['../examples','../examples/visual_n170', '../examples/visual_p300','../examples/visual_ssvep', '../examples/visual_cueing', '../examples/visual_gonogo'],
                        'gallery_dirs': ['auto_examples','auto_examples/visual_n170', 'auto_examples/visual_p300','auto_examples/visual_ssvep', 'auto_examples/visual_cueing', 'auto_examples/visual_gonogo'],
                        'within_subsection_order': FileNameSortKey,
@@ -267,11 +264,11 @@ sphinx_gallery_conf = {'filename_pattern': '(?=.*r__)(?=.*.py)',
 
 """
 sphinx_gallery_conf = {
-        'filename_pattern': '.py', 
+        'filename_pattern': '.py',
         'examples_dirs': ['../examples'],
         'gallery_dirs': ['auto_examples'],
         'subsection_order': ExplicitOrder([ '../examples/visual_n170',
-                                            '../examples/visual_p300', 
+                                            '../examples/visual_p300',
                                             '../examples/visual_cueing',
                                             '../examples/visual_ssvep',
                                             '../examples/equipment_and_setup',

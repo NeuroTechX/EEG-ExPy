@@ -1,29 +1,15 @@
-import copy
-from copy import deepcopy
-import math
 import logging
-import sys
-from collections import OrderedDict
-from glob import glob
-from typing import Union, List
 from time import sleep, time
-from pynput import keyboard
-import os
 
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
-from mne import create_info, concatenate_raws
-from mne.io import RawArray
-from mne.channels import make_standard_montage
 from mne.filter import create_filter
-from matplotlib import pyplot as plt
-from scipy import stats
+from pynput import keyboard
 from scipy.signal import lfilter, lfilter_zi
 
-from eegnb import _get_recording_dir
 from eegnb.devices.eeg import EEG
+
 #from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 # this should probably not be done here
@@ -59,7 +45,7 @@ def channel_filter(
             X = X / 1000 # adjust scale of readings
     else:
         raise ValueError(f"Unknown backend {device_backend}")
-    
+
     window = 10
     n_samples = int(sfreq * window)
     data_f = np.zeros((n_samples, n_chans))
@@ -90,11 +76,11 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
     """
 
     df = eeg.get_recent(n_samples=n_samples)
-    
+
     # seems to be necessary to give brainflow cnxn time to settle
-    if len(df) != n_samples: 
-      sleep(10) 
-      df = eeg.get_recent(n_samples=n_samples) 
+    if len(df) != n_samples:
+      sleep(10)
+      df = eeg.get_recent(n_samples=n_samples)
 
     assert len(df) == n_samples
 
@@ -104,14 +90,14 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
     device_name = eeg.device_name
 
     vals = df.values[:, :n_channels]
-    df.values[:, :n_channels] = channel_filter(vals, 
+    df.values[:, :n_channels] = channel_filter(vals,
                                     n_channels,
                                     sfreq,
                                     device_backend,
                                     device_name)
 
     std_series = df.std(axis=0)
-    
+
     return std_series
 
 
@@ -125,7 +111,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     eeg = EEG(device='museS')
     check_report(eeg)
 
-    The thres_std_low & thres_std_high values are the 
+    The thres_std_low & thres_std_high values are the
     lower and  upper bound of accepted
     standard deviation for a quality recording.
 
@@ -146,13 +132,13 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     if thres_std_high is None:
         if edn in thres_stds.keys():
             thres_std_high = thres_stds[edn][1]
-            
+
     print("\n\nRunning signal quality check...")
     print(f"Accepting threshold stdev between: {thres_std_low} - {thres_std_high}")
 
     CHECKMARK = "√"
     CROSS = "x"
-        
+
     print(f"running check (up to) {n_times} times, with {pause_time}-second windows")
     print(f"will stop after {n_goods} good check results in a row")
 
@@ -192,7 +178,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
             prompt_time = time()
-            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")
+            print("Starting next cycle in 5 seconds, press C and enter to cancel")
             c_key_pressed = False
 
             def update_key_press(key):
@@ -206,7 +192,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
                     flag = True
                     break
             listener.stop()
-        if flag: 
-            break  
+        if flag:
+            break
 
 

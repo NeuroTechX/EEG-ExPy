@@ -2,17 +2,16 @@
 SSVEP run experiment
 ===============================
 
-This example demonstrates the initiation of an EEG stream with eeg-expy, and how to run 
-an experiment. 
+This example demonstrates the initiation of an EEG stream with eeg-expy, and how to run
+an experiment.
 
 """
 
-###################################################################################################  
+###################################################################################################
 # Setup
-# ---------------------  
-#  
+# ---------------------
+#
 # Imports
-import os
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
 from eegnb.experiments import VisualSSVEP
@@ -35,9 +34,9 @@ eeg_device = EEG(device=board_name)
 save_fn = generate_save_fn(board_name, experiment, subject_id, session_nb)
 print(save_fn)
 
-###################################################################################################  
+###################################################################################################
 # Run experiment
-# ---------------------  
-#  
+# ---------------------
+#
 ssvep = VisualSSVEP(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
 ssvep.run()
