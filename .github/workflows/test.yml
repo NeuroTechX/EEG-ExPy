@@ -47,22 +47,13 @@ jobs:
       if: "startsWith(runner.os, 'Linux')"
       run: |
         make install-deps-apt
-    - name: Install conda
-      uses: conda-incubator/setup-miniconda@v3
+    - name: Set up conda env
+      uses: ./.github/actions/setup-conda-env
       with:
-        environment-file: ${{ matrix.env_file || 'environments/eeg-expy-full.yml' }}
-        auto-activate-base: false
+        environment-file: ${{ matrix.env_file }}
+        activate-environment: ${{ matrix.env_name }}
         python-version: ${{ matrix.python_version }}
-        activate-environment: ${{ matrix.env_name || 'eeg-expy-full' }}
-        channels: conda-forge
-        miniconda-version: "latest"
-
-    - name: Fix PsychXR numpy dependency DLL issues (Windows only)
-      if: matrix.os == 'windows-latest'
-      run: |
-        conda install --force-reinstall numpy
-
-    - name: Run eegnb install test
+    - name: Run eeg-expy install test
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
@@ -93,15 +84,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install conda
-      uses: conda-incubator/setup-miniconda@v3
+    - name: Set up conda env
+      uses: ./.github/actions/setup-conda-env
       with:
         environment-file: environments/eeg-expy-full.yml
-        auto-activate-base: false
-        python-version: ${{ matrix.python_version }}
         activate-environment: eeg-expy-full
-        channels: conda-forge
-        miniconda-version: "latest"
+        python-version: ${{ matrix.python_version }}
     - name: Typecheck
       run: |
         make typecheck

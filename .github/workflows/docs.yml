@@ -9,29 +9,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash -el {0}
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0   
-        
-    - name: Set up Python
-      uses: actions/setup-python@v4
+        fetch-depth: 0
+
+    - name: Set up conda env
+      uses: ./.github/actions/setup-conda-env
       with:
-        python-version: '3.10'
-        
-    - name: Install dependencies
-      run: |
-        make install-deps-apt
-        python -m pip install --upgrade pip wheel
-        python -m pip install attrdict
-
-        make install-deps-wxpython
-        
-    - name: Build project
-      run: |
-        make install-docs-build-dependencies
-
+        environment-file: environments/eeg-expy-docsbuild.yml
+        activate-environment: eeg-expy-docsbuild
 
     - name: Get list of changed files
       id: changes
@@ -40,7 +31,6 @@ jobs:
         git diff --name-only origin/master...HEAD > changed_files.txt
         cat changed_files.txt
 
-
     - name: Determine build mode
       id: mode
       run: |
@@ -48,12 +38,12 @@ jobs:
           echo "FULL_BUILD=true" >> $GITHUB_ENV
           echo "Detected non-example file change. Full build triggered."
         else
-          CHANGED_EXAMPLES=$(grep '^examples/.*\.py$' changed_files.txt | paste -sd '|' -)
+          # || true prevents grep's exit code 1 (no matches) from aborting the step
+          CHANGED_EXAMPLES=$(grep '^examples/.*\.py$' changed_files.txt | paste -sd '|' - || true)
           echo "FULL_BUILD=false" >> $GITHUB_ENV
           echo "CHANGED_EXAMPLES=$CHANGED_EXAMPLES" >> $GITHUB_ENV
           echo "Changed examples: $CHANGED_EXAMPLES"
         fi
-
 
     - name: Cache built documentation
       id: cache-docs
@@ -65,15 +55,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-sphinx-
 
-
     - name: Build docs
-      run: |
-        make docs
+      run: make docs
 
-        
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
+      if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/dev/')
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html
