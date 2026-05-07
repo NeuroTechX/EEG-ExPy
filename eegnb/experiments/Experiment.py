@@ -130,7 +130,7 @@ class BaseExperiment(ABC):
         idx : Trial index of the most recently presented stimulus — same value that was
               passed to the preceding present_stimulus call.
         """
-        self.window.flip()
+        raise NotImplementedError
 
     def setup(self, instructions=True):
         # Setting up Graphics
@@ -299,6 +299,7 @@ class BaseExperiment(ABC):
         current_trial = trial_end_time = -1
         trial_start_time = None
         rendering_trial = -1
+        has_soa_override = type(self).present_soa is not BaseExperiment.present_soa
         
         # Clear/reset user input buffer
         self._clear_user_input()
@@ -322,9 +323,9 @@ class BaseExperiment(ABC):
                     # Stimulus presentation overwritten by specific experiment
                     self._draw(lambda: self.present_stimulus(current_trial))
                     rendering_trial = current_trial
-                else:
+                elif has_soa_override:
                     # Keep submitting frames during SOA wait — VR compositor
-                    # drops to half-rate if we stall between reversals.
+                    # drops to lower framerate if we stall between reversals.
                     self._draw(lambda: self.present_soa(current_trial))
             else:
                 self._draw(lambda: self.present_iti())
