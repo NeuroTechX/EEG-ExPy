@@ -62,12 +62,9 @@ class BaseExperiment(ABC):
         self.stereoscopic = stereoscopic
         if use_vr:
             # VR interface accessible by specific experiment classes for customizing and using controllers.
-            # VR extends psychopy's VR with clock sync, per-trial telemetry buffering, and telemetry CSV saving.
             self.vr: VR = VR(monoscopic=not stereoscopic, headLocked=True)
 
-        # Shift the display so it aligns perfectly with the center of each eye. 
-        # VR headsets have angled screens, so if we draw everything strictly at 
-        # the center of the display (0,0), it makes the user feel cross-eyed.
+        # Shift the display so it aligns perfectly with the center of each eye.
         if use_vr and stereoscopic:
             self.left_eye_x_pos, self.right_eye_x_pos = self.vr.compute_optical_axis_offsets()
         else:
@@ -334,8 +331,6 @@ class BaseExperiment(ABC):
                 return False
 
         return True
-
-
 
     def run(self, instructions=True):
         """ Run the experiment """
