@@ -12,6 +12,7 @@ class VR(Rift):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.libovr_to_wallclock_offset = None
+        self.timing_data = []
 
     def compute_optical_axis_offsets(self):
         """
@@ -89,8 +90,6 @@ class VR(Rift):
                 f"res={self.displayResolution}  eye_buf={self.size}"
             )
 
-            if not hasattr(self, 'timing_data'):
-                self.timing_data = []
             self.timing_data.insert(0, ['# ipd_mm', ipd_mm, 'ppd', ppd, f'ppd_h={ppd_h:.1f} ppd_v={ppd_v:.1f}'])
 
             return ppd, ipd_mm
@@ -117,9 +116,6 @@ class VR(Rift):
                 time_to_vsync_s = stat.timeToVsync
         except Exception:
             pass
-        
-        if not hasattr(self, 'timing_data'):
-            self.timing_data = []
             
         self.timing_data.append([
             trial_idx, software_time,
