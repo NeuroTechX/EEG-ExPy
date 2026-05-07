@@ -127,11 +127,12 @@ class VR(Rift):
         ])
 
     def save_telemetry(self, save_fn):
-        """Saves memory-buffered VR timing telemetry to a CSV sidecar."""
-        if not self.timing_data:
+        """Saves memory-buffered VR timing telemetry to a CSV sidecar.
+        """
+        if save_fn is None:
             return
-            
-        timing_path = save_fn.with_name(save_fn.stem + '_timing.csv') if save_fn else 'vr_timing.csv'
+
+        timing_path = save_fn.with_name(save_fn.stem + '_timing.csv')
         with open(timing_path, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([
@@ -140,10 +141,9 @@ class VR(Rift):
                 'app_motion_to_photon_latency_s', 'compositor_latency_s',
                 'time_to_vsync_s'
             ])
-            
-            # Log the clock offset if calculated
+
             if self.libovr_to_wallclock_offset is not None:
-                 writer.writerow(['# libovr_to_wallclock_offset_s', self.libovr_to_wallclock_offset, 'bracket_ms', self.libovr_to_wallclock_bracket * 1000])
-                 
+                writer.writerow(['# libovr_to_wallclock_offset_s', self.libovr_to_wallclock_offset, 'bracket_ms', self.libovr_to_wallclock_bracket * 1000])
+
             writer.writerows(self.timing_data)
         print(f"  Saved VR timing telemetry to {timing_path}")
