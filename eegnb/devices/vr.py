@@ -1,4 +1,5 @@
 import logging
+import csv
 import numpy as np
 from time import time
 from psychopy.visual.rift import Rift
@@ -12,6 +13,7 @@ class VR(Rift):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.libovr_to_wallclock_offset = None
+        self.libovr_to_wallclock_bracket = None
         self.timing_data = []
 
     def compute_optical_axis_offsets(self):
@@ -65,6 +67,7 @@ class VR(Rift):
             )
             
             self.libovr_to_wallclock_offset = best_offset
+            self.libovr_to_wallclock_bracket = best_bracket
             return best_offset
         except Exception as e:
             logging.warning(f"[VR] LibOVR clock sync failed: {e}")
@@ -125,11 +128,9 @@ class VR(Rift):
 
     def save_telemetry(self, save_fn):
         """Saves memory-buffered VR timing telemetry to a CSV sidecar."""
-        timing_data = getattr(self, 'timing_data', [])
-        if not timing_data:
+        if not self.timing_data:
             return
             
-        import csv
         timing_path = save_fn.with_name(save_fn.stem + '_timing.csv') if save_fn else 'vr_timing.csv'
         with open(timing_path, 'w', newline='') as f:
             writer = csv.writer(f)
@@ -142,7 +143,7 @@ class VR(Rift):
             
             # Log the clock offset if calculated
             if self.libovr_to_wallclock_offset is not None:
-                 writer.writerow(['# libovr_to_wallclock_offset_s', self.libovr_to_wallclock_offset, 'bracket_ms', 0])
+                 writer.writerow(['# libovr_to_wallclock_offset_s', self.libovr_to_wallclock_offset, 'bracket_ms', self.libovr_to_wallclock_bracket * 1000])
                  
-            writer.writerows(timing_data)
+            writer.writerows(self.timing_data)
         print(f"  Saved VR timing telemetry to {timing_path}")
