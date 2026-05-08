@@ -60,7 +60,7 @@ jobs:
 
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/dev/')
+      if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html
