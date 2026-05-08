@@ -1,19 +1,19 @@
-class MissingExperiment:
-    def __init__(self, *args, **kwargs):
-        raise RuntimeError(
-            "PsychoPy is not installed. Stimulus presentation experiments "
-            "are not available in this environment. Please install the "
-            "'stimpres' or 'full' dependencies to use this feature."
-        )
+from eegnb.utils.missing import missing_class
+
+MissingExperiment = missing_class(
+    "PsychoPy",
+    "Stimulus presentation experiments",
+    "stimpres",
+)
 
 try:
     from .visual_n170.n170 import VisualN170
     from .visual_p300.p300 import VisualP300
     from .visual_ssvep.ssvep import VisualSSVEP
 except ImportError:
-    VisualN170 = MissingExperiment  # type: ignore
-    VisualP300 = MissingExperiment  # type: ignore
-    VisualSSVEP = MissingExperiment  # type: ignore
+    VisualN170 = MissingExperiment
+    VisualP300 = MissingExperiment
+    VisualSSVEP = MissingExperiment
 
 try:
     from psychopy import sound, plugins, prefs
@@ -53,4 +53,4 @@ except ImportError:
 try:
     from .auditory_oddball.aob import AuditoryOddball
 except ImportError:
-    AuditoryOddball = MissingExperiment  # type: ignore
+    AuditoryOddball = MissingExperiment
