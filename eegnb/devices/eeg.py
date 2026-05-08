@@ -22,7 +22,10 @@ from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
 
 try:
     import pyxid2
-except ImportError:
+except (ImportError, OSError):
+    # OSError covers pyxid2 being installed but its native FTDI dependency
+    # (libftd2xx.so / ftd2xx.dll) being absent — common on Linux CI where
+    # the proprietary FTDI driver isn't installed.
     from eegnb.utils.missing import missing_module
     pyxid2 = missing_module(
         "pyxid2",
