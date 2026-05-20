@@ -1,27 +1,66 @@
-from .visual_n170.n170 import VisualN170
-from .visual_p300.p300 import VisualP300
-from .visual_ssvep.ssvep import VisualSSVEP
+from typing import TYPE_CHECKING
 
-from psychopy import sound, plugins, prefs
-import platform
+from eegnb.utils.missing import missing_class
 
-# PTB does not yet support macOS Apple Silicon freely, need to fall back to sounddevice.
-if platform.system() == 'Darwin' and platform.machine() == 'arm64':
-    # import psychopy_sounddevice.backend_sounddevice
-    plugins.scanPlugins()
-    success = plugins.loadPlugin('psychopy-sounddevice')
-    print(f"psychopy_sounddevice plugin loaded: {success}")
+MissingExperiment = missing_class(
+    "PsychoPy",
+    "Stimulus presentation experiments",
+    "stimpres",
+)
 
-    # Force reload sound module
-    import importlib
-    importlib.reload(sound)
-    # setting prefs.hardware['audio_device'] still falls back to a default device, need to use setDevice.
-    audio_device = prefs.hardware.get('audioDevice', 'default')
-    if audio_device and audio_device != 'default':
-        sound.setDevice(audio_device)
+if TYPE_CHECKING:
+    from .visual_n170.n170 import VisualN170
+    from .visual_p300.p300 import VisualP300
+    from .visual_ssvep.ssvep import VisualSSVEP
 else:
-    #change the pref library to PTB and set the latency mode to high precision
-    prefs.hardware['audioLib'] = 'PTB'
-    prefs.hardware['audioLatencyMode'] = 3
+    try:
+        from .visual_n170.n170 import VisualN170
+        from .visual_p300.p300 import VisualP300
+        from .visual_ssvep.ssvep import VisualSSVEP
+    except ImportError:
+        VisualN170 = MissingExperiment
+        VisualP300 = MissingExperiment
+        VisualSSVEP = MissingExperiment
 
-from .auditory_oddball.aob import AuditoryOddball
+try:
+    from psychopy import sound, plugins, prefs
+    import platform
+    import logging
+
+    # PTB does not yet support macOS Apple Silicon freely, need to fall back to sounddevice.
+    if platform.system() == 'Darwin' and platform.machine() == 'arm64':
+        # import psychopy_sounddevice.backend_sounddevice
+        plugins.scanPlugins()
+        success = plugins.loadPlugin('psychopy-sounddevice')
+        print(f"psychopy_sounddevice plugin loaded: {success}")
+
+        # Force reload sound module
+        import importlib
+        importlib.reload(sound)
+        
+        # Try to set the audio device if requested and available
+        audio_device = prefs.hardware.get('audioDevice', 'default')
+        if audio_device and audio_device != 'default':
+            if hasattr(sound, 'setDevice'):
+                try:
+                    sound.setDevice(audio_device)
+                except Exception as e:
+                    logging.warning(f"Failed to set audio device to '{audio_device}': {e}")
+            else:
+                logging.warning(f"sound.setDevice not available, could not set device to '{audio_device}'")
+    else:
+        #change the pref library to PTB and set the latency mode to high precision
+        prefs.hardware['audioLib'] = 'PTB'
+        prefs.hardware['audioLatencyMode'] = 3
+except ImportError:
+    import logging
+    # logging.warning("PsychoPy not found. Stimulus presentation experiments will not be available.")
+    pass
+
+if TYPE_CHECKING:
+    from .auditory_oddball.aob import AuditoryOddball
+else:
+    try:
+        from .auditory_oddball.aob import AuditoryOddball
+    except ImportError:
+        AuditoryOddball = MissingExperiment

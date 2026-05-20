@@ -4,7 +4,7 @@ from pathlib import Path
 
 from eegnb import generate_save_fn, DATA_DIR
 from eegnb.devices.eeg import EEG
-from .utils import run_experiment, get_exp_desc, experiments
+from .utils import run_experiment, get_exp_desc, get_experiments
 
 eegnb_sites = ['eegnb_examples', 'grifflab_dev', 'jadinlab_home']
 
@@ -87,6 +87,7 @@ def device_prompt() -> EEG:
 
 
 def exp_prompt(runorzip:str='run') -> str:
+    experiments = get_experiments()
     print("\nPlease select which experiment you would like to %s: \n" %runorzip)
     print(
         "\n".join(

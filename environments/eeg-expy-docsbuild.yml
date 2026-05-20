@@ -3,7 +3,8 @@ channels:
     - defaults
 dependencies:
     # System-level dependencies
-    - python>=3.8,<=3.13
+    - python >=3.10 # higher versions allowed for experimental builds
+    - setuptools
     - pytables # install pytables for macOS arm64, so do not need to build from source.
     - rust # used by docsbuild
     - pip
