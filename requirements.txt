@@ -3,7 +3,9 @@
 
 scikit-learn>=0.23.2
 pandas>=1.1.4
-numpy>=1.26.0
+# psychxr build pinned to this version of numpy.
+numpy>=1.26,<1.27;  python_version >= "3.9"
+numpy<=1.24.4; python_version == "3.8"
 mne>=0.20.8
 seaborn>=0.11.0
 pyriemann>=0.2.7
@@ -20,7 +22,7 @@ attrdict>=2.0.1
 attrdict3
 
 
-## ~~ Streaming Requirements ~~ 
+## ~~ Streaming Requirements ~~
 
 pyxid2
 muselsl>=2.0.2
@@ -58,7 +60,9 @@ ffpyplayer==4.5.2 # 4.5.3 fails to build as wheel.
 psychtoolbox
 scikit-learn>=0.23.2
 pandas>=1.1.4
-numpy>=1.26.0
+# psychxr build pinned to this version of numpy.
+numpy>=1.26,<1.27;  python_version >= "3.9"
+numpy==1.24.4; python_version == "3.8"
 mne>=0.20.8
 seaborn>=0.11.0
 pysocks>=1.7.1
@@ -79,6 +83,8 @@ pyglet==1.4.11 ; platform_system == "Windows"
 # psychxr/quest-link is Windows-only.
 psychxr @ https://github.com/pellet/psychxr/releases/download/v0.2.6rc1/psychxr-0.2.6rc1-cp310-cp310-win_amd64.whl ; platform_system == "Windows" and python_version == "3.10"
 
+# Used for generating checkerboard in pattern reversal experiment
+stimupy
 # PsychoPy/PsychXR does not yet officially support Python > 3.10; the wheels below are experimental.
 psychxr @ https://github.com/pellet/psychxr/releases/download/v0.2.6rc1/psychxr-0.2.6rc1-cp311-cp311-win_amd64.whl ; platform_system == "Windows" and python_version == "3.11"
 psychxr @ https://github.com/pellet/psychxr/releases/download/v0.2.6rc1/psychxr-0.2.6rc1-cp312-cp312-win_amd64.whl ; platform_system == "Windows" and python_version == "3.12"
