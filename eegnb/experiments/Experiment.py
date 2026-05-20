@@ -11,15 +11,16 @@ obj.run()
 from abc import abstractmethod, ABC
 from typing import Callable
 from eegnb.devices.eeg import EEG
-from psychopy import prefs
-from psychopy.visual.rift import Rift
+from eegnb.devices.vr import VR
+from psychopy import prefs, visual, event, core
 
+import gc
 from time import time
 import random
+import json
 
 import numpy as np
 from pandas import DataFrame
-from psychopy import visual, event
 
 from eegnb import generate_save_fn
 
@@ -61,11 +62,11 @@ class BaseExperiment(ABC):
         self.stereoscopic = stereoscopic
         if use_vr:
             # VR interface accessible by specific experiment classes for customizing and using controllers.
-            self.rift: Rift = visual.Rift(monoscopic=not stereoscopic, headLocked=True)
-        # eye for presentation
-        if stereoscopic:
-            self.left_eye_x_pos = 0.2
-            self.right_eye_x_pos = -0.2
+            self.vr: VR = VR(monoscopic=not stereoscopic, headLocked=True)
+
+        # Shift the display so it aligns perfectly with the center of each eye.
+        if use_vr and stereoscopic:
+            self.left_eye_x_pos, self.right_eye_x_pos = self.vr.compute_optical_axis_offsets()
         else:
             self.left_eye_x_pos = 0
             self.right_eye_x_pos = 0
@@ -113,10 +114,25 @@ class BaseExperiment(ABC):
         """
         self.window.flip()
 
+    def present_soa(self, idx: int):
+        """
+        Method called each frame during the SOA wait (stimulus-on period between trial transitions).
+
+        Recommended for VR: override this to redraw the stimulus for trial `idx`. VR compositors
+        prefer a freshly drawn frame each submission; submitting only a flip leads
+        the compositor to treat frames as stale, which can drop to half-rate
+        reprojection and increase dropped/late frames. Overriding gives smoother
+        presentation and more accurate frame timing.
+
+        idx : Trial index of the most recently presented stimulus — same value that was
+              passed to the preceding present_stimulus call.
+        """
+        raise NotImplementedError
+
     def setup(self, instructions=True):
         # Setting up Graphics
         self.window = (
-            self.rift if self.use_vr
+            self.vr if self.use_vr
             else visual.Window(self.window_size, monitor="testMonitor", units="deg", 
                                screen = self.screen_num, fullscr=self.use_fullscr))
         
@@ -151,7 +167,8 @@ class BaseExperiment(ABC):
         """
 
         # Splitting instruction text into lines
-        self.instruction_text = self.instruction_text % self.duration
+        if '%s' in self.instruction_text:
+            self.instruction_text = self.instruction_text % self.duration
 
         # Disabling the cursor during display of instructions
         self.window.mouseVisible = False
@@ -215,13 +232,13 @@ class BaseExperiment(ABC):
         """
         trigger_squeezed = False
         if trigger:
-            for x in self.rift.getIndexTriggerValues(vr_controller):
+            for x in self.vr.getIndexTriggerValues(vr_controller):
                 if x > 0.0:
                     trigger_squeezed = True
 
         button_pressed = False
         if button is not None:
-            button_pressed, tsec = self.rift.getButtons([button], vr_controller, 'released')
+            button_pressed, tsec = self.vr.getButtons([button], vr_controller, 'released')
 
         if trigger_squeezed or button_pressed:
             return True
@@ -258,7 +275,7 @@ class BaseExperiment(ABC):
         Clears/resets input events from vr controllers
         """
         if self.use_vr:
-            self.rift.updateInputState()
+            self.vr.updateInputState()
         
     def _run_trial_loop(self, start_time, duration):
         """
@@ -279,6 +296,7 @@ class BaseExperiment(ABC):
         current_trial = trial_end_time = -1
         trial_start_time = None
         rendering_trial = -1
+        has_soa_override = type(self).present_soa is not BaseExperiment.present_soa
         
         # Clear/reset user input buffer
         self._clear_user_input()
@@ -302,6 +320,10 @@ class BaseExperiment(ABC):
                     # Stimulus presentation overwritten by specific experiment
                     self._draw(lambda: self.present_stimulus(current_trial))
                     rendering_trial = current_trial
+                elif has_soa_override:
+                    # Keep submitting frames during SOA wait — VR compositor
+                    # drops to lower framerate if we stall between reversals.
+                    self._draw(lambda: self.present_soa(current_trial))
             else:
                 self._draw(lambda: self.present_iti())
 
@@ -326,8 +348,15 @@ class BaseExperiment(ABC):
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
 
-        # Run the trial loop
-        self._run_trial_loop(record_start_time, self.duration)
+        core.rush(True)
+        gc.disable()
+        try:
+            if self.use_vr:        
+                self.vr.sync_vr_clock()
+            self._run_trial_loop(record_start_time, self.duration)
+        finally:
+            gc.enable()
+            core.rush(False)
 
         # Clearing the screen for the next trial
         event.clearEvents()
@@ -336,10 +365,11 @@ class BaseExperiment(ABC):
         if self.eeg:
             self.eeg.stop()
 
+        if self.use_vr:
+            self.vr.save_telemetry(self.save_fn)
+
         # Closing the window
         self.window.close()
-
-
 
     def send_triggers(self, marker):
         """Send timing triggers to recording device[s]"""
@@ -347,9 +377,7 @@ class BaseExperiment(ABC):
             timestamp = time()
             dev.push_sample(marker=marker, timestamp=timestamp)
 
-
     @property
     def name(self) -> str:
         """ This experiment's name """
         return self.exp_name
-

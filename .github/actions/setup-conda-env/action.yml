@@ -1,0 +1,32 @@
+name: Set up conda env
+description: >
+  Install Miniconda and create/activate an EEG-ExPy conda environment from
+  the given env yml. Shared by the Test and Typecheck jobs so the two
+  don't drift apart. Environment name is not set in the yml files so local
+  installs can use any name they like.
+
+inputs:
+  environment-file:
+    required: true
+    description: Path to the conda environment yml file to install from.
+  activate-environment:
+    required: true
+    description: Name to give the created environment.
+  python-version:
+    required: false
+    description: >
+      Python version to pin (e.g. '3.8'). Overrides the version conda would
+      otherwise resolve from the environment file's constraints. When omitted,
+      conda resolves freely within the environment file's range.
+
+runs:
+  using: composite
+  steps:
+    - uses: conda-incubator/setup-miniconda@v3
+      with:
+        environment-file: ${{ inputs.environment-file }}
+        activate-environment: ${{ inputs.activate-environment }}
+        python-version: ${{ inputs.python-version }}
+        auto-activate-base: false
+        channels: conda-forge
+        miniconda-version: "latest"

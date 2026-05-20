@@ -20,7 +20,16 @@ from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
 
-import pyxid2
+from eegnb.utils.missing import missing_module
+
+try:
+    import pyxid2
+except (ImportError, OSError):
+    pyxid2 = missing_module(
+        "pyxid2",
+        "The Cedrus XID backend (NIRSport2 and other Cedrus stimulus-marker devices)",
+        "xid",
+    )
 
 from eegnb.devices.utils import (
     get_openbci_usb,
