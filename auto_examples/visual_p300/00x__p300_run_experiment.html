@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=464912d9"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=a56c686a"></script>
       <script src="../../_static/debug.js?v=63710f7d"></script>
@@ -450,11 +451,11 @@
 to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="p300-run-experiment">
-<span id="sphx-glr-auto-examples-visual-p300-00x-p300-run-experiment-py"></span><h1>P300 run experiment<a class="headerlink" href="#p300-run-experiment" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-auto-examples-visual-p300-00x-p300-run-experiment-py"></span><h1>P300 run experiment<a class="headerlink" href="#p300-run-experiment" title="Link to this heading"></a></h1>
 <p>This example demonstrates the initiation of an EEG stream with eeg-expy, and how to run
 an experiment.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <p>Imports</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span>
@@ -471,7 +472,7 @@ an experiment.</p>
 </div>
 </section>
 <section id="initiate-eeg-device">
-<h2>Initiate EEG device<a class="headerlink" href="#initiate-eeg-device" title="Permalink to this heading"></a></h2>
+<h2>Initiate EEG device<a class="headerlink" href="#initiate-eeg-device" title="Link to this heading"></a></h2>
 <p>Start EEG device</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
 
@@ -482,7 +483,7 @@ an experiment.</p>
 </div>
 </section>
 <section id="run-experiment">
-<h2>Run experiment<a class="headerlink" href="#run-experiment" title="Permalink to this heading"></a></h2>
+<h2>Run experiment<a class="headerlink" href="#run-experiment" title="Link to this heading"></a></h2>
 <p>Create Experiment Object</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">p300</span> <span class="o">=</span> <span class="n">VisualP300</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
 <span class="n">p300</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>

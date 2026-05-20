@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=464912d9"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=a56c686a"></script>
       <script src="../_static/debug.js?v=63710f7d"></script>
@@ -442,24 +443,24 @@
            <div itemprop="articleBody">
              
   <section id="loading-and-saving-data">
-<h1>Loading and Saving Data<a class="headerlink" href="#loading-and-saving-data" title="Permalink to this heading"></a></h1>
+<h1>Loading and Saving Data<a class="headerlink" href="#loading-and-saving-data" title="Link to this heading"></a></h1>
 <p>Knowing where the data is saved is integral to the functionality of EEG Notebooks. EEG Notebooks saves data to a default location in a hidden directory. From this directory, the individual files can be found based on a folder structure outlined below in the <strong>naming convention.</strong></p>
 <section id="locating-the-default-data-directory">
-<h2>Locating the Default Data Directory<a class="headerlink" href="#locating-the-default-data-directory" title="Permalink to this heading"></a></h2>
+<h2>Locating the Default Data Directory<a class="headerlink" href="#locating-the-default-data-directory" title="Link to this heading"></a></h2>
 <section id="windows-10">
-<h3>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this heading"></a></h3>
+<h3>Windows 10<a class="headerlink" href="#windows-10" title="Link to this heading"></a></h3>
 <p>The default directory is found at the location <code class="docutils literal notranslate"><span class="pre">C:\Users\*USER_NAME*\.eegnb</span></code> an example of which is pictured below.
 <img alt="fig" src="../_images/windows_default_directory.PNG" /></p>
 </section>
 <section id="linux">
-<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this heading"></a></h3>
+<h3>Linux<a class="headerlink" href="#linux" title="Link to this heading"></a></h3>
 </section>
 <section id="macos">
-<h3>MacOS<a class="headerlink" href="#macos" title="Permalink to this heading"></a></h3>
+<h3>MacOS<a class="headerlink" href="#macos" title="Link to this heading"></a></h3>
 </section>
 </section>
 <section id="changing-the-default-data-directory">
-<h2>Changing the Default Data Directory<a class="headerlink" href="#changing-the-default-data-directory" title="Permalink to this heading"></a></h2>
+<h2>Changing the Default Data Directory<a class="headerlink" href="#changing-the-default-data-directory" title="Link to this heading"></a></h2>
 <p>The default directory for saving data is automatically set within the library. If you want to save and analyze data to/from a new directory, it must be passed as a parameter to both the <code class="docutils literal notranslate"><span class="pre">eegnb.generate_save_fn()</span></code> and <code class="docutils literal notranslate"><span class="pre">eegnb.analysis.load_data()</span></code> functions.</p>
 <p><strong>Saving to new directory:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span>
@@ -502,7 +503,7 @@
 </div>
 </section>
 <section id="naming-convention">
-<h2>Naming Convention<a class="headerlink" href="#naming-convention" title="Permalink to this heading"></a></h2>
+<h2>Naming Convention<a class="headerlink" href="#naming-convention" title="Link to this heading"></a></h2>
 <p>From the specified data directory, EEG notebooks then follows a specific set of naming conventions to define subdirectories and save the data. The full path ends up taking the form</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DATA_DIR</span>\<span class="n">experiment</span>\<span class="n">site</span>\<span class="n">device</span>\<span class="n">subject</span><span class="c1">#\session#\file_name.csv</span>
 </pre></div>
@@ -520,7 +521,7 @@
 <p><strong>Session #:</strong> A session in this case would be the full period of time which you have the device on and are taking multiple recordings. For example: if you put the headset on and take five recordings, all five of these recording would belong to session number 1. Once you take a break from consecutive recordings, then this would constitute a new session. Just like the subject ID, this value is passed as an integer and gets converted to a read-able format.</p>
 <p><strong>File name:</strong> The file name is automatically generated in the format <code class="docutils literal notranslate"><span class="pre">recording_date_time.csv</span></code></p>
 <section id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h3>
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
 </section>
 </section>
 </section>

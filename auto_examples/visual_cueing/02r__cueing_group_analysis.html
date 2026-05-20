@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=464912d9"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=a56c686a"></script>
       <script src="../../_static/debug.js?v=63710f7d"></script>
@@ -450,9 +451,9 @@
 to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="cueing-group-analysis">
-<span id="sphx-glr-auto-examples-visual-cueing-02r-cueing-group-analysis-py"></span><h1>Cueing Group Analysis<a class="headerlink" href="#cueing-group-analysis" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-auto-examples-visual-cueing-02r-cueing-group-analysis-py"></span><h1>Cueing Group Analysis<a class="headerlink" href="#cueing-group-analysis" title="Link to this heading"></a></h1>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard pythonic importa</span>
 <span class="kn">import</span><span class="w">  </span><span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
@@ -472,7 +473,7 @@ to download the full example code.</p>
 </div>
 </section>
 <section id="download-the-data">
-<h2>Download the data<a class="headerlink" href="#download-the-data" title="Permalink to this heading"></a></h2>
+<h2>Download the data<a class="headerlink" href="#download-the-data" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 <span class="n">cueing_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
 
@@ -483,7 +484,7 @@ to download the full example code.</p>
 </div>
 </section>
 <section id="load-data-into-mne-objects">
-<h2>Load data into MNE objects<a class="headerlink" href="#load-data-into-mne-objects" title="Permalink to this heading"></a></h2>
+<h2>Load data into MNE objects<a class="headerlink" href="#load-data-into-mne-objects" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># MNE is a very powerful Python library for analyzing EEG data. It provides helpful functions for performing key tasks such as filtering EEG data, rejecting artifacts, and grouping EEG data into chunks (epochs).</span>
 
 <span class="c1"># The first step after loading dependencies is use MNE to read the data we&#39;ve collected into an MNE Raw object</span>
@@ -817,10 +818,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 122 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 10.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 102
 
@@ -860,10 +864,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 92 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 40.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 103
 
@@ -903,10 +910,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 160 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 58.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 104
 
@@ -944,6 +954,7 @@ Ready.
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
+Marking edge at 61284 samples (maps to 239.391 sec)
 Filtering raw data in 3 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
 
@@ -953,10 +964,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 272 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 39.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 105
 
@@ -996,10 +1010,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 111 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 21.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 106
 
@@ -1039,10 +1056,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 201 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 2.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 108
 
@@ -1082,10 +1102,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 130 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 0.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 109
 
@@ -1125,10 +1148,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 160 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 5.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 110
 
@@ -1168,10 +1194,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 107 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 28.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 111
 
@@ -1211,10 +1240,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 223 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 32.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 112
 
@@ -1254,10 +1286,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 86 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 0.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 202
 
@@ -1297,10 +1332,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 156 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 61.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 203
 
@@ -1340,10 +1378,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 120 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 4.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 204
 
@@ -1383,10 +1424,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 183 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 49.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 205
 
@@ -1426,10 +1470,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 194 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 87.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 207
 
@@ -1469,10 +1516,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 181 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 70.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 208
 
@@ -1512,10 +1562,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 181 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 70.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 209
 
@@ -1555,10 +1608,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 118 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 5.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 210
 
@@ -1598,10 +1654,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 170 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 67.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 211
 
@@ -1641,10 +1700,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 96 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 9.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 301
 
@@ -1684,10 +1746,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 54 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 26.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 302
 
@@ -1725,6 +1790,7 @@ Ready.
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
+Marking edge at 61296 samples (maps to 239.438 sec)
 Filtering raw data in 3 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
 
@@ -1734,10 +1800,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 213 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 11.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 303
 
@@ -1777,10 +1846,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 198 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 8.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 304
 
@@ -1820,10 +1892,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 195 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 24.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 305
 
@@ -1863,10 +1938,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 166 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 9.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 306
 
@@ -1906,10 +1984,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 147 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 1.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 307
 
@@ -1949,10 +2030,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 171 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 49.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 308
 
@@ -1992,10 +2076,13 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 180 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 71.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 309
 
@@ -2035,19 +2122,22 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 - Filter order 16 (effective, after forward-backward)
 - Cutoffs at 1.00, 30.00 Hz: -6.02, -6.02 dB
 
+Finding events on: stim
 196 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 74.
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
 Applying baseline correction (mode: mean)
 (29, 100, 769)
 (29, 100)
-[-1.8633016529356232e-10, -5.194492698041424e-11, 3.965717366845577e-11, -9.439937924298537e-11, 1.5395426956926177e-10, nan, nan, 1.437520530470476e-10, 6.156413801290107e-12, -3.4542289627374594e-11, nan, 1.404002269024156e-10, 4.5250575579728836e-11, 8.13341442171729e-11, 1.7562617842729167e-12, 3.498985471214225e-11, -7.358448888412755e-11, -2.066739867471836e-11, 5.833832231476192e-11, -1.1353507280272121e-10, 2.0578545669354385e-10, 8.13612907825663e-11, 2.231124565129559e-09, 4.417204016507064e-13, 1.5824220701839133e-10, nan, 2.972694444208325e-11, -2.7053453190038292e-11, 1.0032262566342049e-10]
+[np.float64(-1.8633016529355748e-10), np.float64(-5.194492698041392e-11), np.float64(3.965717366845587e-11), np.float64(-9.439937924298582e-11), np.float64(1.5395426956926104e-10), np.float64(nan), np.float64(nan), np.float64(1.437520530470482e-10), np.float64(6.156413801289871e-12), np.float64(-3.4542289627375834e-11), np.float64(nan), np.float64(1.4040022690241606e-10), np.float64(4.5250575579728726e-11), np.float64(8.133414421717288e-11), np.float64(1.756261784272699e-12), np.float64(3.498985471214189e-11), np.float64(-7.358448888412798e-11), np.float64(-2.0667398674719227e-11), np.float64(5.833832231476315e-11), np.float64(-1.1353507280272125e-10), np.float64(2.057854566935435e-10), np.float64(8.136129078256687e-11), np.float64(2.231124565129561e-09), np.float64(4.417204016501732e-13), np.float64(1.582422070183916e-10), np.float64(nan), np.float64(2.972694444208334e-11), np.float64(-2.7053453190038354e-11), np.float64(1.0032262566342014e-10)]
 </pre></div>
 </div>
 </section>
 <section id="combine-subjects">
-<h2>Combine subjects<a class="headerlink" href="#combine-subjects" title="Permalink to this heading"></a></h2>
+<h2>Combine subjects<a class="headerlink" href="#combine-subjects" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">GrandAvg_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_diff_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">GrandAvg_Ipsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_Ipsi_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">GrandAvg_Contra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ERSP_Contra_out</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -2135,12 +2225,12 @@ Applying baseline correction (mode: mean)
 <li><img src="../../_images/sphx_glr_02r__cueing_group_analysis_091.png" srcset="../../_images/sphx_glr_02r__cueing_group_analysis_091.png" alt="Power Contra" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_02r__cueing_group_analysis_092.png" srcset="../../_images/sphx_glr_02r__cueing_group_analysis_092.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f6c7ed6cee0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x7f300c1d25d0&gt;
 </pre></div>
 </div>
 </section>
 <section id="compute-t-test">
-<h2>Compute t test<a class="headerlink" href="#compute-t-test" title="Permalink to this heading"></a></h2>
+<h2>Compute t test<a class="headerlink" href="#compute-t-test" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
 <span class="n">num_good</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">diff_out</span><span class="p">))</span>
 
@@ -2152,16 +2242,16 @@ Applying baseline correction (mode: mean)
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pval</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.02456136295644e-11
-Contra Mean: -2.617586361170848e-11
-Mean Diff: 1.164214772412729e-10
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 9.02456136295645e-11
+Contra Mean: -2.61758636117086e-11
+Mean Diff: 1.164214772412731e-10
 t(24) = 1.394
 p = 0.169
 </pre></div>
 </div>
 </section>
 <section id="save-average-powers-ipsi-and-contra">
-<h2>Save average powers ipsi and contra<a class="headerlink" href="#save-average-powers-ipsi-and-contra" title="Permalink to this heading"></a></h2>
+<h2>Save average powers ipsi and contra<a class="headerlink" href="#save-average-powers-ipsi-and-contra" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span>
 <span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Ipsi Power&#39;</span><span class="p">:</span> <span class="n">Ipsi_out</span><span class="p">,</span>
@@ -2171,13 +2261,13 @@ p = 0.169
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved subject averages for each condition to 375CueingEEG.csv file in present directory&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.8633016529356232e-10, -5.194492698041424e-11, 3.965717366845577e-11, -9.439937924298537e-11, 1.5395426956926177e-10, nan, nan, 1.437520530470476e-10, 6.156413801290107e-12, -3.4542289627374594e-11, nan, 1.404002269024156e-10, 4.5250575579728836e-11, 8.13341442171729e-11, 1.7562617842729167e-12, 3.498985471214225e-11, -7.358448888412755e-11, -2.066739867471836e-11, 5.833832231476192e-11, -1.1353507280272121e-10, 2.0578545669354385e-10, 8.13612907825663e-11, 2.231124565129559e-09, 4.417204016507064e-13, 1.5824220701839133e-10, nan, 2.972694444208325e-11, -2.7053453190038292e-11, 1.0032262566342049e-10]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[np.float64(-1.8633016529355748e-10), np.float64(-5.194492698041392e-11), np.float64(3.965717366845587e-11), np.float64(-9.439937924298582e-11), np.float64(1.5395426956926104e-10), np.float64(nan), np.float64(nan), np.float64(1.437520530470482e-10), np.float64(6.156413801289871e-12), np.float64(-3.4542289627375834e-11), np.float64(nan), np.float64(1.4040022690241606e-10), np.float64(4.5250575579728726e-11), np.float64(8.133414421717288e-11), np.float64(1.756261784272699e-12), np.float64(3.498985471214189e-11), np.float64(-7.358448888412798e-11), np.float64(-2.0667398674719227e-11), np.float64(5.833832231476315e-11), np.float64(-1.1353507280272125e-10), np.float64(2.057854566935435e-10), np.float64(8.136129078256687e-11), np.float64(2.231124565129561e-09), np.float64(4.417204016501732e-13), np.float64(1.582422070183916e-10), np.float64(nan), np.float64(2.972694444208334e-11), np.float64(-2.7053453190038354e-11), np.float64(1.0032262566342014e-10)]
 Saved subject averages for each condition to 375CueingEEG.csv file in present directory
 </pre></div>
 </div>
 </section>
 <section id="save-spectra">
-<h2>Save spectra<a class="headerlink" href="#save-spectra" title="Permalink to this heading"></a></h2>
+<h2>Save spectra<a class="headerlink" href="#save-spectra" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Ipsi_spectra_out</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingIpsiSpec.csv&#39;</span><span class="p">)</span>
 
@@ -2189,7 +2279,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Saved Spectra to 375Cueing*Spec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 30.996 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 26.899 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-02r-cueing-group-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1f56a155b1a68a196eeb8aea2e0b7517/02r__cueing_group_analysis.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02r__cueing_group_analysis.ipynb</span></code></a></p>

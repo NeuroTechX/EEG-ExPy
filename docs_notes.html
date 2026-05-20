@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=464912d9"></script>
-      <script src="_static/doctools.js?v=888ff710"></script>
-      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=a56c686a"></script>
       <script src="_static/debug.js?v=63710f7d"></script>
@@ -442,7 +443,7 @@
            <div itemprop="articleBody">
              
   <section id="eeg-expy-documentation-developer-notes">
-<h1>EEG-ExPy Documentation Developer Notes<a class="headerlink" href="#eeg-expy-documentation-developer-notes" title="Permalink to this heading"></a></h1>
+<h1>EEG-ExPy Documentation Developer Notes<a class="headerlink" href="#eeg-expy-documentation-developer-notes" title="Link to this heading"></a></h1>
 <p>The documentation page can be found at https://neurotechx.github.io/eeg-expy</p>
 <p>The documentation source files are a combination of plain-text <code class="docutils literal notranslate"><span class="pre">.rst</span></code>, <code class="docutils literal notranslate"><span class="pre">.md</span></code>, and <code class="docutils literal notranslate"><span class="pre">.py</span></code> files.</p>
 <p>It is built locally with <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, and hosted on the github repo <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch in the usual fashion</p>
@@ -456,7 +457,7 @@
 <p>The documentation building command actually executes the python code in each of the <code class="docutils literal notranslate"><span class="pre">examples</span></code> files, and creates figures from them. Errors in the python code lead to incompletely built webpages.</p>
 <p>( Side-note: The title <code class="docutils literal notranslate"><span class="pre">EEG-Notebooks</span></code> was originally conceived with the idea of having complete Python-based EEG experiments runnable from a jupyter notebook, with those notebooks being the main contents of the repo. At the user-level, this is still largely the case; but at the development level, we have now switched over from maintaining a set of <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> source files, to maintaining a set of <code class="docutils literal notranslate"><span class="pre">.py</span></code> files (in the <code class="docutils literal notranslate"><span class="pre">examples</span> <span class="pre">folder),</span> <span class="pre">that</span> <span class="pre">are</span> <span class="pre">converted</span> <span class="pre">to</span> </code>.ipynb<code class="docutils literal notranslate"><span class="pre">files</span> <span class="pre">when</span> <span class="pre">the</span></code>sphinx-gallery<code class="docutils literal notranslate"><span class="pre">documentation</span> <span class="pre">is</span> <span class="pre">compiled.</span> <span class="pre">This</span> <span class="pre">is</span> <span class="pre">much</span> <span class="pre">better</span> <span class="pre">and</span> <span class="pre">sustainable</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">point</span> <span class="pre">of</span> <span class="pre">view</span> <span class="pre">of</span> <span class="pre">version</span> <span class="pre">control,</span> <span class="pre">since</span> <span class="pre">multiple-user</span> <span class="pre">contributions</span> <span class="pre">to</span></code>ipynb` files gets very hairy with git )</p>
 <section id="building-the-doc-site">
-<h2>Building the doc site<a class="headerlink" href="#building-the-doc-site" title="Permalink to this heading"></a></h2>
+<h2>Building the doc site<a class="headerlink" href="#building-the-doc-site" title="Link to this heading"></a></h2>
 <p>The documentation build has only been tested in linux. It may also work on Mac.</p>
 <p>First: install the docs dependencies in a new or existing python environment
 (see <code class="docutils literal notranslate"><span class="pre">requirements-doc.txt</span></code>)</p>
@@ -473,7 +474,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code></p>
 </section>
 <section id="misc-notes">
-<h2>Misc notes<a class="headerlink" href="#misc-notes" title="Permalink to this heading"></a></h2>
+<h2>Misc notes<a class="headerlink" href="#misc-notes" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">doc/index.rst</span></code> defines the overall site structure and table-of-contents tree</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">doc/Makefile</span></code> contains the commands for building documentation. The main two commands are <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> (build docs locally) and <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> (build docs locally and push to <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch, updating the website`)</p></li>

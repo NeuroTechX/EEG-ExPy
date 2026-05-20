@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=464912d9"></script>
-      <script src="_static/doctools.js?v=888ff710"></script>
-      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=a56c686a"></script>
       <script src="_static/debug.js?v=63710f7d"></script>
@@ -443,7 +444,7 @@
            <div itemprop="articleBody">
              
   <section id="eeg-expy">
-<h1>EEG-ExPy<a class="headerlink" href="#eeg-expy" title="Permalink to this heading"></a></h1>
+<h1>EEG-ExPy<a class="headerlink" href="#eeg-expy" title="Link to this heading"></a></h1>
 <p><em>Democratizing the cognitive neuroscience experiment</em></p>
 <p><a class="reference external" href="https://github.com/NeuroTechX/eeg-expy/actions"><img alt="badge_test" src="https://github.com/NeuroTechX/eeg-expy/workflows/Test/badge.svg" /></a> <a class="reference external" href="https://mybinder.org/v2/gh/NeuroTechX/eeg-expy/master"><img alt="badge_binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
 <img alt="doc/img/EEG-ExPy_Logo.png" class="align-center" src="doc/img/EEG-ExPy_Logo.png" />
@@ -460,7 +461,7 @@
 <p><strong>Note:</strong> eeg-expy was previously known as eeg-notebooks. Before the renaming, eeg-notebooks also underwent major changes to the API in v0.2. The old v0.2 version, before the name change, is still available if you need it, in <a class="reference external" href="https://github.com/neurotechx/eeg-notebooks_v0.2">this repo</a>. The even older v0.1 is also still available if needed <a class="reference external" href="https://github.com/neurotechx/eeg-notebooks_v0.1">here</a>.</p>
 <hr class="docutils" />
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
 <p>Conventional lab-based EEG research typically uses research-grade (often high-density) EEG devices, dedicated stimulus delivery software and hardware, and dedicated technicians responsible for operating this equipment. The price tag for these items can easily extend into hundreds of thousands of dollars, which naturally places major limits on their acquisition and usage.</p>
 <p>In recent years, however, developments in hardware and software technologies are making it possible for many classic EEG cognitive neuroscience experiments to be conducted using a standard laptop/personal computer and a relatively cheap consumer-grade EEG device, with a combined minimum cost of less than 1000 dollars. This opens dramatic new possibilities for neurotechnology and cognitive neuroscience <em>education</em> (at both University and High School levels), as well as more ambitious and larger-scale <em>research</em> and <em>clinical</em> applications using large numbers of devices, and/or in more naturalistic (i.e. out-of-the-lab) settings. We like to think of this as contributing to the <em>democratization of the cognitive neuroscience experiment</em>.</p>
 <p>The core aim of the EEG-Notebooks project is to provide the critical ‘glue’ that pulls together the various enabling technologies necessary for running these experiments and analyzing the data. This includes functionality for</p>
@@ -474,28 +475,35 @@
 <p>For more discussion on these social/scientific/technological contexts and trajectories, a) feel free to get in touch directly (see #Contact info below) and b) keep an eye out for the forthcoming eeg-expy research paper.</p>
 </section>
 <section id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading"></a></h2>
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
 <p>The current version of eeg-expy is the 0.2.X series. The code-base and API are under major development and subject to change.</p>
 <p>Check the <a class="reference external" href="https://neurotechx.github.io/EEG-ExPy/changelog.html">changelog</a> for notes on changes from previous versions.</p>
 <p><strong>Installation instructions</strong>, steps for <strong>getting started</strong>, common <strong>troubleshooting</strong> solutions and more can be found in the documentation for eeg-expy, available on the
 <a class="reference external" href="https://neurotechx.github.io/EEG-ExPy/index.html">documentation site</a>.</p>
 </section>
 <section id="acknowledgments">
-<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this heading"></a></h2>
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading"></a></h2>
 <p>EEG-Notebooks was created by the <a class="reference external" href="https://neurotechx.com/">NeurotechX</a> hacker/developer/neuroscience community. The ininitial idea and majority of the groundwork was due to Alexandre Barachant - including the <a class="reference external" href="https://github.com/alexandrebarachant/muse-lsl/">muse-lsl</a> library, which is core dependency. Lead developer on the project is now <a class="reference external" href="https://www.grifflab.com">John Griffiths</a> .</p>
 <p>Key contributors include: Alexandre Barachant, Hubert Banville, Dano Morrison, Ben Shapiro, John Griffiths, Amanda Easson, Kyle Mathewson, Jadin Tredup, Erik Bjäreholt.</p>
 <p>Thanks also to Andrey Parfenov for the excellent <a class="reference external" href="https://github.com/brainflow-dev/brainflow/">brainflow</a> library, which has allowed us to dramatically expand the range of supported devices; as well as the developers of <a class="reference external" href="https://github.com/psychopy/psychopy/">PsychoPy</a> and <a class="reference external" href="https://github.com/mne-tools/mne-python/">MNE</a>, which together make up the central scaffolding of eeg-expy.</p>
 </section>
 <section id="contribute">
-<h2>Contribute<a class="headerlink" href="#contribute" title="Permalink to this heading"></a></h2>
+<h2>Contribute<a class="headerlink" href="#contribute" title="Link to this heading"></a></h2>
 <p>This project welcomes and encourages contributions from the community!</p>
 <p>If you have an idea of something to add to eeg-expy, please start by opening an
 <a class="reference external" href="https://github.com/NeuroTechX/eeg-expy/issues/new/choose">issue</a>.</p>
 </section>
 <section id="contact">
-<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this heading"></a></h2>
+<h2>Contact<a class="headerlink" href="#contact" title="Link to this heading"></a></h2>
 <p>The best place for general discussion on eeg-expy functionality is the <a class="reference external" href="https://github.com/NeuroTechX/eeg-expy/issues/new/choose">issues page</a>. For more general questions and discussions, you can e-mail <cite>john.griffiths&#64;utoronto.ca</cite>, or ping us on the <a class="reference external" href="https://discord.gg/zYCBfBf4W4">NeuroTechX Discord</a> or <a class="reference external" href="https://neurotechx.herokuapp.com">NeuroTechX slack</a>.</p>
-<a class="reference internal image-reference" href="doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png"><img alt="doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png" class="align-center" src="doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png" /></a>
+<a class="reference internal image-reference" href="doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png"><img alt="doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png" class="align-center" src="doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png" />
+<aside class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">../README.rst</span>, line 91)</p>
+<p>Cannot scale image!
+  Could not get size from &quot;doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png&quot;:
+  [Errno 2] No such file or directory: 'doc/img/eeg-notebooks_democratizing_the_cogneuro_experiment.png'</p>
+</aside>
+</a>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>

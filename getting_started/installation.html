@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -20,9 +20,10 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=464912d9"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=a56c686a"></script>
       <script src="../_static/tabs.js?v=3030b3cb"></script>
@@ -446,7 +447,7 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
 <p>EEG-Notebooks is a Python library. It runs on all major operating systems (Windows, Linux, Mac).</p>
 <p>If you do not have Python installed, or are not particularly familiar with using it, then we highly recommend downloading and installing the Miniconda(3) Python(3) distribution. For users who prefer to use <cite>VirtualEnv</cite>  (<cite>venv</cite>) than <cite>conda</cite> for Python environment management, we provide equivalent installation and usage instructions where relevant.</p>
 <p>The principal purpose of EEG-Notebooks is to allow users to run and create cognitive neuroscience experiments using consumer-grade EEG systems. A secondary, complementary, purpose of the tool is to provide various functionalities for the organization, analysis and visualization of the data collected in these experiments.</p>
@@ -463,14 +464,12 @@
 <li><p>‘Usage mode 2’ above (no EEG recordings) can be done easily on any operating system without any extra hardware or software, as well as on free temporary cloud compute servers through <cite>Binder</cite> and <cite>GoogleColab</cite>, which we provide instructions for.</p></li>
 </ul>
 <section id="installing-the-python-library">
-<h2>Installing the Python library<a class="headerlink" href="#installing-the-python-library" title="Permalink to this heading"></a></h2>
+<h2>Installing the Python library<a class="headerlink" href="#installing-the-python-library" title="Link to this heading"></a></h2>
 <p>We highly recommend making use of a virtual environment (either <cite>conda</cite> or <cite>virtualenv</cite>) when installing eeg-expy.</p>
 <p>If you don’t already have a Python installation, grab the latest <cite>miniconda</cite> version for your operating system from here (<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>).</p>
 <p>Use the following commands to download the repo, create and activate a conda or virtualenv virtual environment:</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Conda</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Virtualenv</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Windows, Linux or MacOS intel</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">MacOS arm64(M1, M2, etc.)</button></div><blockquote>
-<div><p><strong>Environment file options</strong></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Conda</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Virtualenv</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p><strong>Environment file options</strong></p>
 <p><em>Python 3.8 - 3.10:</em></p>
 <ul class="simple">
 <li><p><cite>eeg-expy-full</cite>: Install all dependencies</p></li>
@@ -482,41 +481,22 @@
 <li><p><cite>eeg-expy-docsbuild</cite>: Documentation</p></li>
 <li><p><cite>eeg-expy-streaming</cite>: Data streaming</p></li>
 </ul>
-</div></blockquote>
-<div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-expy
-
-<span class="nb">cd</span><span class="w"> </span>eeg-expy
-
-<span class="c1"># Specify newer python than 3.8 version if needed.</span>
-conda<span class="w"> </span>create<span class="w"> </span>-v<span class="w"> </span>-n<span class="w"> </span>eeg-expy-full<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
-
-conda<span class="w"> </span>activate<span class="w"> </span>eeg-expy-full
-
-<span class="c1"># install only necessary dependencies</span>
-conda<span class="w"> </span>env<span class="w"> </span>update<span class="w"> </span>-f<span class="w"> </span>environments/eeg-expy-full.yml
-</pre></div>
-</div>
-</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># clone the repo</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repo</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NeuroTechX/eeg-expy
 
-<span class="c1"># navigate to the repo</span>
+<span class="c1"># Navigate to the repo</span>
 <span class="nb">cd</span><span class="w"> </span>eeg-expy
 
-<span class="c1"># for audio to be supported, osx-64 runtime is currently required,</span>
-<span class="c1"># drop the &#39;--platform osx-64&#39; parameter if audio is not needed, to use the native runtime.</span>
-<span class="c1"># Specify newer python than 3.8 version if needed.</span>
-conda<span class="w"> </span>create<span class="w"> </span>-v<span class="w"> </span>--platform<span class="w"> </span>osx-64<span class="w"> </span>-n<span class="w"> </span>eeg-expy-full<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
+<span class="c1"># Create conda environment from chosen eeg-expy-*.yml</span>
+<span class="c1"># The Python version will be pinned by the environment file</span>
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>eeg-expy<span class="w"> </span>--file<span class="o">=</span>environments/eeg-expy-full.yml
 
-<span class="c1"># activate the environment</span>
-conda<span class="w"> </span>activate<span class="w"> </span>eeg-expy-full
-
-<span class="c1"># install only necessary dependencies</span>
-conda<span class="w"> </span>env<span class="w"> </span>update<span class="w"> </span>-f<span class="w"> </span>environments/eeg-expy-full.yml
+<span class="c1"># Activate the environment</span>
+conda<span class="w"> </span>activate<span class="w"> </span>eeg-expy
 </pre></div>
 </div>
-</div></div>
 </div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Windows</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Linux or MacOS</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>eegnb_dir
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Windows</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Linux or MacOS</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>eegnb_dir
 
 python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>eegnb-env
 
@@ -529,7 +509,7 @@ eegnb-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.bat
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>eegnb_dir
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>eegnb_dir
 
 python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>eegnb-env
 
@@ -581,25 +561,25 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </div>
 </section>
 <section id="muse-requirements">
-<h2>MUSE Requirements<a class="headerlink" href="#muse-requirements" title="Permalink to this heading"></a></h2>
+<h2>MUSE Requirements<a class="headerlink" href="#muse-requirements" title="Link to this heading"></a></h2>
 <p>The InteraXon MUSE streams EEG over bluetooth. There are additional hardware and software requirements for making recordings with MUSE devices, which are different across operating systems.</p>
 <section id="muse-recordings-on-windows-bluemuse">
-<h3>MUSE recordings on windows: BlueMuse<a class="headerlink" href="#muse-recordings-on-windows-bluemuse" title="Permalink to this heading"></a></h3>
+<h3>MUSE recordings on windows: BlueMuse<a class="headerlink" href="#muse-recordings-on-windows-bluemuse" title="Link to this heading"></a></h3>
 <p>BlueMuse is a Windows 10 program that allows communication between a Muse headband and a computer’s native bluetooth drivers using the LSL communication protocol. To install, go the the <a class="reference external" href="https://github.com/kowalej/BlueMuse">BlueMuse github repo</a> and follow the installation instructions.</p>
 </section>
 <section id="muse-recordings-on-mac-bled112-dongle">
-<h3>MUSE recordings on Mac: BLED112 Dongle<a class="headerlink" href="#muse-recordings-on-mac-bled112-dongle" title="Permalink to this heading"></a></h3>
+<h3>MUSE recordings on Mac: BLED112 Dongle<a class="headerlink" href="#muse-recordings-on-mac-bled112-dongle" title="Link to this heading"></a></h3>
 <p>Unfortunately, the native bluetooth driver on Mac cannot be used with eeg-expy. To run on this operating system, it is necessary to purchase a <a class="reference external" href="https://www.silabs.com/wireless/bluetooth/bluegiga-low-energy-legacy-modules/device.bled112/">BLED112 USB Dongle</a>. Note: this is a ‘special’ bluetooth dongle; standard bluetooth dongles will not work.</p>
 </section>
 <section id="muse-recordings-on-linux">
-<h3>MUSE recordings on Linux<a class="headerlink" href="#muse-recordings-on-linux" title="Permalink to this heading"></a></h3>
+<h3>MUSE recordings on Linux<a class="headerlink" href="#muse-recordings-on-linux" title="Link to this heading"></a></h3>
 <p>Streaming MUSE data on Linux works without a dongle (which relies on <cite>pygatt</cite>’s <cite>GATT</cite> backend), but might be more stable with the <cite>BLED112 USB Dongle</cite> and <cite>BGAPI</cite> backend.</p>
 </section>
 </section>
 <section id="issues">
-<h2>Issues<a class="headerlink" href="#issues" title="Permalink to this heading"></a></h2>
+<h2>Issues<a class="headerlink" href="#issues" title="Link to this heading"></a></h2>
 <section id="common-problems">
-<h3>Common Problems<a class="headerlink" href="#common-problems" title="Permalink to this heading"></a></h3>
+<h3>Common Problems<a class="headerlink" href="#common-problems" title="Link to this heading"></a></h3>
 <p><strong>Problems with Conda and Jupyter Notebook:</strong>
 If you have created the conda env but it is not appearing as a kernel option in the jupyter notebook, you may need to manually add the new conda env to the jupyter envs list</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>eeg-expy
@@ -616,7 +596,7 @@ $<span class="w"> </span>conda<span class="w"> </span>install<span class="w"> </
 </div>
 </section>
 <section id="bug-reports">
-<h3>Bug reports<a class="headerlink" href="#bug-reports" title="Permalink to this heading"></a></h3>
+<h3>Bug reports<a class="headerlink" href="#bug-reports" title="Link to this heading"></a></h3>
 <p>Please use the <a class="reference external" href="https://github.com/neurotechx/eeg-expy/issues">Github issue tracker</a>
 to file bug reports and/or ask questions about this project. When filing a bug report, please include the follwing information:
 * Operating System.

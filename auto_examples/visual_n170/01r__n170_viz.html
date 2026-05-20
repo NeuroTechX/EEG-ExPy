@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=464912d9"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=a56c686a"></script>
       <script src="../../_static/debug.js?v=63710f7d"></script>
@@ -450,7 +451,7 @@
 to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="n170-load-and-visualize-data">
-<span id="sphx-glr-auto-examples-visual-n170-01r-n170-viz-py"></span><h1>N170 Load and Visualize Data<a class="headerlink" href="#n170-load-and-visualize-data" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-auto-examples-visual-n170-01r-n170-viz-py"></span><h1>N170 Load and Visualize Data<a class="headerlink" href="#n170-load-and-visualize-data" title="Link to this heading"></a></h1>
 <p>This example demonstrates loading, organizing, and visualizing ERP response data from the visual N170 experiment.</p>
 <p>Images of faces and houses are shown in a rapid serial visual presentation (RSVP) stream.</p>
 <p>The data used is the first subject and first session of the one of the eeg-expy N170 example datasets, recorded using the InteraXon MUSE EEG headset (2016 model).
@@ -460,7 +461,7 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 <p>After loading the data, we place it in an MNE <cite>Epochs</cite> object, and obtain the trial-averaged response.</p>
 <p>The final figure plotted at the end shows the N170 response ERP waveform.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -478,7 +479,7 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 </div>
 </section>
 <section id="load-data">
-<h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this heading"></a></h2>
+<h2>Load Data<a class="headerlink" href="#load-data" title="Link to this heading"></a></h2>
 <p>We will use the eeg-expy N170 example dataset</p>
 <p>Note that if you are running this locally, the following cell will download
 the example dataset, if you do not already have it.</p>
@@ -498,61 +499,51 @@ the example dataset, if you do not already have it.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH
-From (redirected): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH&amp;confirm=t&amp;uuid=2e70dbec-19e6-4905-b32b-47214013bbfc
+From (redirected): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH&amp;confirm=t&amp;uuid=bd34fb84-394e-4ca5-8e4c-e48fd5bd04b9
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/33.1M [00:00&lt;?, ?B/s]
- 13%|█▎        | 4.19M/33.1M [00:00&lt;00:00, 41.6MB/s]
- 33%|███▎      | 11.0M/33.1M [00:00&lt;00:00, 55.9MB/s]
- 62%|██████▏   | 20.4M/33.1M [00:00&lt;00:00, 72.0MB/s]
- 84%|████████▍ | 27.8M/33.1M [00:00&lt;00:00, 67.1MB/s]
-100%|██████████| 33.1M/33.1M [00:00&lt;00:00, 65.6MB/s]
+  5%|▍         | 1.57M/33.1M [00:00&lt;00:02, 15.6MB/s]
+ 33%|███▎      | 11.0M/33.1M [00:00&lt;00:00, 53.0MB/s]
+ 71%|███████   | 23.6M/33.1M [00:00&lt;00:00, 80.3MB/s]
+ 97%|█████████▋| 32.0M/33.1M [00:00&lt;00:00, 80.1MB/s]
+100%|██████████| 33.1M/33.1M [00:00&lt;00:00, 74.1MB/s]
 
 
 Loading these files:
 
-/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.17.10.csv
-
-/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-22.33.14.csv
+/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.09.14.csv
 
 /home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-22.51.41.csv
 
-/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.09.14.csv
-
-/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-22.42.26.csv
+/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.29.19.csv
 
 /home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.57.53.csv
 
-/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.29.19.csv
-
 /home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.41.11.csv
 
-/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.51.54.csv
+/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-22.42.26.csv
 
 /home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.02.59.csv
 
+/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-22.33.14.csv
+
+/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.51.54.csv
+
+/home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016_bfn/subject0001/session001/recording_2022-03-20-23.17.10.csv
 
 
 
+
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=5, n_times=76936
-    Range : 0 ... 76935 =      0.000 ...   300.527 secs
-Ready.
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=5, n_times=93280
-    Range : 0 ... 93279 =      0.000 ...   364.371 secs
+Creating RawArray with float64 data, n_channels=5, n_times=76816
+    Range : 0 ... 76815 =      0.000 ...   300.059 secs
 Ready.
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=5, n_times=76744
     Range : 0 ... 76743 =      0.000 ...   299.777 secs
-Ready.
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=5, n_times=76816
-    Range : 0 ... 76815 =      0.000 ...   300.059 secs
 Ready.
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
@@ -566,41 +557,61 @@ Creating RawArray with float64 data, n_channels=5, n_times=76780
 Ready.
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76816
+    Range : 0 ... 76815 =      0.000 ...   300.059 secs
+Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=5, n_times=76768
     Range : 0 ... 76767 =      0.000 ...   299.871 secs
-Ready.
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=5, n_times=76816
-    Range : 0 ... 76815 =      0.000 ...   300.059 secs
-Ready.
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=5, n_times=76816
-    Range : 0 ... 76815 =      0.000 ...   300.059 secs
 Ready.
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 [&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
 Creating RawArray with float64 data, n_channels=5, n_times=76912
     Range : 0 ... 76911 =      0.000 ...   300.434 secs
 Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=93280
+    Range : 0 ... 93279 =      0.000 ...   364.371 secs
+Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76816
+    Range : 0 ... 76815 =      0.000 ...   300.059 secs
+Ready.
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+[&#39;TP9&#39;, &#39;Fp1&#39;, &#39;Fp2&#39;, &#39;TP10&#39;, &#39;stim&#39;]
+Creating RawArray with float64 data, n_channels=5, n_times=76936
+    Range : 0 ... 76935 =      0.000 ...   300.527 secs
+Ready.
+Marking edge at 76816 samples (maps to 300.062 sec)
+Marking edge at 153560 samples (maps to 599.844 sec)
+Marking edge at 230328 samples (maps to 899.719 sec)
+Marking edge at 307108 samples (maps to 1199.641 sec)
+Marking edge at 383924 samples (maps to 1499.703 sec)
+Marking edge at 460692 samples (maps to 1799.578 sec)
+Marking edge at 537604 samples (maps to 2100.016 sec)
+Marking edge at 630884 samples (maps to 2464.391 sec)
+Marking edge at 707700 samples (maps to 2764.453 sec)
 </pre></div>
 </div>
 </section>
 <section id="visualize-the-power-spectrum">
-<h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Permalink to this heading"></a></h2>
+<h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_01r__n170_viz_001.png" srcset="../../_images/sphx_glr_01r__n170_viz_001.png" alt="EEG" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: plot_psd() is a legacy function. New code should use .compute_psd().plot().
 Effective window size : 8.000 (s)
+Plotting power spectral density (dB=True).
 
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
 </section>
 <section id="filtering">
-<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this heading"></a></h2>
+<h2>Filtering<a class="headerlink" href="#filtering" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
 <span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
 </pre></div>
@@ -616,13 +627,14 @@ Butterworth bandpass zero-phase (two-pass forward and reverse) non-causal filter
 
 NOTE: plot_psd() is a legacy function. New code should use .compute_psd().plot().
 Effective window size : 8.000 (s)
+Plotting power spectral density (dB=True).
 
 &lt;MNELineFigure size 1000x350 with 2 Axes&gt;
 </pre></div>
 </div>
 </section>
 <section id="epoching">
-<h2>Epoching<a class="headerlink" href="#epoching" title="Permalink to this heading"></a></h2>
+<h2>Epoching<a class="headerlink" href="#epoching" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span>
 <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;House&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Face&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
@@ -636,37 +648,368 @@ Effective window size : 8.000 (s)
 <span class="n">epochs</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>3740 events found on stim channel stim
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Finding events on: stim
+3740 events found on stim channel stim
 Event IDs: [1 2]
 sample drop %:  9.919786096256688
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<table class="table table-hover table-striped table-sm table-responsive small">
-    <tr>
-        <th>Number of events</th>
-        <td>3369</td>
-    </tr>
-    <tr>
-        <th>Events</th>
+<script type="text/javascript">
+    // must be `var` (not `const`) because this can get embedded multiple times on a page
+var toggleVisibility = (className) => {
 
-        <td>Face: 1702<br/>House: 1667</td>
+    const elements = document.querySelectorAll(`.${className}`);
 
-    </tr>
-    <tr>
-        <th>Time range</th>
-        <td>-0.102 – 0.602 s</td>
-    </tr>
-    <tr>
-        <th>Baseline</th>
-        <td>off</td>
-    </tr>
+    elements.forEach(element => {
+        if (element.classList.contains("mne-repr-section-header")) {
+            return  // Don't collapse the section header row
+        }
+        element.classList.toggle("mne-repr-collapsed");
+    });
+
+    // trigger caret to rotate
+    var sel = `.mne-repr-section-header.${className} > th.mne-repr-section-toggle > button`;
+    const button = document.querySelector(sel);
+    button.classList.toggle("collapsed");
+
+    // adjust tooltip
+    sel = `tr.mne-repr-section-header.${className}`;
+    const secHeadRow = document.querySelector(sel);
+    secHeadRow.classList.toggle("collapsed");
+    secHeadRow.title = secHeadRow.title === "Hide section" ? "Show section" : "Hide section";
+}
+</script>
+
+<style type="text/css">
+    /*
+Styles in this section apply both to the sphinx-built website docs and to notebooks
+rendered in an IDE or in Jupyter. In our web docs, styles here are complemented by
+doc/_static/styles.css and other CSS files (e.g. from the sphinx theme, sphinx-gallery,
+or bootstrap). In IDEs/Jupyter, those style files are unavailable, so only the rules in
+this file apply (plus whatever default styling the IDE applies).
+*/
+.mne-repr-table {
+    display: inline;  /* prevent using full container width */
+}
+.mne-repr-table tr.mne-repr-section-header > th {
+    padding-top: 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+.mne-repr-section-toggle > button {
+    all: unset;
+    display: block;
+    height: 1rem;
+    width: 1rem;
+}
+.mne-repr-section-toggle > button > svg {
+    height: 60%;
+}
+
+/* transition (rotation) effects on the collapser button */
+.mne-repr-section-toggle > button.collapsed > svg {
+    transition: 0.1s ease-out;
+    transform: rotate(-90deg);
+}
+.mne-repr-section-toggle > button:not(.collapsed) > svg {
+    transition: 0.1s ease-out;
+    transform: rotate(0deg);
+}
+
+/* hide collapsed table rows */
+.mne-repr-collapsed {
+    display: none;
+}
+
+
+@layer {
+    /*
+    Selectors in a `@layer` will always be lower-precedence than selectors outside the
+    layer. So even though e.g. `div.output_html` is present in the sphinx-rendered
+    website docs, the styles here won't take effect there as long as some other rule
+    somewhere in the page's CSS targets the same element.
+
+    In IDEs or Jupyter notebooks, though, the CSS files from the sphinx theme,
+    sphinx-gallery, and bootstrap are unavailable, so these styles will apply.
+
+    Notes:
+
+    - the selector `.accordion-body` is for MNE Reports
+    - the selector `.output_html` is for VSCode's notebook interface
+    - the selector `.jp-RenderedHTML` is for Jupyter notebook
+    - variables starting with `--theme-` are VSCode-specific.
+    - variables starting with `--jp-` are Jupyter styles, *some of which* are also
+      available in VSCode. Here we try the `--theme-` variable first, then fall back to
+      the `--jp-` ones.
+    */
+    .mne-repr-table {
+        --mne-toggle-color: var(--theme-foreground, var(--jp-ui-font-color1));
+        --mne-button-bg-color: var(--theme-button-background, var(--jp-info-color0, var(--jp-content-link-color)));
+        --mne-button-fg-color: var(--theme-button-foreground, var(--jp-ui-inverse-font-color0, var(--jp-editor-background)));
+        --mne-button-hover-bg-color: var(--theme-button-hover-background, var(--jp-info-color1));
+        --mne-button-radius: var(--jp-border-radius, 0.25rem);
+    }
+    /* chevron position/alignment; in VSCode it looks ok without adjusting */
+    .accordion-body .mne-repr-section-toggle > button,
+    .jp-RenderedHTML .mne-repr-section-toggle > button {
+        padding: 0 0 45% 25% !important;
+    }
+    /* chevron color; MNE Report doesn't have light/dark mode */
+    div.output_html .mne-repr-section-toggle > button > svg > path,
+    .jp-RenderedHTML .mne-repr-section-toggle > button > svg > path {
+        fill: var(--mne-toggle-color);
+    }
+    .accordion-body .mne-ch-names-btn,
+    div.output_html .mne-ch-names-btn,
+    .jp-RenderedHTML .mne-ch-names-btn {
+        -webkit-border-radius: var(--mne-button-radius);
+        -moz-border-radius: var(--mne-button-radius);
+        border-radius: var(--mne-button-radius);
+        border: none;
+        background-image: none;
+        background-color: var(--mne-button-bg-color);
+        color: var(--mne-button-fg-color);
+        font-size: inherit;
+        min-width: 1.5rem;
+        padding: 0.25rem;
+        text-align: center;
+        text-decoration: none;
+    }
+    .accordion-body .mne-ch-names-btn:hover,
+    div.output_html .mne.ch-names-btn:hover,
+    .jp-RenderedHTML .mne-ch-names-btn:hover {
+        background-color: var(--mne-button-hover-bg-color);
+        text-decoration: underline;
+    }
+    .accordion-body .mne-ch-names-btn:focus-visible,
+    div.output_html .mne-ch-names-btn:focus-visible,
+    .jp-RenderedHTML .mne-ch-names-btn:focus-visible {
+        outline: 0.1875rem solid var(--mne-button-bg-color) !important;
+        outline-offset: 0.1875rem !important;
+    }
+}
+</style>
+
+
+
+<table class="table mne-repr-table">
+
+
+
+
+
+
+
+
+<tr class="mne-repr-section-header general-abd3fac9-d7a3-4edd-9ce3-6bbf237700f7"
+     title="Hide section"
+    onclick="toggleVisibility('general-abd3fac9-d7a3-4edd-9ce3-6bbf237700f7')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>General</strong>
+    </th>
+</tr>
+
+
+<tr class="repr-element general-abd3fac9-d7a3-4edd-9ce3-6bbf237700f7 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>MNE object type</td>
+    <td>Epochs</td>
+</tr>
+<tr class="repr-element general-abd3fac9-d7a3-4edd-9ce3-6bbf237700f7 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Measurement date</td>
+
+    <td>Unknown</td>
+
+</tr>
+<tr class="repr-element general-abd3fac9-d7a3-4edd-9ce3-6bbf237700f7 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Participant</td>
+
+    <td>Unknown</td>
+
+</tr>
+<tr class="repr-element general-abd3fac9-d7a3-4edd-9ce3-6bbf237700f7 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Experimenter</td>
+
+    <td>Unknown</td>
+
+</tr>
+
+
+
+
+
+
+
+
+<tr class="mne-repr-section-header acquisition-dd726195-24e2-497f-96e6-88903134da91"
+     title="Hide section"
+    onclick="toggleVisibility('acquisition-dd726195-24e2-497f-96e6-88903134da91')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>Acquisition</strong>
+    </th>
+</tr>
+
+
+
+
+
+<tr class="repr-element acquisition-dd726195-24e2-497f-96e6-88903134da91 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Total number of events</td>
+    <td>3369</td>
+</tr>
+
+
+<tr class="repr-element acquisition-dd726195-24e2-497f-96e6-88903134da91 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Events counts</td>
+
+    <td>
+
+        Face: 1702
+        <br />
+
+        House: 1667
+
+
+    </td>
+
+</tr>
+
+
+<tr class="repr-element acquisition-dd726195-24e2-497f-96e6-88903134da91 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Time range</td>
+    <td>-0.102 – 0.602 s</td>
+</tr>
+
+
+<tr class="repr-element acquisition-dd726195-24e2-497f-96e6-88903134da91 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Baseline</td>
+    <td>off</td>
+</tr>
+
+
+<tr class="repr-element acquisition-dd726195-24e2-497f-96e6-88903134da91 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Sampling frequency</td>
+    <td>256.00 Hz</td>
+</tr>
+
+
+<tr class="repr-element acquisition-dd726195-24e2-497f-96e6-88903134da91 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Time points</td>
+    <td>181</td>
+</tr>
+
+
+<tr class="repr-element acquisition-dd726195-24e2-497f-96e6-88903134da91 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Metadata</td>
+    <td>No metadata set</td>
+</tr>
+
+
+
+
+
+
+
+
+
+<tr class="mne-repr-section-header channels-457d6475-a755-41a7-83a6-8c6df3153560"
+     title="Hide section"
+    onclick="toggleVisibility('channels-457d6475-a755-41a7-83a6-8c6df3153560')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>Channels</strong>
+    </th>
+</tr>
+
+
+
+<tr class="repr-element channels-457d6475-a755-41a7-83a6-8c6df3153560 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>EEG</td>
+    <td>
+        <button class="mne-ch-names-btn sd-sphinx-override sd-btn sd-btn-info sd-text-wrap sd-shadow-sm" onclick="alert('Good EEG:\n\nTP9, Fp1, Fp2, TP10')" title="(Click to open in popup)&#13;&#13;TP9, Fp1, Fp2, TP10">
+            4
+        </button>
+
+
+    </td>
+</tr>
+
+
+<tr class="repr-element channels-457d6475-a755-41a7-83a6-8c6df3153560 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Head & sensor digitization</td>
+
+    <td>7 points</td>
+
+</tr>
+
+
+
+
+
+
+
+
+<tr class="mne-repr-section-header filters-1824b58b-e751-4659-9116-e2f1243585f3"
+     title="Hide section"
+    onclick="toggleVisibility('filters-1824b58b-e751-4659-9116-e2f1243585f3')">
+    <th class="mne-repr-section-toggle">
+        <button >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+        </button>
+    </th>
+    <th colspan="2">
+        <strong>Filters</strong>
+    </th>
+</tr>
+
+
+<tr class="repr-element filters-1824b58b-e751-4659-9116-e2f1243585f3 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Highpass</td>
+    <td>1.00 Hz</td>
+</tr>
+
+
+<tr class="repr-element filters-1824b58b-e751-4659-9116-e2f1243585f3 ">
+    <td class="mne-repr-section-toggle"></td>
+    <td>Lowpass</td>
+    <td>30.00 Hz</td>
+</tr>
+
+
 </table>
 </div>
 <br />
 <br /></section>
 <section id="epoch-average">
-<h2>Epoch average<a class="headerlink" href="#epoch-average" title="Permalink to this heading"></a></h2>
+<h2>Epoch average<a class="headerlink" href="#epoch-average" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">conditions</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 <span class="c1">#conditions[&#39;House&#39;] = [1]</span>
 <span class="c1">#conditions[&#39;Face&#39;] = [2]</span>
@@ -686,7 +1029,7 @@ sample drop %:  9.919786096256688
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="Fp1, Fp2, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.994 seconds)</p>
+<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="Fp1, Fp2, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.557 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-01r-n170-viz-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8d83acdbf2986ad81d4d9e035ff593ef/01r__n170_viz.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01r__n170_viz.ipynb</span></code></a></p>

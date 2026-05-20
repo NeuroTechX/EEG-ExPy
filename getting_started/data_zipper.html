@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=464912d9"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=a56c686a"></script>
       <script src="../_static/debug.js?v=63710f7d"></script>
@@ -444,10 +445,10 @@
            <div itemprop="articleBody">
              
   <section id="data-zipping">
-<h1>Data Zipping<a class="headerlink" href="#data-zipping" title="Permalink to this heading"></a></h1>
+<h1>Data Zipping<a class="headerlink" href="#data-zipping" title="Link to this heading"></a></h1>
 <p>After you have ran experiments, you can compress all recorded data as a zip folder. The method for doing this is using the command line tool with the flags detailed below.</p>
 <section id="command-line-interface">
-<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this heading"></a></h2>
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Link to this heading"></a></h2>
 <p>To activate the command line tool, open a command/terminal prompt and enter <code class="docutils literal notranslate"><span class="pre">eegnb</span> <span class="pre">runzip</span></code> followed by the appropriate flag for your desired experiment. Command line tool looks through folders in <code class="docutils literal notranslate"><span class="pre">~/.eegnb/data</span></code> for compression. Zip files will be outputted in the format of <code class="docutils literal notranslate"><span class="pre">~/Desktop</span></code> with the following filename <code class="docutils literal notranslate"><span class="pre">{experiment_name}_{site}-{day_month_year_hour:minute}_zipped</span></code>
 The possible flags are</p>
 <ul class="simple">
@@ -457,7 +458,7 @@ The possible flags are</p>
 </ul>
 </section>
 <section id="using-the-introprompt-flag">
-<h2>Using the introprompt flag<a class="headerlink" href="#using-the-introprompt-flag" title="Permalink to this heading"></a></h2>
+<h2>Using the introprompt flag<a class="headerlink" href="#using-the-introprompt-flag" title="Link to this heading"></a></h2>
 <p>If using the -ip flag the user will be prompted to input the various session parameters. The prompts are detailed below.</p>
 <p><strong>Experiment Selection</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">select</span> <span class="n">which</span> <span class="n">experiment</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">run</span><span class="p">:</span> 

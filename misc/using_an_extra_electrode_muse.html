@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -19,9 +19,10 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=464912d9"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=3e6ca1ad"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=a56c686a"></script>
       <script src="../_static/debug.js?v=63710f7d"></script>
@@ -442,21 +443,21 @@
            <div itemprop="articleBody">
              
   <section id="using-an-extra-electrode-with-muse">
-<h1>Using an extra electrode with Muse<a class="headerlink" href="#using-an-extra-electrode-with-muse" title="Permalink to this heading"></a></h1>
+<h1>Using an extra electrode with Muse<a class="headerlink" href="#using-an-extra-electrode-with-muse" title="Link to this heading"></a></h1>
 <p>Although the Muse is wonderful for ease-of-use and affordability, it suffers from a small number of electrode locations and inflexibility of electrode positioning. Fortunately, in order to partially overcome this limitation, the Muse hardware team has allowed an extra electrode to be added to the Muse 2016.</p>
 <section id="the-electrode">
-<h2>The electrode<a class="headerlink" href="#the-electrode" title="Permalink to this heading"></a></h2>
+<h2>The electrode<a class="headerlink" href="#the-electrode" title="Link to this heading"></a></h2>
 <p>These electrodes are not for sale anywhere; they must be made by hand. Fortunately, their construction appears pretty simple, attach an EEG electrode (any kind) to a male microUSB port with a wire.</p>
 <p>We’ll update this section with more info as it comes in from the Muse hardware team.</p>
 <p><img alt="fig" src="../_images/extra_electrode.png" /></p>
 </section>
 <section id="attaching-the-extra-electrode">
-<h2>Attaching the extra electrode<a class="headerlink" href="#attaching-the-extra-electrode" title="Permalink to this heading"></a></h2>
+<h2>Attaching the extra electrode<a class="headerlink" href="#attaching-the-extra-electrode" title="Link to this heading"></a></h2>
 <p>The extra electrode can be applied anywhere on the head (provide the wire is long enough). Just inset the electrode’s microUSB connector into the charging port of the Muse. In order to make sure the electrode stays in place, we recommend using a hat or scarf as pictured.</p>
 <p><img alt="fig" src="../_images/attaching_electrode.png" /></p>
 </section>
 <section id="getting-data-from-the-electrode">
-<h2>Getting data from the electrode<a class="headerlink" href="#getting-data-from-the-electrode" title="Permalink to this heading"></a></h2>
+<h2>Getting data from the electrode<a class="headerlink" href="#getting-data-from-the-electrode" title="Link to this heading"></a></h2>
 <p>With the extra electrode connected to the Muse, its data is available as the <code class="docutils literal notranslate"><span class="pre">Right</span> <span class="pre">AUX</span></code> channel in the <code class="docutils literal notranslate"><span class="pre">muse-lsl</span></code> data stream. It will automatically appear in <code class="docutils literal notranslate"><span class="pre">muse-lsl</span></code>’s viewer. An example of how to access this data and include it in your analysis is shown in the <a class="reference external" href="https://github.com/NeuroTechX/eeg-notebooks/blob/master/notebooks/P300%20with%20Extra%20Electrode.ipynb">P300 with Extra Electrode</a> notebook</p>
 </section>
 </section>
