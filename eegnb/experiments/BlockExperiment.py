@@ -22,7 +22,7 @@ class BlockExperiment(BaseExperiment, ABC):
     """
 
     def __init__(self, exp_name, block_duration, eeg, save_fn, block_trial_size, n_blocks, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr=True, stereoscopic=False):
+                 use_vr=False, use_fullscr=True, screen_num=0, stereoscopic=False, devices = list):
         """ Initializer for the BlockExperiment Class
 
         Args:
@@ -43,7 +43,7 @@ class BlockExperiment(BaseExperiment, ABC):
         
         # Initialize BaseExperiment with total trials
         # Pass None for duration if block_duration is None to ignore time spent in instructions
-        super().__init__(exp_name, block_duration, eeg, save_fn, total_trials, iti, soa, jitter, use_vr, use_fullscr, stereoscopic)
+        super().__init__(exp_name, block_duration, eeg, save_fn, total_trials, iti, soa, jitter, use_vr, use_fullscr, screen_num, stereoscopic, devices)
         
         # Block-specific parameters
         self.block_duration = block_duration
