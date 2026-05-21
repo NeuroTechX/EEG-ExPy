@@ -3,7 +3,7 @@ channels:
     - defaults
 dependencies:
     # System-level dependencies
-    - python>=3.10,<=3.11 # psychopy 2026.x requires py3.10; higher versions for experimental builds
+    - python>=3.10,<3.12 # psychopy 2026.x requires py3.10; higher versions for experimental builds
     - setuptools
     - dukpy==0.2.3 # psychopy dependency, avoid failing due to building wheel on win 3.9.
     - numpy # fix PsychXR numpy dependency DLL issues on Windows
