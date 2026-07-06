@@ -1,7 +1,6 @@
 
 from eegnb.experiments import Experiment
 import os
-from time import time
 from glob import glob
 from random import choice
 
@@ -95,17 +94,11 @@ class VisualSSVEP(Experiment.BaseExperiment):
 
         # Select stimulus frequency
         ind = self.trials["parameter"].iloc[idx]
+        marker = self.markernames[ind]
+        marker_pushed = False
 
-        # Push sample
-        if self.eeg:
-            timestamp = time()
-            if self.eeg.backend == "muselsl":
-                marker = [self.markernames[ind]]
-            else:
-                marker = self.markernames[ind]
-            self.eeg.push_sample(marker=marker, timestamp=timestamp)
-
-        # Present flickering stim
+        # Present flickering stim; emit the marker on the first flip so the
+        # captured onset is the true stimulus onset (not one frame early).
         for _ in range(int(self.stim_patterns[ind]["n_cycles"])):
 
             for _ in range(int(self.stim_patterns[ind]["cycle"][0])):
@@ -116,6 +109,9 @@ class VisualSSVEP(Experiment.BaseExperiment):
                 self.grating.draw()
                 self.fixation.draw()
                 self.window.flip()
+                if not marker_pushed:
+                    self.push_marker(marker, idx)
+                    marker_pushed = True
 
             for _ in range(self.stim_patterns[ind]["cycle"][1]):
                 if self.use_vr:
