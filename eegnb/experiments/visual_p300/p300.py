@@ -2,7 +2,6 @@
 """  eeg-notebooks/eegnb/experiments/visual_p300/p300.py """
 
 import os
-from time import time
 from glob import glob
 from random import choice
 from optparse import OptionParser
@@ -41,13 +40,6 @@ class VisualP300(Experiment.BaseExperiment):
         image = choice(self.targets if label == 1 else self.nontargets)
         image.draw()
 
-        # Push sample
-        if self.eeg:
-            timestamp = time()
-            if self.eeg.backend == "muselsl":
-                marker = [self.markernames[label]]
-            else:
-                marker = self.markernames[label]
-            self.eeg.push_sample(marker=marker, timestamp=timestamp)
+        self.push_marker(self.markernames[label], idx)
 
         self.window.flip()

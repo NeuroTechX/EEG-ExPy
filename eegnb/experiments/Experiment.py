@@ -87,8 +87,8 @@ class BaseExperiment(ABC):
         self._subscriber_failures: dict = {}
         
         # Setting event marker subscribers
-        self.subscribe_marker(self._emit_to_eeg)
-        self.subscribe_marker(self._emit_to_devices)
+        self.subscribe_marker(self._write_marker_to_eeg)
+        self.subscribe_marker(self._write_marker_to_devices)
 
         # Setting up the trial and parameter list
         self.parameter = np.random.binomial(1, 0.5, self.n_trials)
@@ -407,25 +407,25 @@ class BaseExperiment(ABC):
         """
         self.marker_subscribers.append((callback, raise_on_error))
 
-    def _emit_to_eeg(self, marker, timestamp, trial_idx):
+    def _write_marker_to_eeg(self, marker, timestamp, trial_idx):
         """Built-in essential subscriber: record the marker on the EEG board."""
         if self.eeg:
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
 
-    def _emit_to_devices(self, marker, timestamp, trial_idx):
+    def _write_marker_to_devices(self, marker, timestamp, trial_idx):
         """Built-in essential subscriber: record the marker on every aux device."""
         for dev in self.devices:
             dev.push_sample(marker=marker, timestamp=timestamp)
 
     def push_marker(self, marker, trial_idx=None):
-        """Emit a stimulus marker to every subscriber under one shared timestamp.
+        """Send a stimulus marker to every subscriber under one shared timestamp.
 
         A subscriber is any callable(marker, timestamp, trial_idx) registered via
-        subscribe_marker(). The built-in essential subscribers record the marker
+        subscribe_marker(). The built-in essential subscribers write the marker
         onto the EEG board and any auxiliary devices (self.eeg, self.devices);
-        optional subscribers (raise_on_error=False) observe timing without emitting —
-        flip-time telemetry, eyetracker fixation, photodiode metadata — and their
-        exceptions are logged, not raised.
+        optional subscribers (raise_on_error=False) observe onset timing without
+        writing a marker to any stream — flip-time telemetry, eyetracker fixation,
+        photodiode metadata — and their exceptions are logged, not raised.
 
         All subscribers share one timestamp so the marker onset is consistent
         across streams. trial_idx is context for observers; callers without

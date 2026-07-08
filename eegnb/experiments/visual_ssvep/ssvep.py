@@ -97,7 +97,7 @@ class VisualSSVEP(Experiment.BaseExperiment):
         marker = self.markernames[ind]
         marker_pushed = False
 
-        # Present flickering stim; emit the marker on the first flip so the
+        # Present flickering stim; push the marker on the first flip so the
         # captured onset is the true stimulus onset (not one frame early).
         for _ in range(int(self.stim_patterns[ind]["n_cycles"])):
 

@@ -43,9 +43,7 @@ class VisualN170(Experiment.BaseExperiment):
         # Draw the image
         image.draw()
 
-        # Emit the trial marker to the EEG stream and any auxiliary devices
-        if self.eeg or self.devices:
-            self.push_marker(self.markernames[label], idx)
+        self.push_marker(self.markernames[label], idx)
 
         self.window.flip()
 
