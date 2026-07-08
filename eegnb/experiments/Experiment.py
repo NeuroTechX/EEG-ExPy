@@ -9,7 +9,7 @@ obj.run()
 """
 
 from abc import abstractmethod, ABC
-from typing import Callable
+from typing import Callable, Optional
 from eegnb.devices.eeg import EEG
 from eegnb.devices.vr import VR
 from psychopy import prefs, visual, event, core
@@ -26,6 +26,11 @@ from pandas import DataFrame
 from eegnb import generate_save_fn
 
 logger = logging.getLogger(__name__)
+
+
+# A marker subscriber: called as callback(marker, timestamp, trial_idx) on every
+# push_marker(); trial_idx may be None. Its return value is ignored.
+MarkerSubscriber = Callable[[int, float, Optional[int]], None]
 
 
 class BaseExperiment(ABC):
@@ -81,7 +86,7 @@ class BaseExperiment(ABC):
         self.markernames = [1, 2]
 
         # (callback, raise_on_error) pairs invoked on every push_marker().
-        self.marker_subscribers: list = []
+        self.marker_subscribers: list[tuple[MarkerSubscriber, bool]] = []
 
         # Per-subscriber failure count: broken subscribers log once, not per trial.
         self._subscriber_failures: dict = {}
@@ -388,7 +393,7 @@ class BaseExperiment(ABC):
         # Closing the window
         self.window.close()
 
-    def subscribe_marker(self, callback, raise_on_error=True):
+    def subscribe_marker(self, callback: MarkerSubscriber, raise_on_error: bool = True):
         """Register a marker subscriber: callable(marker, timestamp, trial_idx).
 
         Invoked on every push_marker(). raise_on_error selects how a raised
@@ -400,10 +405,6 @@ class BaseExperiment(ABC):
         raise_on_error=False — optional telemetry (flip-time, eyetracker,
             photodiode) that must never block core data. Exceptions are logged
             and swallowed, so a bad observer can't take down a live recording.
-            To avoid spamming the log — and adding I/O latency at each marker
-            onset — a given subscriber's traceback is logged only on its first
-            failure; further failures are counted and the per-subscriber total
-            is reported at the end of run().
         """
         self.marker_subscribers.append((callback, raise_on_error))
 
