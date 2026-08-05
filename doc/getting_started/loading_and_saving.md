@@ -3,13 +3,24 @@ Knowing where the data is saved is integral to the functionality of EEG Notebook
 
 ## Locating the Default Data Directory
 
+On every platform the directory name starts with a dot, so the operating system hides it by default. This is a long-standing convention for application data and not something EEG-ExPy does to make the files hard to find, so the sections below show how to reveal the directory rather than how to move it.
+
 #### Windows 10
 The default directory is found at the location `C:\Users\*USER_NAME*\.eegnb` an example of which is pictured below.
 ![fig](../img/windows_default_directory.PNG)
 
+To show it in File Explorer, tick **View > Hidden items**, or type `%USERPROFILE%\.eegnb` into the address bar.
+
 #### Linux
+The default directory is found at the location `/home/*USER_NAME*/.eegnb/`.
+
+To show it in most file managers, press `Ctrl+H`. From a terminal, `ls -a ~` lists it and `cd ~/.eegnb` opens it.
 
 #### MacOS
+On Mac, the default directory is found at the location `/Users/*USER_NAME*/.eegnb/`, as seen in the picture below.
+![fig](../img/macos_default_directory.png)
+
+Finder hides it because of the leading dot. Press `Cmd+Shift+.` in a Finder window to toggle hidden files on, or use **Go > Go to Folder...** (`Cmd+Shift+G`) and enter `~/.eegnb`.
 
 ## Changing the Default Data Directory
 The default directory for saving data is automatically set within the library. If you want to save and analyze data to/from a new directory, it must be passed as a parameter to both the `eegnb.generate_save_fn()` and `eegnb.analysis.load_data()` functions.
