@@ -1,6 +1,5 @@
 
 from typing import Optional
-from time import time
 
 from psychopy import prefs
 
@@ -49,8 +48,8 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
         self.use_verbal_cues = use_verbal_cues
         self.open_audio = open_audio
         self.close_audio = close_audio
-        self.serial = None
-        self.outlet = None
+        self.serial: Optional["serial.Serial"] = None
+        self.outlet: Optional[StreamOutlet] = None
         self.open_sound = None
         self.close_sound = None
         super().__init__(
@@ -87,11 +86,20 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
         # LSL outlet for markers
         info = StreamInfo("Markers", "Markers", 1, 0, "int32", "eyeclosure-baseline")
         self.outlet = StreamOutlet(info)
+        outlet = self.outlet
+        self.subscribe_marker(
+            lambda marker, timestamp: outlet.push_sample([marker], timestamp)
+        )
 
         # serial connection for hardware triggers
         if self.serial_port and serial is not None:
             try:
                 self.serial = serial.Serial(self.serial_port, 115200, timeout=1)
+                ser = self.serial
+                self.subscribe_marker(
+                    lambda marker, timestamp: ser.write(bytes([marker])),
+                    raise_on_error=False,
+                )
             except Exception:  # pragma: no cover
                 self.serial = None
 
@@ -110,26 +118,8 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
 
         label = self.trials["parameter"].iloc[idx]  # 0 open, 1 closed
         if self.trials["timestamp"].iloc[idx] == 0:
-            timestamp = time()
+            timestamp = self.push_marker(self.markernames[label])
             self.trials.at[idx, "timestamp"] = timestamp
-            self.outlet.push_sample([self.markernames[label]], timestamp)
-            
-            if self.eeg:
-              if self.eeg.backend == "muselsl":
-                  marker = [self.markernames[label]]
-              else:
-                  marker = self.markernames[label]
-              self.eeg.push_sample(marker=marker, timestamp=timestamp)
-            
-            if self.devices:
-              marker = self.markernames[label]
-              self.send_triggers(marker)
-
-            if self.serial:
-                try:
-                    self.serial.write(bytes([self.markernames[label]]))
-                except Exception:  # pragma: no cover
-                    pass
 
             if label == 0:
                 self.open_sound.play()

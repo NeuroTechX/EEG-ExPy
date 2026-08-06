@@ -9,13 +9,14 @@ obj.run()
 """
 
 from abc import abstractmethod, ABC
-from typing import Callable
+from typing import Callable, Optional
 from eegnb.devices.eeg import EEG
 from eegnb.devices.vr import VR
 from psychopy import prefs, visual, event, core
 
 import gc
 from time import time
+import logging
 import random
 import json
 
@@ -24,11 +25,18 @@ from pandas import DataFrame
 
 from eegnb import generate_save_fn
 
+logger = logging.getLogger(__name__)
+
+
+# A marker subscriber: called as callback(marker, timestamp) on every
+# push_marker(). Its return value is ignored.
+MarkerSubscriber = Callable[[int, float], None]
+
 
 class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False, devices = list):
+                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False, devices=None):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -51,7 +59,7 @@ class BaseExperiment(ABC):
         Press spacebar to continue. \n""".format(self.exp_name)
         self.duration = duration
         self.eeg: EEG = eeg
-        self.devices = devices
+        self.devices = devices if devices is not None else []
         self.save_fn = save_fn
         self.n_trials = n_trials
         self.iti = iti
@@ -76,6 +84,16 @@ class BaseExperiment(ABC):
 
         # Initializing the marker names
         self.markernames = [1, 2]
+
+        # (callback, raise_on_error) pairs invoked on every push_marker().
+        self.marker_subscribers: list[tuple[MarkerSubscriber, bool]] = []
+
+        # Per-subscriber failure count: broken subscribers log once, not per trial.
+        self._subscriber_failures: dict = {}
+        
+        # Setting event marker subscribers
+        self.subscribe_marker(self._write_marker_to_eeg)
+        self.subscribe_marker(self._write_marker_to_devices)
 
         # Setting up the trial and parameter list
         self.parameter = np.random.binomial(1, 0.5, self.n_trials)
@@ -361,6 +379,10 @@ class BaseExperiment(ABC):
         # Clearing the screen for the next trial
         event.clearEvents()
 
+        # Surface any optional-subscriber failures whose repeats were suppressed.
+        for callback, count in self._subscriber_failures.items():
+            logger.warning("marker subscriber %s failed on %d marker(s)", callback, count)
+
         # Closing the EEG stream
         if self.eeg:
             self.eeg.stop()
@@ -371,11 +393,58 @@ class BaseExperiment(ABC):
         # Closing the window
         self.window.close()
 
-    def send_triggers(self, marker):
-        """Send timing triggers to recording device[s]"""
+    def subscribe_marker(self, callback: MarkerSubscriber, raise_on_error: bool = True):
+        """Register a marker subscriber: callable(marker, timestamp).
+
+        Invoked on every push_marker(). raise_on_error selects how a raised
+        exception is handled:
+
+        raise_on_error=True (the default) — essential recorders (the EEG board,
+            trigger/serial boxes) where a lost marker in the primary data is
+            unrecoverable. An exception propagates and aborts the run.
+        raise_on_error=False — optional telemetry (flip-time, eyetracker,
+            photodiode) that must never block core data. Exceptions are logged
+            and swallowed, so a bad observer can't take down a live recording.
+        """
+        self.marker_subscribers.append((callback, raise_on_error))
+
+    def _write_marker_to_eeg(self, marker, timestamp):
+        """Built-in essential subscriber: record the marker on the EEG board."""
+        if self.eeg:
+            self.eeg.push_sample(marker=marker, timestamp=timestamp)
+
+    def _write_marker_to_devices(self, marker, timestamp):
+        """Built-in essential subscriber: record the marker on every aux device."""
         for dev in self.devices:
-            timestamp = time()
             dev.push_sample(marker=marker, timestamp=timestamp)
+
+    def push_marker(self, marker: int) -> float:
+        """Send a stimulus marker to every subscriber under one shared timestamp.
+
+        A subscriber is any callable(marker, timestamp) registered via
+        subscribe_marker().
+
+        All subscribers share one timestamp so the marker onset is consistent
+        across streams. Returns the shared timestamp so a caller can record
+        the same onset in its own bookkeeping (e.g. a per-trial timestamp column)
+        without minting a second, slightly-skewed time().
+        """
+        timestamp = time()
+        for callback, raise_on_error in self.marker_subscribers:
+            try:
+                callback(marker, timestamp)
+            except Exception:
+                if raise_on_error:
+                    raise
+                # Log the traceback only on first failure (see subscribe_marker).
+                count = self._subscriber_failures.get(callback, 0) + 1
+                self._subscriber_failures[callback] = count
+                if count == 1:
+                    logger.exception(
+                        "marker subscriber failed; suppressing further tracebacks for it: %s",
+                        callback,
+                    )
+        return timestamp
 
     @property
     def name(self) -> str:
