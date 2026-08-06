@@ -35,7 +35,7 @@ def exp():
                           n_trials=1, iti=0, soa=0, jitter=0)
 
 
-def boom(marker, timestamp, trial_idx):
+def boom(marker, timestamp):
     raise RuntimeError("boom")
 
 
@@ -65,11 +65,11 @@ def test_failing_optional_subscriber_does_not_stop_the_others(exp, caplog):
     exp.subscribe_marker(lambda *args: seen.append(args), raise_on_error=False)
 
     with caplog.at_level(logging.ERROR):
-        exp.push_marker(1, trial_idx=3)       # boom is swallowed, not raised
+        exp.push_marker(1)                    # boom is swallowed, not raised
 
     ts = exp.eeg.calls[0][1]
     assert exp.eeg.calls == [(1, ts)]         # essential subscriber still wrote the marker
-    assert seen == [(1, ts, 3)]               # later optional subscriber still ran
+    assert seen == [(1, ts)]                  # later optional subscriber still ran
     assert "marker subscriber failed" in caplog.text
 
 
@@ -78,7 +78,7 @@ def test_repeatedly_failing_subscriber_logs_once_but_counts_all(exp, caplog):
 
     with caplog.at_level(logging.ERROR):
         for i in range(3):
-            exp.push_marker(1, trial_idx=i)
+            exp.push_marker(1)
 
     logged = [r for r in caplog.records if "suppressing further tracebacks" in r.getMessage()]
     assert len(logged) == 1                   # traceback logged once...

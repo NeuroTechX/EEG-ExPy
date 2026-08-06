@@ -43,7 +43,7 @@ class VisualN170(Experiment.BaseExperiment):
         # Draw the image
         image.draw()
 
-        self.push_marker(self.markernames[label], idx)
+        self.push_marker(self.markernames[label])
 
         self.window.flip()
 

@@ -40,6 +40,6 @@ class VisualP300(Experiment.BaseExperiment):
         image = choice(self.targets if label == 1 else self.nontargets)
         image.draw()
 
-        self.push_marker(self.markernames[label], idx)
+        self.push_marker(self.markernames[label])
 
         self.window.flip()

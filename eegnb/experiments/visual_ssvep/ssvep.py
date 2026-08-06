@@ -110,7 +110,7 @@ class VisualSSVEP(Experiment.BaseExperiment):
                 self.fixation.draw()
                 self.window.flip()
                 if not marker_pushed:
-                    self.push_marker(marker, idx)
+                    self.push_marker(marker)
                     marker_pushed = True
 
             for _ in range(self.stim_patterns[ind]["cycle"][1]):

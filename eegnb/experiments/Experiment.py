@@ -28,9 +28,9 @@ from eegnb import generate_save_fn
 logger = logging.getLogger(__name__)
 
 
-# A marker subscriber: called as callback(marker, timestamp, trial_idx) on every
-# push_marker(); trial_idx may be None. Its return value is ignored.
-MarkerSubscriber = Callable[[int, float, Optional[int]], None]
+# A marker subscriber: called as callback(marker, timestamp) on every
+# push_marker(). Its return value is ignored.
+MarkerSubscriber = Callable[[int, float], None]
 
 
 class BaseExperiment(ABC):
@@ -394,7 +394,7 @@ class BaseExperiment(ABC):
         self.window.close()
 
     def subscribe_marker(self, callback: MarkerSubscriber, raise_on_error: bool = True):
-        """Register a marker subscriber: callable(marker, timestamp, trial_idx).
+        """Register a marker subscriber: callable(marker, timestamp).
 
         Invoked on every push_marker(). raise_on_error selects how a raised
         exception is handled:
@@ -408,36 +408,31 @@ class BaseExperiment(ABC):
         """
         self.marker_subscribers.append((callback, raise_on_error))
 
-    def _write_marker_to_eeg(self, marker, timestamp, trial_idx):
+    def _write_marker_to_eeg(self, marker, timestamp):
         """Built-in essential subscriber: record the marker on the EEG board."""
         if self.eeg:
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
 
-    def _write_marker_to_devices(self, marker, timestamp, trial_idx):
+    def _write_marker_to_devices(self, marker, timestamp):
         """Built-in essential subscriber: record the marker on every aux device."""
         for dev in self.devices:
             dev.push_sample(marker=marker, timestamp=timestamp)
 
-    def push_marker(self, marker, trial_idx=None):
+    def push_marker(self, marker: int) -> float:
         """Send a stimulus marker to every subscriber under one shared timestamp.
 
-        A subscriber is any callable(marker, timestamp, trial_idx) registered via
-        subscribe_marker(). The built-in essential subscribers write the marker
-        onto the EEG board and any auxiliary devices (self.eeg, self.devices);
-        optional subscribers (raise_on_error=False) observe onset timing without
-        writing a marker to any stream — flip-time telemetry, eyetracker fixation,
-        photodiode metadata — and their exceptions are logged, not raised.
+        A subscriber is any callable(marker, timestamp) registered via
+        subscribe_marker().
 
         All subscribers share one timestamp so the marker onset is consistent
-        across streams. trial_idx is context for observers; callers without
-        observers may omit it. Returns the shared timestamp so a caller can record
+        across streams. Returns the shared timestamp so a caller can record
         the same onset in its own bookkeeping (e.g. a per-trial timestamp column)
         without minting a second, slightly-skewed time().
         """
         timestamp = time()
         for callback, raise_on_error in self.marker_subscribers:
             try:
-                callback(marker, timestamp, trial_idx)
+                callback(marker, timestamp)
             except Exception:
                 if raise_on_error:
                     raise

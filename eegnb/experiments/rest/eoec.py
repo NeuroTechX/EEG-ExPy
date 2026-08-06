@@ -86,18 +86,18 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
         # LSL outlet for markers
         info = StreamInfo("Markers", "Markers", 1, 0, "int32", "eyeclosure-baseline")
         self.outlet = StreamOutlet(info)
-        outlet = self.outlet  # local binding: mypy can't narrow self.outlet inside the closure
+        outlet = self.outlet
         self.subscribe_marker(
-            lambda marker, timestamp, _idx: outlet.push_sample([marker], timestamp)
+            lambda marker, timestamp: outlet.push_sample([marker], timestamp)
         )
 
         # serial connection for hardware triggers
         if self.serial_port and serial is not None:
             try:
                 self.serial = serial.Serial(self.serial_port, 115200, timeout=1)
-                ser = self.serial  # local binding: mypy can't narrow self.serial inside the closure
+                ser = self.serial
                 self.subscribe_marker(
-                    lambda marker, timestamp, _idx: ser.write(bytes([marker])),
+                    lambda marker, timestamp: ser.write(bytes([marker])),
                     raise_on_error=False,
                 )
             except Exception:  # pragma: no cover
@@ -118,7 +118,7 @@ class RestEyesOpenCloseAlternating(Experiment.BaseExperiment):
 
         label = self.trials["parameter"].iloc[idx]  # 0 open, 1 closed
         if self.trials["timestamp"].iloc[idx] == 0:
-            timestamp = self.push_marker(self.markernames[label], idx)
+            timestamp = self.push_marker(self.markernames[label])
             self.trials.at[idx, "timestamp"] = timestamp
 
             if label == 0:
