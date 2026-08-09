@@ -170,13 +170,13 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         indicators = "\n".join(
         [
             f"  {k:>4}: {CHECKMARK if v >= thres_std_low and v <= thres_std_high else CROSS}  (std: {round(v, 1):>5})"
-                for k, v in std_series.iteritems()
+                for k, v in std_series.items()
         ]
                               )
         print("\nSignal quality:")
         print(indicators)
 
-        bad_channels = [k for k, v in std_series.iteritems() if v < thres_std_low or v > thres_std_high ]
+        bad_channels = [k for k, v in std_series.items() if v < thres_std_low or v > thres_std_high ]
         if bad_channels:
             print(f"Bad channels: {', '.join(bad_channels)}")
             good_count=0  # reset good checks count if there are any bad chans
