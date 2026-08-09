@@ -12,10 +12,10 @@ from abc import abstractmethod, ABC
 from typing import Callable
 from eegnb.devices.eeg import EEG
 from eegnb.devices.vr import VR
-from psychopy import prefs, visual, event, core
-
-import gc
+from psychopy import prefs, visual, event
 from time import time
+
+from eegnb.experiments.realtime import high_priority_section
 import random
 import json
 
@@ -292,45 +292,49 @@ class BaseExperiment(ABC):
         def iti_with_jitter():
             return self.iti + np.random.rand() * self.jitter
 
-        # Initialize trial variables
-        current_trial = trial_end_time = -1
-        trial_start_time = None
-        rendering_trial = -1
-        has_soa_override = type(self).present_soa is not BaseExperiment.present_soa
-        
-        # Clear/reset user input buffer
-        self._clear_user_input()
-        
-        # Run the trial loop
-        while (time() - start_time) < duration:
-            elapsed_time = time() - start_time
-            
-            # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
-            if elapsed_time > trial_end_time:
-                current_trial += 1
-                
-                # Calculate timing for this trial
-                trial_start_time = elapsed_time + iti_with_jitter()
-                trial_end_time = trial_start_time + self.soa
+        with high_priority_section():
+            if self.use_vr:
+                self.vr.sync_vr_clock()
 
-            # Do not present stimulus after trial has ended(stimulus on arrival interval).
-            if elapsed_time >= trial_start_time:
-                # if current trial number changed present new stimulus.
-                if current_trial > rendering_trial:
-                    # Stimulus presentation overwritten by specific experiment
-                    self._draw(lambda: self.present_stimulus(current_trial))
-                    rendering_trial = current_trial
-                elif has_soa_override:
-                    # Keep submitting frames during SOA wait — VR compositor
-                    # drops to lower framerate if we stall between reversals.
-                    self._draw(lambda: self.present_soa(current_trial))
-            else:
-                self._draw(lambda: self.present_iti())
+            # Initialize trial variables
+            current_trial = trial_end_time = -1
+            trial_start_time = None
+            rendering_trial = -1
+            has_soa_override = type(self).present_soa is not BaseExperiment.present_soa
 
-            if self._user_input('cancel'):
-                return False
+            # Clear/reset user input buffer
+            self._clear_user_input()
 
-        return True
+            # Run the trial loop
+            while (time() - start_time) < duration:
+                elapsed_time = time() - start_time
+
+                # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
+                if elapsed_time > trial_end_time:
+                    current_trial += 1
+
+                    # Calculate timing for this trial
+                    trial_start_time = elapsed_time + iti_with_jitter()
+                    trial_end_time = trial_start_time + self.soa
+
+                # Do not present stimulus after trial has ended(stimulus on arrival interval).
+                if elapsed_time >= trial_start_time:
+                    # if current trial number changed present new stimulus.
+                    if current_trial > rendering_trial:
+                        # Stimulus presentation overwritten by specific experiment
+                        self._draw(lambda: self.present_stimulus(current_trial))
+                        rendering_trial = current_trial
+                    elif has_soa_override:
+                        # Keep submitting frames during SOA wait — VR compositor
+                        # drops to lower framerate if we stall between reversals.
+                        self._draw(lambda: self.present_soa(current_trial))
+                else:
+                    self._draw(lambda: self.present_iti())
+
+                if self._user_input('cancel'):
+                    return False
+
+            return True
 
     def run(self, instructions=True):
         """ Run the experiment """
@@ -348,15 +352,7 @@ class BaseExperiment(ABC):
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
 
-        core.rush(True)
-        gc.disable()
-        try:
-            if self.use_vr:        
-                self.vr.sync_vr_clock()
-            self._run_trial_loop(record_start_time, self.duration)
-        finally:
-            gc.enable()
-            core.rush(False)
+        self._run_trial_loop(record_start_time, self.duration)
 
         # Clearing the screen for the next trial
         event.clearEvents()
