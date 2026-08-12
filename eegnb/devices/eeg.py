@@ -15,12 +15,51 @@ import numpy as np
 import pandas as pd
 
 from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
-from muselsl import stream, list_muses, record, constants as mlsl_cnsts
-from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
 from serial import Serial, EIGHTBITS, PARITY_NONE, STOPBITS_ONE
 
 from eegnb.utils.missing import missing_module
+
+try:
+    from muselsl import stream, list_muses, record, constants as mlsl_cnsts
+except (ImportError, OSError):
+    muselsl = missing_module(
+        "muselsl",
+        "The MuseLSL backend (Muse 2016, Muse 2, and Muse S devices)",
+        "streaming",
+    )
+
+    def stream(*args, **kwargs):
+        return muselsl.stream(*args, **kwargs)
+
+    def list_muses(*args, **kwargs):
+        return muselsl.list_muses(*args, **kwargs)
+
+    def record(*args, **kwargs):
+        return muselsl.record(*args, **kwargs)
+
+    mlsl_cnsts = muselsl
+
+try:
+    from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
+except (ImportError, OSError):
+    pylsl = missing_module(
+        "pylsl",
+        "The LSL streaming backend (including MuseLSL marker/data transport)",
+        "streaming",
+    )
+
+    def StreamInfo(*args, **kwargs):
+        return pylsl.StreamInfo(*args, **kwargs)
+
+    def StreamOutlet(*args, **kwargs):
+        return pylsl.StreamOutlet(*args, **kwargs)
+
+    def StreamInlet(*args, **kwargs):
+        return pylsl.StreamInlet(*args, **kwargs)
+
+    def resolve_byprop(*args, **kwargs):
+        return pylsl.resolve_byprop(*args, **kwargs)
 
 try:
     import pyxid2
