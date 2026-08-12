@@ -260,8 +260,19 @@ def plot_conditions(
     if palette is None:
         palette = sns.color_palette("hls", len(conditions) + 1)
 
-    dfX = epochs.to_data_frame() 
-    dfX[channel_names] *= 1e6
+    # `to_data_frame` already converts EEG channels from volts to microvolts,
+    # so no further scaling is applied here.
+    dfX = epochs.to_data_frame(scalings=dict(eeg=1e6))
+
+    # Each row of `dfX` is tagged with the *name* of its event, whereas
+    # `conditions` maps a label to the marker *codes* it covers. Translate
+    # codes to names so that rows can be selected by condition. Values that
+    # are already names are passed through untouched.
+    code_to_name = {code: name for name, code in epochs.event_id.items()}
+
+    def rows_for_markers(markers):
+        names = [code_to_name.get(marker, marker) for marker in markers]
+        return dfX[dfX.condition.isin(names)]
 
     times = epochs.times
     y = pd.Series(epochs.events[:, -1])
@@ -278,7 +289,7 @@ def plot_conditions(
 
     for ch,ch_name in enumerate(channel_names):
         for cond,cond_name, color in zip(conditions.values(),conditions.keys(), palette):
-            dfXc = dfX[dfX.condition.isin(conditions[cond_name])]
+            dfXc = rows_for_markers(conditions[cond_name])
             sns.lineplot(
                 data=dfXc,
                 x="time",
@@ -291,8 +302,10 @@ def plot_conditions(
         axes[ch].set(xlabel='Time (s)', ylabel='Amplitude (uV)', title=epochs.ch_names[channel_order[ch]])
 
         if diff_waveform:
-            dfXc1 = dfX[dfX.condition.isin(conditions[diff_waveform[1]])]
-            dfXc2 = dfX[dfX.condition.isin(conditions[diff_waveform[0]])]
+            # `diff_waveform` holds marker codes, matching its documented type,
+            # so it is resolved the same way as the condition markers above.
+            dfXc1 = rows_for_markers([diff_waveform[1]])
+            dfXc2 = rows_for_markers([diff_waveform[0]])
             dfXc1_mn = dfXc1.set_index(['time', 'epoch'])[ch_name].unstack('epoch').mean(axis=1)
             dfXc2_mn = dfXc2.set_index(['time', 'epoch'])[ch_name].unstack('epoch').mean(axis=1)
             diff = (dfXc1_mn - dfXc2_mn).values
