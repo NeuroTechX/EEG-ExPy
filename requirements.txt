@@ -55,10 +55,10 @@ pyobjc>=8.0; sys_platform == 'darwin'
 #upgrade psychopy to use newer wxpython dependency which is prebuilt for m1 support.
 # Forked with a fix for Rift stereo projection matrix crash under strict-ndim psychxr.
 psychopy @ git+https://github.com/pellet/psychopy.git@v2026.2.0-rift-fix
-#needed for macos arm sound support
-psychopy-sounddevice @ git+https://github.com/psychopy/psychopy-sounddevice.git
 ffpyplayer==4.5.2 # 4.5.3 fails to build as wheel.
-psychtoolbox
+# Licence: MIT, but 3.0.20+ introduced paid licensing for the prebuilt macOS/Windows binaries
+# (psychtoolbox.net). Linux unaffected.
+psychtoolbox>=3.0.20; platform_machine == "arm64"
 scikit-learn>=0.23.2
 pandas>=1.1.4
 numpy>=1.26.0
