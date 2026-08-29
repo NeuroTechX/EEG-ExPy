@@ -135,7 +135,7 @@ def show_instructions(duration):
 		color=[-1, -1, -1])
 	text.draw()
 	mywin.flip()
-	event.waitKeys(keyList="space")
+	event.waitKeys(keyList=["space"])
 
 	mywin.mouseVisible = True
 	mywin.close()
