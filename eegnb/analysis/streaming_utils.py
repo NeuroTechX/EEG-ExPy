@@ -85,7 +85,7 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
     ------
 
     from eegnb.devices.eeg import EEG
-    from eegnb.analysis.utils import check
+    from eegnb.analysis.streaming_utils import check
     eeg = EEG(device='museS')
     check(eeg, n_samples=256)
 
@@ -123,7 +123,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     Usage:
     ------
     from eegnb.devices.eeg import EEG
-    from eegnb.analysis.utils import check_report
+    from eegnb.analysis.streaming_utils import check_report
     eeg = EEG(device='museS')
     check_report(eeg)
 
