@@ -191,7 +191,7 @@ class BaseExperiment(ABC):
 
     def _user_input(self, input_type):
         if input_type == 'start':
-            key_input = 'spacebar'
+            key_input = ['space']
             vr_inputs = [
                 ('RightTouch', 'A', True),
                 ('LeftTouch', 'X', True),
@@ -199,7 +199,7 @@ class BaseExperiment(ABC):
             ]
 
         elif input_type == 'cancel':
-            key_input = 'escape'
+            key_input = ['escape']
             vr_inputs = [
                 ('RightTouch', 'B', False),
                 ('LeftTouch', 'Y', False),
