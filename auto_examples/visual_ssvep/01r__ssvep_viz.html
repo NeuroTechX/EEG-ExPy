@@ -462,7 +462,7 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="c1"># MNE functions</span>
@@ -481,21 +481,21 @@ the example dataset, if you do not already have it.</p>
 </dd>
 </dl>
 <hr class="docutils" />
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
-<span class="n">ssvep_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">&#39;visual-SSVEP&#39;</span><span class="p">,</span> <span class="s1">&#39;eegnb_examples&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'~/'</span><span class="p">),</span><span class="s1">'.eegnb'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
+<span class="n">ssvep_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'visual-SSVEP'</span><span class="p">,</span> <span class="s1">'eegnb_examples'</span><span class="p">)</span>
 
-<span class="c1"># If dataset hasn&#39;t been downloaded yet, download it</span>
+<span class="c1"># If dataset hasn't been downloaded yet, download it</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">ssvep_data_path</span><span class="p">):</span>
-    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-SSVEP&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">);</span>
+    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-SSVEP'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">);</span>
 
 
 <span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span>
-                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-SSVEP&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-SSVEP'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">'muse2016'</span><span class="p">,</span>
                 <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">,</span>
-                <span class="n">replace_ch_names</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Right AUX&#39;</span><span class="p">:</span> <span class="s1">&#39;POz&#39;</span><span class="p">})</span>
-<span class="n">raw</span><span class="o">.</span><span class="n">set_channel_types</span><span class="p">({</span><span class="s1">&#39;POz&#39;</span><span class="p">:</span> <span class="s1">&#39;eeg&#39;</span><span class="p">})</span>
+                <span class="n">replace_ch_names</span><span class="o">=</span><span class="p">{</span><span class="s1">'Right AUX'</span><span class="p">:</span> <span class="s1">'POz'</span><span class="p">})</span>
+<span class="n">raw</span><span class="o">.</span><span class="n">set_channel_types</span><span class="p">({</span><span class="s1">'POz'</span><span class="p">:</span> <span class="s1">'eeg'</span><span class="p">})</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
@@ -503,61 +503,60 @@ From: https://drive.google.com/uc?id=1zj9Wx-YEMJo7GugUUu7Sshcybfsr-Fze
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/5.14M [00:00&lt;?, ?B/s]
- 41%|████      | 2.10M/5.14M [00:00&lt;00:00, 20.0MB/s]
-100%|██████████| 5.14M/5.14M [00:00&lt;00:00, 39.2MB/s]
+100%|██████████| 5.14M/5.14M [00:00&lt;00:00, 65.2MB/s]
 
 
 Loading these files:
-
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
-
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
-
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
-
-/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.32.15.csv
 
 /home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.20.04.csv
 
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.25.17.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.22.51.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.27.36.csv
+
+/home/runner/.eegnb/data/visual-SSVEP/eegnb_examples/muse2016/subject0001/session001/data_2017-09-14-21.29.57.csv
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'POz', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'POz', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'POz', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30720
     Range : 0 ... 30719 =      0.000 ...   119.996 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
-Creating RawArray with float64 data, n_channels=6, n_times=30720
-    Range : 0 ... 30719 =      0.000 ...   119.996 secs
-Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'POz', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;POz&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'POz', 'stim']
+Creating RawArray with float64 data, n_channels=6, n_times=30720
+    Range : 0 ... 30719 =      0.000 ...   119.996 secs
+Ready.
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'POz', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
 Marking edge at 30732 samples (maps to 120.047 sec)
 Marking edge at 61464 samples (maps to 240.094 sec)
 Marking edge at 92184 samples (maps to 360.094 sec)
-Marking edge at 122904 samples (maps to 480.094 sec)
+Marking edge at 122916 samples (maps to 480.141 sec)
 Marking edge at 153636 samples (maps to 600.141 sec)
 </pre></div>
 </div>
@@ -709,9 +708,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-04d4ffc0-8ab1-4075-9412-e4a8bc43eae3"
+<tr class="mne-repr-section-header general-ea4e6fb5-8560-4661-be4e-b1813bab7793"
      title="Hide section"
-    onclick="toggleVisibility('general-04d4ffc0-8ab1-4075-9412-e4a8bc43eae3')">
+    onclick="toggleVisibility('general-ea4e6fb5-8560-4661-be4e-b1813bab7793')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -723,26 +722,26 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-04d4ffc0-8ab1-4075-9412-e4a8bc43eae3 ">
+<tr class="repr-element general-ea4e6fb5-8560-4661-be4e-b1813bab7793 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>RawArray</td>
 </tr>
-<tr class="repr-element general-04d4ffc0-8ab1-4075-9412-e4a8bc43eae3 ">
+<tr class="repr-element general-ea4e6fb5-8560-4661-be4e-b1813bab7793 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-04d4ffc0-8ab1-4075-9412-e4a8bc43eae3 ">
+<tr class="repr-element general-ea4e6fb5-8560-4661-be4e-b1813bab7793 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-04d4ffc0-8ab1-4075-9412-e4a8bc43eae3 ">
+<tr class="repr-element general-ea4e6fb5-8560-4661-be4e-b1813bab7793 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -757,9 +756,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-d1d6fd33-1a03-4e33-a76a-0999ddae8c20"
+<tr class="mne-repr-section-header acquisition-ec7ebd18-2990-494b-be19-f36032c1ae90"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-d1d6fd33-1a03-4e33-a76a-0999ddae8c20')">
+    onclick="toggleVisibility('acquisition-ec7ebd18-2990-494b-be19-f36032c1ae90')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -771,7 +770,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-d1d6fd33-1a03-4e33-a76a-0999ddae8c20 ">
+<tr class="repr-element acquisition-ec7ebd18-2990-494b-be19-f36032c1ae90 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Duration</td>
     <td>00:12:01 (HH:MM:SS)</td>
@@ -784,14 +783,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-d1d6fd33-1a03-4e33-a76a-0999ddae8c20 ">
+<tr class="repr-element acquisition-ec7ebd18-2990-494b-be19-f36032c1ae90 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>256.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-d1d6fd33-1a03-4e33-a76a-0999ddae8c20 ">
+<tr class="repr-element acquisition-ec7ebd18-2990-494b-be19-f36032c1ae90 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>184,368</td>
@@ -806,9 +805,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-39749f06-487a-46d2-b18f-7d6c06368b59"
+<tr class="mne-repr-section-header channels-eb4fe70c-cb9d-4e3b-a2fe-f545f3917c73"
      title="Hide section"
-    onclick="toggleVisibility('channels-39749f06-487a-46d2-b18f-7d6c06368b59')">
+    onclick="toggleVisibility('channels-eb4fe70c-cb9d-4e3b-a2fe-f545f3917c73')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -821,7 +820,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-39749f06-487a-46d2-b18f-7d6c06368b59 ">
+<tr class="repr-element channels-eb4fe70c-cb9d-4e3b-a2fe-f545f3917c73 ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -834,7 +833,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-39749f06-487a-46d2-b18f-7d6c06368b59 ">
+<tr class="repr-element channels-eb4fe70c-cb9d-4e3b-a2fe-f545f3917c73 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Stimulus</td>
     <td>
@@ -847,7 +846,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-39749f06-487a-46d2-b18f-7d6c06368b59 ">
+<tr class="repr-element channels-eb4fe70c-cb9d-4e3b-a2fe-f545f3917c73 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -862,9 +861,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-72aa6cfa-81b2-4386-b60f-6a4bddafd101"
+<tr class="mne-repr-section-header filters-496cd3e3-35d3-492d-befb-56857e78d9e2"
      title="Hide section"
-    onclick="toggleVisibility('filters-72aa6cfa-81b2-4386-b60f-6a4bddafd101')">
+    onclick="toggleVisibility('filters-496cd3e3-35d3-492d-befb-56857e78d9e2')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -876,14 +875,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-72aa6cfa-81b2-4386-b60f-6a4bddafd101 ">
+<tr class="repr-element filters-496cd3e3-35d3-492d-befb-56857e78d9e2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>0.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-72aa6cfa-81b2-4386-b60f-6a4bddafd101 ">
+<tr class="repr-element filters-496cd3e3-35d3-492d-befb-56857e78d9e2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>128.00 Hz</td>
@@ -912,11 +911,11 @@ Plotting power spectral density (dB=True).
 <span class="c1"># Note: we will not reject epochs here because the amplitude of the SSVEP at POz is so large it is difficult to separate from eye blinks</span>
 
 <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;20 Hz&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'30 Hz'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'20 Hz'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 <span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
                 <span class="n">tmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sample drop %: &#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'sample drop %: '</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Finding events on: stim
@@ -932,13 +931,13 @@ sample drop %:  2.538071065989844
 
 <span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
-<span class="n">welch_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;welch&#39;</span><span class="p">,</span>
+<span class="n">welch_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'welch'</span><span class="p">,</span>
                   <span class="n">n_fft</span><span class="o">=</span><span class="mi">1028</span><span class="p">,</span>
                   <span class="n">n_per_seg</span><span class="o">=</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
-                  <span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+                  <span class="n">picks</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>
 
-<span class="n">psd1</span><span class="p">,</span> <span class="n">freq1</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_psd</span><span class="p">(</span><span class="o">**</span><span class="n">welch_params</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">return_freqs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">psd2</span><span class="p">,</span> <span class="n">freq2</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">compute_psd</span><span class="p">(</span><span class="o">**</span><span class="n">welch_params</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">return_freqs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">psd1</span><span class="p">,</span> <span class="n">freq1</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">'30 Hz'</span><span class="p">]</span><span class="o">.</span><span class="n">compute_psd</span><span class="p">(</span><span class="o">**</span><span class="n">welch_params</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">return_freqs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">psd2</span><span class="p">,</span> <span class="n">freq2</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">'20 Hz'</span><span class="p">]</span><span class="o">.</span><span class="n">compute_psd</span><span class="p">(</span><span class="o">**</span><span class="n">welch_params</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">return_freqs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">psd1</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psd1</span><span class="p">)</span>
 <span class="n">psd2</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psd2</span><span class="p">)</span>
 
@@ -948,22 +947,22 @@ sample drop %:  2.538071065989844
 <span class="n">psd2_mean</span> <span class="o">=</span> <span class="n">psd2</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">psd2_std</span> <span class="o">=</span> <span class="n">psd2</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq1</span><span class="p">,</span> <span class="n">psd1_mean</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq2</span><span class="p">,</span> <span class="n">psd2_mean</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq1</span><span class="p">,</span> <span class="n">psd1_mean</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'b'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'30 Hz'</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq2</span><span class="p">,</span> <span class="n">psd2_mean</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'20 Hz'</span><span class="p">)</span>
 
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq1</span><span class="p">,</span> <span class="n">psd1_mean</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq2</span><span class="p">,</span> <span class="n">psd2_mean</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq1</span><span class="p">,</span> <span class="n">psd1_mean</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'b'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'30 Hz'</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq2</span><span class="p">,</span> <span class="n">psd2_mean</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'20 Hz'</span><span class="p">)</span>
 
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;TP9 and TP10&#39;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;POz&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'TP9 and TP10'</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'POz'</span><span class="p">)</span>
 
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Power Spectral Density (dB)&#39;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Power Spectral Density (dB)&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Power Spectral Density (dB)'</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Power Spectral Density (dB)'</span><span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
 
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Frequency (Hz)'</span><span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -983,18 +982,18 @@ Effective window size : 4.016 (s)
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also look for SSVEPs in the spectrogram, which uses color to represent the power of frequencies in the EEG signal over time</span>
 
 <span class="n">frequencies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
-<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;30 Hz&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span><span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">'30 Hz'</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span><span class="n">picks</span><span class="o">=</span><span class="s1">'all'</span><span class="p">,</span>
                               <span class="n">n_cycles</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
-                 <span class="n">title</span><span class="o">=</span><span class="s1">&#39;POz - 30 Hz stim&#39;</span><span class="p">);</span>
+<span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'logratio'</span><span class="p">,</span>
+                 <span class="n">title</span><span class="o">=</span><span class="s1">'POz - 30 Hz stim'</span><span class="p">);</span>
 
-<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;20 Hz&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span><span class="n">picks</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+<span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">'20 Hz'</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span><span class="n">picks</span><span class="o">=</span><span class="s1">'all'</span><span class="p">,</span>
                               <span class="n">n_cycles</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;logratio&#39;</span><span class="p">,</span>
-                 <span class="n">title</span><span class="o">=</span><span class="s1">&#39;POz - 20 Hz stim&#39;</span><span class="p">);</span>
+<span class="n">tfr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'logratio'</span><span class="p">,</span>
+                 <span class="n">title</span><span class="o">=</span><span class="s1">'POz - 20 Hz stim'</span><span class="p">);</span>
 
 <span class="c1"># Set Layout engine to tight to fix error with using colorbar layout error</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">set_layout_engine</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">set_layout_engine</span><span class="p">(</span><span class="s1">'tight'</span><span class="p">);</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <span class="c1"># Once again we can see clear SSVEPs at 30hz and 20hz</span>
@@ -1005,13 +1004,13 @@ Effective window size : 4.016 (s)
 <li><img src="../../_images/sphx_glr_01r__ssvep_viz_004.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_004.png" alt="POz - 20 Hz stim" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_01r__ssvep_viz_005.png" srcset="../../_images/sphx_glr_01r__ssvep_viz_005.png" alt="01r  ssvep viz" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: logratio)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: logratio)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.411 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 8.408 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-01r-ssvep-viz-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/482813616f7e52f19737a9e9e4714600/01r__ssvep_viz.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01r__ssvep_viz.ipynb</span></code></a></p>

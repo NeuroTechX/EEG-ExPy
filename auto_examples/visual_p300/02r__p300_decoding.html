@@ -459,7 +459,7 @@ dataset, and compares them in terms of classification performance.</p>
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -488,18 +488,18 @@ dataset, and compares them in terms of classification performance.</p>
 <section id="load-data">
 <h2>Load Data<a class="headerlink" href="#load-data" title="Link to this heading"></a></h2>
 <p>( See the P300 <cite>load_and_visualize</cite> example for further description of this)</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
-<span class="n">p300_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">&#39;visual-P300&#39;</span><span class="p">,</span> <span class="s1">&#39;eegnb_examples&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'~/'</span><span class="p">),</span><span class="s1">'.eegnb'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
+<span class="n">p300_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'visual-P300'</span><span class="p">,</span> <span class="s1">'eegnb_examples'</span><span class="p">)</span>
 
-<span class="c1"># If dataset hasn&#39;t been downloaded yet, download it</span>
+<span class="c1"># If dataset hasn't been downloaded yet, download it</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">p300_data_path</span><span class="p">):</span>
-    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-P300&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">)</span>
+    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-P300'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">)</span>
 
 
 <span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span><span class="n">session</span><span class="p">,</span>
-                <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-P300&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;eegnb_examples&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-P300'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">'muse2016'</span><span class="p">,</span>
                 <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -509,44 +509,44 @@ dataset, and compares them in terms of classification performance.</p>
 
 /home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_58_30.csv
 
-/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_45_13.csv
-
 /home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_55_07.csv
 
 /home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_47_49.csv
 
 /home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_51_07.csv
 
+/home/runner/.eegnb/data/visual-P300/eegnb_examples/muse2016/subject0001/session001/data_2017-02-04-15_45_13.csv
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=30732
     Range : 0 ... 30731 =      0.000 ...   120.043 secs
 Ready.
@@ -560,7 +560,7 @@ Marking edge at 153660 samples (maps to 600.234 sec)
 </section>
 <section id="filteriing">
 <h2>Filteriing<a class="headerlink" href="#filteriing" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'iir'</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filtering raw data in 6 contiguous segments
@@ -721,9 +721,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-991627a8-0ef9-4ff9-953a-086276a62efa"
+<tr class="mne-repr-section-header general-6809c3b1-80ce-41bc-a3c3-abfde5a25d50"
      title="Hide section"
-    onclick="toggleVisibility('general-991627a8-0ef9-4ff9-953a-086276a62efa')">
+    onclick="toggleVisibility('general-6809c3b1-80ce-41bc-a3c3-abfde5a25d50')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -735,26 +735,26 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-991627a8-0ef9-4ff9-953a-086276a62efa ">
+<tr class="repr-element general-6809c3b1-80ce-41bc-a3c3-abfde5a25d50 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>RawArray</td>
 </tr>
-<tr class="repr-element general-991627a8-0ef9-4ff9-953a-086276a62efa ">
+<tr class="repr-element general-6809c3b1-80ce-41bc-a3c3-abfde5a25d50 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-991627a8-0ef9-4ff9-953a-086276a62efa ">
+<tr class="repr-element general-6809c3b1-80ce-41bc-a3c3-abfde5a25d50 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-991627a8-0ef9-4ff9-953a-086276a62efa ">
+<tr class="repr-element general-6809c3b1-80ce-41bc-a3c3-abfde5a25d50 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -769,9 +769,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-2772184c-a10d-4a5e-b3d9-2f1a955915e2"
+<tr class="mne-repr-section-header acquisition-0abbccd8-f25c-4320-a770-cc9f251999f2"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-2772184c-a10d-4a5e-b3d9-2f1a955915e2')">
+    onclick="toggleVisibility('acquisition-0abbccd8-f25c-4320-a770-cc9f251999f2')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -783,7 +783,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-2772184c-a10d-4a5e-b3d9-2f1a955915e2 ">
+<tr class="repr-element acquisition-0abbccd8-f25c-4320-a770-cc9f251999f2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Duration</td>
     <td>00:12:01 (HH:MM:SS)</td>
@@ -796,14 +796,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-2772184c-a10d-4a5e-b3d9-2f1a955915e2 ">
+<tr class="repr-element acquisition-0abbccd8-f25c-4320-a770-cc9f251999f2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>256.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-2772184c-a10d-4a5e-b3d9-2f1a955915e2 ">
+<tr class="repr-element acquisition-0abbccd8-f25c-4320-a770-cc9f251999f2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>184,392</td>
@@ -818,9 +818,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-baa21f6a-7b3f-4aa9-816e-c678006b12c4"
+<tr class="mne-repr-section-header channels-8a49cf3e-b8f1-4ebb-927a-c73ecf673ec8"
      title="Hide section"
-    onclick="toggleVisibility('channels-baa21f6a-7b3f-4aa9-816e-c678006b12c4')">
+    onclick="toggleVisibility('channels-8a49cf3e-b8f1-4ebb-927a-c73ecf673ec8')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -833,7 +833,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-baa21f6a-7b3f-4aa9-816e-c678006b12c4 ">
+<tr class="repr-element channels-8a49cf3e-b8f1-4ebb-927a-c73ecf673ec8 ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -846,7 +846,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-baa21f6a-7b3f-4aa9-816e-c678006b12c4 ">
+<tr class="repr-element channels-8a49cf3e-b8f1-4ebb-927a-c73ecf673ec8 ">
     <td class="mne-repr-section-toggle"></td>
     <td>misc</td>
     <td>
@@ -859,7 +859,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-baa21f6a-7b3f-4aa9-816e-c678006b12c4 ">
+<tr class="repr-element channels-8a49cf3e-b8f1-4ebb-927a-c73ecf673ec8 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Stimulus</td>
     <td>
@@ -872,7 +872,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-baa21f6a-7b3f-4aa9-816e-c678006b12c4 ">
+<tr class="repr-element channels-8a49cf3e-b8f1-4ebb-927a-c73ecf673ec8 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -887,9 +887,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-3e6edc6c-1a00-4e36-9b9e-3bccfeaa1217"
+<tr class="mne-repr-section-header filters-a5f7fc09-c06e-4a1f-bab1-844a58c609f2"
      title="Hide section"
-    onclick="toggleVisibility('filters-3e6edc6c-1a00-4e36-9b9e-3bccfeaa1217')">
+    onclick="toggleVisibility('filters-a5f7fc09-c06e-4a1f-bab1-844a58c609f2')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -901,14 +901,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-3e6edc6c-1a00-4e36-9b9e-3bccfeaa1217 ">
+<tr class="repr-element filters-a5f7fc09-c06e-4a1f-bab1-844a58c609f2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-3e6edc6c-1a00-4e36-9b9e-3bccfeaa1217 ">
+<tr class="repr-element filters-a5f7fc09-c06e-4a1f-bab1-844a58c609f2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>30.00 Hz</td>
@@ -923,11 +923,11 @@ this file apply (plus whatever default styling the IDE applies).
 <h2>Epoching<a class="headerlink" href="#epoching" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span>
 <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Non-Target&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Non-Target'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Target'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 <span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
-                <span class="n">tmin</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>                                                                                     <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:</span> <span class="mf">100e-6</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                                                                                   <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+                <span class="n">tmin</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>                                                                                     <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">'eeg'</span><span class="p">:</span> <span class="mf">100e-6</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                                                                                   <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sample drop %: &#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'sample drop %: '</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
 
 <span class="n">epochs</span>
 </pre></div>
@@ -1086,9 +1086,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-1321dd32-58f9-4504-b1a2-590471c27ad0"
+<tr class="mne-repr-section-header general-ae08855e-f4fb-4097-9a07-bef4abd6ebc7"
      title="Hide section"
-    onclick="toggleVisibility('general-1321dd32-58f9-4504-b1a2-590471c27ad0')">
+    onclick="toggleVisibility('general-ae08855e-f4fb-4097-9a07-bef4abd6ebc7')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1100,26 +1100,26 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-1321dd32-58f9-4504-b1a2-590471c27ad0 ">
+<tr class="repr-element general-ae08855e-f4fb-4097-9a07-bef4abd6ebc7 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>Epochs</td>
 </tr>
-<tr class="repr-element general-1321dd32-58f9-4504-b1a2-590471c27ad0 ">
+<tr class="repr-element general-ae08855e-f4fb-4097-9a07-bef4abd6ebc7 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-1321dd32-58f9-4504-b1a2-590471c27ad0 ">
+<tr class="repr-element general-ae08855e-f4fb-4097-9a07-bef4abd6ebc7 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-1321dd32-58f9-4504-b1a2-590471c27ad0 ">
+<tr class="repr-element general-ae08855e-f4fb-4097-9a07-bef4abd6ebc7 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -1134,9 +1134,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee"
+<tr class="mne-repr-section-header acquisition-67004b8c-fa77-425e-840c-2681312a07b5"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee')">
+    onclick="toggleVisibility('acquisition-67004b8c-fa77-425e-840c-2681312a07b5')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1151,14 +1151,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee ">
+<tr class="repr-element acquisition-67004b8c-fa77-425e-840c-2681312a07b5 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Total number of events</td>
     <td>1143</td>
 </tr>
 
 
-<tr class="repr-element acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee ">
+<tr class="repr-element acquisition-67004b8c-fa77-425e-840c-2681312a07b5 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Events counts</td>
 
@@ -1175,35 +1175,35 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee ">
+<tr class="repr-element acquisition-67004b8c-fa77-425e-840c-2681312a07b5 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time range</td>
     <td>-0.102 – 0.801 s</td>
 </tr>
 
 
-<tr class="repr-element acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee ">
+<tr class="repr-element acquisition-67004b8c-fa77-425e-840c-2681312a07b5 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Baseline</td>
     <td>off</td>
 </tr>
 
 
-<tr class="repr-element acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee ">
+<tr class="repr-element acquisition-67004b8c-fa77-425e-840c-2681312a07b5 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>256.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee ">
+<tr class="repr-element acquisition-67004b8c-fa77-425e-840c-2681312a07b5 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>232</td>
 </tr>
 
 
-<tr class="repr-element acquisition-6588b062-b8d8-4c57-8bbf-2f4d3e9ca0ee ">
+<tr class="repr-element acquisition-67004b8c-fa77-425e-840c-2681312a07b5 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Metadata</td>
     <td>No metadata set</td>
@@ -1217,9 +1217,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-0d0d35b5-d84e-46bf-82f7-613d365b7fb2"
+<tr class="mne-repr-section-header channels-446acac3-8f18-4140-a821-ad234c1aa0ac"
      title="Hide section"
-    onclick="toggleVisibility('channels-0d0d35b5-d84e-46bf-82f7-613d365b7fb2')">
+    onclick="toggleVisibility('channels-446acac3-8f18-4140-a821-ad234c1aa0ac')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1232,7 +1232,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-0d0d35b5-d84e-46bf-82f7-613d365b7fb2 ">
+<tr class="repr-element channels-446acac3-8f18-4140-a821-ad234c1aa0ac ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -1245,7 +1245,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-0d0d35b5-d84e-46bf-82f7-613d365b7fb2 ">
+<tr class="repr-element channels-446acac3-8f18-4140-a821-ad234c1aa0ac ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -1260,9 +1260,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-50edd0d6-7aa1-4057-a5b3-4488f584e5aa"
+<tr class="mne-repr-section-header filters-d5e717ba-40c5-4f32-92a3-be607830a3b2"
      title="Hide section"
-    onclick="toggleVisibility('filters-50edd0d6-7aa1-4057-a5b3-4488f584e5aa')">
+    onclick="toggleVisibility('filters-d5e717ba-40c5-4f32-92a3-be607830a3b2')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1274,14 +1274,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-50edd0d6-7aa1-4057-a5b3-4488f584e5aa ">
+<tr class="repr-element filters-d5e717ba-40c5-4f32-92a3-be607830a3b2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-50edd0d6-7aa1-4057-a5b3-4488f584e5aa ">
+<tr class="repr-element filters-d5e717ba-40c5-4f32-92a3-be607830a3b2 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>30.00 Hz</td>
@@ -1295,16 +1295,16 @@ this file apply (plus whatever default styling the IDE applies).
 <section id="classfication">
 <h2>Classfication<a class="headerlink" href="#classfication" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">clfs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;Vect + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;Vect + RegLDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">(</span><span class="n">shrinkage</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;eigen&#39;</span><span class="p">))</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;Xdawn + RegLDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Xdawn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">(</span><span class="n">shrinkage</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;eigen&#39;</span><span class="p">))</span>
+<span class="n">clfs</span><span class="p">[</span><span class="s1">'Vect + LR'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="n">clfs</span><span class="p">[</span><span class="s1">'Vect + RegLDA'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">(</span><span class="n">shrinkage</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'eigen'</span><span class="p">))</span>
+<span class="n">clfs</span><span class="p">[</span><span class="s1">'Xdawn + RegLDA'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Xdawn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">(</span><span class="n">shrinkage</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'eigen'</span><span class="p">))</span>
 
-<span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;XdawnCov + TS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">&#39;oas&#39;</span><span class="p">),</span> <span class="n">TangentSpace</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;XdawnCov + MDM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">&#39;oas&#39;</span><span class="p">),</span> <span class="n">MDM</span><span class="p">())</span>
+<span class="n">clfs</span><span class="p">[</span><span class="s1">'XdawnCov + TS'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'oas'</span><span class="p">),</span> <span class="n">TangentSpace</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="n">clfs</span><span class="p">[</span><span class="s1">'XdawnCov + MDM'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'oas'</span><span class="p">),</span> <span class="n">MDM</span><span class="p">())</span>
 
 
-<span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;ERPCov + TS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(),</span> <span class="n">TangentSpace</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">&#39;ERPCov + MDM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(),</span> <span class="n">MDM</span><span class="p">())</span>
+<span class="n">clfs</span><span class="p">[</span><span class="s1">'ERPCov + TS'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(),</span> <span class="n">TangentSpace</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="n">clfs</span><span class="p">[</span><span class="s1">'ERPCov + MDM'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(),</span> <span class="n">MDM</span><span class="p">())</span>
 
 <span class="c1"># format data</span>
 <span class="n">epochs</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1319,15 +1319,15 @@ this file apply (plus whatever default styling the IDE applies).
 <span class="n">auc</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">methods</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">clfs</span><span class="p">:</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clfs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">==</span><span class="mi">2</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clfs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">==</span><span class="mi">2</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'roc_auc'</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">auc</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
     <span class="n">methods</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">m</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
 
-<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">auc</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC&#39;</span><span class="p">])</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">methods</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">auc</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'AUC'</span><span class="p">])</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">'Method'</span><span class="p">]</span> <span class="o">=</span> <span class="n">methods</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;AUC&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'AUC'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Method'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
@@ -1335,7 +1335,7 @@ this file apply (plus whatever default styling the IDE applies).
 <img src="../../_images/sphx_glr_02r__p300_decoding_001.png" srcset="../../_images/sphx_glr_02r__p300_decoding_001.png" alt="02r  p300 decoding" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: pick_types() is a legacy function. New code should use inst.pick(...).
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 11.565 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.518 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-p300-02r-p300-decoding-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db47b930ce10faf6f74a13d608925887/02r__p300_decoding.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02r__p300_decoding.ipynb</span></code></a></p>

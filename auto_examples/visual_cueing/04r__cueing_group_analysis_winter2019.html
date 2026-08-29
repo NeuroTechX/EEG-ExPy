@@ -459,7 +459,7 @@ to download the full example code.</p>
 <span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
 
@@ -475,12 +475,12 @@ to download the full example code.</p>
 </section>
 <section id="load-the-data">
 <h2>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">),</span><span class="s1">&#39;.eegnb&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
-<span class="n">cueing_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'~/'</span><span class="p">),</span><span class="s1">'.eegnb'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
+<span class="n">cueing_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'visual-cueing'</span><span class="p">,</span> <span class="s1">'kylemathlab_dev'</span><span class="p">)</span>
 
-<span class="c1"># If dataset hasn&#39;t been downloaded yet, download it</span>
+<span class="c1"># If dataset hasn't been downloaded yet, download it</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">cueing_data_path</span><span class="p">):</span>
-      <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">)</span>
+      <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-cueing'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'kylemathlab_dev'</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -555,39 +555,39 @@ subs = [101, 102, 103, 104, 105, 106, 108, 109, 110, 111, 112,</p>
 
     <span class="c1"># Load both sessions</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># subject, session</span>
-                    <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span><span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                    <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-cueing'</span><span class="p">,</span><span class="n">site</span><span class="o">=</span><span class="s1">'kylemathlab_dev'</span><span class="p">,</span><span class="n">device_name</span><span class="o">=</span><span class="s1">'muse2016'</span><span class="p">,</span>
                     <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
 
     <span class="n">raw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
           <span class="n">load_data</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># subject, session</span>
-                    <span class="n">experiment</span><span class="o">=</span><span class="s1">&#39;visual-cueing&#39;</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">&#39;kylemathlab_dev&#39;</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">&#39;muse2016&#39;</span><span class="p">,</span>
+                    <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-cueing'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'kylemathlab_dev'</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">'muse2016'</span><span class="p">,</span>
                     <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">))</span>
 
 
     <span class="c1"># Filter Raw Data</span>
-    <span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">)</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'iir'</span><span class="p">)</span>
 
     <span class="c1">#Select Events</span>
     <span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-    <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LeftCue&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RightCue&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'LeftCue'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'RightCue'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
     <span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
                     <span class="n">tmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                    <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:</span><span class="n">rej_thresh</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">'eeg'</span><span class="p">:</span><span class="n">rej_thresh</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trials Remaining: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Trials Remaining: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">))</span> <span class="o">+</span> <span class="s1">'.'</span><span class="p">)</span>
 
     <span class="c1"># Compute morlet wavelet</span>
     <span class="c1"># Left Cue</span>
-    <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;LeftCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+    <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">'LeftCue'</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
                           <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">),</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">),</span><span class="n">mode</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">)</span>
     <span class="n">power_Ipsi_TP9</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span>
     <span class="n">power_Contra_TP10</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span>
 
     <span class="c1"># Right Cue</span>
-    <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;RightCue&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+    <span class="n">tfr</span><span class="p">,</span> <span class="n">itc</span> <span class="o">=</span> <span class="n">tfr_morlet</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">'RightCue'</span><span class="p">],</span> <span class="n">freqs</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
                           <span class="n">n_cycles</span><span class="o">=</span><span class="n">wave_cycles</span><span class="p">,</span> <span class="n">return_itc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">),</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">tfr</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.5</span><span class="p">),</span><span class="n">mode</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">)</span>
     <span class="n">power_Contra_TP9</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span>
     <span class="n">power_Ipsi_TP10</span> <span class="o">=</span> <span class="n">tfr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,:]</span>
 
@@ -644,8 +644,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -658,8 +658,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -676,9 +676,9 @@ Finding events on: stim
 67 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 1.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1102
 
@@ -690,8 +690,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -704,8 +704,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -722,9 +722,9 @@ Finding events on: stim
 136 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 31.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1103
 
@@ -736,8 +736,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -750,8 +750,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -768,9 +768,9 @@ Finding events on: stim
 161 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 64.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1104
 
@@ -782,8 +782,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -796,8 +796,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -814,9 +814,9 @@ Finding events on: stim
 187 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 51.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1105
 
@@ -828,8 +828,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -842,8 +842,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -860,9 +860,9 @@ Finding events on: stim
 192 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 73.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1106
 
@@ -874,8 +874,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -888,8 +888,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -906,9 +906,9 @@ Finding events on: stim
 134 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 56.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1108
 
@@ -920,8 +920,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -934,8 +934,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -952,9 +952,9 @@ Finding events on: stim
 146 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 25.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1109
 
@@ -966,8 +966,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -980,8 +980,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -998,9 +998,9 @@ Finding events on: stim
 176 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 47.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1110
 
@@ -1012,8 +1012,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1026,8 +1026,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1044,9 +1044,9 @@ Finding events on: stim
 168 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 12.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1202
 
@@ -1058,8 +1058,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61308
     Range : 0 ... 61307 =      0.000 ...   239.480 secs
 Ready.
@@ -1072,8 +1072,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1090,9 +1090,9 @@ Finding events on: stim
 173 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 73.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1203
 
@@ -1104,8 +1104,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1118,8 +1118,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1136,9 +1136,9 @@ Finding events on: stim
 211 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 88.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1205
 
@@ -1150,8 +1150,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61308
     Range : 0 ... 61307 =      0.000 ...   239.480 secs
 Ready.
@@ -1164,8 +1164,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61308
     Range : 0 ... 61307 =      0.000 ...   239.480 secs
 Ready.
@@ -1182,9 +1182,9 @@ Finding events on: stim
 226 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 83.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1206
 
@@ -1196,8 +1196,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61308
     Range : 0 ... 61307 =      0.000 ...   239.480 secs
 Ready.
@@ -1210,8 +1210,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1228,9 +1228,9 @@ Finding events on: stim
 214 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 66.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1209
 
@@ -1242,8 +1242,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1256,8 +1256,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1274,9 +1274,9 @@ Finding events on: stim
 186 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 40.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1210
 
@@ -1288,8 +1288,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1302,8 +1302,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1320,9 +1320,9 @@ Finding events on: stim
 198 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 27.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1211
 
@@ -1334,8 +1334,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1348,8 +1348,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1366,9 +1366,9 @@ Finding events on: stim
 139 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 53.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1215
 
@@ -1380,8 +1380,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1394,8 +1394,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1412,9 +1412,9 @@ Finding events on: stim
 193 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 46.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1301
 
@@ -1426,8 +1426,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1440,8 +1440,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1458,9 +1458,9 @@ Finding events on: stim
 197 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 0.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1302
 
@@ -1472,8 +1472,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1486,8 +1486,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1504,9 +1504,9 @@ Finding events on: stim
 194 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 0.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1313
 
@@ -1518,8 +1518,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1532,8 +1532,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1550,9 +1550,9 @@ Finding events on: stim
 186 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 56.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1401
 
@@ -1564,8 +1564,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1578,8 +1578,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1596,9 +1596,9 @@ Finding events on: stim
 125 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 43.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1402
 
@@ -1610,8 +1610,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1624,8 +1624,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1642,9 +1642,9 @@ Finding events on: stim
 158 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 65.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1403
 
@@ -1656,8 +1656,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1670,8 +1670,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1688,9 +1688,9 @@ Finding events on: stim
 172 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 17.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1404
 
@@ -1702,8 +1702,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1716,8 +1716,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1734,9 +1734,9 @@ Finding events on: stim
 112 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 38.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1405
 
@@ -1748,8 +1748,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1762,8 +1762,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1780,9 +1780,9 @@ Finding events on: stim
 162 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 26.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1408
 
@@ -1794,8 +1794,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1808,8 +1808,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61284
     Range : 0 ... 61283 =      0.000 ...   239.387 secs
 Ready.
@@ -1826,9 +1826,9 @@ Finding events on: stim
 171 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 16.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1410
 
@@ -1840,8 +1840,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61308
     Range : 0 ... 61307 =      0.000 ...   239.480 secs
 Ready.
@@ -1854,8 +1854,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1872,9 +1872,9 @@ Finding events on: stim
 172 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 53.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1411
 
@@ -1886,8 +1886,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1900,8 +1900,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1918,9 +1918,9 @@ Finding events on: stim
 160 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 53.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1412
 
@@ -1932,8 +1932,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1946,8 +1946,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1964,9 +1964,9 @@ Finding events on: stim
 168 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 46.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1413
 
@@ -1978,8 +1978,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -1992,8 +1992,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2010,9 +2010,9 @@ Finding events on: stim
 154 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 41.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1413
 
@@ -2024,8 +2024,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2038,8 +2038,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2056,9 +2056,9 @@ Finding events on: stim
 154 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 41.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1414
 
@@ -2070,8 +2070,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61308
     Range : 0 ... 61307 =      0.000 ...   239.480 secs
 Ready.
@@ -2084,8 +2084,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2102,9 +2102,9 @@ Finding events on: stim
 185 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 81.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1415
 
@@ -2116,8 +2116,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2130,8 +2130,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2148,9 +2148,9 @@ Finding events on: stim
 158 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 19.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 1416
 
@@ -2162,8 +2162,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2176,8 +2176,8 @@ Loading these files:
 
 
 
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
-[&#39;TP9&#39;, &#39;AF7&#39;, &#39;AF8&#39;, &#39;TP10&#39;, &#39;Right AUX&#39;, &#39;stim&#39;]
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
+['TP9', 'AF7', 'AF8', 'TP10', 'Right AUX', 'stim']
 Creating RawArray with float64 data, n_channels=6, n_times=61296
     Range : 0 ... 61295 =      0.000 ...   239.434 secs
 Ready.
@@ -2194,9 +2194,9 @@ Finding events on: stim
 160 events found on stim channel stim
 Event IDs: [ 1  2 11 12 21 22]
 Trials Remaining: 40.
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
-NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method=&quot;morlet&quot;).
+NOTE: tfr_morlet() is a legacy function. New code should use .compute_tfr(method="morlet").
 Applying baseline correction (mode: mean)
 </pre></div>
 </div>
@@ -2224,25 +2224,25 @@ Applying baseline correction (mode: mean)
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span><span class="n">GrandAvg_spec_Ipsi</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">GrandAvg_spec_Ipsi_ste</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span><span class="n">GrandAvg_spec_Contra</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">GrandAvg_spec_Contra_ste</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s1">&#39;Ipsi&#39;</span><span class="p">,</span><span class="s1">&#39;Contra&#39;</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (uV^2)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s1">'Ipsi'</span><span class="p">,</span><span class="s1">'Contra'</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency (Hz)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Power (uV^2)'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x48ee4482950&gt;
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_001.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x3fc0b13b2d0&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot Spectra Diff error bars</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span><span class="n">GrandAvg_spec_diff</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">GrandAvg_spec_diff_ste</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;Ipsi-Contra&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (uV^2)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">'Ipsi-Contra'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency (Hz)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Power (uV^2)'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">33</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x48ee448add0&gt;
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_002.png" alt="04r  cueing group analysis winter2019" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.LineCollection object at 0x3fc0b13cd10&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi</p>
@@ -2250,14 +2250,14 @@ Applying baseline correction (mode: mean)
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">GrandAvg_Ipsi</span><span class="p">,</span>
            <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
-           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power Ipsi&#39;</span><span class="p">)</span>
+           <span class="n">aspect</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">'lower'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (sec)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Frequency (Hz)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Power Ipsi'</span><span class="p">)</span>
 <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">'Power'</span><span class="p">)</span>
 <span class="c1"># Create a Rectangle patch</span>
-<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="c1"># Add the patch to the Axes</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
 <span class="c1">#</span>
@@ -2268,14 +2268,14 @@ Applying baseline correction (mode: mean)
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">GrandAvg_Contra</span><span class="p">,</span>
            <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
-           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power Contra&#39;</span><span class="p">)</span>
+           <span class="n">aspect</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">'lower'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (sec)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Frequency (Hz)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Power Contra'</span><span class="p">)</span>
 <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">'Power'</span><span class="p">)</span>
 <span class="c1"># Create a Rectangle patch</span>
-<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="c1"># Add the patch to the Axes</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
 <span class="c1">#</span>
@@ -2285,7 +2285,7 @@ Applying baseline correction (mode: mean)
 <li><img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_003.png" alt="Power Ipsi" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_004.png" alt="Power Contra" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x48ede3685d0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x3fc0ab96910&gt;
 </pre></div>
 </div>
 <p>Grand Average Ipsi-Contra Difference</p>
@@ -2293,19 +2293,19 @@ Applying baseline correction (mode: mean)
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">GrandAvg_diff</span><span class="p">,</span>
            <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frequencies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
-           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max_diff</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max_diff</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power Difference Ipsi-Contra&#39;</span><span class="p">)</span>
+           <span class="n">aspect</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">'lower'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">plot_max_diff</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">plot_max_diff</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (sec)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Frequency (Hz)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Power Difference Ipsi-Contra'</span><span class="p">)</span>
 <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Ipsi-Contra Power&#39;</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">'Ipsi-Contra Power'</span><span class="p">)</span>
 <span class="c1"># Create a Rectangle patch</span>
-<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">t_low</span><span class="p">,</span><span class="n">f_low</span><span class="p">),</span><span class="n">t_diff</span><span class="p">,</span><span class="n">f_diff</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
 <span class="c1"># Add the patch to the Axes</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x48ede4d12d0&gt;
+<img src="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" srcset="../../_images/sphx_glr_04r__cueing_group_analysis_winter2019_005.png" alt="Power Difference Ipsi-Contra" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Rectangle object at 0x3fc0a997090&gt;
 </pre></div>
 </div>
 </section>
@@ -2313,16 +2313,16 @@ Applying baseline correction (mode: mean)
 <h2>Compute t test<a class="headerlink" href="#compute-t-test" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">num_good</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">diff_out</span><span class="p">))</span>
 
-<span class="p">[</span><span class="n">tstat</span><span class="p">,</span> <span class="n">pval</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">diff_out</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)),</span><span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;omit&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ipsi Mean: &#39;</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Ipsi_out</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Contra Mean: &#39;</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Contra_out</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean Diff: &#39;</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;t(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_good</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">tstat</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pval</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
+<span class="p">[</span><span class="n">tstat</span><span class="p">,</span> <span class="n">pval</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">diff_out</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)),</span><span class="n">nan_policy</span><span class="o">=</span><span class="s1">'omit'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Ipsi Mean: '</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Ipsi_out</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Contra Mean: '</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Contra_out</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Mean Diff: '</span><span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'t('</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_good</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">') = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">tstat</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'p = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pval</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ipsi Mean: 3.573593019715708e-11
-Contra Mean: 2.6421745679207307e-11
+Contra Mean: 2.6421745679207297e-11
 Mean Diff: 9.314184517949774e-12
 t(30) = 0.456
 p = 0.65
@@ -2332,15 +2332,15 @@ p = 0.65
 <section id="save-average-powers-ipsi-and-contra">
 <h2>Save average powers ipsi and contra<a class="headerlink" href="#save-average-powers-ipsi-and-contra" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">diff_out</span><span class="p">)</span>
-<span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Ipsi Power&#39;</span><span class="p">:</span> <span class="n">Ipsi_out</span><span class="p">,</span>
-        <span class="s1">&#39;Contra Power&#39;</span><span class="p">:</span> <span class="n">Contra_out</span><span class="p">}</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Ipsi Power&#39;</span><span class="p">,</span> <span class="s1">&#39;Contra Power&#39;</span><span class="p">])</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Ipsi Power'</span><span class="p">:</span> <span class="n">Ipsi_out</span><span class="p">,</span>
+        <span class="s1">'Contra Power'</span><span class="p">:</span> <span class="n">Contra_out</span><span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Ipsi Power'</span><span class="p">,</span> <span class="s1">'Contra Power'</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingEEG.csv&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved subject averages for each condition to 375CueingEEG.csv file in present directory&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'375CueingEEG.csv'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Saved subject averages for each condition to 375CueingEEG.csv file in present directory'</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[np.float64(nan), np.float64(1.7890047693696626e-11), np.float64(6.402571924637999e-11), np.float64(1.2016988558064702e-10), np.float64(1.6436811298970782e-10), np.float64(1.1465401250727349e-10), np.float64(8.107123680349214e-11), np.float64(-3.116941991532447e-11), np.float64(6.49372710835756e-11), np.float64(4.3529314385416007e-11), np.float64(2.876035618452191e-11), np.float64(3.773350340044495e-11), np.float64(2.1131349959479278e-11), np.float64(1.5571207459949457e-10), np.float64(-4.6291150675500837e-10), np.float64(-8.052232335321753e-11), np.float64(-4.664422137282236e-11), np.float64(nan), np.float64(nan), np.float64(-3.438951097875042e-11), np.float64(7.091042185483098e-11), np.float64(1.298338355801425e-11), np.float64(1.3604198590381523e-10), np.float64(-5.861633427481465e-11), np.float64(-6.204912953285771e-11), np.float64(1.8344086913139712e-10), np.float64(2.380242500968515e-11), np.float64(-8.805033297719254e-11), np.float64(-7.508128947253926e-11), np.float64(2.9079648598437396e-11), np.float64(2.9079648598437396e-11), np.float64(-4.146716305783289e-11), np.float64(-1.5307351374033065e-10), np.float64(2.3393198398386886e-11)]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[np.float64(nan), np.float64(1.7890047693696623e-11), np.float64(6.402571924638e-11), np.float64(1.2016988558064705e-10), np.float64(1.6436811298970782e-10), np.float64(1.1465401250727349e-10), np.float64(8.107123680349218e-11), np.float64(-3.116941991532446e-11), np.float64(6.493727108357561e-11), np.float64(4.3529314385416007e-11), np.float64(2.876035618452192e-11), np.float64(3.773350340044499e-11), np.float64(2.1131349959479278e-11), np.float64(1.5571207459949457e-10), np.float64(-4.6291150675500847e-10), np.float64(-8.052232335321753e-11), np.float64(-4.664422137282238e-11), np.float64(nan), np.float64(nan), np.float64(-3.438951097875043e-11), np.float64(7.091042185483098e-11), np.float64(1.298338355801425e-11), np.float64(1.3604198590381518e-10), np.float64(-5.861633427481462e-11), np.float64(-6.204912953285772e-11), np.float64(1.8344086913139714e-10), np.float64(2.3802425009685156e-11), np.float64(-8.805033297719256e-11), np.float64(-7.508128947253926e-11), np.float64(2.9079648598437377e-11), np.float64(2.9079648598437377e-11), np.float64(-4.146716305783288e-11), np.float64(-1.5307351374033065e-10), np.float64(2.3393198398386902e-11)]
       Ipsi Power  Contra Power
 0            NaN           NaN
 1  -3.901325e-11 -5.690330e-11
@@ -2384,11 +2384,11 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 <h2>Save spectra<a class="headerlink" href="#save-spectra" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Ipsi_spectra_out</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingIpsiSpec.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'375CueingIpsiSpec.csv'</span><span class="p">)</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Contra_spectra_out</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">frequencies</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;375CueingContraSpec.csv&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved Spectra to 375CueingContraSpec.csv file in present directory&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'375CueingContraSpec.csv'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Saved Spectra to 375CueingContraSpec.csv file in present directory'</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>       6.000000      6.242424   ...     29.757576     30.000000
@@ -2431,7 +2431,7 @@ Saved subject averages for each condition to 375CueingEEG.csv file in present di
 Saved Spectra to 375CueingContraSpec.csv file in present directory
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 25.000 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 19.166 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-04r-cueing-group-analysis-winter2019-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4cd288a0df5274e2be1a468e1967a571/04r__cueing_group_analysis_winter2019.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04r__cueing_group_analysis_winter2019.ipynb</span></code></a></p>
