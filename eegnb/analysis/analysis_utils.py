@@ -18,6 +18,7 @@ from mne.io import RawArray
 from mne.channels import make_standard_montage
 from mne.filter import create_filter
 from matplotlib import pyplot as plt
+from matplotlib import lines as mlines
 from scipy import stats
 from scipy.signal import lfilter, lfilter_zi
 
@@ -277,10 +278,21 @@ def plot_conditions(
 
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
+            # Hand seaborn long-form data: one row per (epoch, time) sample, so
+            # that it averages over the epochs of this condition and bootstraps
+            # a confidence interval around that average. A wide frame with the
+            # channel number as `y` would instead select a single column, i.e.
+            # plot one arbitrary epoch and no interval at all.
+            epoch_by_time = pd.DataFrame(
+                X[y.isin(cond), ch].T, index=pd.Index(times, name="time")
+            )
+            samples = epoch_by_time.melt(
+                ignore_index=False, var_name="epoch", value_name="amplitude"
+            ).reset_index()
             sns.lineplot(
-                data=pd.DataFrame(X[y.isin(cond), ch].T, index=times),
-                x=times,
-                y=ch,
+                data=samples,
+                x="time",
+                y="amplitude",
                 color=color,
                 n_boot=n_boot,
                 ax=axes[ch],
@@ -300,14 +312,30 @@ def plot_conditions(
             x=0, ymin=ylim[0], ymax=ylim[1], color="k", lw=1, label="_nolegend_"
         )
 
-    if diff_waveform:
-        legend = ["{} - {}".format(diff_waveform[1], diff_waveform[0])] + list(
-            conditions.keys()
+    # Build the legend from explicit handles rather than from a bare list of
+    # labels. Passing labels alone makes matplotlib pair them with whatever
+    # artists it finds on the axis, in draw order, which does not match the
+    # order the labels are written in and also picks up the confidence-interval
+    # bands seaborn draws. Pairing each label with its own handle keeps the
+    # legend correct no matter how many artists the plotting calls add.
+    legs = []
+    for cond_name, color in zip(conditions.keys(), palette):
+        legs.append(
+            mlines.Line2D([], [], color=color, marker="", ls="-", label=cond_name)
         )
-    else:
-        legend = conditions.keys()
+    if diff_waveform:
+        legs.append(
+            mlines.Line2D(
+                [],
+                [],
+                color="k",
+                marker="",
+                ls="-",
+                label="{} - {}".format(diff_waveform[1], diff_waveform[0]),
+            )
+        )
     axes[-1].legend(
-        legend, bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0
+        handles=legs, bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0
     )
     sns.despine()
     plt.tight_layout()
