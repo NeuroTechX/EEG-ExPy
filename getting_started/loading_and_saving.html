@@ -447,16 +447,23 @@
 <p>Knowing where the data is saved is integral to the functionality of EEG Notebooks. EEG Notebooks saves data to a default location in a hidden directory. From this directory, the individual files can be found based on a folder structure outlined below in the <strong>naming convention.</strong></p>
 <section id="locating-the-default-data-directory">
 <h2>Locating the Default Data Directory<a class="headerlink" href="#locating-the-default-data-directory" title="Link to this heading"></a></h2>
+<p>On every platform the directory name starts with a dot, so the operating system hides it by default. This is a long-standing convention for application data and not something EEG-ExPy does to make the files hard to find, so the sections below show how to reveal the directory rather than how to move it.</p>
 <section id="windows-10">
 <h3>Windows 10<a class="headerlink" href="#windows-10" title="Link to this heading"></a></h3>
 <p>The default directory is found at the location <code class="docutils literal notranslate"><span class="pre">C:\Users\*USER_NAME*\.eegnb</span></code> an example of which is pictured below.
 <img alt="fig" src="../_images/windows_default_directory.PNG" /></p>
+<p>To show it in File Explorer, tick <strong>View &gt; Hidden items</strong>, or type <code class="docutils literal notranslate"><span class="pre">%USERPROFILE%\.eegnb</span></code> into the address bar.</p>
 </section>
 <section id="linux">
 <h3>Linux<a class="headerlink" href="#linux" title="Link to this heading"></a></h3>
+<p>The default directory is found at the location <code class="docutils literal notranslate"><span class="pre">/home/*USER_NAME*/.eegnb/</span></code>.</p>
+<p>To show it in most file managers, press <code class="docutils literal notranslate"><span class="pre">Ctrl+H</span></code>. From a terminal, <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-a</span> <span class="pre">~</span></code> lists it and <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/.eegnb</span></code> opens it.</p>
 </section>
 <section id="macos">
 <h3>MacOS<a class="headerlink" href="#macos" title="Link to this heading"></a></h3>
+<p>On Mac, the default directory is found at the location <code class="docutils literal notranslate"><span class="pre">/Users/*USER_NAME*/.eegnb/</span></code>, as seen in the picture below.
+<img alt="fig" src="../_images/macos_default_directory.png" /></p>
+<p>Finder hides it because of the leading dot. Press <code class="docutils literal notranslate"><span class="pre">Cmd+Shift+.</span></code> in a Finder window to toggle hidden files on, or use <strong>Go &gt; Go to Folder…</strong> (<code class="docutils literal notranslate"><span class="pre">Cmd+Shift+G</span></code>) and enter <code class="docutils literal notranslate"><span class="pre">~/.eegnb</span></code>.</p>
 </section>
 </section>
 <section id="changing-the-default-data-directory">
