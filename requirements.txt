@@ -33,8 +33,11 @@ pyserial>=3.5
 h5py>=3.1.0
 pytest-shutil
 pyobjc>=8.0; sys_platform == 'darwin'
-#Removed keyboard dependency due segmentation fault on Apple Silicon: https://github.com/boppreh/keyboard/issues/507
-pynput
+#Removed pynput dependency: it pulls in evdev, which fails to build from
+#source on modern Linux under the conda toolchain (missing kernel header
+#symbols). The two callsites that used pynput.keyboard.Listener have been
+#replaced with a threading + stdin "press enter to cancel" helper in
+#eegnb/utils/cancel.py — cross-platform, zero new deps.
 airium>=0.1.0
 attrdict>=2.0.1
 attrdict3
@@ -52,10 +55,10 @@ pyobjc>=8.0; sys_platform == 'darwin'
 #upgrade psychopy to use newer wxpython dependency which is prebuilt for m1 support.
 # Forked with a fix for Rift stereo projection matrix crash under strict-ndim psychxr.
 psychopy @ git+https://github.com/pellet/psychopy.git@v2026.2.0-rift-fix
-#needed for macos arm sound support
-psychopy-sounddevice @ git+https://github.com/psychopy/psychopy-sounddevice.git
 ffpyplayer==4.5.2 # 4.5.3 fails to build as wheel.
-psychtoolbox
+# Licence: MIT, but 3.0.20+ introduced paid licensing for the prebuilt macOS/Windows binaries
+# (psychtoolbox.net). Linux unaffected.
+psychtoolbox>=3.0.20; platform_machine == "arm64"
 scikit-learn>=0.23.2
 pandas>=1.1.4
 numpy>=1.26.0

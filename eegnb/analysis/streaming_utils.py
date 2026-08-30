@@ -7,8 +7,9 @@ from collections import OrderedDict
 from glob import glob
 from typing import Union, List
 from time import sleep, time
-from pynput import keyboard
 import os
+
+from eegnb.utils.cancel import wait_for_cancel
 
 import pandas as pd
 import numpy as np
@@ -84,7 +85,7 @@ def check(eeg: EEG, n_samples=256) -> pd.Series:
     ------
 
     from eegnb.devices.eeg import EEG
-    from eegnb.analysis.utils import check
+    from eegnb.analysis.streaming_utils import check
     eeg = EEG(device='museS')
     check(eeg, n_samples=256)
 
@@ -122,7 +123,7 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
     Usage:
     ------
     from eegnb.devices.eeg import EEG
-    from eegnb.analysis.utils import check_report
+    from eegnb.analysis.streaming_utils import check_report
     eeg = EEG(device='museS')
     check_report(eeg)
 
@@ -170,13 +171,13 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         indicators = "\n".join(
         [
             f"  {k:>4}: {CHECKMARK if v >= thres_std_low and v <= thres_std_high else CROSS}  (std: {round(v, 1):>5})"
-                for k, v in std_series.iteritems()
+                for k, v in std_series.items()
         ]
                               )
         print("\nSignal quality:")
         print(indicators)
 
-        bad_channels = [k for k, v in std_series.iteritems() if v < thres_std_low or v > thres_std_high ]
+        bad_channels = [k for k, v in std_series.items() if v < thres_std_low or v > thres_std_high ]
         if bad_channels:
             print(f"Bad channels: {', '.join(bad_channels)}")
             good_count=0  # reset good checks count if there are any bad chans
@@ -192,21 +193,10 @@ def check_report(eeg: EEG, n_times: int=60, pause_time=5, thres_std_low=None, th
         if (loop_index+1) % n_inarow == 0:
             print(f"\n\nLooks like you still have {len(bad_channels)} bad channels after {loop_index+1} tries\n")
 
-            prompt_time = time()
-            print(f"Starting next cycle in 5 seconds, press C and enter to cancel")
-            c_key_pressed = False
-
-            def update_key_press(key):
-                if key.char == 'c':
-                    globals().update(c_key_pressed=True)
-            listener = keyboard.Listener(on_press=update_key_press)
-            listener.start()
-            while time() < prompt_time + 5:
-                if c_key_pressed:
-                    print("\nStopping signal quality checks!")
-                    flag = True
-                    break
-            listener.stop()
+            print("Starting next cycle in 5 seconds, press C and enter to cancel")
+            if wait_for_cancel(timeout=5.0, cancel_key="c"):
+                print("\nStopping signal quality checks!")
+                flag = True
         if flag: 
             break  
 
