@@ -45,18 +45,34 @@ jobs:
           echo "Changed examples: $CHANGED_EXAMPLES"
         fi
 
-    - name: Cache built documentation
+    - name: Cache executed gallery examples
       id: cache-docs
       uses: actions/cache@v4
       with:
+        # sphinx-gallery decides whether to re-run an example by comparing the
+        # example's md5 against `<example>.py.md5` beside its generated rst in
+        # doc/auto_examples, so that directory -- not the rendered html -- is
+        # what makes a rebuild cheap.
         path: |
-          doc/_build/html
-        key: ${{ runner.os }}-sphinx-${{ hashFiles('examples/**/*.py', 'doc/**/*', 'conf.py') }}
+          doc/auto_examples
+          doc/_build/doctrees
+        # Two-part key. The prefix pins everything the per-example md5 cannot
+        # see -- library, docs sources, docs environment -- so a prefix
+        # fallback can only ever reuse stamps built against the same library,
+        # and an example-only change still reuses the other examples' output.
+        key: ${{ runner.os }}-sphinx-${{ hashFiles('eegnb/**/*.py', 'doc/**/*', 'environments/eeg-expy-docsbuild.yml') }}-${{ hashFiles('examples/**/*.py') }}
         restore-keys: |
-          ${{ runner.os }}-sphinx-
+          ${{ runner.os }}-sphinx-${{ hashFiles('eegnb/**/*.py', 'doc/**/*', 'environments/eeg-expy-docsbuild.yml') }}-
 
     - name: Build docs
       run: make docs
+
+    - name: Upload built docs
+      uses: actions/upload-artifact@v4
+      with:
+        name: docs-build-preview
+        path: doc/_build/html
+        retention-days: 14
 
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
