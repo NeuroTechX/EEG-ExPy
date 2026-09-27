@@ -1,6 +1,9 @@
 name: Docs
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
   push:
     branches: [ master, develop, 'dev/*' ]
   pull_request:
@@ -34,9 +37,9 @@ jobs:
     - name: Determine build mode
       id: mode
       run: |
-        if grep -vqE '^examples/.*\.py$' changed_files.txt; then
+        if [ "$GITHUB_EVENT_NAME" = "schedule" ] || [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || grep -vqE '^examples/.*\.py$' changed_files.txt; then
           echo "FULL_BUILD=true" >> $GITHUB_ENV
-          echo "Detected non-example file change. Full build triggered."
+          echo "Full build triggered."
         else
           # || true prevents grep's exit code 1 (no matches) from aborting the step
           CHANGED_EXAMPLES=$(grep '^examples/.*\.py$' changed_files.txt | paste -sd '|' - || true)
@@ -47,6 +50,7 @@ jobs:
 
     - name: Cache built documentation
       id: cache-docs
+      if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
       uses: actions/cache@v4
       with:
         path: |
@@ -60,7 +64,7 @@ jobs:
 
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html
