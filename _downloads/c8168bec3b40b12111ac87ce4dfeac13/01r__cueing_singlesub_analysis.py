@@ -236,7 +236,7 @@ ax.add_patch(rect)
 
 events = find_events(raw)
 event_id = {'InvalidTarget_Left': 11, 'InvalidTarget_Right': 12,
-           'ValidTarget_Left': 21,'ValidTarget_Right': 11}
+           'ValidTarget_Left': 21,'ValidTarget_Right': 22}
 
 epochs = Epochs(raw, events=events, event_id=event_id, 
                 tmin=-.2, tmax=1, baseline=(-.2, 0), 

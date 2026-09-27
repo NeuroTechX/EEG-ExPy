@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -457,51 +457,49 @@ dataset, and compares them in terms of classification performance.</p>
 <p>The data used is exactly the same as in the N170 <cite>load_and_visualize</cite> example.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="c1"># MNE functions</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mne.decoding</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vectorizer</span>
-
-<span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
-
-<span class="c1"># Scikit-learn and Pyriemann ML functionalities</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.discriminant_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann.estimation</span><span class="w"> </span><span class="kn">import</span> <span class="n">ERPCovariances</span><span class="p">,</span> <span class="n">XdawnCovariances</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann.tangentspace</span><span class="w"> </span><span class="kn">import</span> <span class="n">TangentSpace</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann.classification</span><span class="w"> </span><span class="kn">import</span> <span class="n">MDM</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Some standard pythonic imports</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span><span class="w">
+</span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'</span><span class="s1">ignore</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># MNE functions</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="nn">.</span><span class="nn">decoding</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vectorizer</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># EEG-Notebooks functions</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">analysis</span><span class="nn">.</span><span class="nn">analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Scikit-learn and Pyriemann ML functionalities</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="nn">.</span><span class="nn">pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="nn">.</span><span class="nn">linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="nn">.</span><span class="nn">preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="nn">.</span><span class="nn">discriminant_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="nn">.</span><span class="nn">model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann</span><span class="nn">.</span><span class="nn">estimation</span><span class="w"> </span><span class="kn">import</span> <span class="n">ERPCovariances</span><span class="p">,</span> <span class="n">XdawnCovariances</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann</span><span class="nn">.</span><span class="nn">tangentspace</span><span class="w"> </span><span class="kn">import</span> <span class="n">TangentSpace</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyriemann</span><span class="nn">.</span><span class="nn">classification</span><span class="w"> </span><span class="kn">import</span> <span class="n">MDM</span><span class="w">
+</span></pre></div></div>
 </section>
 <section id="load-data">
 <h2>Load Data<a class="headerlink" href="#load-data" title="Link to this heading"></a></h2>
 <p>( See the n170 <cite>load_and_visualize</cite> example for further description of this)</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'~/'</span><span class="p">),</span><span class="s1">'.eegnb'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
-<span class="n">n170_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'visual-N170'</span><span class="p">,</span> <span class="s1">'eegnb_examples'</span><span class="p">)</span>
-
-<span class="c1"># If dataset hasn't been downloaded yet, download it</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">n170_data_path</span><span class="p">):</span>
-    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-N170'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">)</span>
-
-<span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span><span class="n">session</span><span class="p">,</span>
-                <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-N170'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">'muse2016'</span><span class="p">,</span>
-                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'</span><span class="s1">~/</span><span class="s1">'</span><span class="p">)</span><span class="p">,</span><span class="s1">'</span><span class="s1">.eegnb</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">data</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">n170_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'</span><span class="s1">visual-N170</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">eegnb_examples</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># If dataset hasn't been downloaded yet, download it</span><span class="w">
+</span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">n170_data_path</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'</span><span class="s1">visual-N170</span><span class="s1">'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'</span><span class="s1">eegnb_examples</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span><span class="w">
+</span><span class="n">session</span> <span class="o">=</span> <span class="mi">1</span><span class="w">
+</span><span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span><span class="n">session</span><span class="p">,</span><span class="w">
+</span>                <span class="n">experiment</span><span class="o">=</span><span class="s1">'</span><span class="s1">visual-N170</span><span class="s1">'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'</span><span class="s1">eegnb_examples</span><span class="s1">'</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">'</span><span class="s1">muse2016</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loading these files:
 
 /home/runner/.eegnb/data/visual-N170/eegnb_examples/muse2016/subject0001/session001/data_2017-09-13-15.40.17.csv
@@ -559,9 +557,8 @@ Marking edge at 153648 samples (maps to 600.188 sec)
 </section>
 <section id="filteriing">
 <h2>Filteriing<a class="headerlink" href="#filteriing" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'iir'</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'</span><span class="s1">iir</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filtering raw data in 6 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
 
@@ -720,9 +717,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-179b9dd6-8a79-4fd7-b460-b40b4acf5740"
+<tr class="mne-repr-section-header general-5b5a8d58-3134-4154-ab44-45ef55ffd101"
      title="Hide section"
-    onclick="toggleVisibility('general-179b9dd6-8a79-4fd7-b460-b40b4acf5740')">
+    onclick="toggleVisibility('general-5b5a8d58-3134-4154-ab44-45ef55ffd101')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -734,26 +731,26 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-179b9dd6-8a79-4fd7-b460-b40b4acf5740 ">
+<tr class="repr-element general-5b5a8d58-3134-4154-ab44-45ef55ffd101 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>RawArray</td>
 </tr>
-<tr class="repr-element general-179b9dd6-8a79-4fd7-b460-b40b4acf5740 ">
+<tr class="repr-element general-5b5a8d58-3134-4154-ab44-45ef55ffd101 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-179b9dd6-8a79-4fd7-b460-b40b4acf5740 ">
+<tr class="repr-element general-5b5a8d58-3134-4154-ab44-45ef55ffd101 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-179b9dd6-8a79-4fd7-b460-b40b4acf5740 ">
+<tr class="repr-element general-5b5a8d58-3134-4154-ab44-45ef55ffd101 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -768,9 +765,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-df1a6452-5683-4f8d-9abb-1e7d1e204373"
+<tr class="mne-repr-section-header acquisition-4e2007b1-15bf-40cb-a0b7-1db01f7da9ed"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-df1a6452-5683-4f8d-9abb-1e7d1e204373')">
+    onclick="toggleVisibility('acquisition-4e2007b1-15bf-40cb-a0b7-1db01f7da9ed')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -782,7 +779,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-df1a6452-5683-4f8d-9abb-1e7d1e204373 ">
+<tr class="repr-element acquisition-4e2007b1-15bf-40cb-a0b7-1db01f7da9ed ">
     <td class="mne-repr-section-toggle"></td>
     <td>Duration</td>
     <td>00:12:01 (HH:MM:SS)</td>
@@ -795,14 +792,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-df1a6452-5683-4f8d-9abb-1e7d1e204373 ">
+<tr class="repr-element acquisition-4e2007b1-15bf-40cb-a0b7-1db01f7da9ed ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>256.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-df1a6452-5683-4f8d-9abb-1e7d1e204373 ">
+<tr class="repr-element acquisition-4e2007b1-15bf-40cb-a0b7-1db01f7da9ed ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>184,380</td>
@@ -817,9 +814,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-55f5ef36-a56d-4dbf-95a1-4a649e0316e0"
+<tr class="mne-repr-section-header channels-43b80fc2-7677-4b4a-97c0-583b67a397aa"
      title="Hide section"
-    onclick="toggleVisibility('channels-55f5ef36-a56d-4dbf-95a1-4a649e0316e0')">
+    onclick="toggleVisibility('channels-43b80fc2-7677-4b4a-97c0-583b67a397aa')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -832,7 +829,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-55f5ef36-a56d-4dbf-95a1-4a649e0316e0 ">
+<tr class="repr-element channels-43b80fc2-7677-4b4a-97c0-583b67a397aa ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -845,7 +842,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-55f5ef36-a56d-4dbf-95a1-4a649e0316e0 ">
+<tr class="repr-element channels-43b80fc2-7677-4b4a-97c0-583b67a397aa ">
     <td class="mne-repr-section-toggle"></td>
     <td>misc</td>
     <td>
@@ -858,7 +855,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-55f5ef36-a56d-4dbf-95a1-4a649e0316e0 ">
+<tr class="repr-element channels-43b80fc2-7677-4b4a-97c0-583b67a397aa ">
     <td class="mne-repr-section-toggle"></td>
     <td>Stimulus</td>
     <td>
@@ -871,7 +868,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-55f5ef36-a56d-4dbf-95a1-4a649e0316e0 ">
+<tr class="repr-element channels-43b80fc2-7677-4b4a-97c0-583b67a397aa ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -886,9 +883,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-dab80f0d-fe5c-4b42-96a6-1965508e5444"
+<tr class="mne-repr-section-header filters-dba268ad-a897-4756-a9c7-8f3c80c0f228"
      title="Hide section"
-    onclick="toggleVisibility('filters-dab80f0d-fe5c-4b42-96a6-1965508e5444')">
+    onclick="toggleVisibility('filters-dba268ad-a897-4756-a9c7-8f3c80c0f228')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -900,14 +897,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-dab80f0d-fe5c-4b42-96a6-1965508e5444 ">
+<tr class="repr-element filters-dba268ad-a897-4756-a9c7-8f3c80c0f228 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-dab80f0d-fe5c-4b42-96a6-1965508e5444 ">
+<tr class="repr-element filters-dba268ad-a897-4756-a9c7-8f3c80c0f228 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>30.00 Hz</td>
@@ -920,20 +917,19 @@ this file apply (plus whatever default styling the IDE applies).
 <br /></section>
 <section id="epoching">
 <h2>Epoching<a class="headerlink" href="#epoching" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span>
-<span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'House'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Face'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-
-<span class="c1"># Create an MNE Epochs object representing all the epochs around stimulus presentation</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
-                <span class="n">tmin</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">'eeg'</span><span class="p">:</span> <span class="mf">75e-6</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">'sample drop %: '</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">epochs</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span><span class="w">
+</span><span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="w">
+</span><span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'</span><span class="s1">House</span><span class="s1">'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'</span><span class="s1">Face</span><span class="s1">'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Create an MNE Epochs object representing all the epochs around stimulus presentation</span><span class="w">
+</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span><span class="w">
+</span>                <span class="n">tmin</span><span class="o">=</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="w">
+</span>                <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="s1">eeg</span><span class="s1">'</span><span class="p">:</span> <span class="mf">75e-6</span><span class="p">}</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="w">
+</span>                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">sample drop </span><span class="s1">%</span><span class="s1">: </span><span class="s1">'</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="w">
+</span><span class="n">epochs</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Finding events on: stim
 1174 events found on stim channel stim
 Event IDs: [1 2]
@@ -1088,9 +1084,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-2e4afe1f-f814-403c-aafa-dd4d1ef4df59"
+<tr class="mne-repr-section-header general-30e8b7a0-8c5c-44a1-b0f3-432e54de23bf"
      title="Hide section"
-    onclick="toggleVisibility('general-2e4afe1f-f814-403c-aafa-dd4d1ef4df59')">
+    onclick="toggleVisibility('general-30e8b7a0-8c5c-44a1-b0f3-432e54de23bf')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1102,26 +1098,26 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-2e4afe1f-f814-403c-aafa-dd4d1ef4df59 ">
+<tr class="repr-element general-30e8b7a0-8c5c-44a1-b0f3-432e54de23bf ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>Epochs</td>
 </tr>
-<tr class="repr-element general-2e4afe1f-f814-403c-aafa-dd4d1ef4df59 ">
+<tr class="repr-element general-30e8b7a0-8c5c-44a1-b0f3-432e54de23bf ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-2e4afe1f-f814-403c-aafa-dd4d1ef4df59 ">
+<tr class="repr-element general-30e8b7a0-8c5c-44a1-b0f3-432e54de23bf ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-2e4afe1f-f814-403c-aafa-dd4d1ef4df59 ">
+<tr class="repr-element general-30e8b7a0-8c5c-44a1-b0f3-432e54de23bf ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -1136,9 +1132,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4"
+<tr class="mne-repr-section-header acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4')">
+    onclick="toggleVisibility('acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1153,14 +1149,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4 ">
+<tr class="repr-element acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae ">
     <td class="mne-repr-section-toggle"></td>
     <td>Total number of events</td>
     <td>1127</td>
 </tr>
 
 
-<tr class="repr-element acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4 ">
+<tr class="repr-element acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae ">
     <td class="mne-repr-section-toggle"></td>
     <td>Events counts</td>
 
@@ -1177,35 +1173,35 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4 ">
+<tr class="repr-element acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time range</td>
     <td>-0.102 – 0.801 s</td>
 </tr>
 
 
-<tr class="repr-element acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4 ">
+<tr class="repr-element acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae ">
     <td class="mne-repr-section-toggle"></td>
     <td>Baseline</td>
     <td>off</td>
 </tr>
 
 
-<tr class="repr-element acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4 ">
+<tr class="repr-element acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>256.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4 ">
+<tr class="repr-element acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>232</td>
 </tr>
 
 
-<tr class="repr-element acquisition-40f8f4c8-b239-43c5-80f4-dbce287629b4 ">
+<tr class="repr-element acquisition-833db53c-a59f-4f40-96c4-d06bd611b4ae ">
     <td class="mne-repr-section-toggle"></td>
     <td>Metadata</td>
     <td>No metadata set</td>
@@ -1219,9 +1215,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-cd72b7f6-d7a7-4543-99b5-17058174a835"
+<tr class="mne-repr-section-header channels-8f74c042-4dbb-4a0c-81c7-8ad091766a6a"
      title="Hide section"
-    onclick="toggleVisibility('channels-cd72b7f6-d7a7-4543-99b5-17058174a835')">
+    onclick="toggleVisibility('channels-8f74c042-4dbb-4a0c-81c7-8ad091766a6a')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1234,7 +1230,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-cd72b7f6-d7a7-4543-99b5-17058174a835 ">
+<tr class="repr-element channels-8f74c042-4dbb-4a0c-81c7-8ad091766a6a ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -1247,7 +1243,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-cd72b7f6-d7a7-4543-99b5-17058174a835 ">
+<tr class="repr-element channels-8f74c042-4dbb-4a0c-81c7-8ad091766a6a ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -1262,9 +1258,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-7cfa2b76-5982-404a-928d-31b940ca9fe6"
+<tr class="mne-repr-section-header filters-c177ff77-96d9-4d0d-87ec-031d1e0d1233"
      title="Hide section"
-    onclick="toggleVisibility('filters-7cfa2b76-5982-404a-928d-31b940ca9fe6')">
+    onclick="toggleVisibility('filters-c177ff77-96d9-4d0d-87ec-031d1e0d1233')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1276,14 +1272,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-7cfa2b76-5982-404a-928d-31b940ca9fe6 ">
+<tr class="repr-element filters-c177ff77-96d9-4d0d-87ec-031d1e0d1233 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-7cfa2b76-5982-404a-928d-31b940ca9fe6 ">
+<tr class="repr-element filters-c177ff77-96d9-4d0d-87ec-031d1e0d1233 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>30.00 Hz</td>
@@ -1296,38 +1292,37 @@ this file apply (plus whatever default styling the IDE applies).
 <br /></section>
 <section id="run-classification">
 <h2>Run classification<a class="headerlink" href="#run-classification" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">clfs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">'Vect + LR'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">'Vect + RegLDA'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">(</span><span class="n">shrinkage</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'eigen'</span><span class="p">))</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">'ERPCov + TS'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'oas'</span><span class="p">),</span> <span class="n">TangentSpace</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">'ERPCov + MDM'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'oas'</span><span class="p">),</span> <span class="n">MDM</span><span class="p">())</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">'XdawnCov + TS'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'oas'</span><span class="p">),</span> <span class="n">TangentSpace</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">clfs</span><span class="p">[</span><span class="s1">'XdawnCov + MDM'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'oas'</span><span class="p">),</span> <span class="n">MDM</span><span class="p">())</span>
-
-<span class="c1"># format data</span>
-<span class="n">epochs</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e6</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">times</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># define cross validation</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="c1"># run cross validation for each pipeline</span>
-<span class="n">auc</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">methods</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">clfs</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clfs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">==</span><span class="mi">2</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'roc_auc'</span><span class="p">,</span>
-                              <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">auc</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-        <span class="n">methods</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">m</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">clfs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">clfs</span><span class="p">[</span><span class="s1">'</span><span class="s1">Vect + LR</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">clfs</span><span class="p">[</span><span class="s1">'</span><span class="s1">Vect + RegLDA</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Vectorizer</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">LDA</span><span class="p">(</span><span class="n">shrinkage</span><span class="o">=</span><span class="s1">'</span><span class="s1">auto</span><span class="s1">'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'</span><span class="s1">eigen</span><span class="s1">'</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">clfs</span><span class="p">[</span><span class="s1">'</span><span class="s1">ERPCov + TS</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'</span><span class="s1">oas</span><span class="s1">'</span><span class="p">)</span><span class="p">,</span> <span class="n">TangentSpace</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">clfs</span><span class="p">[</span><span class="s1">'</span><span class="s1">ERPCov + MDM</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">ERPCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'</span><span class="s1">oas</span><span class="s1">'</span><span class="p">)</span><span class="p">,</span> <span class="n">MDM</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">clfs</span><span class="p">[</span><span class="s1">'</span><span class="s1">XdawnCov + TS</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'</span><span class="s1">oas</span><span class="s1">'</span><span class="p">)</span><span class="p">,</span> <span class="n">TangentSpace</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">clfs</span><span class="p">[</span><span class="s1">'</span><span class="s1">XdawnCov + MDM</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">XdawnCovariances</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="s1">'</span><span class="s1">oas</span><span class="s1">'</span><span class="p">)</span><span class="p">,</span> <span class="n">MDM</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># format data</span><span class="w">
+</span><span class="n">epochs</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span><span class="w">
+</span><span class="n">times</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">times</span><span class="w">
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">[</span><span class="p">:</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># define cross validation</span><span class="w">
+</span><span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span><span class="w">
+</span>                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># run cross validation for each pipeline</span><span class="w">
+</span><span class="n">auc</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span><span class="w">
+</span><span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span><span class="w">
+</span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">clfs</span><span class="p">:</span><span class="w">
+</span>    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
+</span>    <span class="k">try</span><span class="p">:</span><span class="w">
+</span>        <span class="n">res</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clfs</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">==</span><span class="mi">2</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'</span><span class="s1">roc_auc</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                              <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span>        <span class="n">auc</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w">
+</span>        <span class="n">methods</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span>    <span class="k">except</span><span class="p">:</span><span class="w">
+</span>        <span class="k">pass</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: pick_types() is a legacy function. New code should use inst.pick(...).
 Vect + LR
 Vect + RegLDA
@@ -1340,16 +1335,15 @@ XdawnCov + MDM
 </section>
 <section id="plot-decoding-results">
 <h2>Plot Decoding Results<a class="headerlink" href="#plot-decoding-results" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">auc</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'AUC'</span><span class="p">])</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">'Method'</span><span class="p">]</span> <span class="o">=</span> <span class="n">methods</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'AUC'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Method'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
-</pre></div>
-</div>
-<img src="../../_images/sphx_glr_02r__n170_decoding_001.png" srcset="../../_images/sphx_glr_02r__n170_decoding_001.png" alt="02r  n170 decoding" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 32.919 seconds)</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">auc</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'</span><span class="s1">AUC</span><span class="s1">'</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">results</span><span class="p">[</span><span class="s1">'</span><span class="s1">Method</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">methods</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'</span><span class="s1">AUC</span><span class="s1">'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'</span><span class="s1">Method</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span><span class="w">
+</span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_02r__n170_decoding_001.png" srcset="../../_images/sphx_glr_02r__n170_decoding_001.png" alt="02r  n170 decoding" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 32.298 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-02r-n170-decoding-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/872178a6cf309a4de1aa7d759d171a7b/02r__n170_decoding.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02r__n170_decoding.ipynb</span></code></a></p>

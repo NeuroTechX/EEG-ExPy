@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -457,37 +457,34 @@ an experiment.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <p>Imports</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.devices.eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisualSSVEP</span>
-
-<span class="c1"># Define some variables</span>
-<span class="n">board_name</span> <span class="o">=</span> <span class="s2">"muse2"</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="s2">"visual_ssvep"</span>
-<span class="n">subject_id</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">session_nb</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_save_fn</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">devices</span><span class="nn">.</span><span class="nn">eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisualSSVEP</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Define some variables</span><span class="w">
+</span><span class="n">board_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s2">muse2</span><span class="s2">&quot;</span><span class="w">
+</span><span class="n">experiment</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s2">visual_ssvep</span><span class="s2">&quot;</span><span class="w">
+</span><span class="n">subject_id</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
+</span><span class="n">session_nb</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
+</span><span class="n">record_duration</span> <span class="o">=</span> <span class="mi">120</span><span class="w">
+</span></pre></div></div>
 </section>
 <section id="initiate-eeg-device">
 <h2>Initiate EEG device<a class="headerlink" href="#initiate-eeg-device" title="Link to this heading"></a></h2>
 <p>Start EEG device</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span>
-
-<span class="c1"># Create save file name</span>
-<span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">session_nb</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">save_fn</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">eeg_device</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">board_name</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Create save file name</span><span class="w">
+</span><span class="n">save_fn</span> <span class="o">=</span> <span class="n">generate_save_fn</span><span class="p">(</span><span class="n">board_name</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">session_nb</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">save_fn</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 </section>
 <section id="run-experiment">
 <h2>Run experiment<a class="headerlink" href="#run-experiment" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ssvep</span> <span class="o">=</span> <span class="n">VisualSSVEP</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span>
-<span class="n">ssvep</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">ssvep</span> <span class="o">=</span> <span class="n">VisualSSVEP</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">record_duration</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="n">eeg_device</span><span class="p">,</span> <span class="n">save_fn</span><span class="o">=</span><span class="n">save_fn</span><span class="p">)</span><span class="w">
+</span><span class="n">ssvep</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-ssvep-00x-ssvep-run-experiment-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c9435ee669e38dd54bad678a26f2c8c1/00x__ssvep_run_experiment.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00x__ssvep_run_experiment.ipynb</span></code></a></p>

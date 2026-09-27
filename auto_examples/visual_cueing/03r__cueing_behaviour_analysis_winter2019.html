@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -454,119 +454,114 @@ to download the full example code.</p>
 <span id="sphx-glr-auto-examples-visual-cueing-03r-cueing-behaviour-analysis-winter2019-py"></span><h1>Cueing Behavioural Analysis Winter 2019<a class="headerlink" href="#cueing-behavioural-analysis-winter-2019" title="Link to this heading"></a></h1>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard Pythonic imports</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span>
-
-<span class="c1"># EEG-Notebooks imports</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Standard Pythonic imports</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="nn">sys</span><span class="o">,</span><span class="nn">glob</span><span class="o">,</span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="nn">.</span><span class="nn">io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># EEG-Notebooks imports</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="w">
+</span></pre></div></div>
 <p>Download the data</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'~/'</span><span class="p">),</span><span class="s1">'.eegnb'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
-<span class="n">cueing_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'visual-cueing'</span><span class="p">,</span> <span class="s1">'kylemathlab_dev'</span><span class="p">)</span>
-
-<span class="c1"># If dataset hasn't been downloaded yet, download it</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">cueing_data_path</span><span class="p">):</span>
-      <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-cueing'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'kylemathlab_dev'</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'</span><span class="s1">~/</span><span class="s1">'</span><span class="p">)</span><span class="p">,</span><span class="s1">'</span><span class="s1">.eegnb</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">data</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">cueing_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'</span><span class="s1">visual-cueing</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">kylemathlab_dev</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># If dataset hasn't been downloaded yet, download it</span><span class="w">
+</span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">cueing_data_path</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>      <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'</span><span class="s1">visual-cueing</span><span class="s1">'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'</span><span class="s1">kylemathlab_dev</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 </section>
 <section id="analyze-mat-behavioural-data-for-accuracy-and-rt">
 <h2>Analyze .mat behavioural data for Accuracy and RT<a class="headerlink" href="#analyze-mat-behavioural-data-for-accuracy-and-rt" title="Link to this heading"></a></h2>
 <p>Load in subjects</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Fall 2018</span>
-<span class="n">subs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span>
-        <span class="mi">202</span><span class="p">,</span> <span class="mi">203</span><span class="p">,</span> <span class="mi">204</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">207</span><span class="p">,</span> <span class="mi">208</span><span class="p">,</span> <span class="mi">209</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span>
-        <span class="mi">301</span><span class="p">,</span> <span class="mi">302</span><span class="p">,</span> <span class="mi">303</span><span class="p">,</span> <span class="mi">304</span><span class="p">,</span> <span class="mi">305</span><span class="p">,</span> <span class="mi">306</span><span class="p">,</span> <span class="mi">307</span><span class="p">,</span> <span class="mi">308</span><span class="p">,</span> <span class="mi">309</span><span class="p">]</span>
-
-<span class="c1"># 105 - no trials in one condition</span>
-
-<span class="c1"># # Winter 2019</span>
-<span class="c1"># subs = [1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,</span>
-<span class="c1">#         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,</span>
-<span class="c1">#         1301, 1302, 1313,</span>
-<span class="c1">#         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]</span>
-
-<span class="c1"># # 1107 - no csv session 1</span>
-<span class="c1"># # 1201 - no csv session 1</span>
-<span class="c1"># # 1304 - Muse 2</span>
-<span class="c1"># # 1308 - Muse 2</span>
-<span class="c1"># # 1311 - Muse 2</span>
-<span class="c1"># # 1314 - Muse 2</span>
-<span class="c1"># # 1407 - only session1</span>
-
-<span class="c1"># Both</span>
-
-<span class="c1"># Fall 2018</span>
-<span class="c1"># subs = [101, 102, 103, 104, 106, 108, 109, 110, 111, 112,</span>
-<span class="c1">#         202, 203, 204, 205, 207, 208, 209, 210, 211,</span>
-<span class="c1">#         301, 302, 303, 304, 305, 306, 307, 308, 309,</span>
-<span class="c1">#         1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,</span>
-<span class="c1">#         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,</span>
-<span class="c1">#         1301, 1302, 1313,</span>
-<span class="c1">#         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># # Fall 2018</span><span class="w">
+</span><span class="n">subs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span><span class="w">
+</span>        <span class="mi">202</span><span class="p">,</span> <span class="mi">203</span><span class="p">,</span> <span class="mi">204</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">207</span><span class="p">,</span> <span class="mi">208</span><span class="p">,</span> <span class="mi">209</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span><span class="w">
+</span>        <span class="mi">301</span><span class="p">,</span> <span class="mi">302</span><span class="p">,</span> <span class="mi">303</span><span class="p">,</span> <span class="mi">304</span><span class="p">,</span> <span class="mi">305</span><span class="p">,</span> <span class="mi">306</span><span class="p">,</span> <span class="mi">307</span><span class="p">,</span> <span class="mi">308</span><span class="p">,</span> <span class="mi">309</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># 105 - no trials in one condition</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># # Winter 2019</span><span class="w">
+</span><span class="c1"># subs = [1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,</span><span class="w">
+</span><span class="c1">#         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,</span><span class="w">
+</span><span class="c1">#         1301, 1302, 1313,</span><span class="w">
+</span><span class="c1">#         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># # 1107 - no csv session 1</span><span class="w">
+</span><span class="c1"># # 1201 - no csv session 1</span><span class="w">
+</span><span class="c1"># # 1304 - Muse 2</span><span class="w">
+</span><span class="c1"># # 1308 - Muse 2</span><span class="w">
+</span><span class="c1"># # 1311 - Muse 2</span><span class="w">
+</span><span class="c1"># # 1314 - Muse 2</span><span class="w">
+</span><span class="c1"># # 1407 - only session1</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Both</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Fall 2018</span><span class="w">
+</span><span class="c1"># subs = [101, 102, 103, 104, 106, 108, 109, 110, 111, 112,</span><span class="w">
+</span><span class="c1">#         202, 203, 204, 205, 207, 208, 209, 210, 211,</span><span class="w">
+</span><span class="c1">#         301, 302, 303, 304, 305, 306, 307, 308, 309,</span><span class="w">
+</span><span class="c1">#         1101, 1102, 1103, 1104, 1105, 1106, 1108, 1109, 1110,</span><span class="w">
+</span><span class="c1">#         1202, 1203, 1205, 1206, 1209, 1210, 1211, 1215,</span><span class="w">
+</span><span class="c1">#         1301, 1302, 1313,</span><span class="w">
+</span><span class="c1">#         1401, 1402, 1403, 1404, 1405,  1408, 1410, 1411, 1412, 1413, 1413, 1414, 1415, 1416]</span><span class="w">
+</span></pre></div></div>
 <p>Set some settings</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># basic numbers</span>
-<span class="n">n_subs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subs</span><span class="p">)</span>
-<span class="n">n_sesh</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'valid'</span><span class="p">,</span><span class="s1">'invalid'</span><span class="p">]</span>
-<span class="n">n_cond</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
-
-<span class="c1"># cutoff trials that are too slow or fast</span>
-<span class="n">rt_toofast</span> <span class="o">=</span> <span class="mi">250</span>
-<span class="n">rt_tooslow</span> <span class="o">=</span> <span class="mi">1500</span>
-
-<span class="c1">#creates arrays to save output</span>
-<span class="n">count_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_subs</span><span class="p">,</span> <span class="n">n_sesh</span><span class="p">,</span> <span class="n">n_cond</span><span class="p">))</span>
-<span class="n">median_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_subs</span><span class="p">,</span> <span class="n">n_sesh</span><span class="p">,</span> <span class="n">n_cond</span><span class="p">))</span>
-<span class="n">prop_accu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_subs</span><span class="p">,</span> <span class="n">n_sesh</span><span class="p">,</span> <span class="n">n_cond</span><span class="p">))</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># basic numbers</span><span class="w">
+</span><span class="n">n_subs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subs</span><span class="p">)</span><span class="w">
+</span><span class="n">n_sesh</span> <span class="o">=</span> <span class="mi">2</span><span class="w">
+</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'</span><span class="s1">valid</span><span class="s1">'</span><span class="p">,</span><span class="s1">'</span><span class="s1">invalid</span><span class="s1">'</span><span class="p">]</span><span class="w">
+</span><span class="n">n_cond</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># cutoff trials that are too slow or fast</span><span class="w">
+</span><span class="n">rt_toofast</span> <span class="o">=</span> <span class="mi">250</span><span class="w">
+</span><span class="n">rt_tooslow</span> <span class="o">=</span> <span class="mi">1500</span><span class="w">
+</span><span class="w">
+</span><span class="c1">#creates arrays to save output</span><span class="w">
+</span><span class="n">count_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="p">(</span><span class="n">n_subs</span><span class="p">,</span> <span class="n">n_sesh</span><span class="p">,</span> <span class="n">n_cond</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">median_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="p">(</span><span class="n">n_subs</span><span class="p">,</span> <span class="n">n_sesh</span><span class="p">,</span> <span class="n">n_cond</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">prop_accu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="p">(</span><span class="n">n_subs</span><span class="p">,</span> <span class="n">n_sesh</span><span class="p">,</span> <span class="n">n_cond</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <p>Single Subject example</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#select single subject</span>
-<span class="n">sub</span> <span class="o">=</span> <span class="n">subs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Subject - '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
-
-<span class="c1">#just one session</span>
-<span class="n">sesh</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="c1">#load file</span>
-<span class="c1">#path =  './subject' + str(sub) + '/session' + str(sesh) + '/'</span>
-<span class="n">path</span> <span class="o">=</span>  <span class="n">cueing_data_path</span> <span class="o">+</span> <span class="s1">'/muse2016/subject'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'%04.f'</span> <span class="o">%</span><span class="n">sub</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'/session'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'%03.f'</span> <span class="o">%</span><span class="p">(</span><span class="n">sesh</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s1">'/'</span>
-<span class="n">file</span> <span class="o">=</span>  <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.mat'</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">output_dict</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span>
-
-<span class="c1">#pull out important info</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">output_dict</span><span class="p">[</span><span class="s1">'output'</span><span class="p">]</span>
-<span class="n">accuracy</span> <span class="o">=</span> <span class="n">output</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
-<span class="n">rt</span> <span class="o">=</span> <span class="n">output</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
-<span class="n">validity</span> <span class="o">=</span> <span class="n">output</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span><span class="n">rt</span><span class="p">,</span><span class="n">validity</span><span class="p">)</span>
-
-<span class="c1"># median rt on each condition</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rt</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rt</span><span class="p">[(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)])</span>
-
-<span class="n">validRT</span>     <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
-                              <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span>
-                              <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Valid RT = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">validRT</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' ms'</span><span class="p">)</span>
-
-<span class="n">InvalidRT</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>
-                              <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span>
-                              <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Invalid RT = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">InvalidRT</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' ms'</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1">#select single subject</span><span class="w">
+</span><span class="n">sub</span> <span class="o">=</span> <span class="n">subs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">Subject - </span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1">#just one session</span><span class="w">
+</span><span class="n">sesh</span> <span class="o">=</span> <span class="mi">1</span><span class="w">
+</span><span class="w">
+</span><span class="c1">#load file</span><span class="w">
+</span><span class="c1">#path =  './subject' + str(sub) + '/session' + str(sesh) + '/'</span><span class="w">
+</span><span class="n">path</span> <span class="o">=</span>  <span class="n">cueing_data_path</span> <span class="o">+</span> <span class="s1">'</span><span class="s1">/muse2016/subject</span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'</span><span class="s1">%</span><span class="s1">04.f</span><span class="s1">'</span> <span class="o">%</span><span class="n">sub</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="s1">/session</span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'</span><span class="s1">%</span><span class="s1">03.f</span><span class="s1">'</span> <span class="o">%</span><span class="p">(</span><span class="n">sesh</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="s1">/</span><span class="s1">'</span><span class="w">
+</span><span class="n">file</span> <span class="o">=</span>  <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'</span><span class="s1">.mat</span><span class="s1">'</span><span class="p">)</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">
+</span><span class="n">output_dict</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1">#pull out important info</span><span class="w">
+</span><span class="n">output</span> <span class="o">=</span> <span class="n">output_dict</span><span class="p">[</span><span class="s1">'</span><span class="s1">output</span><span class="s1">'</span><span class="p">]</span><span class="w">
+</span><span class="n">accuracy</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span><span class="w">
+</span><span class="n">rt</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span><span class="w">
+</span><span class="n">validity</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span><span class="n">rt</span><span class="p">,</span><span class="n">validity</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># median rt on each condition</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">rt</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span><span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">validRT</span>     <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span><span class="w">
+</span>                              <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span><span class="w">
+</span>                              <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">Valid RT = </span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">validRT</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="s1"> ms</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">InvalidRT</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span><span class="w">
+</span>                              <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span><span class="w">
+</span>                              <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">Invalid RT = </span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">InvalidRT</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="s1"> ms</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Subject - 101
 /home/runner/.eegnb/data/visual-cueing/kylemathlab_dev/muse2016/subject0101/session002/subject101_session2_behOutput_2018-11-20-16.58.50.mat
 [1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
@@ -611,33 +606,32 @@ Invalid RT = 363.75905900013095 ms
 </pre></div>
 </div>
 <p>Loop through subjects</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">isub</span><span class="p">,</span> <span class="n">sub</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'Subject - '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">sesh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sesh</span><span class="p">):</span>
-        <span class="c1"># get the path and file name and load data</span>
-        <span class="c1">#path =  './subject' + str(sub) + '/session' + str(sesh+1) + '/'</span>
-        <span class="n">path</span> <span class="o">=</span>  <span class="n">cueing_data_path</span> <span class="o">+</span> <span class="s1">'/muse2016/subject'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'%04.f'</span> <span class="o">%</span><span class="n">sub</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'/session'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'%03.f'</span> <span class="o">%</span><span class="p">(</span><span class="n">sesh</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s1">'/'</span>
-
-        <span class="n">file</span> <span class="o">=</span>  <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.mat'</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">output_dict</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span>
-
-        <span class="c1"># pull out important stuff</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">output_dict</span><span class="p">[</span><span class="s1">'output'</span><span class="p">]</span>
-        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">output</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
-        <span class="n">rt</span> <span class="o">=</span> <span class="n">output</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
-        <span class="n">validity</span> <span class="o">=</span> <span class="n">output</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
-
-        <span class="c1"># median rt on each condition</span>
-        <span class="n">median_rt</span><span class="p">[</span><span class="n">isub</span><span class="p">,</span><span class="n">sesh</span><span class="p">,:]</span>      <span class="o">=</span> <span class="p">[</span>  <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)]),</span>
-                                     <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)])</span> <span class="p">]</span>
-
-        <span class="c1"># proportion accurate (number accurate / count)</span>
-        <span class="n">prop_accu</span><span class="p">[</span><span class="n">isub</span><span class="p">,</span><span class="n">sesh</span><span class="p">,:]</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">accuracy</span><span class="p">[(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)])</span> <span class="o">/</span>
-                                   <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)),</span>
-                                   <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">accuracy</span><span class="p">[(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">)])</span> <span class="o">/</span>
-                                   <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;=</span> <span class="n">rt_tooslow</span><span class="p">))</span> <span class="p">]</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="k">for</span> <span class="n">isub</span><span class="p">,</span> <span class="n">sub</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subs</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">Subject - </span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">sesh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sesh</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>        <span class="c1"># get the path and file name and load data</span><span class="w">
+</span>        <span class="c1">#path =  './subject' + str(sub) + '/session' + str(sesh+1) + '/'</span><span class="w">
+</span>        <span class="n">path</span> <span class="o">=</span>  <span class="n">cueing_data_path</span> <span class="o">+</span> <span class="s1">'</span><span class="s1">/muse2016/subject</span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'</span><span class="s1">%</span><span class="s1">04.f</span><span class="s1">'</span> <span class="o">%</span><span class="n">sub</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="s1">/session</span><span class="s1">'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s1">'</span><span class="s1">%</span><span class="s1">03.f</span><span class="s1">'</span> <span class="o">%</span><span class="p">(</span><span class="n">sesh</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="s1">/</span><span class="s1">'</span><span class="w">
+</span><span class="w">
+</span>        <span class="n">file</span> <span class="o">=</span>  <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'</span><span class="s1">.mat</span><span class="s1">'</span><span class="p">)</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">
+</span>        <span class="n">output_dict</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>        <span class="c1"># pull out important stuff</span><span class="w">
+</span>        <span class="n">output</span> <span class="o">=</span> <span class="n">output_dict</span><span class="p">[</span><span class="s1">'</span><span class="s1">output</span><span class="s1">'</span><span class="p">]</span><span class="w">
+</span>        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span><span class="w">
+</span>        <span class="n">rt</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span><span class="w">
+</span>        <span class="n">validity</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span>        <span class="c1"># median rt on each condition</span><span class="w">
+</span>        <span class="n">median_rt</span><span class="p">[</span><span class="n">isub</span><span class="p">,</span><span class="n">sesh</span><span class="p">,</span><span class="p">:</span><span class="p">]</span>      <span class="o">=</span> <span class="p">[</span>  <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">]</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>                                     <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span> <span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">]</span><span class="p">)</span> <span class="p">]</span><span class="w">
+</span><span class="w">
+</span>        <span class="c1"># proportion accurate (number accurate / count)</span><span class="w">
+</span>        <span class="n">prop_accu</span><span class="p">[</span><span class="n">isub</span><span class="p">,</span><span class="n">sesh</span><span class="p">,</span><span class="p">:</span><span class="p">]</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">accuracy</span><span class="p">[</span><span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">]</span><span class="p">)</span> <span class="o">/</span><span class="w">
+</span>                                   <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>                                   <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">accuracy</span><span class="p">[</span><span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">]</span><span class="p">)</span> <span class="o">/</span><span class="w">
+</span>                                   <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">(</span><span class="n">validity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">rt_toofast</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rt</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">rt_tooslow</span><span class="p">)</span><span class="p">)</span> <span class="p">]</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Subject - 101
 Subject - 102
 Subject - 103
@@ -669,16 +663,15 @@ Subject - 309
 </pre></div>
 </div>
 <p>Average over sessions and print data</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Summary stats and collapse sessions</span>
-<span class="n">Out_median_RT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">median_rt</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">Out_prop_accu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">prop_accu</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Median RT'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Out_median_RT</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Proportion Accurate'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Out_prop_accu</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Summary stats and collapse sessions</span><span class="w">
+</span><span class="n">Out_median_RT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">median_rt</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">Out_prop_accu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">prop_accu</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">Median RT</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">Out_median_RT</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">Proportion Accurate</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">Out_prop_accu</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Median RT
 [[361.7079635  364.45366275]
  [547.10713075 611.45526175]
@@ -740,40 +733,38 @@ Proportion Accurate
 </pre></div>
 </div>
 <p>Plot barplot of results</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># bar plot results</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="c1"># Accuracy</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Out_prop_accu</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">yerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">Out_prop_accu</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_subs</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">.9</span><span class="p">,</span><span class="mf">.96</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Accuracy'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Proportion Correct'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
-<span class="c1"># RT</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Out_median_RT</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">yerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">Out_median_RT</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_subs</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Reaction Time'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'RT (ms)'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Condition'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># bar plot results</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="c1"># Accuracy</span><span class="w">
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Out_prop_accu</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">yerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">Out_prop_accu</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_subs</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">.9</span><span class="p">,</span><span class="mf">.96</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'</span><span class="s1">Accuracy</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'</span><span class="s1">Proportion Correct</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span><span class="w">
+</span><span class="c1"># RT</span><span class="w">
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Out_median_RT</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">yerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">Out_median_RT</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_subs</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'</span><span class="s1">Reaction Time</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'</span><span class="s1">RT (ms)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'</span><span class="s1">Condition</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../../_images/sphx_glr_03r__cueing_behaviour_analysis_winter2019_001.png" srcset="../../_images/sphx_glr_03r__cueing_behaviour_analysis_winter2019_001.png" alt="Accuracy, Reaction Time" class = "sphx-glr-single-img"/><p>Output spreadsheet</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">## CSV output</span>
-<span class="n">column_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Participant'</span><span class="p">:</span><span class="n">subs</span><span class="p">,</span>
-               <span class="s1">'AccValid'</span><span class="p">:</span><span class="n">Out_prop_accu</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
-               <span class="s1">'AccInvalid'</span><span class="p">:</span><span class="n">Out_prop_accu</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
-               <span class="s1">'RTValid'</span><span class="p">:</span><span class="n">Out_median_RT</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
-               <span class="s1">'RTInvalid'</span><span class="p">:</span><span class="n">Out_median_RT</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">column_dict</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'375CueingBehPy.csv'</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1">## CSV output</span><span class="w">
+</span><span class="n">column_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'</span><span class="s1">Participant</span><span class="s1">'</span><span class="p">:</span><span class="n">subs</span><span class="p">,</span><span class="w">
+</span>               <span class="s1">'</span><span class="s1">AccValid</span><span class="s1">'</span><span class="p">:</span><span class="n">Out_prop_accu</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>               <span class="s1">'</span><span class="s1">AccInvalid</span><span class="s1">'</span><span class="p">:</span><span class="n">Out_prop_accu</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>               <span class="s1">'</span><span class="s1">RTValid</span><span class="s1">'</span><span class="p">:</span><span class="n">Out_median_RT</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>               <span class="s1">'</span><span class="s1">RTInvalid</span><span class="s1">'</span><span class="p">:</span><span class="n">Out_median_RT</span><span class="p">[</span><span class="p">:</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">}</span><span class="w">
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">column_dict</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'</span><span class="s1">375CueingBehPy.csv</span><span class="s1">'</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>    Participant  AccValid  AccInvalid     RTValid   RTInvalid
 0           101  0.983051    0.964286  361.707963  364.453663
 1           102  1.000000    1.000000  547.107131  611.455262
@@ -805,7 +796,7 @@ Proportion Accurate
 27          309  0.957184    1.000000  435.428464  437.121910
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.142 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.121 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-cueing-03r-cueing-behaviour-analysis-winter2019-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/fd5112e79635b428992c2be1eb2fdd3a/03r__cueing_behaviour_analysis_winter2019.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03r__cueing_behaviour_analysis_winter2019.ipynb</span></code></a></p>

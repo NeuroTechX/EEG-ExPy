@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/theme_override.css?v=0d929ddc" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -462,52 +462,53 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 <p>The final figure plotted at the end shows the N170 response ERP waveform.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some standard pythonic imports</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-
-<span class="c1"># MNE functions</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span>
-
-<span class="c1"># EEG-Notebooks functions</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.analysis.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_conditions</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Some standard pythonic imports</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span><span class="w">
+</span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'</span><span class="s1">ignore</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># MNE functions</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># EEG-Notebooks functions</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">analysis</span><span class="nn">.</span><span class="nn">analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">analysis</span><span class="nn">.</span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_conditions</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span><span class="w">
+</span></pre></div></div>
 </section>
 <section id="load-data">
 <h2>Load Data<a class="headerlink" href="#load-data" title="Link to this heading"></a></h2>
 <p>We will use the eeg-expy N170 example dataset</p>
 <p>Note that if you are running this locally, the following cell will download
 the example dataset, if you do not already have it.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'~/'</span><span class="p">),</span><span class="s1">'.eegnb'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
-<span class="n">n170_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'visual-N170'</span><span class="p">,</span> <span class="s1">'eegnb_examples'</span><span class="p">)</span>
-
-<span class="c1"># If dataset hasn't been downloaded yet, download it</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">n170_data_path</span><span class="p">):</span>
-    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-N170'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">);</span>
-
-<span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">session</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span><span class="n">session</span><span class="p">,</span>
-                <span class="n">experiment</span><span class="o">=</span><span class="s1">'visual-N170'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'eegnb_examples'</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">'muse2016_bfn'</span><span class="p">,</span>
-                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">eegnb_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">'</span><span class="s1">~/</span><span class="s1">'</span><span class="p">)</span><span class="p">,</span><span class="s1">'</span><span class="s1">.eegnb</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">data</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">n170_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="s1">'</span><span class="s1">visual-N170</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">eegnb_examples</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># If dataset hasn't been downloaded yet, download it</span><span class="w">
+</span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">n170_data_path</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="n">fetch_dataset</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">eegnb_data_path</span><span class="p">,</span> <span class="n">experiment</span><span class="o">=</span><span class="s1">'</span><span class="s1">visual-N170</span><span class="s1">'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'</span><span class="s1">eegnb_examples</span><span class="s1">'</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="n">subject</span> <span class="o">=</span> <span class="mi">1</span><span class="w">
+</span><span class="n">session</span> <span class="o">=</span> <span class="mi">1</span><span class="w">
+</span><span class="n">raw</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span><span class="n">session</span><span class="p">,</span><span class="w">
+</span>                <span class="n">experiment</span><span class="o">=</span><span class="s1">'</span><span class="s1">visual-N170</span><span class="s1">'</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s1">'</span><span class="s1">eegnb_examples</span><span class="s1">'</span><span class="p">,</span> <span class="n">device_name</span><span class="o">=</span><span class="s1">'</span><span class="s1">muse2016_bfn</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                <span class="n">data_dir</span> <span class="o">=</span> <span class="n">eegnb_data_path</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH
-From (redirected): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH&amp;confirm=t&amp;uuid=23e85fc0-06f6-48b9-ad9d-65f333231ceb
+From (redirected): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH&amp;confirm=t&amp;uuid=bc4962b3-130b-4ceb-8832-a0fdc44d455e
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/33.1M [00:00&lt;?, ?B/s]
- 14%|█▍        | 4.72M/33.1M [00:00&lt;00:00, 29.4MB/s]
- 52%|█████▏    | 17.3M/33.1M [00:00&lt;00:00, 74.2MB/s]
- 79%|███████▉  | 26.2M/33.1M [00:00&lt;00:00, 72.6MB/s]
-100%|██████████| 33.1M/33.1M [00:00&lt;00:00, 65.0MB/s]
+  2%|▏         | 524k/33.1M [00:00&lt;00:07, 4.40MB/s]
+ 21%|██        | 6.82M/33.1M [00:00&lt;00:00, 29.2MB/s]
+ 33%|███▎      | 11.0M/33.1M [00:00&lt;00:00, 29.9MB/s]
+ 52%|█████▏    | 17.3M/33.1M [00:00&lt;00:00, 35.3MB/s]
+ 63%|██████▎   | 21.0M/33.1M [00:00&lt;00:00, 24.8MB/s]
+ 78%|███████▊  | 25.7M/33.1M [00:00&lt;00:00, 26.6MB/s]
+100%|██████████| 33.1M/33.1M [00:01&lt;00:00, 31.8MB/s]
 
 
 Loading these files:
@@ -599,9 +600,8 @@ Marking edge at 691356 samples (maps to 2700.609 sec)
 </section>
 <section id="visualize-the-power-spectrum">
 <h2>Visualize the power spectrum<a class="headerlink" href="#visualize-the-power-spectrum" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../../_images/sphx_glr_01r__n170_viz_001.png" srcset="../../_images/sphx_glr_01r__n170_viz_001.png" alt="EEG" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: plot_psd() is a legacy function. New code should use .compute_psd().plot().
 Effective window size : 8.000 (s)
 Plotting power spectral density (dB=True).
@@ -612,10 +612,9 @@ Plotting power spectral density (dB=True).
 </section>
 <section id="filtering">
 <h2>Filtering<a class="headerlink" href="#filtering" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'iir'</span><span class="p">)</span>
-<span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'</span><span class="s1">iir</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span></pre></div></div>
 <img src="../../_images/sphx_glr_01r__n170_viz_002.png" srcset="../../_images/sphx_glr_01r__n170_viz_002.png" alt="EEG" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filtering raw data in 10 contiguous segments
 Setting up band-pass filter from 1 - 30 Hz
 
@@ -635,19 +634,18 @@ Plotting power spectral density (dB=True).
 </section>
 <section id="epoching">
 <h2>Epoching<a class="headerlink" href="#epoching" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span>
-<span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'House'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Face'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-
-<span class="c1"># Create an MNE Epochs object representing all the epochs around stimulus presentation</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
-                <span class="n">tmin</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">'eeg'</span><span class="p">:</span> <span class="mf">5e-5</span><span class="p">},</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'sample drop %: '</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">epochs</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Create an array containing the timestamps and type of each stimulus (i.e. face or house)</span><span class="w">
+</span><span class="n">events</span> <span class="o">=</span> <span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="w">
+</span><span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'</span><span class="s1">House</span><span class="s1">'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'</span><span class="s1">Face</span><span class="s1">'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Create an MNE Epochs object representing all the epochs around stimulus presentation</span><span class="w">
+</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span><span class="w">
+</span>                <span class="n">tmin</span><span class="o">=</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="w">
+</span>                <span class="n">reject</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="s1">eeg</span><span class="s1">'</span><span class="p">:</span> <span class="mf">5e-5</span><span class="p">}</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="w">
+</span>                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">sample drop </span><span class="s1">%</span><span class="s1">: </span><span class="s1">'</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="w">
+</span><span class="n">epochs</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Finding events on: stim
 3740 events found on stim channel stim
 Event IDs: [1 2]
@@ -802,9 +800,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-b61f0b0f-5790-4d1f-9d90-d884f296743d"
+<tr class="mne-repr-section-header general-bbb386bd-54fe-40fd-b206-2342f5b84660"
      title="Hide section"
-    onclick="toggleVisibility('general-b61f0b0f-5790-4d1f-9d90-d884f296743d')">
+    onclick="toggleVisibility('general-bbb386bd-54fe-40fd-b206-2342f5b84660')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -816,26 +814,26 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-b61f0b0f-5790-4d1f-9d90-d884f296743d ">
+<tr class="repr-element general-bbb386bd-54fe-40fd-b206-2342f5b84660 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>Epochs</td>
 </tr>
-<tr class="repr-element general-b61f0b0f-5790-4d1f-9d90-d884f296743d ">
+<tr class="repr-element general-bbb386bd-54fe-40fd-b206-2342f5b84660 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-b61f0b0f-5790-4d1f-9d90-d884f296743d ">
+<tr class="repr-element general-bbb386bd-54fe-40fd-b206-2342f5b84660 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-b61f0b0f-5790-4d1f-9d90-d884f296743d ">
+<tr class="repr-element general-bbb386bd-54fe-40fd-b206-2342f5b84660 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -850,9 +848,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23"
+<tr class="mne-repr-section-header acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23')">
+    onclick="toggleVisibility('acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -867,14 +865,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23 ">
+<tr class="repr-element acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Total number of events</td>
     <td>3369</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23 ">
+<tr class="repr-element acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Events counts</td>
 
@@ -891,35 +889,35 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23 ">
+<tr class="repr-element acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time range</td>
     <td>-0.102 – 0.602 s</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23 ">
+<tr class="repr-element acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Baseline</td>
     <td>off</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23 ">
+<tr class="repr-element acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>256.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23 ">
+<tr class="repr-element acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>181</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b767e9cd-48b7-4f2a-ac63-db5d72324e23 ">
+<tr class="repr-element acquisition-f5c87c7b-9115-441f-ac59-d01e4f10fb87 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Metadata</td>
     <td>No metadata set</td>
@@ -933,9 +931,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-a33b31dc-6837-456d-b263-c7e5d59c6b42"
+<tr class="mne-repr-section-header channels-9a94e100-b999-405b-a124-9f157422a74e"
      title="Hide section"
-    onclick="toggleVisibility('channels-a33b31dc-6837-456d-b263-c7e5d59c6b42')">
+    onclick="toggleVisibility('channels-9a94e100-b999-405b-a124-9f157422a74e')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -948,7 +946,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-a33b31dc-6837-456d-b263-c7e5d59c6b42 ">
+<tr class="repr-element channels-9a94e100-b999-405b-a124-9f157422a74e ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -961,7 +959,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-a33b31dc-6837-456d-b263-c7e5d59c6b42 ">
+<tr class="repr-element channels-9a94e100-b999-405b-a124-9f157422a74e ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -976,9 +974,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-3e5203ee-bba9-4f0e-8e8d-fc7400942070"
+<tr class="mne-repr-section-header filters-26a6a323-4b07-4078-bcf0-e0030e2d3b82"
      title="Hide section"
-    onclick="toggleVisibility('filters-3e5203ee-bba9-4f0e-8e8d-fc7400942070')">
+    onclick="toggleVisibility('filters-26a6a323-4b07-4078-bcf0-e0030e2d3b82')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -990,14 +988,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-3e5203ee-bba9-4f0e-8e8d-fc7400942070 ">
+<tr class="repr-element filters-26a6a323-4b07-4078-bcf0-e0030e2d3b82 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-3e5203ee-bba9-4f0e-8e8d-fc7400942070 ">
+<tr class="repr-element filters-26a6a323-4b07-4078-bcf0-e0030e2d3b82 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>30.00 Hz</td>
@@ -1010,26 +1008,25 @@ this file apply (plus whatever default styling the IDE applies).
 <br /></section>
 <section id="epoch-average">
 <h2>Epoch average<a class="headerlink" href="#epoch-average" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">conditions</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="c1">#conditions['House'] = [1]</span>
-<span class="c1">#conditions['Face'] = [2]</span>
-<span class="n">conditions</span><span class="p">[</span><span class="s1">'House'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'House'</span><span class="p">]</span>
-<span class="n">conditions</span><span class="p">[</span><span class="s1">'Face'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Face'</span><span class="p">]</span>
-<span class="n">diffwav</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Face'</span><span class="p">,</span> <span class="s1">'House'</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_conditions</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span>
-                          <span class="n">ci</span><span class="o">=</span><span class="mf">97.5</span><span class="p">,</span> <span class="n">n_boot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span>
-                          <span class="n">diff_waveform</span><span class="o">=</span><span class="n">diffwav</span><span class="p">,</span>
-                          <span class="n">channel_order</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="c1"># reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes</span>
-
-<span class="c1"># Manually adjust the ylims</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5e6</span><span class="p">,</span><span class="mf">0.5e6</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5e6</span><span class="p">,</span><span class="mf">2.5e6</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="Fp1, Fp2, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 31.313 seconds)</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">conditions</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="c1">#conditions['House'] = [1]</span><span class="w">
+</span><span class="c1">#conditions['Face'] = [2]</span><span class="w">
+</span><span class="n">conditions</span><span class="p">[</span><span class="s1">'</span><span class="s1">House</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'</span><span class="s1">House</span><span class="s1">'</span><span class="p">]</span><span class="w">
+</span><span class="n">conditions</span><span class="p">[</span><span class="s1">'</span><span class="s1">Face</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'</span><span class="s1">Face</span><span class="s1">'</span><span class="p">]</span><span class="w">
+</span><span class="n">diffwav</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'</span><span class="s1">Face</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">House</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_conditions</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span><span class="w">
+</span>                          <span class="n">ci</span><span class="o">=</span><span class="mf">97.5</span><span class="p">,</span> <span class="n">n_boot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                          <span class="n">diff_waveform</span><span class="o">=</span><span class="n">diffwav</span><span class="p">,</span><span class="w">
+</span>                          <span class="n">channel_order</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="c1"># reordering of epochs.ch_names according to [[0,2],[1,3]] of subplot axes</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Manually adjust the ylims</span><span class="w">
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="p">:</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5e6</span><span class="p">,</span><span class="mf">0.5e6</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="p">:</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="p">[</span><span class="o">-</span><span class="mf">1.5e6</span><span class="p">,</span><span class="mf">2.5e6</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="Fp1, Fp2, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 26.992 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-01r-n170-viz-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8d83acdbf2986ad81d4d9e035ff593ef/01r__n170_viz.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01r__n170_viz.ipynb</span></code></a></p>
