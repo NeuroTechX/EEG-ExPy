@@ -48,19 +48,36 @@ jobs:
           echo "Changed examples: $CHANGED_EXAMPLES"
         fi
 
-    - name: Cache built documentation
+    - name: Cache executed gallery examples
       id: cache-docs
       if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
       uses: actions/cache@v4
+      env:
+        KEY_PREFIX: ${{ runner.os }}-sphinx-${{ hashFiles('eegnb/**/*.py', 'doc/**/*', 'environments/eeg-expy-docsbuild.yml', 'requirements.txt', 'setup.py') }}
       with:
+        # sphinx-gallery decides whether to re-run an example by comparing the
+        # example's md5 against `<example>.py.md5` beside its generated rst in
+        # doc/auto_examples.
         path: |
-          doc/_build/html
-        key: ${{ runner.os }}-sphinx-${{ hashFiles('examples/**/*.py', 'doc/**/*', 'conf.py') }}
+          doc/auto_examples
+          doc/_build/doctrees
+        # Two-part key. The per-example md5 covers only the example's file, so
+        # the prefix pins what it is not affected by -- library, docs sources,
+        # docs environment. A prefix fallback only reuses stamps built with all
+        # of those unchanged.
+        key: ${{ env.KEY_PREFIX }}-${{ hashFiles('examples/**/*.py') }}
         restore-keys: |
-          ${{ runner.os }}-sphinx-
+          ${{ env.KEY_PREFIX }}-
 
     - name: Build docs
       run: make docs
+
+    - name: Upload built docs
+      uses: actions/upload-artifact@v4
+      with:
+        name: docs-build-preview
+        path: doc/_build/html
+        retention-days: 14
 
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
