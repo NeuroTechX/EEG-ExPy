@@ -245,7 +245,7 @@ def present(duration, subject=0, session=0, **kwargs):
     )
     text.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     mywin.mouseVisible = True
 
@@ -403,7 +403,7 @@ def practice():
     text.draw()
     fixation.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     mywin.mouseVisible = True
 
@@ -429,7 +429,7 @@ def instructions():
     )
     text.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -445,7 +445,7 @@ def instructions():
     fixation.draw()
     text.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -457,7 +457,7 @@ def instructions():
     text.draw()
     fixation.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -471,7 +471,7 @@ def instructions():
     text.draw()
     fixation.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -485,7 +485,7 @@ def instructions():
     text.draw()
     fixation.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -503,7 +503,7 @@ def instructions():
     text.draw()
     fixation.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -521,7 +521,7 @@ def instructions():
     text.draw()
     fixation.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -539,7 +539,7 @@ def instructions():
     text.draw()
     fixation.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     # Instructions
     text = visual.TextStim(
@@ -555,7 +555,7 @@ def instructions():
     sys.stdout.write("\a")
     sys.stdout.flush()
 
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     mywin.mouseVisible = True
 

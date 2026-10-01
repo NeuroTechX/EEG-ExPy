@@ -8,7 +8,7 @@ from .introprompt import intro_prompt, analysis_intro_prompt
 from .utils import run_experiment
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from eegnb.analysis.utils import check_report
+from eegnb.analysis.streaming_utils import check_report
 from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, analysis_report, example_analysis_report
 from typing import Optional
 
@@ -139,7 +139,7 @@ def checksigqual(eegdevice: str):
     """
 
     from eegnb.devices.eeg import EEG
-    from eegnb.analysis.utils import check_report
+    from eegnb.analysis.streaming_utils import check_report
 
     eeg = EEG(device=eegdevice)
 
