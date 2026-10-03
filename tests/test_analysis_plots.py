@@ -22,7 +22,7 @@ from eegnb.analysis.analysis_utils import plot_conditions
 CH_NAMES = ["TP9", "AF7", "AF8", "TP10"]
 
 
-def _make_epochs(data, codes, sfreq=256.0):
+def _make_epochs(data, codes, sfreq=256.0, event_id=None):
     """Wrap raw arrays into MNE epochs with event codes 1 and 2."""
     info = mne.create_info(CH_NAMES, sfreq, ch_types="eeg")
     n_epochs, _, n_times = data.shape
@@ -33,7 +33,7 @@ def _make_epochs(data, codes, sfreq=256.0):
         data,
         info,
         events=events,
-        event_id={"Non-Target": 1, "Target": 2},
+        event_id=event_id if event_id is not None else {"Non-Target": 1, "Target": 2},
         tmin=-0.1,
         verbose="error",
     )
@@ -63,15 +63,9 @@ def _legend_entries(ax):
     return entries
 
 
-@pytest.mark.parametrize("diff_waveform", [None, (1, 2)])
+@pytest.mark.parametrize("diff_waveform", [None, (1, 2), ("Non-Target", "Target")])
 def test_plot_conditions_legend_matches_lines(diff_waveform):
-    """Each legend label must sit next to the colour it actually describes.
-
-    Regression test for #226. The legend used to be built from a bare list of
-    labels, which matplotlib paired with the artists in draw order. The
-    resulting legend named the difference waveform with a condition colour and
-    left the black difference line unlabelled.
-    """
+    """Each legend label matches its line colour."""
     epochs = _noise_epochs()
     conditions = OrderedDict(NonTarget=[1], Target=[2])
 
@@ -104,27 +98,18 @@ def test_plot_conditions_legend_matches_lines(diff_waveform):
     matplotlib.pyplot.close("all")
 
 
-def test_plot_conditions_plots_the_condition_average():
-    """The line drawn per condition must be the average over that condition's
-    epochs, not one arbitrary epoch.
-
-    Regression test for #226. The epochs-by-time frame was handed to seaborn in
-    wide form with the channel number as `y`, so seaborn selected column number
-    `ch` of that frame. Column `ch` is epoch number `ch`, which meant channel 0
-    showed epoch 0, channel 1 showed epoch 1, and so on, with no averaging and
-    no confidence interval.
-    """
+@pytest.mark.parametrize("markers", [(1, 2), ("Non-Target", "Target"), (1, "Target")])
+def test_plot_conditions_plots_the_condition_average(markers):
+    """Each condition's plotted waveform matches its epoch average."""
     n_epochs, n_times = 8, 16
 
-    # Every epoch is a distinct constant, so the average of a condition and any
-    # single epoch of it are all different numbers and cannot be confused.
     data = np.zeros((n_epochs, len(CH_NAMES), n_times))
     for i in range(n_epochs):
         data[i, :, :] = (i + 1) * 1e-6
     codes = np.array([1, 2] * (n_epochs // 2))
 
     epochs = _make_epochs(data, codes)
-    conditions = OrderedDict(NonTarget=[1], Target=[2])
+    conditions = OrderedDict(NonTarget=[markers[0]], Target=[markers[1]])
 
     _, axes = plot_conditions(
         epochs,
@@ -134,7 +119,6 @@ def test_plot_conditions_plots_the_condition_average():
         n_boot=10,
     )
 
-    # Values are scaled to microvolts inside plot_conditions.
     scaled = data[:, 0, 0] * 1e6
     expected_means = [scaled[codes == code].mean() for code in (1, 2)]
 
@@ -149,3 +133,76 @@ def test_plot_conditions_plots_the_condition_average():
             )
 
     matplotlib.pyplot.close("all")
+
+
+def test_plot_conditions_names_match_numeric_waveforms():
+    epochs = _noise_epochs()
+    named_conditions = OrderedDict(NonTarget=["Non-Target"], Target=["Target"])
+    numeric_conditions = OrderedDict(NonTarget=[1], Target=[2])
+    numeric_fig, numeric_axes = plot_conditions(
+        epochs, conditions=numeric_conditions, diff_waveform=(1, 2), n_boot=10
+    )
+    named_fig, named_axes = plot_conditions(
+        epochs,
+        conditions=named_conditions,
+        diff_waveform=("Non-Target", "Target"),
+        n_boot=10,
+    )
+    try:
+        expected_difference = epochs.get_data()[epochs.events[:, -1] == 2].mean(axis=0)
+        expected_difference -= epochs.get_data()[epochs.events[:, -1] == 1].mean(axis=0)
+        for ch, (numeric_ax, named_ax) in enumerate(zip(numeric_axes, named_axes)):
+            numeric_lines = [line for line in numeric_ax.lines if len(line.get_xdata()) == len(epochs.times)]
+            named_lines = [line for line in named_ax.lines if len(line.get_xdata()) == len(epochs.times)]
+            assert len(numeric_lines) == len(named_lines) == 3
+            for numeric_line, named_line in zip(numeric_lines, named_lines):
+                np.testing.assert_allclose(named_line.get_xdata(), epochs.times)
+                np.testing.assert_allclose(named_line.get_ydata(), numeric_line.get_ydata())
+            np.testing.assert_allclose(named_lines[2].get_ydata(), expected_difference[ch] * 1e6)
+        assert named_conditions == OrderedDict(NonTarget=["Non-Target"], Target=["Target"])
+    finally:
+        matplotlib.pyplot.close(numeric_fig)
+        matplotlib.pyplot.close(named_fig)
+
+
+def test_plot_conditions_grouped_cueing_difference():
+    rng = np.random.RandomState(1)
+    codes = np.array([11, 12, 21, 22, 21, 11, 22, 12])
+    data = rng.randn(8, len(CH_NAMES), 16) * 1e-6
+    data += codes[:, None, None] * 1e-6
+    epochs = _make_epochs(data, codes, event_id={
+        "InvalidTarget_Left": 11, "InvalidTarget_Right": 12,
+        "ValidTarget_Left": 21, "ValidTarget_Right": 22,
+    })
+    conditions = OrderedDict(
+        ValidTarget=["ValidTarget_Left", "ValidTarget_Right"],
+        InvalidTarget=["InvalidTarget_Left", "InvalidTarget_Right"],
+    )
+    fig, axes = plot_conditions(
+        epochs, conditions=conditions,
+        diff_waveform=("ValidTarget", "InvalidTarget"), n_boot=10,
+    )
+    try:
+        valid = data[np.isin(codes, [21, 22])].mean(axis=0) * 1e6
+        invalid = data[np.isin(codes, [11, 12])].mean(axis=0) * 1e6
+        for ch, ax in enumerate(axes):
+            drawn = [line.get_ydata() for line in ax.lines if len(line.get_xdata()) == len(epochs.times)]
+            assert len(drawn) == 3
+            np.testing.assert_allclose(drawn[0], valid[ch])
+            np.testing.assert_allclose(drawn[1], invalid[ch])
+            np.testing.assert_allclose(drawn[2], invalid[ch] - valid[ch])
+        assert _legend_entries(axes[-1])[-1][0] == "InvalidTarget - ValidTarget"
+    finally:
+        matplotlib.pyplot.close(fig)
+
+
+@pytest.mark.parametrize(
+    "conditions, diff_waveform",
+    [
+        (OrderedDict(Unknown=["missing"]), None),
+        (OrderedDict(NonTarget=[1], Target=[2]), ("Non-Target", "missing")),
+    ],
+)
+def test_plot_conditions_unknown_name_raises(conditions, diff_waveform):
+    with pytest.raises(ValueError, match="Unknown event name: 'missing'"):
+        plot_conditions(_noise_epochs(), conditions=conditions, diff_waveform=diff_waveform)
