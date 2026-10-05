@@ -54,3 +54,25 @@ def test_synthetic_acquisition(tmp_path):
     assert (data['stim'] != 0).any()
     
     print(f"Acquired {len(data)} samples with columns: {list(data.columns)}")
+
+
+def test_muse_push_sample_wraps_a_scalar_but_leaves_a_list_alone():
+    """EEG._muse_push_sample sends a single-channel [marker] to the LSL outlet:
+    a scalar is wrapped, an already-wrapped list passes through (P300 path)."""
+
+    class FakeOutlet:
+        def __init__(self):
+            self.last = None
+
+        def push_sample(self, marker, timestamp):
+            self.last = marker
+
+    outlet = FakeOutlet()
+    eeg = object.__new__(EEG)                 # skip __init__ (it would connect hardware)
+    eeg.muse_StreamOutlet = outlet
+
+    eeg._muse_push_sample(2, 123.0)
+    assert outlet.last == [2]                 # scalar -> single-channel list
+
+    eeg._muse_push_sample([2], 123.0)
+    assert outlet.last == [2]                 # already a list -> unchanged

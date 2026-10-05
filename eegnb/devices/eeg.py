@@ -185,6 +185,8 @@ class EEG:
         pass
 
     def _muse_push_sample(self, marker, timestamp):
+        if not isinstance(marker, (list, tuple)):
+            marker = [marker]
         self.muse_StreamOutlet.push_sample(marker, timestamp)
 
     def _muse_get_recent(self, n_samples: int = 256, restart_inlet: bool = False):

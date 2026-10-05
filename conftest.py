@@ -14,6 +14,7 @@ if not _is_available("psychopy"):
     collect_ignore += [
         "eegnb/experiments",
         "eegnb/devices/vr.py",
+        "tests/test_push_marker.py",  # imports BaseExperiment, which pulls in psychopy via devices.vr
     ]
 elif not _is_available("psychxr"):
     collect_ignore += ["eegnb/devices/vr.py"]
