@@ -16,7 +16,7 @@ import mne
 import numpy as np
 import pytest
 
-from eegnb.analysis.analysis_utils import plot_conditions
+from eegnb.analysis.utils import plot_conditions
 
 
 CH_NAMES = ["TP9", "AF7", "AF8", "TP10"]
@@ -206,3 +206,21 @@ def test_plot_conditions_grouped_cueing_difference():
 def test_plot_conditions_unknown_name_raises(conditions, diff_waveform):
     with pytest.raises(ValueError, match="Unknown event name: 'missing'"):
         plot_conditions(_noise_epochs(), conditions=conditions, diff_waveform=diff_waveform)
+
+
+@pytest.mark.parametrize("channel_count", [1, 2])
+def test_plot_conditions_few_channels(channel_count):
+    epochs = _noise_epochs()
+    fig, axes = plot_conditions(
+        epochs,
+        conditions=OrderedDict(NonTarget=[1], Target=[2]),
+        diff_waveform=None,
+        channel_count=channel_count,
+        n_boot=10,
+    )
+    try:
+        for ax in axes[:channel_count]:
+            drawn = [line for line in ax.lines if len(line.get_xdata()) == len(epochs.times)]
+            assert len(drawn) == 2
+    finally:
+        matplotlib.pyplot.close(fig)
