@@ -70,6 +70,9 @@ be run to begin the notebooks interfacing with the bluemuse backend.
 **Needed Parameters:**
 **Optional Parameters:**
 
+#### Connecting the Cyton USB dongle on Windows
+Set the dongle's FTDI latency timer to 1 ms, as described in [OpenBCI's FTDI guide](https://docs.openbci.com/Troubleshooting/FTDI_Fix_Windows/). With the Windows default of 16 ms, samples reach the computer in bursts, so their timestamps, and the markers aligned to them, are wrong. eegnb checks this setting for *'cyton'* and *'cyton_daisy'* and stops with an error if it is not 1 ms.
+
 ### Neurosity Notion (versions 1 and 2)
 ![fig](../img/notion.png)
 **Device Name:** *'notion1'* or *'notion2'*

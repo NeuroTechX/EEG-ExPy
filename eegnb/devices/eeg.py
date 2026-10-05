@@ -31,6 +31,7 @@ except (ImportError, OSError):
         "xid",
     )
 
+from eegnb.devices.cyton import assert_ftdi_latency_1ms
 from eegnb.devices.utils import (
     get_openbci_usb,
     create_stim_array,
@@ -87,6 +88,7 @@ class EEG:
         ip_addr=None,
         ch_names=None,
         config=None,
+        analog_mode=False,
         make_logfile=False):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
@@ -106,6 +108,8 @@ class EEG:
         self.ip_addr = ip_addr
         self.other = other
         self.config = config
+        self.analog_mode = analog_mode
+        self._drained = []
         self.make_logfile = make_logfile # currently only used for kf
         self.backend = self._get_backend(self.device_name)
         self.initialize_backend()
@@ -333,6 +337,9 @@ class EEG:
             serial_port = str(self.serial_port)
             self.brainflow_params.serial_port = serial_port
 
+        if self.device_name in ('cyton', 'cyton_daisy'):
+            assert_ftdi_latency_1ms(str(self.brainflow_params.serial_port))
+
         # Initialize board_shim
         self.sfreq = BoardShim.get_sampling_rate(self.brainflow_id)
         self.board = BoardShim(self.brainflow_id, self.brainflow_params)
@@ -342,11 +349,26 @@ class EEG:
         if self.config:
             # For Cyton boards, split config string by 'X' delimiter and apply each setting
             if 'cyton' in self.device_name:
-                config_settings = self.config.split('X')
+                config_settings = [s for s in self.config.split('X') if s]
                 for setting in config_settings:
-                    self.board.config_board(setting + 'X')
+                    cmd = setting + 'X'
+                    response = self.board.config_board(cmd)
+                    attempt = 1
+                    while not response.startswith('Success') and attempt < 3:
+                        attempt += 1
+                        response = self.board.config_board(cmd)
+                    print(f"[cyton config] {cmd} -> {response!r}"
+                          + (f" (attempt {attempt})" if attempt > 1 else ""))
+                    if not response.startswith('Success'):
+                        logger.warning(
+                            "[cyton config] %s never confirmed after %d attempts "
+                            "- channel gain may not be applied", cmd, attempt)
             else:
                 self.board.config_board(self.config)
+
+        if self.analog_mode and 'cyton' in (self.device_name or ''):
+            response = self.board.config_board('/2')
+            print(f"[cyton analog mode] /2 -> {response!r}")
 
     def _start_brainflow(self):
         # only start stream if non exists
@@ -364,31 +386,47 @@ class EEG:
         else:
             sleep(5)
 
+    def drain_brainflow(self):
+        if getattr(self, "backend", None) != "brainflow" or not self.stream_started:
+            return
+        chunk = self.board.get_board_data()
+        if chunk is not None and getattr(chunk, "size", 0):
+            self._drained.append(chunk)
+        if self.save_fn:
+            try:
+                self._write_brainflow_csv(self._drained_data())
+            except Exception as exc:
+                logger.warning("could not flush partial recording: %s", exc)
+
+    def _drained_data(self):
+        if not self._drained:
+            return np.empty((0, 0))
+        if len(self._drained) == 1:
+            return self._drained[0]
+        return np.concatenate(self._drained, axis=1)
+
+    def _write_brainflow_csv(self, data):
+        if data is None or getattr(data, "size", 0) == 0:
+            return
+        ch_names, eeg_data, timestamps = self._brainflow_extract(data)
+        stim_array = create_stim_array(timestamps, self.markers)
+        timestamps = timestamps[..., None]
+        total_data = np.append(timestamps, eeg_data, 1)
+        total_data = np.append(total_data, stim_array, 1)
+        # Subtract five seconds of settling time from beginning
+        total_data = total_data[5 * self.sfreq :]
+        pd.DataFrame(total_data,
+                     columns=["timestamps"] + ch_names + ["stim"]).to_csv(
+            self.save_fn, index=False)
+
     def _stop_brainflow(self):
         """This functions kills the brainflow backend and saves the data to a CSV file."""
 
-        # Collect session data and kill session
-        data = self.board.get_board_data()  # will clear board buffer
+        self._drained.append(self.board.get_board_data())  # will clear board buffer
+        data = self._drained_data()
         self.board.stop_stream()
         self.board.release_session()
-
-        # Extract relevant metadata from board
-        ch_names, eeg_data, timestamps = self._brainflow_extract(data)
-
-        # Create a column for the stimuli to append to the EEG data
-        stim_array = create_stim_array(timestamps, self.markers)
-        timestamps = timestamps[..., None]
-
-        # Add an additional dimension so that shapes match
-        total_data = np.append(timestamps, eeg_data, 1)
-
-        # Append the stim array to data.
-        total_data = np.append(total_data, stim_array, 1)
-
-        # Subtract five seconds of settling time from beginning
-        total_data = total_data[5 * self.sfreq :]
-        data_df = pd.DataFrame(total_data, columns=["timestamps"] + ch_names + ["stim"])
-        data_df.to_csv(self.save_fn, index=False)
+        self._write_brainflow_csv(data)
 
     def _brainflow_extract(self, data):
         """
@@ -420,6 +458,16 @@ class EEG:
         # pull EEG channel data via brainflow API
         eeg_data = data[:, BoardShim.get_eeg_channels(self.brainflow_id)]
         timestamps = data[:, BoardShim.get_timestamp_channel(self.brainflow_id)]
+
+        if self.analog_mode:
+            try:
+                analog_idx = BoardShim.get_analog_channels(self.brainflow_id)
+                if len(analog_idx):
+                    aux_data = data[:, analog_idx]
+                    eeg_data = np.append(eeg_data, aux_data, axis=1)
+                    ch_names = list(ch_names) + [f"AUX{i}" for i in range(len(analog_idx))]
+            except Exception as e:
+                logger.warning("could not read analog channels: %s", e)
 
         return ch_names, eeg_data, timestamps
 
@@ -668,6 +716,7 @@ class EEG:
         if self.backend == "brainflow":
             self._start_brainflow()
             self.markers = []
+            self._drained = []
         elif self.backend == "muselsl":
             self._start_muse(duration)
         elif self.backend == "kernelflow":
@@ -697,6 +746,10 @@ class EEG:
            self._serial_push_sample(marker=marker) 
         elif self.backend == "xidport":
            self._xid_push_sample(marker=marker)
+
+    def drain(self):
+        if self.backend == "brainflow":
+            self.drain_brainflow()
 
     def stop(self):
         if self.backend == "brainflow":
