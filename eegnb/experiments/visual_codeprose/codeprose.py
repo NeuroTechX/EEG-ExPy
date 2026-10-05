@@ -176,7 +176,7 @@ def fixate(window: visual.Window, text: Optional[str] = None):
     visual.GratingStim(win=window, size=0.2, sf=0).draw()
 
     window.flip()
-    event.waitKeys(keyList="space", maxWait=5)
+    event.waitKeys(keyList=["space"], maxWait=5)
 
 
 def goodbye(window):
@@ -187,7 +187,7 @@ def goodbye(window):
     )
     text.draw()
     window.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
 
 def practice(window):
@@ -198,7 +198,7 @@ def practice(window):
     text.draw()
     window.flip()
 
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
 
 def instructions(window):
@@ -211,7 +211,7 @@ def instructions(window):
     text.draw()
     window.flip()
 
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     text = visual.TextStim(
         win=window,
@@ -221,4 +221,4 @@ def instructions(window):
     text.draw()
     window.flip()
 
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])

@@ -1,6 +1,9 @@
 name: Docs
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
   push:
     branches: [ master, develop, 'dev/*' ]
   pull_request:
@@ -34,9 +37,9 @@ jobs:
     - name: Determine build mode
       id: mode
       run: |
-        if grep -vqE '^examples/.*\.py$' changed_files.txt; then
+        if [ "$GITHUB_EVENT_NAME" = "schedule" ] || [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || grep -vqE '^examples/.*\.py$' changed_files.txt; then
           echo "FULL_BUILD=true" >> $GITHUB_ENV
-          echo "Detected non-example file change. Full build triggered."
+          echo "Full build triggered."
         else
           # || true prevents grep's exit code 1 (no matches) from aborting the step
           CHANGED_EXAMPLES=$(grep '^examples/.*\.py$' changed_files.txt | paste -sd '|' - || true)
@@ -45,22 +48,40 @@ jobs:
           echo "Changed examples: $CHANGED_EXAMPLES"
         fi
 
-    - name: Cache built documentation
+    - name: Cache executed gallery examples
       id: cache-docs
+      if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
       uses: actions/cache@v4
+      env:
+        KEY_PREFIX: ${{ runner.os }}-sphinx-${{ hashFiles('eegnb/**/*.py', 'doc/**/*', 'environments/eeg-expy-docsbuild.yml', 'requirements.txt', 'setup.py') }}
       with:
+        # sphinx-gallery decides whether to re-run an example by comparing the
+        # example's md5 against `<example>.py.md5` beside its generated rst in
+        # doc/auto_examples.
         path: |
-          doc/_build/html
-        key: ${{ runner.os }}-sphinx-${{ hashFiles('examples/**/*.py', 'doc/**/*', 'conf.py') }}
+          doc/auto_examples
+          doc/_build/doctrees
+        # Two-part key. The per-example md5 covers only the example's file, so
+        # the prefix pins what it is not affected by -- library, docs sources,
+        # docs environment. A prefix fallback only reuses stamps built with all
+        # of those unchanged.
+        key: ${{ env.KEY_PREFIX }}-${{ hashFiles('examples/**/*.py') }}
         restore-keys: |
-          ${{ runner.os }}-sphinx-
+          ${{ env.KEY_PREFIX }}-
 
     - name: Build docs
       run: make docs
 
+    - name: Upload built docs
+      uses: actions/upload-artifact@v4
+      with:
+        name: docs-build-preview
+        path: doc/_build/html
+        retention-days: 14
+
     - name: Deploy Docs
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'  # TODO: Deploy seperate develop-version of docs?
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/_build/html

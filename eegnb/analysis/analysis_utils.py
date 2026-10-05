@@ -18,6 +18,7 @@ from mne.io import RawArray
 from mne.channels import make_standard_montage
 from mne.filter import create_filter
 from matplotlib import pyplot as plt
+from matplotlib import lines as mlines
 from scipy import stats
 from scipy.signal import lfilter, lfilter_zi
 
@@ -229,7 +230,7 @@ def plot_conditions(
     Keyword Args:
         conditions (OrderedDict): dictionary that contains the names of the
             conditions to plot as keys, and the list of corresponding marker
-            numbers as value. E.g.,
+            numbers or names from epochs.event_id as value. E.g.,
                 conditions = {'Non-target': [0, 1],
                                'Target': [2, 3, 4]}
         ci (float): confidence interval in range [0, 100]
@@ -237,8 +238,8 @@ def plot_conditions(
         title (str): title of the figure
         palette (list): color palette to use for conditions
         ylim (tuple): (ymin, ymax)
-        diff_waveform (tuple or None): tuple of ints indicating which
-            conditions to subtract for producing the difference waveform.
+        diff_waveform (tuple or None): pair of marker numbers, event names or
+            condition keys. The second waveform minus the first is plotted.
             If None, do not plot a difference waveform
         channel_count (int): number of channels to plot. Default set to 4
             for backward compatibility with Muse implementations
@@ -255,6 +256,24 @@ def plot_conditions(
     if isinstance(conditions, dict):
         conditions = OrderedDict(conditions)
 
+    def resolve_marker(marker):
+        if isinstance(marker, str):
+            if marker not in epochs.event_id:
+                raise ValueError(f"Unknown event name: {marker!r}")
+            return epochs.event_id[marker]
+        return marker
+
+    conditions = OrderedDict(
+        (name, [resolve_marker(marker) for marker in markers])
+        for name, markers in conditions.items()
+    )
+    if diff_waveform:
+        diff_codes = [
+            conditions[marker] if isinstance(marker, str) and marker in conditions
+            else [resolve_marker(marker)]
+            for marker in diff_waveform
+        ]
+
     if palette is None:
         palette = sns.color_palette("hls", len(conditions) + 1)
 
@@ -268,7 +287,6 @@ def plot_conditions(
     midaxis = math.ceil(channel_count / 2)
     fig, axes = plt.subplots(2, midaxis, figsize=[12, 6], sharex=True, sharey=False)
 
-    # get individual plot axis
     plot_axes = []
     for axis_y in range(midaxis):
         for axis_x in range(2):
@@ -277,10 +295,16 @@ def plot_conditions(
 
     for ch in range(channel_count):
         for cond, color in zip(conditions.values(), palette):
+            epoch_by_time = pd.DataFrame(
+                X[y.isin(cond), ch].T, index=pd.Index(times, name="time")
+            )
+            samples = epoch_by_time.melt(
+                ignore_index=False, var_name="epoch", value_name="amplitude"
+            ).reset_index()
             sns.lineplot(
-                data=pd.DataFrame(X[y.isin(cond), ch].T, index=times),
-                x=times,
-                y=ch,
+                data=samples,
+                x="time",
+                y="amplitude",
                 color=color,
                 n_boot=n_boot,
                 ax=axes[ch],
@@ -289,8 +313,8 @@ def plot_conditions(
         axes[ch].set(xlabel='Time (s)', ylabel='Amplitude (uV)', title=epochs.ch_names[channel_order[ch]])
 
         if diff_waveform:
-            diff = np.nanmean(X[y == diff_waveform[1], ch], axis=0) - np.nanmean(
-                X[y == diff_waveform[0], ch], axis=0
+            diff = np.nanmean(X[y.isin(diff_codes[1]), ch], axis=0) - np.nanmean(
+                X[y.isin(diff_codes[0]), ch], axis=0
             )
             axes[ch].plot(times, diff, color="k", lw=1)
 
@@ -300,14 +324,24 @@ def plot_conditions(
             x=0, ymin=ylim[0], ymax=ylim[1], color="k", lw=1, label="_nolegend_"
         )
 
-    if diff_waveform:
-        legend = ["{} - {}".format(diff_waveform[1], diff_waveform[0])] + list(
-            conditions.keys()
+    legs = []
+    for cond_name, color in zip(conditions.keys(), palette):
+        legs.append(
+            mlines.Line2D([], [], color=color, marker="", ls="-", label=cond_name)
         )
-    else:
-        legend = conditions.keys()
+    if diff_waveform:
+        legs.append(
+            mlines.Line2D(
+                [],
+                [],
+                color="k",
+                marker="",
+                ls="-",
+                label="{} - {}".format(diff_waveform[1], diff_waveform[0]),
+            )
+        )
     axes[-1].legend(
-        legend, bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0
+        handles=legs, bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0
     )
     sns.despine()
     plt.tight_layout()

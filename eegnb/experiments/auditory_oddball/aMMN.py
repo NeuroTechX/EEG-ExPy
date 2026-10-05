@@ -123,7 +123,7 @@ def show_instructions(duration):
     text = visual.TextStim(win=mywin, text=instruction_text, color=[-1, -1, -1])
     text.draw()
     mywin.flip()
-    event.waitKeys(keyList="space")
+    event.waitKeys(keyList=["space"])
 
     mywin.mouseVisible = True
     mywin.close()
