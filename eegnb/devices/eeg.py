@@ -7,6 +7,7 @@
 
 import sys
 import logging
+from pathlib import Path
 from time import sleep, time
 from datetime import datetime
 from multiprocessing import Process
@@ -14,7 +15,7 @@ from multiprocessing import Process
 import numpy as np
 import pandas as pd
 
-from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
+from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams, BrainFlowPresets
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
@@ -67,6 +68,22 @@ brainflow_devices = [
     "muse2016_bfn",
     "muse2016_bfb",
 ]
+
+# Muse 2/S BrainFlow devices that can stream PPG. Commands keep 4 EEG channels
+# (p51 / p61) so the EEG CSV shape stays compatible. p50 would add a 5th EEG channel.
+MUSE_BRAINFLOW_PPG_COMMANDS = {
+    "muse2_bfn": "p51",
+    "muse2_bfb": "p51",
+    "museS_bfn": "p61",
+    "museS_bfb": "p61",
+}
+
+
+def muse_sidecar_path(save_fn, suffix: str) -> str:
+    """Return a sibling CSV path, e.g. recording.csv -> recording_ppg.csv."""
+    path = Path(save_fn)
+    return str(path.with_name(f"{path.stem}_{suffix}{path.suffix}"))
+
 
 xid_devices = [
    "nirsport2"
@@ -347,6 +364,8 @@ class EEG:
                     self.board.config_board(setting + 'X')
             else:
                 self.board.config_board(self.config)
+        else:
+            self._enable_muse_ppg_stream()
 
     def _start_brainflow(self):
         # only start stream if non exists
@@ -367,8 +386,15 @@ class EEG:
     def _stop_brainflow(self):
         """This functions kills the brainflow backend and saves the data to a CSV file."""
 
-        # Collect session data and kill session
-        data = self.board.get_board_data()  # will clear board buffer
+        # Collect session data. Muse boards keep EEG, IMU, and PPG in separate
+        # presets (different sampling rates), so pull all three before teardown.
+        data = self.board.get_board_data(preset=BrainFlowPresets.DEFAULT_PRESET)
+        aux_data = None
+        anc_data = None
+        if self.device_name in MUSE_BRAINFLOW_PPG_COMMANDS:
+            aux_data = self._get_board_data_soft(BrainFlowPresets.AUXILIARY_PRESET)
+            anc_data = self._get_board_data_soft(BrainFlowPresets.ANCILLARY_PRESET)
+
         self.board.stop_stream()
         self.board.release_session()
 
@@ -389,6 +415,96 @@ class EEG:
         total_data = total_data[5 * self.sfreq :]
         data_df = pd.DataFrame(total_data, columns=["timestamps"] + ch_names + ["stim"])
         data_df.to_csv(self.save_fn, index=False)
+
+        if self.device_name in MUSE_BRAINFLOW_PPG_COMMANDS:
+            self._write_muse_sidecars(aux_data, anc_data)
+
+    def _enable_muse_ppg_stream(self):
+        """Enable Muse PPG without adding a 5th EEG channel, unless the user set config."""
+        command = MUSE_BRAINFLOW_PPG_COMMANDS.get(self.device_name)
+        if not command:
+            return
+        try:
+            self.board.config_board(command)
+        except Exception:
+            logger.warning(
+                "Could not enable Muse PPG with command %s on %s",
+                command,
+                self.device_name,
+                exc_info=True,
+            )
+
+    def _get_board_data_soft(self, preset):
+        """Return board data for a preset, or None if the buffer is unavailable."""
+        try:
+            data = self.board.get_board_data(preset=preset)
+        except Exception:
+            logger.warning(
+                "Could not read BrainFlow preset %s from %s",
+                preset,
+                self.device_name,
+                exc_info=True,
+            )
+            return None
+        if data is None or getattr(data, "size", 0) == 0:
+            return None
+        return data
+
+    def _write_muse_sidecars(self, aux_data, anc_data):
+        """Write accel/gyro and PPG CSVs next to the EEG recording."""
+        if not self.save_fn:
+            return
+        self._write_brainflow_preset_csv(
+            aux_data,
+            BrainFlowPresets.AUXILIARY_PRESET,
+            muse_sidecar_path(self.save_fn, "accel"),
+            (("accel", BoardShim.get_accel_channels), ("gyro", BoardShim.get_gyro_channels)),
+        )
+        self._write_brainflow_preset_csv(
+            anc_data,
+            BrainFlowPresets.ANCILLARY_PRESET,
+            muse_sidecar_path(self.save_fn, "ppg"),
+            (("ppg", BoardShim.get_ppg_channels),),
+        )
+
+    def _write_brainflow_preset_csv(self, data, preset, out_path, channel_getters):
+        """Save one BrainFlow preset buffer. Failures must not block the EEG CSV."""
+        if data is None or getattr(data, "size", 0) == 0:
+            return
+        try:
+            data_t = np.asarray(data).T
+            timestamp_idx = BoardShim.get_timestamp_channel(self.brainflow_id, preset)
+            timestamps = data_t[:, timestamp_idx]
+
+            columns = ["timestamps"]
+            arrays = [timestamps[..., None]]
+
+            for prefix, getter in channel_getters:
+                try:
+                    idxs = list(getter(self.brainflow_id, preset))
+                except Exception:
+                    continue
+                if not idxs:
+                    continue
+                chunk = data_t[:, idxs]
+                columns.extend(f"{prefix}_{i}" for i in range(chunk.shape[1]))
+                arrays.append(chunk)
+
+            if len(arrays) == 1:
+                return
+
+            total_data = np.concatenate(arrays, axis=1)
+            try:
+                sfreq = BoardShim.get_sampling_rate(self.brainflow_id, preset)
+                trim = int(5 * sfreq)
+                if 0 < trim < len(total_data):
+                    total_data = total_data[trim:]
+            except Exception:
+                pass
+
+            pd.DataFrame(total_data, columns=columns).to_csv(out_path, index=False)
+        except Exception:
+            logger.warning("Failed to write Muse sidecar %s", out_path, exc_info=True)
 
     def _brainflow_extract(self, data):
         """
