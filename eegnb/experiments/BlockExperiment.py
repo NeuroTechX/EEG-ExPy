@@ -126,6 +126,9 @@ class BlockExperiment(BaseExperiment, ABC):
             # Run this block
             if not self._run_trial_loop(start_time=time(), duration=self.block_duration):
                 break
+
+            if self.eeg:
+                self.eeg.drain()
         
         # Stop EEG Stream after all blocks
         if self.eeg:
