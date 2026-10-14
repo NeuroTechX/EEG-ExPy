@@ -473,8 +473,7 @@ in the specified data directory, they will be quickly downloaded from the cloud.
 </span><span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">Epochs</span><span class="p">,</span><span class="n">find_events</span><span class="w">
 </span><span class="w">
 </span><span class="c1"># EEG-Notebooks functions</span><span class="w">
-</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">analysis</span><span class="nn">.</span><span class="nn">analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span><span class="w">
-</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">analysis</span><span class="nn">.</span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_conditions</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">analysis</span><span class="nn">.</span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span><span class="p">,</span><span class="n">plot_conditions</span><span class="w">
 </span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb</span><span class="nn">.</span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span><span class="w">
 </span></pre></div></div>
 </section>
@@ -498,14 +497,17 @@ the example dataset, if you do not already have it.</p>
 </span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading...
 From (original): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH
-From (redirected): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH&amp;confirm=t&amp;uuid=e2c84d77-f12d-43de-bc7c-59394ebd6039
+From (redirected): https://drive.google.com/uc?id=1oStfxzEqf36R5d-2Auyw4DLnPj9E_FAH&amp;confirm=t&amp;uuid=5871f295-e9ae-4b5b-b64a-07fa12bbea4a
 To: /home/runner/.eegnb/data/downloaded_data.zip
 
   0%|          | 0.00/33.1M [00:00&lt;?, ?B/s]
-  5%|▍         | 1.57M/33.1M [00:00&lt;00:02, 14.4MB/s]
- 40%|███▉      | 13.1M/33.1M [00:00&lt;00:00, 63.8MB/s]
- 71%|███████   | 23.6M/33.1M [00:00&lt;00:00, 73.8MB/s]
-100%|██████████| 33.1M/33.1M [00:00&lt;00:00, 77.9MB/s]
+  2%|▏         | 524k/33.1M [00:00&lt;00:07, 4.39MB/s]
+ 21%|██        | 6.82M/33.1M [00:00&lt;00:00, 36.1MB/s]
+ 33%|███▎      | 11.0M/33.1M [00:00&lt;00:00, 27.9MB/s]
+ 52%|█████▏    | 17.3M/33.1M [00:00&lt;00:00, 36.0MB/s]
+ 71%|███████   | 23.6M/33.1M [00:00&lt;00:00, 41.0MB/s]
+ 90%|█████████ | 29.9M/33.1M [00:00&lt;00:00, 43.7MB/s]
+100%|██████████| 33.1M/33.1M [00:00&lt;00:00, 41.6MB/s]
 
 
 Loading these files:
@@ -797,9 +799,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-59b131e8-5024-4d83-9100-3551034e44ee"
+<tr class="mne-repr-section-header general-1aced9fd-cf41-4064-ac05-3c3461394818"
      title="Hide section"
-    onclick="toggleVisibility('general-59b131e8-5024-4d83-9100-3551034e44ee')">
+    onclick="toggleVisibility('general-1aced9fd-cf41-4064-ac05-3c3461394818')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -811,26 +813,26 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-59b131e8-5024-4d83-9100-3551034e44ee ">
+<tr class="repr-element general-1aced9fd-cf41-4064-ac05-3c3461394818 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>Epochs</td>
 </tr>
-<tr class="repr-element general-59b131e8-5024-4d83-9100-3551034e44ee ">
+<tr class="repr-element general-1aced9fd-cf41-4064-ac05-3c3461394818 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-59b131e8-5024-4d83-9100-3551034e44ee ">
+<tr class="repr-element general-1aced9fd-cf41-4064-ac05-3c3461394818 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
     <td>Unknown</td>
 
 </tr>
-<tr class="repr-element general-59b131e8-5024-4d83-9100-3551034e44ee ">
+<tr class="repr-element general-1aced9fd-cf41-4064-ac05-3c3461394818 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -845,9 +847,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a"
+<tr class="mne-repr-section-header acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a')">
+    onclick="toggleVisibility('acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -862,14 +864,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a ">
+<tr class="repr-element acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db ">
     <td class="mne-repr-section-toggle"></td>
     <td>Total number of events</td>
     <td>3369</td>
 </tr>
 
 
-<tr class="repr-element acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a ">
+<tr class="repr-element acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db ">
     <td class="mne-repr-section-toggle"></td>
     <td>Events counts</td>
 
@@ -886,35 +888,35 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a ">
+<tr class="repr-element acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time range</td>
     <td>-0.102 – 0.602 s</td>
 </tr>
 
 
-<tr class="repr-element acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a ">
+<tr class="repr-element acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db ">
     <td class="mne-repr-section-toggle"></td>
     <td>Baseline</td>
     <td>off</td>
 </tr>
 
 
-<tr class="repr-element acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a ">
+<tr class="repr-element acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>256.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a ">
+<tr class="repr-element acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>181</td>
 </tr>
 
 
-<tr class="repr-element acquisition-198f9f67-223f-4b41-8bff-f8d6e2a4cc2a ">
+<tr class="repr-element acquisition-f874bdf2-96ac-41d6-b4fc-598c9911b4db ">
     <td class="mne-repr-section-toggle"></td>
     <td>Metadata</td>
     <td>No metadata set</td>
@@ -928,9 +930,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-138e8141-e524-479f-ba65-48713f5bec14"
+<tr class="mne-repr-section-header channels-b3877341-b411-45a0-a622-136c93047fb6"
      title="Hide section"
-    onclick="toggleVisibility('channels-138e8141-e524-479f-ba65-48713f5bec14')">
+    onclick="toggleVisibility('channels-b3877341-b411-45a0-a622-136c93047fb6')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -943,7 +945,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-138e8141-e524-479f-ba65-48713f5bec14 ">
+<tr class="repr-element channels-b3877341-b411-45a0-a622-136c93047fb6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -956,7 +958,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-138e8141-e524-479f-ba65-48713f5bec14 ">
+<tr class="repr-element channels-b3877341-b411-45a0-a622-136c93047fb6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -971,9 +973,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-bb9d03d9-b43f-404c-95bd-8f39d7259e26"
+<tr class="mne-repr-section-header filters-d1b524da-4ddc-4559-a46b-07ea5f6c2f23"
      title="Hide section"
-    onclick="toggleVisibility('filters-bb9d03d9-b43f-404c-95bd-8f39d7259e26')">
+    onclick="toggleVisibility('filters-d1b524da-4ddc-4559-a46b-07ea5f6c2f23')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -985,14 +987,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-bb9d03d9-b43f-404c-95bd-8f39d7259e26 ">
+<tr class="repr-element filters-d1b524da-4ddc-4559-a46b-07ea5f6c2f23 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-bb9d03d9-b43f-404c-95bd-8f39d7259e26 ">
+<tr class="repr-element filters-d1b524da-4ddc-4559-a46b-07ea5f6c2f23 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>30.00 Hz</td>
@@ -1020,7 +1022,7 @@ this file apply (plus whatever default styling the IDE applies).
 </span><span class="w">
 </span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
 </span></pre></div></div>
-<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="Fp1, Fp2, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 31.414 seconds)</p>
+<img src="../../_images/sphx_glr_01r__n170_viz_003.png" srcset="../../_images/sphx_glr_01r__n170_viz_003.png" alt="Fp1, Fp2, TP9, TP10" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 26.773 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-visual-n170-01r-n170-viz-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8d83acdbf2986ad81d4d9e035ff593ef/01r__n170_viz.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01r__n170_viz.ipynb</span></code></a></p>
