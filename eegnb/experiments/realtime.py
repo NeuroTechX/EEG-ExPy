@@ -6,8 +6,7 @@ Windows-only (Linux/macOS already run a ≤1 ms tick); process priority and GC
 suspension apply on all platforms:
 
   - Scheduler tick: Windows' default is 15.625 ms, and every ``time.sleep``
-    (including libovr's ``waitToBeginFrame``) rounds up to it, mathematically
-    locking a 120 Hz / 8.33 ms render loop to half-rate and dropping every
+    rounds up to it, mathematically locking a 120 Hz / 8.33 ms render loop to half-rate and dropping every
     other frame. ``timeBeginPeriod(1)``
     drops it to 1 ms; ``timeEndPeriod(1)`` restores it so the change stays
     scoped to the section rather than held process-wide.
@@ -28,6 +27,48 @@ from psychopy import core
 logger = logging.getLogger(__name__)
 
 
+PROCESS_POWER_THROTTLING = 4
+POWER_THROTTLING_IGNORE_TIMER_RESOLUTION = 0x4
+
+
+def honour_timer_resolution_when_hidden() -> bool:
+    """Opt this process out of Windows 11 ignoring its timer resolution.
+
+    Windows 11 stops honouring ``timeBeginPeriod`` for a process whose windows
+    are all occluded, minimised or otherwise invisible, so a stimulus window
+    that opens behind another one falls back to the 15.625 ms tick. Clearing
+    ``PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION`` keeps the request in
+    force regardless. Returns ``False`` off Windows or where the setting does
+    not exist (Windows 10).
+    """
+    if sys.platform != 'win32':
+        return False
+    try:
+        import ctypes
+        from ctypes import wintypes
+
+        class _ThrottlingState(ctypes.Structure):
+            _fields_ = [('Version', wintypes.ULONG), ('ControlMask', wintypes.ULONG),
+                        ('StateMask', wintypes.ULONG)]
+
+        kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+        kernel32.GetCurrentProcess.restype = wintypes.HANDLE
+        kernel32.SetProcessInformation.argtypes = [wintypes.HANDLE, ctypes.c_int,
+                                                   ctypes.c_void_p, wintypes.DWORD]
+        kernel32.SetProcessInformation.restype = wintypes.BOOL
+        state = _ThrottlingState(1, POWER_THROTTLING_IGNORE_TIMER_RESOLUTION, 0)
+        ok = kernel32.SetProcessInformation(kernel32.GetCurrentProcess(),
+                                            PROCESS_POWER_THROTTLING,
+                                            ctypes.byref(state), ctypes.sizeof(state))
+        if not ok:
+            logger.info("[timer] timer-resolution throttling opt-out unavailable (error %d)",
+                        ctypes.get_last_error())
+        return bool(ok)
+    except Exception as e:
+        logger.warning("[timer] timer-resolution throttling opt-out failed: %s", e)
+        return False
+
+
 def force_high_res_timer() -> bool:
     """Raise the Windows scheduler tick to 1 ms via ``timeBeginPeriod(1)`` (see
     module docstring for why). No-op off Windows.
@@ -38,6 +79,7 @@ def force_high_res_timer() -> bool:
     """
     if sys.platform != 'win32':
         return False
+    honour_timer_resolution_when_hidden()
     try:
         import ctypes
         ctypes.windll.winmm.timeBeginPeriod(1)

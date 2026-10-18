@@ -22,7 +22,8 @@ class BlockExperiment(BaseExperiment, ABC):
     """
 
     def __init__(self, exp_name, block_duration, eeg, save_fn, block_trial_size, n_blocks, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr=True, screen_num=0, stereoscopic=False, devices = list):
+                 use_vr=False, use_fullscr=True, screen_num=0, stereoscopic=False, devices = list,
+                 vr_runtime=None, passthrough_instructions=False):
         """ Initializer for the BlockExperiment Class
 
         Args:
@@ -37,13 +38,18 @@ class BlockExperiment(BaseExperiment, ABC):
             jitter (float): Random delay between stimulus
             use_vr (bool): Use VR for displaying stimulus
             use_fullscr (bool): Use fullscreen mode
+            vr_runtime (str): OpenXR runtime for VR, see BaseExperiment
+            passthrough_instructions (bool): Room passthrough behind VR instruction
+                screens, see BaseExperiment
         """
         # Calculate total trials for the base class
         total_trials = block_trial_size * n_blocks
         
         # Initialize BaseExperiment with total trials
         # Pass None for duration if block_duration is None to ignore time spent in instructions
-        super().__init__(exp_name, block_duration, eeg, save_fn, total_trials, iti, soa, jitter, use_vr, use_fullscr, screen_num, stereoscopic, devices)
+        super().__init__(exp_name, block_duration, eeg, save_fn, total_trials, iti, soa, jitter, use_vr, use_fullscr, screen_num, stereoscopic, devices,
+                         vr_runtime=vr_runtime,
+                         passthrough_instructions=passthrough_instructions)
         
         # Block-specific parameters
         self.block_duration = block_duration
@@ -85,15 +91,19 @@ class BlockExperiment(BaseExperiment, ABC):
         # Clear any previous input
         self._clear_user_input()
         
-        # Wait for user input to continue
-        while True:
-            # Display the instruction text
-            super()._draw(lambda: self.present_block_instructions(block_number))
+        self._instruction_screen(True)
+        try:
+            # Wait for user input to continue
+            while True:
+                # Display the instruction text
+                super()._draw(lambda: self.present_block_instructions(block_number))
 
-            if self._user_input('start'):
-                return True
-            elif self._user_input('cancel'):
-                return False
+                if self._user_input('start'):
+                    return True
+                elif self._user_input('cancel'):
+                    return False
+        finally:
+            self._instruction_screen(False)
 
     def run(self, instructions=True):
         """
@@ -130,6 +140,9 @@ class BlockExperiment(BaseExperiment, ABC):
         # Stop EEG Stream after all blocks
         if self.eeg:
             self.eeg.stop()
-            
+
+        if self.use_vr:
+            self.vr.save_telemetry(self.save_fn)
+
         # Close window at the end of all blocks
         self.window.close()
