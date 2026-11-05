@@ -114,22 +114,23 @@ class BlockExperiment(BaseExperiment, ABC):
             self.eeg.start(self.save_fn)
             print("EEG Stream started")
         
-        # Run each block
-        for block_index in range(self.n_blocks):
-            self.current_block_index = block_index
-            print(f"Starting block {block_index + 1} of {self.n_blocks}")
-            
-            # Show block-specific instructions
-            if not self._show_block_instructions(block_index):
-                break
-            
-            # Run this block
-            if not self._run_trial_loop(start_time=time(), duration=self.block_duration):
-                break
-        
-        # Stop EEG Stream after all blocks
-        if self.eeg:
-            self.eeg.stop()
-            
-        # Close window at the end of all blocks
-        self.window.close()
+        try:
+            # Run each block
+            for block_index in range(self.n_blocks):
+                self.current_block_index = block_index
+                print(f"Starting block {block_index + 1} of {self.n_blocks}")
+
+                # Show block-specific instructions
+                if not self._show_block_instructions(block_index):
+                    break
+
+                # Run this block
+                if not self._run_trial_loop(start_time=time(), duration=self.block_duration):
+                    break
+        finally:
+            # Stop EEG Stream after all blocks
+            if self.eeg:
+                self.eeg.stop()
+
+            # Close window at the end of all blocks
+            self.window.close()
