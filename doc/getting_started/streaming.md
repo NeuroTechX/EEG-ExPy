@@ -39,6 +39,19 @@ then you should see a GUI which looks something like the image below.
 Once you press the **Start Streaming** button, muse will be streaming data in the background and can the above code can
 be run to begin the notebooks interfacing with the bluemuse backend.
 
+### Interaxon Muse (BrainFlow)
+**Device Names:** *'muse2_bfn'*, *'muse2_bfb'*, *'museS_bfn'*, and *'museS_bfb'*
+**Backend:** Brainflow
+**Needed Parameters:** Native bluetooth (`*_bfn`) needs no extra parameters. BLED dongle devices (`*_bfb`) use a BLED112 adapter.
+
+These BrainFlow Muse 2 / Muse S names are the preferred way to record from Muse. EEG-ExPy still writes the usual EEG CSV, and also writes sidecar files for streams that run at different sampling rates:
+
+- `recording_....csv` — EEG + stim markers (~256 Hz)
+- `recording_...._ppg.csv` — photoplethysmography (PPG, ~64 Hz)
+- `recording_...._accel.csv` — accelerometer and gyroscope (~52 Hz)
+
+PPG is enabled automatically with Muse command `p51` (Muse 2) or `p61` (Muse S), which keep the four standard EEG channels. Pass `config=` to `EEG()` if you need a different Muse preset. Muse 2016 and the MuseLSL / BlueMuse backends do not save PPG.
+
 ### OpenBCI Ganglion
 ![fig](../img/ganglion.png)
 
