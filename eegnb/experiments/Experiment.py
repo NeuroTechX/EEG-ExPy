@@ -427,20 +427,21 @@ class BaseExperiment(ABC):
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
 
-        self._run_trial_loop(record_start_time, self.duration)
+        try:
+            self._run_trial_loop(record_start_time, self.duration)
 
-        # Clearing the screen for the next trial
-        event.clearEvents()
+            # Clearing the screen for the next trial
+            event.clearEvents()
+        finally:
+            # Closing the EEG stream
+            if self.eeg:
+                self.eeg.stop()
 
-        # Closing the EEG stream
-        if self.eeg:
-            self.eeg.stop()
+            if self.use_vr:
+                self.vr.save_telemetry(self.save_fn)
 
-        if self.use_vr:
-            self.vr.save_telemetry(self.save_fn)
-
-        # Closing the window
-        self.window.close()
+            # Closing the window
+            self.window.close()
 
     def send_triggers(self, marker):
         """Send timing triggers to recording device[s]"""
