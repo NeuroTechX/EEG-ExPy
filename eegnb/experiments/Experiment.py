@@ -28,7 +28,8 @@ from eegnb import generate_save_fn
 class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False, devices = list):
+                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False, devices = list,
+                 vr_runtime=None, passthrough_instructions=False):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -44,6 +45,12 @@ class BaseExperiment(ABC):
             use_fullscr (bool): Use fullscreen mode
             screen_num (int): Screen number (if multiple monitors present)
             stereoscopic (bool): Use stereoscopic rendering for VR
+            vr_runtime (str): OpenXR runtime for VR, a manifest path or a name such as
+                'oculus' or 'steamvr'; None uses the system's active runtime
+            passthrough_instructions (bool): In VR, show the room through the
+                headset cameras behind instruction screens, with only the text
+                drawn. The eye then adapts to the room rather than to the
+                stimulus background between blocks.
         """
 
         self.exp_name = exp_name
@@ -58,11 +65,12 @@ class BaseExperiment(ABC):
         self.soa = soa
         self.jitter = jitter
         self.use_vr = use_vr
+        self.passthrough_instructions = bool(passthrough_instructions)
         self.screen_num = screen_num
         self.stereoscopic = stereoscopic
         if use_vr:
             # VR interface accessible by specific experiment classes for customizing and using controllers.
-            self.vr: VR = VR(monoscopic=not stereoscopic, headLocked=True)
+            self.vr: VR = VR(monoscopic=not stereoscopic, headLocked=True, runtime=vr_runtime)
 
         # Shift the display so it aligns perfectly with the center of each eye.
         if use_vr and stereoscopic:
@@ -176,18 +184,41 @@ class BaseExperiment(ABC):
         # clear/reset any old key/controller events
         self._clear_user_input()
 
-        # Waiting for the user to press the spacebar or controller button or trigger to start the experiment
-        while not self._user_input('start'):
-            # Displaying the instructions on the screen
-            text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-            self._draw(lambda: self.__draw_instructions(text))
+        passthrough = self._instruction_screen(True)
+        color = self.passthrough_text_color if passthrough else [-1, -1, -1]
+        try:
+            # Waiting for the user to press the spacebar or controller button or trigger to start the experiment
+            while not self._user_input('start'):
+                # Displaying the instructions on the screen
+                text = visual.TextStim(win=self.window, text=self.instruction_text, color=color,
+                                       **(dict(height=self.vr_text_height, wrapWidth=self.vr_text_wrap, bold=True)
+                                          if self.use_vr else {}))
+                self._draw(lambda: self.__draw_instructions(text))
 
-            # Enabling the cursor again
-            self.window.mouseVisible = True
+                # Enabling the cursor again
+                self.window.mouseVisible = True
 
-            if self._user_input('cancel'):
-                return False
-        return True
+                if self._user_input('cancel'):
+                    return False
+            return True
+        finally:
+            self._instruction_screen(False)
+
+    def _instruction_screen(self, active):
+        """Enter or leave an instruction screen.
+
+        In VR the headset may be taken off and put back on while it shows (the
+        session pauses and resumes instead of ending the run), and with
+        ``passthrough_instructions`` the room shows behind the text. Passthrough
+        stays on after the screen, through any loading before the next block,
+        until the trial loop starts. Returns whether passthrough is on.
+        """
+        if not self.use_vr:
+            return False
+        self.vr.resume_after_stop = active
+        if not (active and self.passthrough_instructions):
+            return False
+        return self.vr.set_passthrough(True)
 
     def _user_input(self, input_type):
         if input_type == 'start':
@@ -247,13 +278,57 @@ class BaseExperiment(ABC):
 
     def __draw_instructions(self, text):
         if self.use_vr and self.stereoscopic:
-            for eye, x_pos in [("left", self.left_eye_x_pos), ("right", self.right_eye_x_pos)]:
+            for eye in ("left", "right"):
                 self.window.setBuffer(eye)
-                text.pos = (x_pos, 0)
+                text.pos = self._eye_axis_pos(self._text_x_ndc(eye), text.units)
                 text.draw()
         else:
             text.draw()
         self.window.flip()
+
+    vr_text_distance_m = 1.0
+    vr_text_height = 0.03
+    vr_text_wrap = 0.8
+    stimulus_distance_m = None
+    passthrough_text_color = [1, 1, -1]
+
+    def _text_distance_m(self):
+        """Virtual distance of on-screen text, or ``None`` for the optical axis.
+
+        ``stimulus_distance_m`` when set, so text and stimulus share one
+        vergence; otherwise the optical axis (optically at infinity), except
+        under passthrough, where text at infinity splits in two while the eyes
+        converge on nearby objects and ``vr_text_distance_m`` applies.
+        """
+        if self.stimulus_distance_m is not None:
+            return self.stimulus_distance_m
+        if self.use_vr and self.vr.passthrough_on:
+            return self.vr_text_distance_m
+        return None
+
+    def _text_x_ndc(self, eye):
+        """Normalized-device x for one eye's copy of on-screen text."""
+        distance = self._text_distance_m()
+        index = 0 if eye == 'left' else 1
+        if distance is None:
+            return self.left_eye_x_pos if eye == 'left' else self.right_eye_x_pos
+        if self.stimulus_distance_m is not None:
+            return self.vr.offsets_at_distance(distance, strict=True)[index]
+        return self.vr.offsets_at_distance(distance)[index]
+
+    def _eye_axis_pos(self, x_ndc, units):
+        """Centre of one eye's optical axis, ``(x, 0)`` in ``units``.
+
+        ``left_eye_x_pos`` / ``right_eye_x_pos`` are normalised device x, so a
+        stimulus in pixel or height units needs them scaled to the eye buffer
+        before they move it at all.
+        """
+        width, height = self.window.size
+        if units == 'pix':
+            return (x_ndc * width / 2, 0)
+        if units == 'height':
+            return (x_ndc * width / (2 * height), 0)
+        return (x_ndc, 0)
 
     def _draw(self, present_stimulus: Callable):
         """
@@ -261,8 +336,6 @@ class BaseExperiment(ABC):
         then draw all stimulus and flip the window/buffer
          """
         if self.use_vr:
-            tracking_state = self.window.getTrackingState()
-            self.window.calcEyePoses(tracking_state.headPose.thePose)
             self.window.setDefaultView()
         present_stimulus()
 
@@ -294,6 +367,8 @@ class BaseExperiment(ABC):
 
         with high_priority_section():
             if self.use_vr:
+                if self.passthrough_instructions:
+                    self.vr.set_passthrough(False)
                 self.vr.sync_vr_clock()
 
             # Initialize trial variables

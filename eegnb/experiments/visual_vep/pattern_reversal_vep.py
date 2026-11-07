@@ -12,14 +12,14 @@ QUEST_PPD = 20
 class VisualPatternReversalVEP(BlockExperiment):
 
     def __init__(self, display_refresh_rate: int, eeg: Optional[EEG] = None, save_fn=None,
-                 block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, use_vr=False, use_fullscr=True):
+                 block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, use_vr=False, use_fullscr=True, vr_runtime=None):
 
         self.display_refresh_rate = display_refresh_rate
         soa=0.5
         iti=0
         jitter=0
 
-        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, stereoscopic=True)
+        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, stereoscopic=True, vr_runtime=vr_runtime)
 
         self.instruction_text = f"""Welcome to the Visual Pattern Reversal VEP experiment!
         
@@ -69,7 +69,6 @@ class VisualPatternReversalVEP(BlockExperiment):
 
     def load_stimulus(self) -> Dict[str, Any]:
         # Frame rate, in Hz
-        # TODO: Fix - Rift.GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
         actual_frame_rate = np.round(self.window.displayRefreshRate if self.use_vr else self.window.getActualFrameRate())
 
         # Ensure the expected frame rate matches and is divisable by the stimulus rate(soa)

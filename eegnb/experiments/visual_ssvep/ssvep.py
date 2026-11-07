@@ -17,11 +17,11 @@ from typing import Optional
 
 class VisualSSVEP(Experiment.BaseExperiment):
 
-    def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None, n_trials = 2010, iti = 0.5, soa = 3.0, jitter = 0.2, use_vr=False):
+    def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None, n_trials = 2010, iti = 0.5, soa = 3.0, jitter = 0.2, use_vr=False, vr_runtime=None):
         
         self.use_vr = use_vr
         exp_name = "Visual SSVEP"
-        super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr)
+        super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr, vr_runtime=vr_runtime)
 
     def load_stimulus(self):
         
@@ -69,7 +69,6 @@ class VisualSSVEP(Experiment.BaseExperiment):
         # Set up stimuli
 
         # Frame rate, in Hz
-        # GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
         frame_rate = np.round(self.window.displayRefreshRate if self.use_vr else self.window.getActualFrameRate())
         freqs = get_possible_ssvep_freqs(frame_rate, stim_type="reversal")
         self.stim_patterns = [
@@ -110,8 +109,6 @@ class VisualSSVEP(Experiment.BaseExperiment):
 
             for _ in range(int(self.stim_patterns[ind]["cycle"][0])):
                 if self.use_vr:
-                    tracking_state = self.window.getTrackingState()
-                    self.window.calcEyePoses(tracking_state.headPose.thePose)
                     self.window.setDefaultView()
                 self.grating.draw()
                 self.fixation.draw()
@@ -119,8 +116,6 @@ class VisualSSVEP(Experiment.BaseExperiment):
 
             for _ in range(self.stim_patterns[ind]["cycle"][1]):
                 if self.use_vr:
-                    tracking_state = self.window.getTrackingState()
-                    self.window.calcEyePoses(tracking_state.headPose.thePose)
                     self.window.setDefaultView()
                 self.grating_neg.draw()
                 self.fixation.draw()

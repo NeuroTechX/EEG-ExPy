@@ -21,8 +21,8 @@ class _Recorder:
         self.stopped = True
 
 
-def _experiment(base, fail, **kwargs):
-    state = SimpleNamespace(draws=0, closed=False)
+def _experiment(base, fail, use_vr=False, **kwargs):
+    state = SimpleNamespace(draws=0, closed=False, telemetry=None)
 
     class _Experiment(base):
         def load_stimulus(self):
@@ -33,6 +33,9 @@ def _experiment(base, fail, **kwargs):
 
         def setup(self, instructions=True):
             self.window = SimpleNamespace(close=lambda: setattr(state, "closed", True))
+            self.vr = SimpleNamespace(
+                sync_vr_clock=lambda: None,
+                save_telemetry=lambda fn: setattr(state, "telemetry", fn))
             return True
 
         def _draw(self, present_stimulus):
@@ -52,6 +55,7 @@ def _experiment(base, fail, **kwargs):
     eeg = _Recorder()
     exp = _Experiment(eeg=eeg, save_fn="recording.csv",
                       iti=0.0, soa=0.01, jitter=0.0, **kwargs)
+    exp.use_vr = use_vr
     return exp, eeg, state
 
 
@@ -72,4 +76,18 @@ def test_run_stops_the_recording_when_the_trial_loop_raises(base, kwargs, fail):
         exp.run(instructions=False)
     assert eeg.started
     assert eeg.stopped
+    assert state.closed
+
+
+@pytest.mark.parametrize("base, kwargs", CASES, ids=["BaseExperiment", "BlockExperiment"])
+@pytest.mark.parametrize("fail", [
+    RuntimeError("stimulus failed mid-run"),
+    KeyboardInterrupt(),
+], ids=["RuntimeError", "KeyboardInterrupt"])
+def test_run_saves_the_vr_telemetry_when_the_trial_loop_raises(base, kwargs, fail):
+    exp, eeg, state = _experiment(base, fail, use_vr=True, **kwargs)
+    with pytest.raises(type(fail)):
+        exp.run(instructions=False)
+    assert eeg.stopped
+    assert state.telemetry == "recording.csv"
     assert state.closed
