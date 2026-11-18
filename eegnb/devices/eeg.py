@@ -14,7 +14,7 @@ from multiprocessing import Process
 import numpy as np
 import pandas as pd
 
-from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
+from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams, BrainFlowError
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
@@ -336,7 +336,23 @@ class EEG:
         # Initialize board_shim
         self.sfreq = BoardShim.get_sampling_rate(self.brainflow_id)
         self.board = BoardShim(self.brainflow_id, self.brainflow_params)
-        self.board.prepare_session()
+        try:
+            self.board.prepare_session()
+        except BrainFlowError as exc:
+            logger.error(
+                "Failed to prepare BrainFlow session for device '%s' (board_id=%s): %s. "
+                "Verify that the device is powered on, in pairing mode, and that Bluetooth/serial "
+                "permissions and adapters are enabled.",
+                self.device_name,
+                self.brainflow_id,
+                exc,
+            )
+            try:
+                if self.board.is_prepared():
+                    self.board.release_session()
+            except BrainFlowError:
+                pass
+            raise
 
         # Apply board configuration if provided
         if self.config:
