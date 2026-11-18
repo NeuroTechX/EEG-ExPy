@@ -8,8 +8,6 @@ from .introprompt import intro_prompt, analysis_intro_prompt
 from .utils import run_experiment
 from eegnb import generate_save_fn
 from eegnb.devices.eeg import EEG
-from eegnb.analysis.streaming_utils import check_report
-from eegnb.analysis.pipelines import load_eeg_data, make_erp_plot, analysis_report, example_analysis_report
 from typing import Optional
 
 
@@ -73,9 +71,10 @@ def runexp(
     def askforsigqualcheck():
         do_sigqual = input("\n\nRun signal quality check? (y/n). Recommend y \n")
         if do_sigqual == 'y':
+            from eegnb.analysis.streaming_utils import check_report
             check_report(eeg)
         elif do_sigqual != 'n':
-            "Sorry, didn't recognize answer. "
+            print("Sorry, didn't recognize answer. ")
             askforsigqualcheck()
     
     def askforreportcheck():
@@ -118,6 +117,8 @@ def create_analysis_report(
     Create analysis report of recorded data
     """
     
+    from eegnb.analysis.pipelines import analysis_report, example_analysis_report
+
     if prompt:
         example = input("Do you want to load an example experiment? (y/n)\n")
         print()
