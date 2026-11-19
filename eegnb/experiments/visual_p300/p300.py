@@ -21,10 +21,10 @@ class VisualP300(Experiment.BaseExperiment):
     
     def __init__(self, duration=120, eeg: Optional[EEG]=None, save_fn=None,
 
-            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2, use_vr = False):
+            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2, use_vr = False, vr_runtime=None):
         
         exp_name = "Visual P300"
-        super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr)
+        super().__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr, vr_runtime=vr_runtime)
         
     def load_stimulus(self):
         
@@ -38,8 +38,8 @@ class VisualP300(Experiment.BaseExperiment):
     def present_stimulus(self, idx: int):
 
         label = self.trials["parameter"].iloc[idx]
-        image = choice(self.targets if label == 1 else self.nontargets)
-        image.draw()
+        self._current_image = choice(self.targets if label == 1 else self.nontargets)
+        self._current_image.draw()
 
         # Push sample
         if self.eeg:
@@ -50,4 +50,8 @@ class VisualP300(Experiment.BaseExperiment):
                 marker = self.markernames[label]
             self.eeg.push_sample(marker=marker, timestamp=timestamp)
 
+        self.window.flip()
+
+    def present_soa(self, idx: int):
+        self._current_image.draw()
         self.window.flip()

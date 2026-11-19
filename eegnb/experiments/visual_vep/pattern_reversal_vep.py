@@ -12,14 +12,14 @@ QUEST_PPD = 20
 class VisualPatternReversalVEP(BlockExperiment):
 
     def __init__(self, display_refresh_rate: int, eeg: Optional[EEG] = None, save_fn=None,
-                 block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, use_vr=False, use_fullscr=True):
+                 block_duration_seconds=50, block_trial_size: int=100, n_blocks: int=4, use_vr=False, use_fullscr=True, vr_runtime=None):
 
         self.display_refresh_rate = display_refresh_rate
         soa=0.5
         iti=0
         jitter=0
 
-        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, stereoscopic=True)
+        super().__init__("Visual Pattern Reversal VEP", block_duration_seconds, eeg, save_fn, block_trial_size, n_blocks, iti, soa, jitter, use_vr, use_fullscr, stereoscopic=True, vr_runtime=vr_runtime)
 
         self.instruction_text = f"""Welcome to the Visual Pattern Reversal VEP experiment!
         
@@ -69,7 +69,6 @@ class VisualPatternReversalVEP(BlockExperiment):
 
     def load_stimulus(self) -> Dict[str, Any]:
         # Frame rate, in Hz
-        # TODO: Fix - Rift.GetActualFrameRate() crashes in psychxr due to 'EndFrame called before BeginFrame'
         actual_frame_rate = np.round(self.window.displayRefreshRate if self.use_vr else self.window.getActualFrameRate())
 
         # Ensure the expected frame rate matches and is divisable by the stimulus rate(soa)
@@ -136,12 +135,12 @@ class VisualPatternReversalVEP(BlockExperiment):
         if self.use_vr:
             # Calculate pixel positions for stereoscopic presentation
             window_width = self.window.size[0]
-            left_pix_x_pos = self.left_eye_x_pos * (window_width / 2)
-            right_pix_x_pos = self.right_eye_x_pos * (window_width / 2)
+            left_x = self._eye_x_ndc('left')
+            right_x = self._eye_x_ndc('right')
 
             return {
-                'left': create_eye_stimuli(self.left_eye_x_pos, left_pix_x_pos),
-                'right': create_eye_stimuli(self.right_eye_x_pos, right_pix_x_pos)
+                'left': create_eye_stimuli(left_x, left_x * (window_width / 2)),
+                'right': create_eye_stimuli(right_x, right_x * (window_width / 2))
             }
         else:
             return {
@@ -178,6 +177,17 @@ class VisualPatternReversalVEP(BlockExperiment):
         self.window.flip()
 
     def present_stimulus(self, idx: int):
+        self.draw_frame(idx)
+
+        # Pushing the sample to the EEG
+        trial_idx = self.current_block_index * self.block_trial_size + idx
+        marker = self.markernames[self.parameter[trial_idx]]
+        self.eeg.push_sample(marker=marker, timestamp=time())
+
+    def present_soa(self, idx: int):
+        self.draw_frame(idx)
+
+    def draw_frame(self, idx: int):
         # Get the label of the trial
         trial_idx = self.current_block_index * self.block_trial_size + idx
         label = self.parameter[trial_idx]
@@ -202,10 +212,6 @@ class VisualPatternReversalVEP(BlockExperiment):
             self.window.setBuffer(closed_eye)
             self.black_background.draw()
         self.window.flip()
-
-        # Pushing the sample to the EEG
-        marker = self.markernames[label]
-        self.eeg.push_sample(marker=marker, timestamp=time())
 
     def present_iti(self):
         if self.use_vr:

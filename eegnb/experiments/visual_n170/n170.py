@@ -16,12 +16,12 @@ from typing import Optional
 class VisualN170(Experiment.BaseExperiment):
 
     def __init__(self, duration=120, eeg: Optional[EEG]=None, devices: Optional[list]=None,save_fn=None,
-            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2, use_vr = False):
+            n_trials = 2010, iti = 0.4, soa = 0.3, jitter = 0.2, use_vr = False, vr_runtime=None):
 
         # Set experiment name        
         exp_name = "Visual N170"
         # Calling the super class constructor to initialize the experiment variables
-        super(VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr, devices=devices)
+        super(VisualN170, self).__init__(exp_name, duration, eeg, save_fn, n_trials, iti, soa, jitter, use_vr, devices=devices, vr_runtime=vr_runtime)
 
     def load_stimulus(self):
         
@@ -40,9 +40,9 @@ class VisualN170(Experiment.BaseExperiment):
         # Get the label of the trial
         label = self.trials["parameter"].iloc[idx]
         # Get the image to be presented
-        image = choice(self.faces if label == 1 else self.houses)
+        self._current_image = choice(self.faces if label == 1 else self.houses)
         # Draw the image
-        image.draw()
+        self._current_image.draw()
 
 
         # Pushing the sample to the EEG
@@ -62,6 +62,10 @@ class VisualN170(Experiment.BaseExperiment):
             self.send_triggers(marker)
 
 
+        self.window.flip()
+
+    def present_soa(self, idx: int):
+        self._current_image.draw()
         self.window.flip()
 
 

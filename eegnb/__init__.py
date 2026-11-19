@@ -3,6 +3,12 @@ from time import strftime, gmtime
 from pathlib import Path
 
 DATA_DIR = path.join(path.expanduser("~/"), ".eegnb", "data")
+SIDECAR_ENDINGS = ("_timing.csv", "_session.json")
+
+
+def is_sidecar(file_path) -> bool:
+    """Return True if ``file_path`` is a file the experiment writes beside a recording rather than a recording."""
+    return Path(file_path).name.endswith(SIDECAR_ENDINGS)
 
 
 def get_recording_dir(

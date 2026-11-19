@@ -7,7 +7,7 @@ import requests
 import gdown
 
 from datetime import datetime
-from eegnb import DATA_DIR
+from eegnb import DATA_DIR, is_sidecar
 
 
 # eegnb example data sites. do not select these when zipping recordings
@@ -137,7 +137,7 @@ def fetch_dataset(
         pth = os.path.join(
             exp_dir, f"subject{subjects[0]}", f"session{sessions[0]}", "*.csv"
         )
-        fnames = glob.glob(pth)
+        fnames = [fname for fname in glob.glob(pth) if not is_sidecar(fname)]
     # Else, if specific subjects and sessions
     else:
         fnames = []
@@ -159,7 +159,7 @@ def fetch_dataset(
                             "*.csv",
                         )
                         # pth = '{}/subject{}/session{}/*.csv'.format(exp_dir,subject_nb, session_nb)
-                        fpaths = glob.glob(pth)
+                        fpaths = [fpath for fpath in glob.glob(pth) if not is_sidecar(fpath)]
                         fnames += fpaths
 
     return fnames

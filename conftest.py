@@ -15,5 +15,5 @@ if not _is_available("psychopy"):
         "eegnb/experiments",
         "eegnb/devices/vr.py",
     ]
-elif not _is_available("psychxr"):
+elif not _is_available("xr"):
     collect_ignore += ["eegnb/devices/vr.py"]

@@ -22,7 +22,7 @@ from matplotlib import lines as mlines
 from scipy import stats
 from scipy.signal import lfilter, lfilter_zi
 
-from eegnb import _get_recording_dir
+from eegnb import _get_recording_dir, is_sidecar
 from eegnb.devices.utils import EEG_INDICES, SAMPLE_FREQS
 
 # this should probably not be done here
@@ -181,7 +181,7 @@ def load_data(
     recdir = _get_recording_dir(device_name, experiment, subject_str, session_str, site, data_dir)
     data_path = os.path.join(data_dir, recdir, "*.csv")
 
-    fnames = glob(str(data_path))
+    fnames = [fname for fname in glob(str(data_path)) if not is_sidecar(fname)]
 
     if len(fnames) == 0:
         raise Exception("No filenames found in folder: %s" %data_path)

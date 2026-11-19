@@ -9,13 +9,16 @@ obj.run()
 """
 
 from abc import abstractmethod, ABC
+from pathlib import Path
 from typing import Callable
 from eegnb.devices.eeg import EEG
-from eegnb.devices.vr import VR
+from eegnb.devices.vr import VR, require_distance_m
 from psychopy import prefs, visual, event
 from time import time
 
 from eegnb.experiments.realtime import high_priority_section
+import logging
+import math
 import random
 import json
 
@@ -24,11 +27,39 @@ from pandas import DataFrame
 
 from eegnb import generate_save_fn
 
+USER_ABORT_REASON = "Aborted by user"
+
+
+def _json_ready(value):
+    """Return ``value`` with numpy values and paths as plain JSON types, and NaN or infinity as None."""
+    if isinstance(value, dict):
+        return {str(key): _json_ready(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple, np.ndarray)):
+        return [_json_ready(item) for item in value]
+    if isinstance(value, np.generic):
+        value = value.item()
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if value is None or isinstance(value, (bool, int, float, str)):
+        return value
+    return str(value)
+
+
+def _end_reason(completed, exception):
+    """Why a run ended: None if it completed, "Aborted by user" if the participant ended it, else the type and message of the exception that ended it."""
+    if isinstance(exception, KeyboardInterrupt) or (exception is None and not completed):
+        return USER_ABORT_REASON
+    if exception is None:
+        return None
+    message = str(exception)
+    return f"{type(exception).__name__}: {message}" if message else type(exception).__name__
+
 
 class BaseExperiment(ABC):
 
     def __init__(self, exp_name, duration, eeg, save_fn, n_trials: int, iti: float, soa: float, jitter: float,
-                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False, devices = list):
+                 use_vr=False, use_fullscr = True, screen_num=0, stereoscopic = False, devices = list,
+                 vr_runtime=None, passthrough_instructions=False):
         """ Initializer for the Base Experiment Class
 
         Args:
@@ -44,6 +75,10 @@ class BaseExperiment(ABC):
             use_fullscr (bool): Use fullscreen mode
             screen_num (int): Screen number (if multiple monitors present)
             stereoscopic (bool): Use stereoscopic rendering for VR
+            vr_runtime (str): OpenXR runtime for VR, a manifest path or a name such as
+                'oculus' or 'steamvr'; None uses the system's active runtime
+            passthrough_instructions (bool): In VR, show room passthrough behind
+                instruction text instead of the stimulus background
         """
 
         self.exp_name = exp_name
@@ -58,18 +93,12 @@ class BaseExperiment(ABC):
         self.soa = soa
         self.jitter = jitter
         self.use_vr = use_vr
+        self.passthrough_instructions = bool(passthrough_instructions)
         self.screen_num = screen_num
         self.stereoscopic = stereoscopic
         if use_vr:
             # VR interface accessible by specific experiment classes for customizing and using controllers.
-            self.vr: VR = VR(monoscopic=not stereoscopic, headLocked=True)
-
-        # Shift the display so it aligns perfectly with the center of each eye.
-        if use_vr and stereoscopic:
-            self.left_eye_x_pos, self.right_eye_x_pos = self.vr.compute_optical_axis_offsets()
-        else:
-            self.left_eye_x_pos = 0
-            self.right_eye_x_pos = 0
+            self.vr: VR = VR(monoscopic=not stereoscopic, headLocked=True, runtime=vr_runtime)
 
         self.use_fullscr = use_fullscr
         self.window_size = [1600,800]
@@ -135,6 +164,9 @@ class BaseExperiment(ABC):
             self.vr if self.use_vr
             else visual.Window(self.window_size, monitor="testMonitor", units="deg", 
                                screen = self.screen_num, fullscr=self.use_fullscr))
+        if self.use_vr:
+            self.vr.stimulus_distance_m = require_distance_m(
+                self.stimulus_distance_m, 'stimulus_distance_m')
         
         # Loading the stimulus from the specific experiment, throws an error if not overwritten in the specific experiment
         self.stim = self.load_stimulus()
@@ -176,18 +208,39 @@ class BaseExperiment(ABC):
         # clear/reset any old key/controller events
         self._clear_user_input()
 
-        # Waiting for the user to press the spacebar or controller button or trigger to start the experiment
-        while not self._user_input('start'):
-            # Displaying the instructions on the screen
-            text = visual.TextStim(win=self.window, text=self.instruction_text, color=[-1, -1, -1])
-            self._draw(lambda: self.__draw_instructions(text))
+        passthrough = self._instruction_screen(True)
+        color = self.passthrough_text_color if passthrough else [-1, -1, -1]
+        try:
+            # Waiting for the user to press the spacebar or controller button or trigger to start the experiment
+            while not self._user_input('start'):
+                # Displaying the instructions on the screen
+                text = visual.TextStim(win=self.window, text=self.instruction_text, color=color,
+                                       **(dict(height=self.vr_text_height, wrapWidth=self.vr_text_wrap, bold=True)
+                                          if self.use_vr else {}))
+                self._draw(lambda: self.__draw_instructions(text))
 
-            # Enabling the cursor again
-            self.window.mouseVisible = True
+                # Enabling the cursor again
+                self.window.mouseVisible = True
 
-            if self._user_input('cancel'):
-                return False
-        return True
+                if self._user_input('cancel'):
+                    return False
+            return True
+        finally:
+            self._instruction_screen(False)
+
+    def _instruction_screen(self, active):
+        """Enter or leave an instruction screen (VR only).
+
+        If the VR headset is taken off whilst showing instructions, the
+        session is paused instead of ending. Passthrough, if enabled, stays
+        on until the trial loop starts. Returns whether passthrough is on.
+        """
+        if not self.use_vr:
+            return False
+        self.vr.resume_after_stop = active
+        if not (active and self.passthrough_instructions):
+            return False
+        return self.vr.set_passthrough(True)
 
     def _user_input(self, input_type):
         if input_type == 'start':
@@ -247,13 +300,34 @@ class BaseExperiment(ABC):
 
     def __draw_instructions(self, text):
         if self.use_vr and self.stereoscopic:
-            for eye, x_pos in [("left", self.left_eye_x_pos), ("right", self.right_eye_x_pos)]:
+            for eye in ("left", "right"):
                 self.window.setBuffer(eye)
-                text.pos = (x_pos, 0)
+                text.pos = self._eye_axis_pos(self._eye_x_ndc(eye), text.units)
                 text.draw()
         else:
             text.draw()
         self.window.flip()
+
+    vr_text_height = 0.03
+    vr_text_wrap = 0.8
+    stimulus_distance_m = 1.0
+    passthrough_text_color = [1, 1, -1]
+
+    def _eye_x_ndc(self, eye):
+        """Horizontal position, in one eye's image, of a point straight ahead at the stimulus distance.
+
+        Stereoscopic experiments must place each eye's stimuli and text here; monoscopic ones are placed by the window.
+        """
+        return self.vr.offsets_at_distance(self.vr.stimulus_distance_m)[0 if eye == 'left' else 1]
+
+    def _eye_axis_pos(self, x_ndc, units):
+        """One eye's normalized-device ``x_ndc`` scaled to ``units``, as ``(x, 0)``."""
+        width, height = self.window.size
+        if units == 'pix':
+            return (x_ndc * width / 2, 0)
+        if units == 'height':
+            return (x_ndc * width / (2 * height), 0)
+        return (x_ndc, 0)
 
     def _draw(self, present_stimulus: Callable):
         """
@@ -261,8 +335,6 @@ class BaseExperiment(ABC):
         then draw all stimulus and flip the window/buffer
          """
         if self.use_vr:
-            tracking_state = self.window.getTrackingState()
-            self.window.calcEyePoses(tracking_state.headPose.thePose)
             self.window.setDefaultView()
         present_stimulus()
 
@@ -294,6 +366,8 @@ class BaseExperiment(ABC):
 
         with high_priority_section():
             if self.use_vr:
+                if self.passthrough_instructions:
+                    self.vr.set_passthrough(False)
                 self.vr.sync_vr_clock()
 
             # Initialize trial variables
@@ -312,9 +386,11 @@ class BaseExperiment(ABC):
                 # Do not present stimulus until current trial begins(Adhere to inter-trial interval).
                 if elapsed_time > trial_end_time:
                     current_trial += 1
+                    if self.use_vr:
+                        self.vr.check_eye_separation()
 
                     # Calculate timing for this trial
-                    trial_start_time = elapsed_time + iti_with_jitter()
+                    trial_start_time = (trial_end_time if current_trial > 0 else elapsed_time) + iti_with_jitter()
                     trial_end_time = trial_start_time + self.soa
 
                 # Do not present stimulus after trial has ended(stimulus on arrival interval).
@@ -352,21 +428,48 @@ class BaseExperiment(ABC):
         # Record experiment until a key is pressed or duration has expired.
         record_start_time = time()
 
+        completed, exception = False, None
         try:
-            self._run_trial_loop(record_start_time, self.duration)
+            completed = self._run_trial_loop(record_start_time, self.duration)
 
             # Clearing the screen for the next trial
             event.clearEvents()
+        except BaseException as exc:
+            exception = exc
+            raise
         finally:
-            # Closing the EEG stream
-            if self.eeg:
-                self.eeg.stop()
+            self._end_run(completed, exception)
 
+    def _end_run(self, completed, exception):
+        """Stop the recording, write the session and timing files, and close the window."""
+        if self.eeg:
+            self.eeg.stop()
+        self._save_session(completed, exception)
+        if self.use_vr:
+            self.vr.save_timing(self.save_fn)
+        self.window.close()
+
+    def _save_session(self, completed, exception):
+        """Write ``<recording>_session.json``: whether the run completed, why not, and on a VR run the headset's facts.
+
+        Does nothing when ``save_fn`` is None; a failure to write is logged, never raised.
+        """
+        if self.save_fn is None:
+            return
+        path = None
+        try:
+            save_fn = Path(self.save_fn)
+            path = save_fn.with_name(save_fn.stem + '_session.json')
+            facts = {'completed': bool(completed) and exception is None,
+                     'reason': _end_reason(completed, exception)}
             if self.use_vr:
-                self.vr.save_telemetry(self.save_fn)
-
-            # Closing the window
-            self.window.close()
+                facts['vr'] = self.vr.get_session_summary()
+            text = json.dumps(_json_ready(facts), indent=2, allow_nan=False)
+            path.write_text(text + '\n', encoding='utf-8')
+        except Exception as write_error:
+            logging.warning("Could not write the session file %s: %s", path, write_error)
+            return
+        print(f"  Saved the session file to {path}")
 
     def send_triggers(self, marker):
         """Send timing triggers to recording device[s]"""
