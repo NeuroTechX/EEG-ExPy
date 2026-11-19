@@ -24,6 +24,49 @@ These two lines of code abstract a lot of the heavy lifting with respect to swit
 
 Below is a list of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.
 
+### Muse S Athena
+
+Use BrainFlow's native Bluetooth backend to record all three Athena streams.
+The default startup options are `preset=p1041;low_latency=true`. Selecting a
+different preset, such as `other="p1042"`, also enables low latency unless
+you explicitly pass `low_latency=false`.
+
+```python
+from eegnb.devices.eeg import EEG
+
+eeg = EEG(device="museS_athena_bfn")
+eeg.start("trial.csv")
+streams = eeg.get_recent_streams(n_samples=256)  # up to one second per stream
+optics = streams["ancillary"]
+eeg.stop()
+```
+
+`trial.csv` contains the four named EEG electrodes and experiment markers after
+the five-second settling period. The sibling folder `trial_streams/` contains
+the complete recording, including settling time. Each file retains its own
+timestamps, BrainFlow packet numbers, and BrainFlow marker channel.
+
+Athena's `get_recent()` returns all 31 sensor columns by default.
+Set `include_all_streams=True` when constructing the EEG device to include
+those columns in the primary recording CSV as well.
+Each row uses an original EEG timestamp. Motion and optical values are
+linearly interpolated between their native timestamps. Battery level holds
+its latest reading within the battery stream's time range. Cells outside
+a stream's observed range are empty (NaN in live data). The three native
+files retain the original measurements and per-stream packet and marker data.
+
+| File | Rate | Sensor columns with the default Athena command (`p1041`) |
+| --- | --- | --- |
+| `default.csv` | 256 Hz | TP9, AF7, AF8, TP10 and four additional raw values (`other_1` to `other_4`) |
+| `auxiliary.csv` | 52 Hz | Three accelerometer axes and three gyroscope axes |
+| `ancillary.csv` | 64 Hz | Sixteen raw optical channels and the battery reading |
+
+The same three names are keys in the dictionary returned by
+`get_recent_streams()`. A different startup command passed via `other` can
+enable fewer sensors. Column names describe BrainFlow's board layout even
+when the selected command supplies fewer values.
+[BrainFlow Athena documentation](https://brainflow.readthedocs.io/en/stable/SupportedBoards.html#muses-athena)
+
 ### Interaxon Muse
 **Device Names:** *'muse2016'*, *'muse2'*, and *'museS'*
 **Backend:** MuseLSL

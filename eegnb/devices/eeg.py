@@ -10,11 +10,12 @@ import logging
 from time import sleep, time
 from datetime import datetime
 from multiprocessing import Process
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams
+from brainflow.board_shim import BoardShim, BoardIds, BrainFlowInputParams, BrainFlowPresets
 from muselsl import stream, list_muses, record, constants as mlsl_cnsts
 from pylsl import StreamInfo, StreamOutlet, StreamInlet, resolve_byprop
 
@@ -61,6 +62,7 @@ brainflow_devices = [
     "freeeeg32",
     "crown",
     "museS_bfn",  # bfn = brainflow with native bluetooth;
+    "museS_athena_bfn",
     "museS_bfb",  # bfb = brainflow with BLED dongle bluetooth
     "muse2_bfn",
     "muse2_bfb",
@@ -87,18 +89,24 @@ class EEG:
         ip_addr=None,
         ch_names=None,
         config=None,
-        make_logfile=False):
+        make_logfile=False,
+        include_all_streams=False):
         """The initialization function takes the name of the EEG device and determines whether or not
         the device belongs to the Muse or Brainflow families and initializes the appropriate backend.
 
         Parameters:
             device (str): name of eeg device used for reading data.
+            include_all_streams (bool): align all Athena sensor channels to EEG
+                timestamps in the primary recording CSV.
         
             ch_names (array_like or None): array containing custom specified channel names. Useful for custom montagues 
         like when external electrodes are used.
         """
         # determine if board uses brainflow or muselsl backend
         self.device_name = device
+        if include_all_streams and device != "museS_athena_bfn":
+            raise ValueError("include_all_streams requires a Muse S Athena")
+        self.include_all_streams = include_all_streams
         self.serial_num = serial_num
         self.serial_port = serial_port
         self.mac_address = mac_addr
@@ -306,6 +314,18 @@ class EEG:
         elif self.device_name == "museS_bfn":
             self.brainflow_id = BoardIds.MUSE_S_BOARD.value
 
+        elif self.device_name == "museS_athena_bfn":
+            self.brainflow_id = BoardIds.MUSE_S_ATHENA_BOARD.value
+            if self.mac_address:
+                self.brainflow_params.mac_address = self.mac_address
+            options = str(self.other or "p1041").strip()
+            if "=" not in options:
+                options = f"preset={options}"
+            keys = [item.partition("=")[0].strip() for item in options.split(";")]
+            if "low_latency" not in keys:
+                options = options.rstrip(";") + ";low_latency=true"
+            self.brainflow_params.other_info = options
+
         elif self.device_name == "museS_bfb":
             self.brainflow_id = BoardIds.MUSE_S_BLED_BOARD.value
 
@@ -368,12 +388,32 @@ class EEG:
         """This functions kills the brainflow backend and saves the data to a CSV file."""
 
         # Collect session data and kill session
-        data = self.board.get_board_data()  # will clear board buffer
-        self.board.stop_stream()
-        self.board.release_session()
+        if self.device_name == "museS_athena_bfn":
+            try:
+                self.board.stop_stream()
+                streams = self._read_athena_streams()
+            finally:
+                self.board.release_session()
+                self.stream_started = False
+            recording = Path(self.save_fn)
+            directory = recording.parent / (recording.stem + "_streams")
+            directory.mkdir(exist_ok=True)
+            for name, frame in streams.items():
+                frame.to_csv(directory / (name + ".csv"))
+            if self.include_all_streams:
+                output = self._align_athena_streams(streams)
+            else:
+                names = self.channels if self.ch_names is None else self.ch_names
+                output = streams["default"][list(names)]
+            ch_names = list(output.columns)
+            eeg_data = output.to_numpy()
+            timestamps = output.index.to_numpy()
+        else:
+            data = self.board.get_board_data()  # will clear board buffer
+            self.board.stop_stream()
+            self.board.release_session()
+            ch_names, eeg_data, timestamps = self._brainflow_extract(data)
 
-        # Extract relevant metadata from board
-        ch_names, eeg_data, timestamps = self._brainflow_extract(data)
 
         # Create a column for the stimuli to append to the EEG data
         stim_array = create_stim_array(timestamps, self.markers)
@@ -426,6 +466,69 @@ class EEG:
     def _brainflow_push_sample(self, marker):
         last_timestamp = self.board.get_current_board_data(1)[self.timestamp_channel][0]
         self.markers.append([marker, last_timestamp])
+
+    def get_recent_streams(self, n_samples=256):
+        """Return Athena's default, auxiliary and ancillary frames, indexed by
+        native timestamps. n_samples sets the window length in EEG samples.
+        Reading a snapshot leaves samples in the recording buffers.
+        """
+        if self.device_name != "museS_athena_bfn":
+            raise ValueError("get_recent_streams requires a Muse S Athena")
+        if not self.stream_started:
+            self._start_brainflow()
+        return self._read_athena_streams(n_samples)
+
+    @staticmethod
+    def _align_athena_streams(streams):
+        metadata = ["package_num", "marker"]
+        output = streams["default"].drop(columns=metadata).copy()
+        target = output.index.to_numpy()
+        for preset in ("auxiliary", "ancillary"):
+            source = streams[preset].drop(columns=metadata)
+            source = source.loc[np.isfinite(source.index)].sort_index(kind="stable")
+            source = source.loc[~source.index.duplicated(keep="last")]
+            times = source.index.to_numpy()
+            for channel, values in source.items():
+                if not len(times):
+                    output[channel] = np.nan
+                elif channel == "battery":
+                    held = values.reindex(target, method="ffill")
+                    output[channel] = held.where(target <= times[-1]).to_numpy()
+                else:
+                    output[channel] = np.interp(target, times, values, left=np.nan, right=np.nan)
+        return output
+
+    def _read_athena_streams(self, n_samples=None, for_alignment=False):
+        streams = {}
+        for preset in (BrainFlowPresets.DEFAULT_PRESET, BrainFlowPresets.AUXILIARY_PRESET,
+                       BrainFlowPresets.ANCILLARY_PRESET):
+            desc = BoardShim.get_board_descr(self.brainflow_id, preset)
+            if n_samples is None:
+                data = self.board.get_board_data(preset=preset)
+            else:
+                count = int(np.ceil(n_samples * desc["sampling_rate"] / self.sfreq))
+                if for_alignment and preset != BrainFlowPresets.DEFAULT_PRESET:
+                    count += 1  # Include a sample before the EEG window when available.
+                data = self.board.get_current_board_data(count, preset)
+
+            names = [f"row_{i}" for i in range(desc["num_rows"])]
+            for key, rows in desc.items():
+                if key.endswith("_channel"):
+                    names[rows] = key[:-8]
+                elif key.endswith("_channels"):
+                    labels = [f"{key[:-9]}_{i + 1}" for i in range(len(rows))]
+                    if key == "eeg_channels":
+                        labels = self.channels if self.ch_names is None else self.ch_names
+                        if len(labels) != len(rows):
+                            raise ValueError("Expected one channel name per Athena EEG electrode")
+                    elif key in ("accel_channels", "gyro_channels"):
+                        labels = [f"{key[:-9]}_{axis}" for axis in "xyz"]
+                    for row, label in zip(rows, labels):
+                        names[row] = label
+            names[desc["timestamp_channel"]] = "timestamps"
+            frame = pd.DataFrame(data.T, columns=names).set_index("timestamps")
+            streams[preset.name.split("_")[0].lower()] = frame
+        return streams
 
     def _brainflow_get_recent(self, n_samples=256):
 
@@ -707,7 +810,8 @@ class EEG:
           self._stop_kf()
 
     def get_recent(self, n_samples: int = 256):
-        """
+        """Return recent samples. Athena includes all sensors aligned to EEG timestamps.
+
         Usage:
         -------
         from eegnb.devices.eeg import EEG
@@ -715,6 +819,10 @@ class EEG:
         df_rec = this_eeg.get_recent()
         """
 
+        if self.device_name == "museS_athena_bfn":
+            if not self.stream_started:
+                self._start_brainflow()
+            return self._align_athena_streams(self._read_athena_streams(n_samples, for_alignment=True))
         if self.backend == "brainflow":
             df = self._brainflow_get_recent(n_samples)
         elif self.backend == "muselsl":
