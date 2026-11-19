@@ -27,7 +27,7 @@ muselsl>=2.0.2
 # Upgrade from 1.10.5 to 1.16.2 so the arm64 lib is available to macOS Apple Silicon for preventing error:
 # pylsl/liblsl64.dylib' (mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e' or 'arm64'))
 pylsl==1.16.2
-brainflow>=4.8.2
+brainflow>=5.22.1
 pysocks>=1.7.1
 pyserial>=3.5
 h5py>=3.1.0
