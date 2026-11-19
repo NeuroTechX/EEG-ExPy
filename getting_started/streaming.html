@@ -71,6 +71,7 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Initiating an EEG Stream</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#supported-devices">Supported Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#muse-s-athena">Muse S Athena</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#interaxon-muse">Interaxon Muse</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-the-muse-on-windows">Using the Muse on Windows</a></li>
 </ul>
@@ -463,6 +464,44 @@ the various devices and backends behind one easy call.</p>
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading"></a></h2>
 <p>Below is a list of supported devices and the information needed to connect to each when running the library. Each section also provides common troubleshooting tips for each. If you encounter any errors when connecting which are not listed below please report these on the issues page.</p>
+<section id="muse-s-athena">
+<h3>Muse S Athena<a class="headerlink" href="#muse-s-athena" title="Link to this heading"></a></h3>
+<p>Use BrainFlow’s native Bluetooth backend to record all three Athena streams.
+The default startup options are <code class="docutils literal notranslate"><span class="pre">preset=p1041;low_latency=true</span></code>. Selecting a
+different preset, such as <code class="docutils literal notranslate"><span class="pre">other=&quot;p1042&quot;</span></code>, also enables low latency unless
+you explicitly pass <code class="docutils literal notranslate"><span class="pre">low_latency=false</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eegnb.devices.eeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEG</span>
+
+<span class="n">eeg</span> <span class="o">=</span> <span class="n">EEG</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">"museS_athena_bfn"</span><span class="p">)</span>
+<span class="n">eeg</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="s2">"trial.csv"</span><span class="p">)</span>
+<span class="n">streams</span> <span class="o">=</span> <span class="n">eeg</span><span class="o">.</span><span class="n">get_recent_streams</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>  <span class="c1"># up to one second per stream</span>
+<span class="n">optics</span> <span class="o">=</span> <span class="n">streams</span><span class="p">[</span><span class="s2">"ancillary"</span><span class="p">]</span>
+<span class="n">eeg</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">trial.csv</span></code> contains the four named EEG electrodes and experiment markers after
+the five-second settling period. The sibling folder <code class="docutils literal notranslate"><span class="pre">trial_streams/</span></code> contains
+the complete recording, including settling time. Each file retains its own
+timestamps, BrainFlow packet numbers, and BrainFlow marker channel.</p>
+<p>Athena’s <code class="docutils literal notranslate"><span class="pre">get_recent()</span></code> returns all 31 sensor columns by default.
+Set <code class="docutils literal notranslate"><span class="pre">include_all_streams=True</span></code> when constructing the EEG device to include
+those columns in the primary recording CSV as well.
+Each row uses an original EEG timestamp. Motion and optical values are
+linearly interpolated between their native timestamps. Battery level holds
+its latest reading within the battery stream’s time range. Cells outside
+a stream’s observed range are empty (NaN in live data). The three native
+files retain the original measurements and per-stream packet and marker data.</p>
+<p>| File | Rate | Sensor columns with the default Athena command (<code class="docutils literal notranslate"><span class="pre">p1041</span></code>) |
+| — | — | — |
+| <code class="docutils literal notranslate"><span class="pre">default.csv</span></code> | 256 Hz | TP9, AF7, AF8, TP10 and four additional raw values (<code class="docutils literal notranslate"><span class="pre">other_1</span></code> to <code class="docutils literal notranslate"><span class="pre">other_4</span></code>) |
+| <code class="docutils literal notranslate"><span class="pre">auxiliary.csv</span></code> | 52 Hz | Three accelerometer axes and three gyroscope axes |
+| <code class="docutils literal notranslate"><span class="pre">ancillary.csv</span></code> | 64 Hz | Sixteen raw optical channels and the battery reading |</p>
+<p>The same three names are keys in the dictionary returned by
+<code class="docutils literal notranslate"><span class="pre">get_recent_streams()</span></code>. A different startup command passed via <code class="docutils literal notranslate"><span class="pre">other</span></code> can
+enable fewer sensors. Column names describe BrainFlow’s board layout even
+when the selected command supplies fewer values.
+<a class="reference external" href="https://brainflow.readthedocs.io/en/stable/SupportedBoards.html#muses-athena">BrainFlow Athena documentation</a></p>
+</section>
 <section id="interaxon-muse">
 <h3>Interaxon Muse<a class="headerlink" href="#interaxon-muse" title="Link to this heading"></a></h3>
 <p><strong>Device Names:</strong> <em>‘muse2016’</em>, <em>‘muse2’</em>, and <em>‘museS’</em>
